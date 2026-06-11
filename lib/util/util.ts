@@ -31,6 +31,6 @@ export function isVideoUrl(value: string) {
     return /\.(mp4|webm|ogg)(\?.*)?$/i.test(value);
 }
 
-export function normalizeColorInput(value: string) {
-    return /^#[0-9a-f]{6}$/i.test(value) ? value : "#7B5CDB";
+export function normalizeColorInput(value: string | undefined) {
+    return /^#[0-9a-f]{6}$/i.test(value || "") ? value : "#7B5CDB";
 }

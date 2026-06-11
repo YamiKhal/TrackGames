@@ -1,8 +1,9 @@
 import GameCard from "@/app/components/game/GameCard";
 import HorizontalScroller from "@/app/components/layout/HorizontalScroller";
 import { Widget } from "@/lib/types";
-import { MarkdownBlocks, parseMarkdownBlocks } from "../../components/markdown/MarkdownBlocks";
+import { MarkdownBlocks } from "../../components/markdown/MarkdownBlocks";
 import { WidgetType } from "@/lib/enums";
+import { parseMarkdownBlocks } from "@/lib/markdown";
 
 
 function GameList({ widget }: { widget: Widget }) {

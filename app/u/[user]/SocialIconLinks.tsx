@@ -1,29 +1,12 @@
 "use client";
 
 import { DiscordIcon, GithubIcon, TwitchIcon, XIcon, YoutubeIcon } from "@/app/components/SVG";
-import type { SocialLink, SocialPlatform } from "@/lib/socials";
+import { getSocialPlatform } from "@/lib/account/socials";
+import { LinkType } from "@/lib/enums";
+import { SocialLink } from "@/lib/types";
 import { Check, Rss } from "lucide-react";
 import type { ElementType } from "react";
 import { useState } from "react";
-
-type SocialPlatformOption = {
-    value: SocialPlatform;
-    label: string;
-    icon: ElementType<{ size?: number | string; title?: string; className?: string; "aria-hidden"?: boolean }>;
-};
-
-const socialPlatforms: SocialPlatformOption[] = [
-    { value: "x", label: "X (Twitter)", icon: XIcon },
-    { value: "discord", label: "Discord", icon: DiscordIcon },
-    { value: "github", label: "GitHub", icon: GithubIcon },
-    { value: "twitch", label: "Twitch", icon: TwitchIcon },
-    { value: "youtube", label: "YouTube", icon: YoutubeIcon },
-    { value: "website", label: "Website", icon: Rss },
-];
-
-function getSocialPlatform(value: SocialPlatform) {
-    return socialPlatforms.find((platform) => platform.value === value);
-}
 
 export function SocialIconLinks({ socials }: { socials: SocialLink[] }) {
     const [copiedKey, setCopiedKey] = useState<string | null>(null);
@@ -33,7 +16,7 @@ export function SocialIconLinks({ socials }: { socials: SocialLink[] }) {
     return (
         <div className="flex flex-wrap items-center md:pt-1" aria-label="Social links">
             {socials.map((social, index) => {
-                const platform = getSocialPlatform(social.platform);
+                const platform = getSocialPlatform(social.platform, social.kind);
 
                 if (!platform) return null;
 
@@ -41,7 +24,7 @@ export function SocialIconLinks({ socials }: { socials: SocialLink[] }) {
                 const key = `${social.platform}-${social.kind}-${index}`;
                 const copied = copiedKey === key;
 
-                if (social.kind === "copy") {
+                if (social.kind === LinkType.COPY) {
                     return (
                         <button
                             key={key}

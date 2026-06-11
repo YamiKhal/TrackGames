@@ -1,9 +1,10 @@
 "use client";
 
 import { GhostButton } from "@/app/components/ui/Buttons";
-import { MarkdownBlocks, parseMarkdownBlocks } from "@/app/components/markdown/MarkdownBlocks";
+import { MarkdownBlocks } from "@/app/components/markdown/MarkdownBlocks";
 import { AlignCenter, AlignLeft, AlignRight, Bold, Eye, Image as ImageIcon, Italic, Link, Palette, Strikethrough, Table, Video, X } from "lucide-react";
 import { useRef, useState } from "react";
+import { parseMarkdownBlocks } from "@/lib/markdown";
 
 const inputClass = "bg-bg p-1 rounded mt-1 border border-border outline-none";
 const wideInputClass = `${inputClass} w-full`;

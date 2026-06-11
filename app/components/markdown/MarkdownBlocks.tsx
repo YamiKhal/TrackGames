@@ -1,6 +1,7 @@
 import { ALLOWEDHOSTS } from "@/lib/constants";
 import { MarkdownAlign } from "@/lib/enums";
 import { MarkdownBlock } from "@/lib/types";
+import { isSafeLinkHref, isSafeUrl, normalizeColorInput } from "@/lib/util/util";
 import { Children, cloneElement, isValidElement, ReactNode } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeSanitize from "rehype-sanitize";
@@ -39,7 +40,7 @@ function renderColoredText(children: ReactNode): ReactNode {
         if (typeof child === "string") {
             return child.split(/(\[[^\]]+\]\{color=[^}]+\})/g).map((part, index) => {
                 const match = part.match(/^\[([^\]]+)\]\{color=([^}]+)\}$/);
-                const color = normalizeColor(match?.[2]);
+                const color = normalizeColorInput(match?.[2]);
 
                 if (!match || !color) return part;
 
@@ -180,7 +181,7 @@ function MarkdownContent({ block, parentAlign }: { block: Extract<MarkdownBlock,
                         );
                     },
                     img: ({ src, alt }) => {
-                        if (typeof src !== "string" || !isSafeImageUrl(src)) return null;
+                        if (typeof src !== "string" || !isSafeUrl(src)) return null;
 
                         return <MarkdownImage src={src} alt={alt ?? ""} />;
                     }

@@ -1,6 +1,6 @@
 import { MarkdownAlign } from "./enums";
 import { MarkdownBlock } from "./types";
-import { isSafeUrl } from "./util/util";
+import { isSafeLinkHref, isSafeUrl, normalizeColorInput } from "./util/util";
 
 function normalizeSize(value: string | undefined) {
     if (!value) return undefined;
@@ -38,6 +38,18 @@ function normalizeImagePosition(value: string | undefined): string | undefined {
     if (value === "center" || value === "left" || value === "right" || value === "top" || value === "bottom") {
         return value;
     }
+
+    return undefined;
+}
+
+function normalizeAlign(value: string | undefined): MarkdownAlign | undefined {
+    if (!value) return undefined;
+
+    const v = value.toLowerCase();
+
+    if (v === "start" || v === "left") return MarkdownAlign.START;
+    if (v === "center") return MarkdownAlign.CENTER;
+    if (v === "end" || v === "right") return MarkdownAlign.END;
 
     return undefined;
 }
@@ -137,11 +149,11 @@ export function parseMarkdownBlocks(markdown: string): MarkdownBlock[] {
                 });
             }
 
-            if (mediaDirective[1].toLowerCase() === "video" && isSafeVideoUrl(src)) {
+            if (mediaDirective[1].toLowerCase() === "video" && isSafeUrl(src)) {
                 blocks.push({
                     type: "video",
                     src,
-                    poster: isSafeImageUrl(attributes.poster) ? attributes.poster : undefined,
+                    poster: isSafeUrl(attributes.poster) ? attributes.poster : undefined,
                     align: normalizeAlign(attributes.align ?? "") ?? undefined,
                     width,
                     height,
@@ -161,7 +173,7 @@ export function parseMarkdownBlocks(markdown: string): MarkdownBlock[] {
             if (name === "grid") {
                 active = {
                     type: "grid",
-                    align: "start",
+                    align: MarkdownAlign.START,
                     columns: normalizeColumns(attributes.columns),
                     gap: normalizeGap(attributes.gap),
                     lines: [],
@@ -173,7 +185,7 @@ export function parseMarkdownBlocks(markdown: string): MarkdownBlock[] {
                 active = {
                     type: "group",
                     align,
-                    color: normalizeColor(attributes.value ?? attributes.color),
+                    color: normalizeColorInput(attributes.value ?? attributes.color),
                     href,
                     lines: [],
                 };
