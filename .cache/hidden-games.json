@@ -1,0 +1,42 @@
+[
+  {
+    "id": 371567,
+    "cover": {
+      "id": 563156,
+      "image_id": "coc2j8"
+    },
+    "name": "Scritchy Scratchy",
+    "slug": "scritchy-scratchy",
+    "total_rating": 73.29101733357055
+  },
+  {
+    "id": 389443,
+    "cover": {
+      "id": 537131,
+      "image_id": "cobigb"
+    },
+    "name": "God of War Sons of Sparta",
+    "slug": "god-of-war-sons-of-sparta",
+    "total_rating": 72.61211686473702
+  },
+  {
+    "id": 272600,
+    "cover": {
+      "id": 555577,
+      "image_id": "cobwop"
+    },
+    "name": "Soulmask",
+    "slug": "soulmask",
+    "total_rating": 68
+  },
+  {
+    "id": 115555,
+    "cover": {
+      "id": 486889,
+      "image_id": "coafop"
+    },
+    "name": "Going Medieval",
+    "slug": "going-medieval",
+    "total_rating": 67.35546784183265
+  }
+]

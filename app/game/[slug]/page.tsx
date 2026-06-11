@@ -1,0 +1,285 @@
+import GameCard from "@/app/components/game/GameCard";
+import RelatedGamesTabs from "@/app/components/game/RelatedGamesTabs";
+import Container from "@/app/components/layout/Container";
+import MediaGallary from "@/app/components/layout/MediaGallary";
+import { PrimaryButton } from "@/app/components/ui/Buttons";
+import { fetchCompanyById } from "@/lib/igdb/companies";
+import { fetchDisplayGames, fetchGameDataBySlug } from "@/lib/igdb/games";
+import { DisplayGame } from "@/lib/types";
+import { ImageIdToURL } from "@/lib/util/IGDB";
+import { Monitor, ToggleRight, Gamepad2, GamepadDirectional, TabletSmartphone, Astroid, Play, Library, Apple, Clock, Flag, BadgeCheck } from "lucide-react";
+import { redirect } from "next/navigation";
+import Link from "next/link";
+
+function platformIcon(name: string) {
+    const lower = name.toLowerCase();
+
+    if (lower.includes("playstation")) return (<GamepadDirectional size={16} />);
+    if (lower.includes("xbox")) return (<Gamepad2 size={16} />);
+    if (lower.includes("nintendo")) return (<ToggleRight size={16} />);
+    if (lower.includes("pc") || lower.includes("windows") || lower.includes("steam") || lower.includes("epic") || lower.includes("gog")) return (<Monitor size={16} />);
+    if (lower.includes("mac")) return (<Apple size={16} />);
+    if (lower.includes("ios") || lower.includes("android") || lower.includes("mobile")) return (<TabletSmartphone size={16} />);
+}
+
+export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
+    const [game] = await Promise.all([fetchGameDataBySlug(slug)]);
+    let backdrop;
+    let developer, publisher;
+    let franchiesGames: DisplayGame[] = [];
+    let collectionsGames: DisplayGame[] = [];
+    let similarGames: DisplayGame[] = [];
+
+    if (!game) {
+        redirect("/not-found");
+    }
+
+    if (game.screenshots && game.screenshots.length > 0) {
+        backdrop = ImageIdToURL(game.screenshots![0].image_id, "1080");
+    }
+
+    if (game.involved_companies) {
+        const developerID = game.involved_companies.find(c => c.developer)?.company;
+        const publisherID = game.involved_companies.find(c => c.publisher)?.company;
+
+        if (developerID === publisherID) {
+            const company = await fetchCompanyById(developerID!);
+            developer = company;
+            publisher = null;
+        } else {
+            if (developerID) {
+                developer = await fetchCompanyById(developerID);
+            }
+            if (publisherID) {
+                publisher = await fetchCompanyById(publisherID);
+            }
+        }
+    }
+
+    if (game.franchises) {
+        const franchiseIDs = game.franchises.map(f => f.games).join(",");
+
+        const data = await fetchDisplayGames(null, `
+            where id = (${franchiseIDs})
+            & id != ${game.id};
+        `);
+        franchiesGames = data;
+    }
+
+    if (game.collections) {
+        const collectionIDs = game.collections.map(c => c.games).join(",");
+
+        if (game.franchises) {
+            if (!franchiesGames.map(g => g.id).some(id => collectionIDs.includes(id!.toString()))) {
+                const data = await fetchDisplayGames(null, `
+                where id = (${collectionIDs})
+                & id != ${game.id};
+            `);
+                collectionsGames = data;
+            }
+        } else {
+            const data = await fetchDisplayGames(null, `
+                where id = (${collectionIDs})
+                & id != ${game.id};
+            `);
+            collectionsGames = data;
+        }
+    }
+
+    if (game.similar_games) {
+        const similarIDs = game.similar_games.join(",");
+        const data = await fetchDisplayGames(null, `
+            where id = (${similarIDs})
+            & id != ${game.id};
+        `);
+        similarGames = data;
+    }
+
+    const media = [
+        ...(game.videos?.[0]?.video_id
+            ? [{ type: "video" as const, id: game.videos[0].video_id }]
+            : []),
+        ...(game.screenshots
+            ?.filter((shot): shot is { image_id: string } => Boolean(shot.image_id))
+            .map((shot) => ({
+                type: "image" as const,
+                id: shot.image_id,
+            })) || []),
+    ];
+    const averageRating = typeof game.total_rating === "number"
+        ? Math.max(0, Math.min(100, game.total_rating))
+        : null;
+    const averageRatingColor = averageRating === null
+        ? "var(--border)"
+        : averageRating < 40
+            ? "color-mix(in srgb, var(--surface) 100%, transparent)"
+            : averageRating < 70
+                ? "color-mix(in srgb, var(--secondary) 40%, transparent)"
+                : "color-mix(in srgb, var(--primary) 40%, transparent)";
+    const averageRatingTrackColor = "color-mix(in srgb, var(--bg-secondary) 70%, transparent)";
+
+    return (
+        <div>
+            {/* GAME TITLE / CONTROLS */}
+            <section className="relative h-100 w-full">
+                {backdrop ? (
+                    <div className="pointer-events-none absolute inset-0 bg-cover bg-center mask-[radial-gradient(ellipse_at_center,black_68%,transparent_88%)] mask-size-[100%_120%] mask-no-repeat before:absolute before:inset-0 before:bg-bg/85 before:content-['']" style={{ backgroundImage: `url(${backdrop})` }} />
+                ) : (
+                    <div className="pointer-events-none absolute inset-0 bg-cover bg-center mask-[radial-gradient(ellipse_at_center,black_68%,transparent_88%)] mask-size-[100%_120%] mask-no-repeat before:absolute before:inset-0 before:bg-bg-secondary/55 before:content-['']" />
+                )}
+
+                <Container className="relative z-1 flex justify-start gap-10 items-end h-full flex-row">
+                    <div className="mb-4 flex min-h-max min-w-0 max-w-full gap-6 text-text">
+                        <GameCard game={game} />
+                        <div className="flex min-w-0 flex-col justify-between">
+                            <div className="min-w-0">
+                                <h1 className="max-w-full wrap-break-word text-4xl font-bold">{game.name}</h1>
+                                {developer && <p className="mt-2 max-w-full truncate font-body text-lg text-text-muted">Developer: <span className="font-bold">{developer.name}</span></p>}
+                                {publisher && <p className="max-w-full truncate font-body text-md text-text-muted">Publisher: <span className="font-bold">{publisher.name}</span></p>}
+                            </div>
+                            <div className="flex flex-row">
+                                <PrimaryButton>Add to Library</PrimaryButton>
+                            </div>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+
+            {/* INFO */}
+            <section className="w-full mt-5">
+                <Container className="flex flex-col justify-between gap-10 lg:flex-row">
+                    {/* LEFT COLUMN */}
+                    <div className="min-w-0 flex-1">
+
+                        {/* RATING & GENRES/PLATFORMS */}
+                        <section className="flex min-w-0 flex-row gap-10">
+                            <div
+                                className="rounded flex shrink-0 flex-col items-center justify-center min-w-50 p-0.5"
+                                style={{
+                                    background: averageRating !== null
+                                        ? `conic-gradient(${averageRatingColor} ${averageRating}%, ${averageRatingTrackColor} ${averageRating}%)`
+                                        : "var(--border)",
+                                }}
+                                aria-label={averageRating !== null ? `Average rating ${averageRating.toFixed(1)} out of 100` : "Average rating unavailable"}
+                            >
+                                <div className="flex h-full w-full flex-col items-center justify-center rounded bg-bg-secondary pb-5 pt-5 pr-10 pl-10">
+                                    <h2 className="text-md text-text-muted mb-2">Avg Rating</h2>
+                                    <p className="text-2xl font-bold text-text">{averageRating !== null ? averageRating.toFixed(1) : "N/A"}</p>
+                                </div>
+                            </div>
+                            <div className="grid w-full min-w-0 grid-cols-[auto_minmax(0,1fr)] items-start gap-x-10 gap-y-5 border-b border-border">
+                                <p className="font-body text-md">Genres</p>
+                                <div className="font-body text-md flex min-w-0 flex-row flex-wrap gap-x-2 gap-y-1">
+                                    {game.genres?.length ? game.genres.map((genre, index) => (
+                                        <span key={genre.id ?? genre.name} className="flex min-w-0 flex-row items-center gap-1">
+                                            <span className="wrap-break-words hover:text-primary cursor-pointer transition-colors">{genre.name}</span>
+                                            <p className="select-none">{index < game.genres!.length - 1 ? " • " : ""}</p>
+                                        </span>
+                                    )) : "N/A"}
+                                </div>
+
+                                <p className="font-body text-md">Platforms</p>
+                                <div className="font-body text-md flex min-w-0 flex-row flex-wrap gap-x-2 gap-y-1">
+                                    {game.platforms?.length ? game.platforms.map((platform, index) => (
+                                        <span key={platform.id ?? platform.name} className="flex min-w-0 flex-row items-center gap-1">
+                                            <span className="flex min-w-0 items-center gap-2 wrap-break-words hover:text-primary cursor-pointer transition-colors">{platformIcon(platform.name)}{platform.name}</span>
+                                            <p className="select-none">{index < game.platforms!.length - 1 ? " • " : ""}</p>
+                                        </span>
+                                    )) : "N/A"}
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* MEDIA */}
+                        <section className="flex flex-col mt-4">
+                            <div className="w-full min-w-0 overflow-hidden">
+                                <MediaGallary media={media} />
+                            </div>
+                        </section>
+
+                        {/* SUMMARY */}
+                        <section className="flex flex-col mt-4 pb-4">
+                            <div className="mb-5 flex min-w-0 flex-row flex-wrap items-center justify-between gap-2">
+                                <h2 className="text-2xl font-bold text-text">Summary</h2>
+                                <span className="min-w-8 flex-1 border-t border-border" aria-hidden="true" />
+                                <p className="text-text-muted text-md font-body">More info on <Link href={`https://www.igdb.com/games/${game.slug}`} target="_blank" rel="noopener noreferrer" className="hover:text-primary-hover text-primary cursor-pointer transition-colors">IGDB</Link></p>
+                            </div>
+                            <p className="min-w-0 text-md text-text-muted font-body">{game.summary}</p>
+                        </section>
+                    </div>
+
+
+                    {/* RIGHT COLUMN */}
+                    <div className="flex min-w-0 max-w-full shrink-0 flex-col gap-5 lg:w-80">
+
+                        {/* RELEASE DATE */}
+                        <section className="bg-bg-secondary p-4 rounded flex min-w-0 flex-row gap-2 items-start justify-start">
+                            <h2 className="text-md text-text ml-5 shrink-0">Released</h2>
+                            <p className="ml-auto min-w-0 pr-5 text-right text-md font-bold text-text-muted">{game.first_release_date ? new Date(game.first_release_date * 1000).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" }) : "N/A"}</p>
+                        </section>
+
+                        {/* LIBRARY STATS */}
+                        <section className="bg-bg-secondary p-4 rounded flex flex-col gap-2 items-start justify-start min-w-50">
+                            <div className="border-b border-border pb-2 pr-5 w-full">
+                                <div className="ml-5 flex min-w-0 flex-row items-center gap-2">
+                                    <Play className="bg-bg/60 text-secondary p-2 rounded-2xl" size={30} />
+                                    <p className="min-w-0 truncate text-md text-text-muted">Plays</p>
+                                    <p className="ml-auto shrink-0 text-md text-text">101</p>
+                                </div>
+                            </div>
+                            <div className="border-b border-border pb-2 pr-5 w-full">
+                                <div className="ml-5 flex min-w-0 flex-row items-center gap-2">
+                                    <Library className="bg-bg/60 text-secondary p-2 rounded-2xl" size={30} />
+                                    <p className="min-w-0 truncate text-md text-text-muted">Backlog</p>
+                                    <p className="ml-auto shrink-0 text-md text-text">101</p>
+                                </div>
+                            </div>
+                            <div className=" w-full">
+                                <div className="ml-5 flex min-w-0 flex-row items-center pr-5 gap-2">
+                                    <Astroid className="bg-bg/60 text-secondary p-2 rounded-2xl" size={30} />
+                                    <p className="min-w-0 truncate text-md text-text-muted">Wishlists</p>
+                                    <p className="ml-auto shrink-0 text-md text-text">101</p>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* RELEASE DATE */}
+                        <section className="bg-bg-secondary p-4 rounded flex min-w-0 flex-row gap-2 items-start justify-start">
+                            <h2 className="text-md text-text-muted ml-5 shrink-0">This entry is in</h2>
+                            <p className="ml-auto min-w-0 pr-5 text-right text-md font-bold text-text">101 playlists</p>
+                        </section>
+
+                        {/* TIME SPENT */}
+                        <section className="grid min-w-0 grid-cols-3 gap-3">
+                            <div className="relative min-w-0 rounded bg-primary/10 border-2 border-primary/30 p-4 pt-7 text-center">
+                                <Clock className="absolute right-3 top-3 text-primary" size={18} />
+                                <p className="truncate text-xl font-bold text-text">11h</p>
+                                <p className="mt-1 truncate font-body text-xs text-text-muted">Avg Time</p>
+                            </div>
+                            <div className="relative min-w-0 rounded bg-primary/10 border-2 border-primary/30 p-4 pt-7 text-center">
+                                <Flag className="absolute right-3 top-3 text-primary" size={18} />
+                                <p className="truncate text-xl font-bold text-text">11h</p>
+                                <p className="mt-1 truncate font-body text-xs text-text-muted">To Finish</p>
+                            </div>
+                            <div className="relative min-w-0 rounded bg-primary/10 border-2 border-primary/30 p-4 pt-7 text-center">
+                                <BadgeCheck className="absolute right-3 top-3 text-primary" size={18} />
+                                <p className="truncate text-xl font-bold text-text">11h</p>
+                                <p className="mt-1 truncate font-body text-xs text-text-muted">To Master</p>
+                            </div>
+                        </section>
+
+                        
+                    </div>
+                </Container>
+            </section>
+
+            {/* RELATED GAMES */}
+            <section className="w-full mt-20 mb-10">
+                <Container>
+                    <RelatedGamesTabs franchiesGames={franchiesGames} seriesGames={collectionsGames} similarGames={similarGames} />
+                </Container>
+            </section>
+        </div>
+    )
+}

@@ -1,0 +1,1024 @@
+[
+  {
+    "id": 320140,
+    "cover": {
+      "id": 417780,
+      "image_id": "co8yd0"
+    },
+    "name": "Subnautica 2",
+    "platforms": [
+      {
+        "id": 169,
+        "name": "Xbox Series X|S"
+      },
+      {
+        "id": 6,
+        "name": "PC (Microsoft Windows)"
+      }
+    ],
+    "screenshots": [
+      {
+        "id": 1410408,
+        "image_id": "scu8a0"
+      },
+      {
+        "id": 1410409,
+        "image_id": "scu8a1"
+      },
+      {
+        "id": 1410410,
+        "image_id": "scu8a2"
+      },
+      {
+        "id": 1410411,
+        "image_id": "scu8a3"
+      },
+      {
+        "id": 1410254,
+        "image_id": "scu85q"
+      },
+      {
+        "id": 1410255,
+        "image_id": "scu85r"
+      },
+      {
+        "id": 1410256,
+        "image_id": "scu85s"
+      },
+      {
+        "id": 1410257,
+        "image_id": "scu85t"
+      },
+      {
+        "id": 1410258,
+        "image_id": "scu85u"
+      },
+      {
+        "id": 1410412,
+        "image_id": "scu8a4"
+      },
+      {
+        "id": 1410259,
+        "image_id": "scu85v"
+      }
+    ],
+    "slug": "subnautica-2",
+    "summary": "Subnautica 2 is an underwater survival adventure set on an all-new alien world, developed by Unknown Worlds. Play alone or with friends in 4-player co-op. Adapt to survive by building custom bases and crafting tools. Explore the unknown to uncover the mysteries hidden within the depths.",
+    "total_rating": 90.06834484499434
+  },
+  {
+    "id": 347668,
+    "cover": {
+      "id": 542412,
+      "image_id": "cobmj0"
+    },
+    "name": "Resident Evil Requiem",
+    "platforms": [
+      {
+        "id": 169,
+        "name": "Xbox Series X|S"
+      },
+      {
+        "id": 508,
+        "name": "Nintendo Switch 2"
+      },
+      {
+        "id": 6,
+        "name": "PC (Microsoft Windows)"
+      },
+      {
+        "id": 167,
+        "name": "PlayStation 5"
+      }
+    ],
+    "screenshots": [
+      {
+        "id": 1552287,
+        "image_id": "scx9r3"
+      },
+      {
+        "id": 1552284,
+        "image_id": "scx9r0"
+      },
+      {
+        "id": 1552285,
+        "image_id": "scx9r1"
+      },
+      {
+        "id": 1552286,
+        "image_id": "scx9r2"
+      },
+      {
+        "id": 1573555,
+        "image_id": "scxq5v"
+      },
+      {
+        "id": 1717912,
+        "image_id": "sc10tjs"
+      },
+      {
+        "id": 1718058,
+        "image_id": "sc10tnu"
+      },
+      {
+        "id": 1718059,
+        "image_id": "sc10tnv"
+      },
+      {
+        "id": 1718060,
+        "image_id": "sc10tnw"
+      },
+      {
+        "id": 1718061,
+        "image_id": "sc10tnx"
+      },
+      {
+        "id": 1718062,
+        "image_id": "sc10tny"
+      },
+      {
+        "id": 1718063,
+        "image_id": "sc10tnz"
+      },
+      {
+        "id": 1718064,
+        "image_id": "sc10to0"
+      },
+      {
+        "id": 1718065,
+        "image_id": "sc10to1"
+      },
+      {
+        "id": 1718066,
+        "image_id": "sc10to2"
+      }
+    ],
+    "slug": "resident-evil-requiem",
+    "summary": "Resident Evil Requiem is the ninth entry in the Resident Evil series. Experience terrifying survival horror with FBI analyst Grace Ashcroft, and dive into pulse-pounding action with legendary agent Leon S. Kennedy. Both of their journeys and unique gameplay styles intertwine into a heart-stopping, emotional experience that will chill you to your core.",
+    "total_rating": 90.0312855047879
+  },
+  {
+    "id": 134612,
+    "cover": {
+      "id": 556845,
+      "image_id": "cobxnx"
+    },
+    "name": "Pragmata",
+    "platforms": [
+      {
+        "id": 169,
+        "name": "Xbox Series X|S"
+      },
+      {
+        "id": 508,
+        "name": "Nintendo Switch 2"
+      },
+      {
+        "id": 6,
+        "name": "PC (Microsoft Windows)"
+      },
+      {
+        "id": 167,
+        "name": "PlayStation 5"
+      }
+    ],
+    "screenshots": [
+      {
+        "id": 388131,
+        "image_id": "sc8bhf"
+      },
+      {
+        "id": 388130,
+        "image_id": "sc8bhe"
+      },
+      {
+        "id": 388269,
+        "image_id": "sc8bl9"
+      },
+      {
+        "id": 388270,
+        "image_id": "sc8bla"
+      },
+      {
+        "id": 388272,
+        "image_id": "sc8blc"
+      },
+      {
+        "id": 388271,
+        "image_id": "sc8blb"
+      }
+    ],
+    "slug": "pragmata",
+    "summary": "Pragmata is a sci-fi action-adventure game set in the near future. The story follows Hugh and his android companion Diana as they navigate a Lunar research station. Gameplay incorporates action elements alongside mechanics involving interaction with systems within the environment.",
+    "total_rating": 87.53693526105809
+  },
+  {
+    "id": 361855,
+    "cover": {
+      "id": 480825,
+      "image_id": "coab09"
+    },
+    "name": "LEGO Batman: Legacy of the Dark Knight",
+    "platforms": [
+      {
+        "id": 169,
+        "name": "Xbox Series X|S"
+      },
+      {
+        "id": 508,
+        "name": "Nintendo Switch 2"
+      },
+      {
+        "id": 6,
+        "name": "PC (Microsoft Windows)"
+      },
+      {
+        "id": 167,
+        "name": "PlayStation 5"
+      }
+    ],
+    "screenshots": [
+      {
+        "id": 1615314,
+        "image_id": "scymdu"
+      },
+      {
+        "id": 1615315,
+        "image_id": "scymdv"
+      },
+      {
+        "id": 1615316,
+        "image_id": "scymdw"
+      },
+      {
+        "id": 1615317,
+        "image_id": "scymdx"
+      },
+      {
+        "id": 1615318,
+        "image_id": "scymdy"
+      },
+      {
+        "id": 1615319,
+        "image_id": "scymdz"
+      }
+    ],
+    "slug": "lego-batman-legacy-of-the-dark-knight",
+    "summary": "Rise as the Dark Knight and experience the essential Batman story in a bold, action-packed adventure with hard-hitting combat, an open-world Gotham City, and the signature LEGO charm that fans know and love.",
+    "total_rating": 85.69062075713208
+  },
+  {
+    "id": 125633,
+    "cover": {
+      "id": 500634,
+      "image_id": "coaqai"
+    },
+    "name": "Crimson Desert",
+    "platforms": [
+      {
+        "id": 169,
+        "name": "Xbox Series X|S"
+      },
+      {
+        "id": 6,
+        "name": "PC (Microsoft Windows)"
+      },
+      {
+        "id": 167,
+        "name": "PlayStation 5"
+      },
+      {
+        "id": 14,
+        "name": "Mac"
+      }
+    ],
+    "screenshots": [
+      {
+        "id": 1745468,
+        "image_id": "sc11et8"
+      },
+      {
+        "id": 1745476,
+        "image_id": "sc11etg"
+      },
+      {
+        "id": 1745467,
+        "image_id": "sc11et7"
+      },
+      {
+        "id": 1745475,
+        "image_id": "sc11etf"
+      },
+      {
+        "id": 1745477,
+        "image_id": "sc11eth"
+      },
+      {
+        "id": 1745470,
+        "image_id": "sc11eta"
+      },
+      {
+        "id": 1745474,
+        "image_id": "sc11ete"
+      },
+      {
+        "id": 1745469,
+        "image_id": "sc11et9"
+      },
+      {
+        "id": 1745473,
+        "image_id": "sc11etd"
+      },
+      {
+        "id": 1745472,
+        "image_id": "sc11etc"
+      },
+      {
+        "id": 1745471,
+        "image_id": "sc11etb"
+      }
+    ],
+    "slug": "crimson-desert",
+    "summary": "Crimson Desert is an open-world action-adventure game set in the beautiful yet brutal continent of Pywel. Embark on a journey as the Greymane Kliff and restore what has been lost. Explore uncharted lands, fight against threats that stand in your way, and discover the wonders the world has in store.",
+    "total_rating": 85.68964443906216
+  },
+  {
+    "id": 348330,
+    "cover": {
+      "id": 528971,
+      "image_id": "cobc5n"
+    },
+    "name": "Forza Horizon 6",
+    "platforms": [
+      {
+        "id": 169,
+        "name": "Xbox Series X|S"
+      },
+      {
+        "id": 6,
+        "name": "PC (Microsoft Windows)"
+      },
+      {
+        "id": 167,
+        "name": "PlayStation 5"
+      }
+    ],
+    "screenshots": [
+      {
+        "id": 1746198,
+        "image_id": "sc11fdi"
+      },
+      {
+        "id": 1746199,
+        "image_id": "sc11fdj"
+      },
+      {
+        "id": 1746200,
+        "image_id": "sc11fdk"
+      },
+      {
+        "id": 1746201,
+        "image_id": "sc11fdl"
+      },
+      {
+        "id": 1746205,
+        "image_id": "sc11fdp"
+      },
+      {
+        "id": 1746203,
+        "image_id": "sc11fdn"
+      },
+      {
+        "id": 1746202,
+        "image_id": "sc11fdm"
+      },
+      {
+        "id": 1746206,
+        "image_id": "sc11fdq"
+      },
+      {
+        "id": 1746204,
+        "image_id": "sc11fdo"
+      },
+      {
+        "id": 1835738,
+        "image_id": "sc13cgq"
+      },
+      {
+        "id": 1835739,
+        "image_id": "sc13cgr"
+      },
+      {
+        "id": 1835740,
+        "image_id": "sc13cgs"
+      },
+      {
+        "id": 1835741,
+        "image_id": "sc13cgt"
+      }
+    ],
+    "slug": "forza-horizon-6",
+    "summary": "Discover the breathtaking landscapes of Japan in over 550 real-world cars and become a racing Legend at the Horizon Festival. Start your journey as a tourist and explore a world full of hit music and Japanese culture. Build a Valley Estate, acquire awe-inspiring homes, and display your prized car collection in fully Customizable Garages. Cruise the roads with your friends and join Car Meets around Japan, unleash your imagination with EventLab and build together in Horizon CoLab.",
+    "total_rating": 85.07505147055362
+  },
+  {
+    "id": 152244,
+    "cover": {
+      "id": 152619,
+      "image_id": "co39rf"
+    },
+    "name": "Replaced",
+    "platforms": [
+      {
+        "id": 169,
+        "name": "Xbox Series X|S"
+      },
+      {
+        "id": 6,
+        "name": "PC (Microsoft Windows)"
+      },
+      {
+        "id": 49,
+        "name": "Xbox One"
+      }
+    ],
+    "screenshots": [
+      {
+        "id": 489289,
+        "image_id": "scahjd"
+      },
+      {
+        "id": 489290,
+        "image_id": "scahje"
+      },
+      {
+        "id": 489291,
+        "image_id": "scahjf"
+      },
+      {
+        "id": 489292,
+        "image_id": "scahjg"
+      },
+      {
+        "id": 489293,
+        "image_id": "scahjh"
+      }
+    ],
+    "slug": "replaced",
+    "summary": "Replaced is a 2.5D sci-fi retro-futuristic action platformer where you play as R.E.A.C.H. - an artificial intelligence trapped in a human body against its own will. Replaced combines cinematic platforming, pixel art and free-flow action combat set in an alternative 1980's.",
+    "total_rating": 84.74426659868601
+  },
+  {
+    "id": 113360,
+    "cover": {
+      "id": 528941,
+      "image_id": "cobc4t"
+    },
+    "name": "Hytale",
+    "platforms": [
+      {
+        "id": 3,
+        "name": "Linux"
+      },
+      {
+        "id": 6,
+        "name": "PC (Microsoft Windows)"
+      },
+      {
+        "id": 14,
+        "name": "Mac"
+      }
+    ],
+    "screenshots": [
+      {
+        "id": 268940,
+        "image_id": "sc5rik"
+      },
+      {
+        "id": 268941,
+        "image_id": "sc5ril"
+      },
+      {
+        "id": 268939,
+        "image_id": "sc5rij"
+      },
+      {
+        "id": 268938,
+        "image_id": "sc5rii"
+      },
+      {
+        "id": 268942,
+        "image_id": "sc5rim"
+      },
+      {
+        "id": 268944,
+        "image_id": "sc5rio"
+      },
+      {
+        "id": 268943,
+        "image_id": "sc5rin"
+      },
+      {
+        "id": 268946,
+        "image_id": "sc5riq"
+      },
+      {
+        "id": 268945,
+        "image_id": "sc5rip"
+      },
+      {
+        "id": 268947,
+        "image_id": "sc5rir"
+      },
+      {
+        "id": 268949,
+        "image_id": "sc5rit"
+      },
+      {
+        "id": 268948,
+        "image_id": "sc5ris"
+      }
+    ],
+    "slug": "hytale",
+    "summary": "Hytale combines the scope of a sandbox with the depth of a roleplaying game, immersing players in a procedurally generated world where teetering towers and deep dungeons promise rich rewards throughout their adventures. Hytale supports everything from block-by-block construction to scripting and minigame creation, delivered using easy to use and powerful tools.",
+    "total_rating": 84.7340521713458
+  },
+  {
+    "id": 331215,
+    "cover": {
+      "id": 492422,
+      "image_id": "coajye"
+    },
+    "name": "Saros",
+    "platforms": [
+      {
+        "id": 167,
+        "name": "PlayStation 5"
+      }
+    ],
+    "screenshots": [
+      {
+        "id": 1685363,
+        "image_id": "sc104fn"
+      },
+      {
+        "id": 1685364,
+        "image_id": "sc104fo"
+      },
+      {
+        "id": 1685361,
+        "image_id": "sc104fl"
+      },
+      {
+        "id": 1685360,
+        "image_id": "sc104fk"
+      },
+      {
+        "id": 1685362,
+        "image_id": "sc104fm"
+      },
+      {
+        "id": 1685366,
+        "image_id": "sc104fq"
+      },
+      {
+        "id": 1685365,
+        "image_id": "sc104fp"
+      }
+    ],
+    "slug": "saros",
+    "summary": "Saros is an action game developed by Housemarque and published by Sony Interactive Entertainment. Players control Arjun Devraj, a Soltari Enforcer investigating a lost off-world colony on Carcosa. The game features fast-paced third-person combat, boss encounters, and progression across repeated attempts.",
+    "total_rating": 84.71583305882089
+  },
+  {
+    "id": 314265,
+    "cover": {
+      "id": 562518,
+      "image_id": "coc21i"
+    },
+    "name": "Reanimal",
+    "platforms": [
+      {
+        "id": 169,
+        "name": "Xbox Series X|S"
+      },
+      {
+        "id": 508,
+        "name": "Nintendo Switch 2"
+      },
+      {
+        "id": 6,
+        "name": "PC (Microsoft Windows)"
+      },
+      {
+        "id": 167,
+        "name": "PlayStation 5"
+      }
+    ],
+    "screenshots": [
+      {
+        "id": 1384788,
+        "image_id": "sctoic"
+      },
+      {
+        "id": 1384792,
+        "image_id": "sctoig"
+      },
+      {
+        "id": 1384780,
+        "image_id": "sctoi4"
+      },
+      {
+        "id": 1384781,
+        "image_id": "sctoi5"
+      },
+      {
+        "id": 1384782,
+        "image_id": "sctoi6"
+      },
+      {
+        "id": 1384783,
+        "image_id": "sctoi7"
+      },
+      {
+        "id": 1384784,
+        "image_id": "sctoi8"
+      },
+      {
+        "id": 1384785,
+        "image_id": "sctoi9"
+      },
+      {
+        "id": 1384786,
+        "image_id": "sctoia"
+      },
+      {
+        "id": 1384787,
+        "image_id": "sctoib"
+      },
+      {
+        "id": 1384789,
+        "image_id": "sctoid"
+      },
+      {
+        "id": 1384790,
+        "image_id": "sctoie"
+      },
+      {
+        "id": 1384791,
+        "image_id": "sctoif"
+      },
+      {
+        "id": 1384793,
+        "image_id": "sctoih"
+      }
+    ],
+    "slug": "reanimal",
+    "summary": "The creators of Little Nightmares I & II have returned to take you on a darker, more terrifying journey than ever before. In this horror adventure game, a brother & sister go through hell to rescue their missing friends and escape the island that they used to call home.",
+    "total_rating": 80.96714049961264
+  },
+  {
+    "id": 141114,
+    "cover": {
+      "id": 498347,
+      "image_id": "coaoiz"
+    },
+    "name": "007 First Light",
+    "platforms": [
+      {
+        "id": 169,
+        "name": "Xbox Series X|S"
+      },
+      {
+        "id": 508,
+        "name": "Nintendo Switch 2"
+      },
+      {
+        "id": 6,
+        "name": "PC (Microsoft Windows)"
+      },
+      {
+        "id": 167,
+        "name": "PlayStation 5"
+      }
+    ],
+    "screenshots": [
+      {
+        "id": 1549074,
+        "image_id": "scx79u"
+      },
+      {
+        "id": 1549075,
+        "image_id": "scx79v"
+      },
+      {
+        "id": 1549076,
+        "image_id": "scx79w"
+      },
+      {
+        "id": 1549077,
+        "image_id": "scx79x"
+      },
+      {
+        "id": 1629314,
+        "image_id": "scyx6q"
+      },
+      {
+        "id": 1629315,
+        "image_id": "scyx6r"
+      },
+      {
+        "id": 1633600,
+        "image_id": "scz0hs"
+      },
+      {
+        "id": 1633601,
+        "image_id": "scz0ht"
+      }
+    ],
+    "slug": "007-first-light",
+    "summary": "007 First Light is a thrilling espionage action-adventure game from IO Interactive. Players follow James Bond as a young, resourceful, and sometimes reckless recruit in MI6's training program and discover an origin story of the world's most famous spy.",
+    "total_rating": 80.8278246940196
+  },
+  {
+    "id": 250630,
+    "cover": {
+      "id": 567587,
+      "image_id": "coc5yb"
+    },
+    "name": "Marathon",
+    "platforms": [
+      {
+        "id": 169,
+        "name": "Xbox Series X|S"
+      },
+      {
+        "id": 6,
+        "name": "PC (Microsoft Windows)"
+      },
+      {
+        "id": 167,
+        "name": "PlayStation 5"
+      }
+    ],
+    "screenshots": [
+      {
+        "id": 1056810,
+        "image_id": "scmnfu"
+      },
+      {
+        "id": 1056811,
+        "image_id": "scmnfv"
+      },
+      {
+        "id": 1056812,
+        "image_id": "scmnfw"
+      },
+      {
+        "id": 1056813,
+        "image_id": "scmnfx"
+      },
+      {
+        "id": 1056814,
+        "image_id": "scmnfy"
+      },
+      {
+        "id": 1056815,
+        "image_id": "scmnfz"
+      },
+      {
+        "id": 1056816,
+        "image_id": "scmng0"
+      },
+      {
+        "id": 1056817,
+        "image_id": "scmng1"
+      },
+      {
+        "id": 1056818,
+        "image_id": "scmng2"
+      },
+      {
+        "id": 1056819,
+        "image_id": "scmng3"
+      },
+      {
+        "id": 1505116,
+        "image_id": "scw9cs"
+      },
+      {
+        "id": 1505115,
+        "image_id": "scw9cr"
+      },
+      {
+        "id": 1505117,
+        "image_id": "scw9ct"
+      },
+      {
+        "id": 1505118,
+        "image_id": "scw9cu"
+      },
+      {
+        "id": 1505119,
+        "image_id": "scw9cv"
+      },
+      {
+        "id": 1505120,
+        "image_id": "scw9cw"
+      },
+      {
+        "id": 1505121,
+        "image_id": "scw9cx"
+      }
+    ],
+    "slug": "marathon--2",
+    "summary": "A PvP-focused extraction shooter set on the mysterious planet of Tau Ceti IV, Marathon will see players inhabit the bodies of Runners, cybernetic mercenaries who have been designed to survive the planet’s harsh environments and explore the lost colony that once inhabited Tau Ceti’s surface. Players will engage solo or in crews of three, searching for mysterious alien artifacts, as well as for valuable loot and new weapons and gear that they can add to their collection.",
+    "total_rating": 78.77969825618413
+  },
+  {
+    "id": 237780,
+    "cover": {
+      "id": 411162,
+      "image_id": "co8t96"
+    },
+    "name": "Directive 8020",
+    "platforms": [
+      {
+        "id": 169,
+        "name": "Xbox Series X|S"
+      },
+      {
+        "id": 6,
+        "name": "PC (Microsoft Windows)"
+      },
+      {
+        "id": 167,
+        "name": "PlayStation 5"
+      }
+    ],
+    "screenshots": [
+      {
+        "id": 1395162,
+        "image_id": "sctwii"
+      },
+      {
+        "id": 1395163,
+        "image_id": "sctwij"
+      },
+      {
+        "id": 1395164,
+        "image_id": "sctwik"
+      },
+      {
+        "id": 1395165,
+        "image_id": "sctwil"
+      },
+      {
+        "id": 1395166,
+        "image_id": "sctwim"
+      },
+      {
+        "id": 1395167,
+        "image_id": "sctwin"
+      },
+      {
+        "id": 1553794,
+        "image_id": "scxawy"
+      },
+      {
+        "id": 1553796,
+        "image_id": "scxax0"
+      },
+      {
+        "id": 1553795,
+        "image_id": "scxawz"
+      },
+      {
+        "id": 1553797,
+        "image_id": "scxax1"
+      },
+      {
+        "id": 1832817,
+        "image_id": "sc13a7l"
+      },
+      {
+        "id": 1832819,
+        "image_id": "sc13a7n"
+      },
+      {
+        "id": 1832818,
+        "image_id": "sc13a7m"
+      },
+      {
+        "id": 1832820,
+        "image_id": "sc13a7o"
+      },
+      {
+        "id": 1832821,
+        "image_id": "sc13a7p"
+      },
+      {
+        "id": 1832822,
+        "image_id": "sc13a7q"
+      }
+    ],
+    "slug": "directive-8020",
+    "summary": "Earth is dying and humanity is running out of time. 12 light years from home, Tau Ceti f offers a small sliver of hope. When the colony ship Cassiopeia crash lands on the planet, its crew soon realize they are far from being alone. In space, death takes many forms.",
+    "total_rating": 75.5873972042285
+  },
+  {
+    "id": 308535,
+    "cover": {
+      "id": 559609,
+      "image_id": "cobzsp"
+    },
+    "name": "Neverness to Everness",
+    "platforms": [
+      {
+        "id": 34,
+        "name": "Android"
+      },
+      {
+        "id": 6,
+        "name": "PC (Microsoft Windows)"
+      },
+      {
+        "id": 39,
+        "name": "iOS"
+      },
+      {
+        "id": 167,
+        "name": "PlayStation 5"
+      },
+      {
+        "id": 14,
+        "name": "Mac"
+      }
+    ],
+    "screenshots": [
+      {
+        "id": 1354582,
+        "image_id": "sct17a"
+      },
+      {
+        "id": 1354583,
+        "image_id": "sct17b"
+      },
+      {
+        "id": 1354584,
+        "image_id": "sct17c"
+      },
+      {
+        "id": 1756135,
+        "image_id": "sc11n1j"
+      },
+      {
+        "id": 1756134,
+        "image_id": "sc11n1i"
+      },
+      {
+        "id": 1756136,
+        "image_id": "sc11n1k"
+      },
+      {
+        "id": 1756131,
+        "image_id": "sc11n1f"
+      },
+      {
+        "id": 1756132,
+        "image_id": "sc11n1g"
+      },
+      {
+        "id": 1756133,
+        "image_id": "sc11n1h"
+      },
+      {
+        "id": 1806137,
+        "image_id": "sc12pmh"
+      },
+      {
+        "id": 1806138,
+        "image_id": "sc12pmi"
+      },
+      {
+        "id": 1806139,
+        "image_id": "sc12pmj"
+      },
+      {
+        "id": 1806140,
+        "image_id": "sc12pmk"
+      },
+      {
+        "id": 1806141,
+        "image_id": "sc12pml"
+      },
+      {
+        "id": 1806142,
+        "image_id": "sc12pmm"
+      }
+    ],
+    "slug": "neverness-to-everness",
+    "summary": "NTE: Neverness to Everness is a supernatural open-world RPG developed by Hotta Studio. The story begins in the city of Hethereau, where you play as its first \"unlicensed\" Anomaly Hunter. You'll join the crew at Eibon, a rundown antique shop that keeps the lights on by taking Anomaly commissions from anyone willing to pay. Alongside a diverse cast of extraordinary companions, you'll unravel urban mysteries, ride out adventures full of laughs and heartbreak, and write your own stories in the neon-lit streets.",
+    "total_rating": 57.05209567070085
+  }
+]

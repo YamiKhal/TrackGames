@@ -1,0 +1,42 @@
+[
+  {
+    "id": 52189,
+    "cover": {
+      "id": 456072,
+      "image_id": "co9rwo"
+    },
+    "first_release_date": 1795046400,
+    "name": "Grand Theft Auto VI",
+    "slug": "grand-theft-auto-vi"
+  },
+  {
+    "id": 92550,
+    "cover": {
+      "id": 528997,
+      "image_id": "cobc6d"
+    },
+    "first_release_date": 1803340800,
+    "name": "Fable",
+    "slug": "fable--1"
+  },
+  {
+    "id": 168667,
+    "cover": {
+      "id": 520508,
+      "image_id": "cob5mk"
+    },
+    "first_release_date": 1789430400,
+    "name": "Marvel's Wolverine",
+    "slug": "marvels-wolverine"
+  },
+  {
+    "id": 282831,
+    "cover": {
+      "id": 523534,
+      "image_id": "cob7ym"
+    },
+    "first_release_date": 1788393600,
+    "name": "The Blood of Dawnwalker",
+    "slug": "the-blood-of-dawnwalker"
+  }
+]

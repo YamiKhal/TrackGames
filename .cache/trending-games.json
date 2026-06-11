@@ -1,0 +1,188 @@
+[
+  {
+    "id": 141114,
+    "cover": {
+      "id": 498347,
+      "image_id": "coaoiz"
+    },
+    "name": "007 First Light",
+    "slug": "007-first-light",
+    "total_rating": 80.8278246940196
+  },
+  {
+    "id": 308535,
+    "cover": {
+      "id": 559609,
+      "image_id": "cobzsp"
+    },
+    "name": "Neverness to Everness",
+    "slug": "neverness-to-everness",
+    "total_rating": 57.05209567070085
+  },
+  {
+    "id": 403674,
+    "cover": {
+      "id": 566593,
+      "image_id": "coc56p"
+    },
+    "name": "Don’t Sleep with the Fishes",
+    "slug": "dont-sleep-with-the-fishes"
+  },
+  {
+    "id": 348330,
+    "cover": {
+      "id": 528971,
+      "image_id": "cobc5n"
+    },
+    "name": "Forza Horizon 6",
+    "slug": "forza-horizon-6",
+    "total_rating": 85.07505147055362
+  },
+  {
+    "id": 361855,
+    "cover": {
+      "id": 480825,
+      "image_id": "coab09"
+    },
+    "name": "LEGO Batman: Legacy of the Dark Knight",
+    "slug": "lego-batman-legacy-of-the-dark-knight",
+    "total_rating": 85.69062075713208
+  },
+  {
+    "id": 134612,
+    "cover": {
+      "id": 556845,
+      "image_id": "cobxnx"
+    },
+    "name": "Pragmata",
+    "slug": "pragmata",
+    "total_rating": 87.53693526105809
+  },
+  {
+    "id": 337036,
+    "cover": {
+      "id": 531013,
+      "image_id": "cobdqd"
+    },
+    "name": "Tomodachi Life: Living the Dream",
+    "slug": "tomodachi-life-living-the-dream",
+    "total_rating": 80.56514263232265
+  },
+  {
+    "id": 393398,
+    "cover": {
+      "id": 545399,
+      "image_id": "cobotz"
+    },
+    "name": "Librarian: Tidy Up the Arcane Library!",
+    "slug": "librarian-tidy-up-the-arcane-library",
+    "total_rating": 81.3393143223326
+  },
+  {
+    "id": 320140,
+    "cover": {
+      "id": 417780,
+      "image_id": "co8yd0"
+    },
+    "name": "Subnautica 2",
+    "slug": "subnautica-2",
+    "total_rating": 90.06834484499434
+  },
+  {
+    "id": 403497,
+    "cover": {
+      "id": 566449,
+      "image_id": "coc52p"
+    },
+    "name": "Fortune Mill",
+    "slug": "fortune-mill"
+  },
+  {
+    "id": 189781,
+    "cover": {
+      "id": 207401,
+      "image_id": "co4g15"
+    },
+    "name": "Mina the Hollower",
+    "slug": "mina-the-hollower",
+    "total_rating": 90.57248516423194
+  },
+  {
+    "id": 361890,
+    "cover": {
+      "id": 565449,
+      "image_id": "coc4ax"
+    },
+    "name": "World of Tanks: Heat",
+    "slug": "world-of-tanks-heat",
+    "total_rating": 78
+  },
+  {
+    "id": 399673,
+    "cover": {
+      "id": 559237,
+      "image_id": "cobzid"
+    },
+    "name": "The Amazing Digital Dating Sim",
+    "slug": "the-amazing-digital-dating-sim",
+    "total_rating": 100
+  },
+  {
+    "id": 237780,
+    "cover": {
+      "id": 411162,
+      "image_id": "co8t96"
+    },
+    "name": "Directive 8020",
+    "slug": "directive-8020",
+    "total_rating": 75.5873972042285
+  },
+  {
+    "id": 152244,
+    "cover": {
+      "id": 152619,
+      "image_id": "co39rf"
+    },
+    "name": "Replaced",
+    "slug": "replaced",
+    "total_rating": 84.74426659868601
+  },
+  {
+    "id": 305157,
+    "cover": {
+      "id": 563634,
+      "image_id": "coc2wi"
+    },
+    "name": "Mixtape",
+    "slug": "mixtape--1",
+    "total_rating": 73.3222256969037
+  },
+  {
+    "id": 404059,
+    "cover": {
+      "id": 567317,
+      "image_id": "coc5qt"
+    },
+    "name": "My Isekai Hotel",
+    "slug": "my-isekai-hotel"
+  },
+  {
+    "id": 249324,
+    "cover": {
+      "id": 479985,
+      "image_id": "coaacx"
+    },
+    "name": "Mouse: P.I. For Hire",
+    "slug": "mouse-pi-for-hire--1",
+    "total_rating": 78.09738769882549
+  },
+  {
+    "id": 404575,
+    "cover": {
+      "id": 568610,
+      "image_id": "coc6qq"
+    },
+    "name": "Baby Bananza Races",
+    "slug": "baby-bananza-races"
+  }
+]

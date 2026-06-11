@@ -1,26 +1,165 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ===== Fonts ===== */
+  --font-body: var(--font-inter);
+  --font-heading: var(--font-space-grotesk);
+  --font-weight-body: 400;
+  --font-weight-button: 500;
+  --font-weight-heading: 600;
+  --font-weight-stats: 600;
+  --font-weight-logo: 700;
+
+  /* ===== Backgrounds ===== */
+  --bg: #F4F1EA;
+  --bg-secondary: #E8E2D6;
+  --surface: #FFFFFF;
+  --surface-hover: #F0EAF8;
+  --overlay: rgba(25, 27, 35, 0.45);
+
+  /* ===== Text ===== */
+  --text: #191B23;
+  --text-muted: #555160;
+  --text-faint: #7A7485;
+  --text-inverse: #F4F0FF;
+
+  /* ===== Accent ===== */
+  --primary: #7B5CDB;
+  --primary-hover: #684AC8;
+  --secondary: #B8842F;
+  --secondary-hover: #9E6F24;
+
+  /* ===== Structure ===== */
+  --border: #D3CADF;
+  --border-strong: #8F7BCA;
+
+  /* ===== States ===== */
+  --success: #2F9E64;
+  --warning: #B7791F;
+  --error: #C94A4A;
+
+  /* ===== Effects ===== */
+  --shadow: 0 24px 70px rgba(25, 27, 35, 0.16);
+
+  --games-header-bg: url('/lucid-games-bg.webp');
+}
+
+:root.dark {
+  /* ===== Backgrounds ===== */
+  --bg: #191B23;
+  --bg-secondary: #232633;
+  --surface: #2D3040;
+  --surface-hover: #383C50;
+  --overlay: rgba(8, 9, 13, 0.72);
+
+  /* ===== Text ===== */
+  --text: #F4F0FF;
+  --text-muted: #B9B5C9;
+  --text-faint: #858195;
+  --text-inverse: #141018;
+
+  /* ===== Accent ===== */
+  --primary: #9A7BFF;
+  --primary-hover: #B39DFF;
+  --secondary: #D6A85C;
+  --secondary-hover: #E7BD73;
+
+  /* ===== Structure ===== */
+  --border: #44485C;
+  --border-strong: #8F7BCA;
+
+  /* ===== States ===== */
+  --success: #55C98A;
+  --warning: #E7B85F;
+  --error: #E47777;
+
+  /* ===== Effects ===== */
+  --shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
+
+  --games-header-bg: url('/lucid-games-bg.webp');
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Backgrounds */
+  --color-bg: var(--bg);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-overlay: var(--overlay);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Text */
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-text-faint: var(--text-faint);
+  --color-text-inverse: var(--text-inverse);
+
+  /* Accent */
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-secondary: var(--secondary);
+  --color-secondary-hover: var(--secondary-hover);
+
+  /* Structure */
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+
+  /* States */
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+
+  /* Effects */
+  --shadow-main: var(--shadow);
+
+  /* Fonts */
+  --font-body: var(--font-manrope);
+  --font-heading: var(--font-inter);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-manrope), sans-serif;
+  font-weight: 400;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 700;
+}
+
+@keyframes feature-image-in {
+  from {
+    opacity: 0;
+    transform: scale(1.015);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes auth-mode-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-auth-mode-in {
+  animation: auth-mode-in 180ms ease-out;
+}
+
+@utility no-scrollbar {
+  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
 }
