@@ -7,6 +7,7 @@ import type { User } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import AvatarPreview from "../user/AvatarView";
 
 type UserMenuProps = {
     user: User;
@@ -40,14 +41,6 @@ export function UserMenu({ user }: UserMenuProps) {
         };
     }, [isOpen]);
 
-    const avatar = user.image ? (
-        <Image src={user.image} alt={user.name ?? ""} className="rounded-full object-cover" width={40} height={40} />
-    ) : (
-        <span className="grid size-10 place-items-center rounded-full bg-surface text-text-muted">
-            <UserIcon size={22} aria-hidden="true" />
-        </span>
-    );
-
     return (
         <div ref={menuRef} className="relative">
             <button
@@ -58,10 +51,9 @@ export function UserMenu({ user }: UserMenuProps) {
                 aria-expanded={isOpen}
                 aria-controls="user-menu"
             >
-                {avatar}
+                <AvatarPreview image={user.image} size={8} priority alt={`${user.name ?? "user"} profile image`} />
                 {isOpen ? <X size={18} className="md:hidden" aria-hidden="true" /> : <Menu size={18} className="md:hidden" aria-hidden="true" />}
             </button>
-
             <button
                 type="button"
                 aria-label="Close user menu"
@@ -77,7 +69,7 @@ export function UserMenu({ user }: UserMenuProps) {
                     : "pointer-events-none translate-x-full opacity-0 md:translate-x-0 md:-translate-y-1 md:scale-95"}`}
             >
                 <div className="flex items-center justify-between border-b border-border p-4 md:hidden">
-                    {avatar}
+                    <AvatarPreview image={user.image} size={12} priority alt={`${user.name ?? "user"} profile image`} />
                     <div className="min-w-0">
                         <p className="truncate font-bold text-text">{user.name ?? "Signed in"}</p>
                     </div>
@@ -92,6 +84,7 @@ export function UserMenu({ user }: UserMenuProps) {
                 </div>
 
                 <div className="grid grid-cols-2 gap-2 border-b border-border p-3 md:hidden">
+
                     <button
                         type="button"
                         className="flex h-10 cursor-pointer items-center justify-center gap-2 rounded border border-border bg-bg font-bold text-text-muted transition-colors hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
@@ -102,6 +95,13 @@ export function UserMenu({ user }: UserMenuProps) {
                 </div>
 
                 <div className="flex flex-1 flex-col p-3 md:p-0">
+                    <div className="p-1 bg-surface text-md text-text font-bold rounded text-center pl-3 pr-3 mb-2 flex flex-row justify-between">
+                        <p>
+                        </p>
+                        <p>
+                            {user.name}
+                        </p>
+                    </div>
                     <Link
                         role="menuitem"
                         tabIndex={isOpen ? undefined : -1}
@@ -115,12 +115,12 @@ export function UserMenu({ user }: UserMenuProps) {
                     <Link
                         role="menuitem"
                         tabIndex={isOpen ? undefined : -1}
-                        href="/account"
+                        href={`/u/${encodeURIComponent(user.name ?? "who")}`}
                         onClick={() => setIsOpen(false)}
                         className="flex items-center gap-3 rounded px-3 py-3 font-medium text-text-muted transition-colors hover:bg-primary hover:text-text focus:bg-primary focus:text-text focus:outline-none md:py-2.5"
                     >
                         <UserIcon size={17} aria-hidden="true" />
-                        Account
+                        Profile
                     </Link>
 
                     <form action={logout} className="mt-auto border-t border-border pt-2 md:mt-1 md:pt-1">

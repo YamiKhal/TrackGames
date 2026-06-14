@@ -2,14 +2,14 @@
 
 import Image from "next/image";
 import { useCallback, useRef } from "react";
-import { DisplayGame } from "@/lib/types";
-import { ImageIdToURL } from "@/lib/util/IGDB";
-import { rippleEffect } from "@/lib/util/Effects";
+import { Game } from "@/lib/types";
+import { ImageIdToURL } from "@/lib/igdb/util";
+import { rippleEffect } from "@/lib/util/effects";
 import Link from "next/link";
 
-export default function GameCard({ game, size = 140, effect, hover, slugged = false }: { game: DisplayGame; size?: number | "full"; effect?: "ripple", hover?: "name", slugged?: boolean }) {
+export default function GameCard({ game, size = 140, effect, hover, slugged = false }: { game: Game; size?: number | "full"; effect?: "ripple", hover?: "name", slugged?: boolean }) {
     const cardRef = useRef<HTMLDivElement>(null);
-    const src = ImageIdToURL(game.cover?.image_id);
+    const src = ImageIdToURL(game.cover);
     const isFullSize = size === "full";
     const height = isFullSize ? "100%" : Math.round(size * 1.4);
     const imageSizes = isFullSize ? "100vw" : `${size}px`;

@@ -5,7 +5,7 @@ import { auth, signIn, signOut } from "../auth";
 import { AuthError } from "next-auth";
 import { redirect } from "next/navigation";
 import db from "../db";
-import { hashPassword } from "../util/Password";
+import { hashPassword } from "../util/password";
 import { Prisma } from "../generated/prisma/client";
 
 const SIGN_IN_REDIRECT = "/";

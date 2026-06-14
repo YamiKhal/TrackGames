@@ -1,10 +1,10 @@
-import { DisplayGame } from "@/lib/types";
+import { Game, RawGame } from "@/lib/types";
 import GameCard from "./GameCard";
 import { Star } from "lucide-react";
 
-export default function GameStatInfoCard({game}: {game: DisplayGame}) {
-    const releaseDate = game.first_release_date
-        ? new Date(game.first_release_date * 1000).toISOString().slice(0, 10)
+export default function GameStatInfoCard({game}: {game: Game}) {
+    const releaseDate = game.releaseDate
+        ? game.releaseDate.toISOString().slice(0, 10)
         : null;
 
     return (
@@ -16,7 +16,7 @@ export default function GameStatInfoCard({game}: {game: DisplayGame}) {
                 <p className="truncate font-body text-base font-medium" title={game.name}>{game.name}</p>
                 <p className="flex min-w-0 flex-row items-center gap-2 truncate text-center font-body text-sm font-bold text-text-muted">
                     {
-                        releaseDate ? <span>{releaseDate}</span> : <span>Avg. {Math.floor(game.total_rating!)} <Star size={14} /></span>
+                        releaseDate ? <span>{releaseDate}</span> : <span>Avg. {Math.floor(game.totalRating!)} <Star size={14} /></span>
                     }
                 </p>
             </div>

@@ -7,7 +7,7 @@
     },
     "name": "007 First Light",
     "slug": "007-first-light",
-    "total_rating": 80.8278246940196
+    "total_rating": 80.84431860952748
   },
   {
     "id": 308535,
@@ -17,13 +17,13 @@
     },
     "name": "Neverness to Everness",
     "slug": "neverness-to-everness",
-    "total_rating": 57.05209567070085
+    "total_rating": 57.11799609353869
   },
   {
     "id": 403674,
     "cover": {
-      "id": 566593,
-      "image_id": "coc56p"
+      "id": 571298,
+      "image_id": "coc8te"
     },
     "name": "Don’t Sleep with the Fishes",
     "slug": "dont-sleep-with-the-fishes"
@@ -36,7 +36,7 @@
     },
     "name": "Forza Horizon 6",
     "slug": "forza-horizon-6",
-    "total_rating": 85.07505147055362
+    "total_rating": 85.07491337736717
   },
   {
     "id": 361855,
@@ -46,7 +46,17 @@
     },
     "name": "LEGO Batman: Legacy of the Dark Knight",
     "slug": "lego-batman-legacy-of-the-dark-knight",
-    "total_rating": 85.69062075713208
+    "total_rating": 86.97401726231965
+  },
+  {
+    "id": 393398,
+    "cover": {
+      "id": 545399,
+      "image_id": "cobotz"
+    },
+    "name": "Librarian: Tidy Up the Arcane Library!",
+    "slug": "librarian-tidy-up-the-arcane-library",
+    "total_rating": 83.68841888057776
   },
   {
     "id": 134612,
@@ -56,7 +66,16 @@
     },
     "name": "Pragmata",
     "slug": "pragmata",
-    "total_rating": 87.53693526105809
+    "total_rating": 86.87346583622282
+  },
+  {
+    "id": 405028,
+    "cover": {
+      "id": 569403,
+      "image_id": "coc7cr"
+    },
+    "name": "Meccha Chameleon",
+    "slug": "meccha-chameleon--1"
   },
   {
     "id": 337036,
@@ -69,26 +88,6 @@
     "total_rating": 80.56514263232265
   },
   {
-    "id": 393398,
-    "cover": {
-      "id": 545399,
-      "image_id": "cobotz"
-    },
-    "name": "Librarian: Tidy Up the Arcane Library!",
-    "slug": "librarian-tidy-up-the-arcane-library",
-    "total_rating": 81.3393143223326
-  },
-  {
-    "id": 320140,
-    "cover": {
-      "id": 417780,
-      "image_id": "co8yd0"
-    },
-    "name": "Subnautica 2",
-    "slug": "subnautica-2",
-    "total_rating": 90.06834484499434
-  },
-  {
     "id": 403497,
     "cover": {
       "id": 566449,
@@ -98,14 +97,14 @@
     "slug": "fortune-mill"
   },
   {
-    "id": 189781,
+    "id": 320140,
     "cover": {
-      "id": 207401,
-      "image_id": "co4g15"
+      "id": 417780,
+      "image_id": "co8yd0"
     },
-    "name": "Mina the Hollower",
-    "slug": "mina-the-hollower",
-    "total_rating": 90.57248516423194
+    "name": "Subnautica 2",
+    "slug": "subnautica-2",
+    "total_rating": 90.05856888383866
   },
   {
     "id": 361890,
@@ -118,6 +117,16 @@
     "total_rating": 78
   },
   {
+    "id": 189781,
+    "cover": {
+      "id": 207401,
+      "image_id": "co4g15"
+    },
+    "name": "Mina the Hollower",
+    "slug": "mina-the-hollower",
+    "total_rating": 88.20156446458387
+  },
+  {
     "id": 399673,
     "cover": {
       "id": 559237,
@@ -128,6 +137,24 @@
     "total_rating": 100
   },
   {
+    "id": 405795,
+    "cover": {
+      "id": 570210,
+      "image_id": "coc7z6"
+    },
+    "name": "Aux Court",
+    "slug": "aux-court"
+  },
+  {
+    "id": 403017,
+    "cover": {
+      "id": 570069,
+      "image_id": "coc7v9"
+    },
+    "name": "Road to Empress II",
+    "slug": "road-to-empress-ii"
+  },
+  {
     "id": 237780,
     "cover": {
       "id": 411162,
@@ -135,17 +162,7 @@
     },
     "name": "Directive 8020",
     "slug": "directive-8020",
-    "total_rating": 75.5873972042285
-  },
-  {
-    "id": 152244,
-    "cover": {
-      "id": 152619,
-      "image_id": "co39rf"
-    },
-    "name": "Replaced",
-    "slug": "replaced",
-    "total_rating": 84.74426659868601
+    "total_rating": 75.56534953765959
   },
   {
     "id": 305157,
@@ -158,31 +175,13 @@
     "total_rating": 73.3222256969037
   },
   {
-    "id": 404059,
+    "id": 389109,
     "cover": {
-      "id": 567317,
-      "image_id": "coc5qt"
+      "id": 535728,
+      "image_id": "cobhdc"
     },
-    "name": "My Isekai Hotel",
-    "slug": "my-isekai-hotel"
-  },
-  {
-    "id": 249324,
-    "cover": {
-      "id": 479985,
-      "image_id": "coaacx"
-    },
-    "name": "Mouse: P.I. For Hire",
-    "slug": "mouse-pi-for-hire--1",
-    "total_rating": 78.09738769882549
-  },
-  {
-    "id": 404575,
-    "cover": {
-      "id": 568610,
-      "image_id": "coc6qq"
-    },
-    "name": "Baby Bananza Races",
-    "slug": "baby-bananza-races"
+    "name": "Terrinoth: Heroes of Descent",
+    "slug": "terrinoth-heroes-of-descent",
+    "total_rating": 75
   }
 ]

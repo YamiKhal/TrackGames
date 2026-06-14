@@ -1,7 +1,7 @@
-import { DisplayGame } from "@/lib/types";
+import { Game } from "@/lib/types";
 import GameCard from "./GameCard";
 
-export default function GamePlaylistDisplay({ game, rank }: { game: DisplayGame; rank: number }) {
+export default function GamePlaylistDisplay({ game, rank }: { game: Game; rank: number }) {
     return (
         <div className="w-full max-w-82 flex flex-col">
             <div className="relative w-full aspect-80/49 [--stack-offset:18.75%] [--stack-width:calc(100%-var(--stack-offset)*3)]">

@@ -3,13 +3,18 @@ import RelatedGamesTabs from "@/app/components/game/RelatedGamesTabs";
 import Container from "@/app/components/layout/Container";
 import MediaGallary from "@/app/components/layout/MediaGallary";
 import { PrimaryButton } from "@/app/components/ui/Buttons";
-import { fetchCompanyById } from "@/lib/igdb/companies";
-import { fetchDisplayGames, fetchGameDataBySlug } from "@/lib/igdb/games";
-import { DisplayGame } from "@/lib/types";
-import { ImageIdToURL } from "@/lib/util/IGDB";
+import { Company, Game, Genre, Platform } from "@/lib/types";
+import { ImageIdToURL } from "@/lib/igdb/util";
+import * as normalize from "@/lib/util/normalize";
 import { Monitor, ToggleRight, Gamepad2, GamepadDirectional, TabletSmartphone, Astroid, Play, Library, Apple, Clock, Flag, BadgeCheck } from "lucide-react";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { getGame, getGameBySlug } from "@/lib/data/games";
+import { getCompany } from "@/lib/data/companies";
+import { getFranchise } from "@/lib/data/franchises";
+import { getCollection } from "@/lib/data/colllections";
+import { getGenre } from "@/lib/data/genre";
+import { getPlatform } from "@/lib/data/platforms";
 
 function platformIcon(name: string) {
     const lower = name.toLowerCase();
@@ -24,91 +29,53 @@ function platformIcon(name: string) {
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
-    const [game] = await Promise.all([fetchGameDataBySlug(slug)]);
-    let backdrop;
-    let developer, publisher;
-    let franchiesGames: DisplayGame[] = [];
-    let collectionsGames: DisplayGame[] = [];
-    let similarGames: DisplayGame[] = [];
+    const [game] = await Promise.all([getGameBySlug(slug)]);
+    if (!game) redirect("/not-found");
 
-    if (!game) {
-        redirect("/not-found");
-    }
+    let backdrop;
+    let developers: Company[];
+    let publishers: Company[];
+    let franchiseGames: Game[] = [];
+    let collectionsGames: Game[] = [];
+    let similarGames: Game[] = [];
+    let genres: Genre[] = [];
+    let platforms: Platform[] = [];
+
+    const developerIds = game.developers ? game.developers.map(id => id) : [];
+    const publisherIds = game.publishers ? game.publishers.filter(id => !developerIds.some(v => v === id)) : [];
+    const franchises = game.franchises ? await getFranchise(game.franchises) : [];
+    const collections = game.collections ? await getCollection(game.collections) : [];
+
+    developers = await getCompany(Array.from(developerIds.values()));
+    publishers = await getCompany(Array.from(publisherIds.values()));
+
+    franchiseGames = franchises.length ? await getGame(franchises[0].games) : [];
+    collectionsGames = collections.length ? await getGame(collections[0].games) : [];
+    similarGames = (game.similarGames && game.similarGames.length) ? await getGame(game.similarGames) : [];
+
+    genres = (game.genres && game.genres.length) ? await getGenre(game.genres) : [];
+    platforms = (game.platforms && game.platforms.length) ? await getPlatform(game.platforms) : [];
+
+    console.log(developers)
+
 
     if (game.screenshots && game.screenshots.length > 0) {
-        backdrop = ImageIdToURL(game.screenshots![0].image_id, "1080");
-    }
-
-    if (game.involved_companies) {
-        const developerID = game.involved_companies.find(c => c.developer)?.company;
-        const publisherID = game.involved_companies.find(c => c.publisher)?.company;
-
-        if (developerID === publisherID) {
-            const company = await fetchCompanyById(developerID!);
-            developer = company;
-            publisher = null;
-        } else {
-            if (developerID) {
-                developer = await fetchCompanyById(developerID);
-            }
-            if (publisherID) {
-                publisher = await fetchCompanyById(publisherID);
-            }
-        }
-    }
-
-    if (game.franchises) {
-        const franchiseIDs = game.franchises.map(f => f.games).join(",");
-
-        const data = await fetchDisplayGames(null, `
-            where id = (${franchiseIDs})
-            & id != ${game.id};
-        `);
-        franchiesGames = data;
-    }
-
-    if (game.collections) {
-        const collectionIDs = game.collections.map(c => c.games).join(",");
-
-        if (game.franchises) {
-            if (!franchiesGames.map(g => g.id).some(id => collectionIDs.includes(id!.toString()))) {
-                const data = await fetchDisplayGames(null, `
-                where id = (${collectionIDs})
-                & id != ${game.id};
-            `);
-                collectionsGames = data;
-            }
-        } else {
-            const data = await fetchDisplayGames(null, `
-                where id = (${collectionIDs})
-                & id != ${game.id};
-            `);
-            collectionsGames = data;
-        }
-    }
-
-    if (game.similar_games) {
-        const similarIDs = game.similar_games.join(",");
-        const data = await fetchDisplayGames(null, `
-            where id = (${similarIDs})
-            & id != ${game.id};
-        `);
-        similarGames = data;
+        backdrop = ImageIdToURL(game.screenshots![0], "1080");
     }
 
     const media = [
-        ...(game.videos?.[0]?.video_id
-            ? [{ type: "video" as const, id: game.videos[0].video_id }]
+        ...(game.videos?.[0]
+            ? [{ type: "video" as const, id: game.videos[0] }]
             : []),
         ...(game.screenshots
-            ?.filter((shot): shot is { image_id: string } => Boolean(shot.image_id))
+            ?.filter((shot): shot is string => Boolean(shot))
             .map((shot) => ({
                 type: "image" as const,
-                id: shot.image_id,
+                id: shot,
             })) || []),
     ];
-    const averageRating = typeof game.total_rating === "number"
-        ? Math.max(0, Math.min(100, game.total_rating))
+    const averageRating = typeof game.totalRating === "number"
+        ? normalize.clamp(game.totalRating, 0, 100)
         : null;
     const averageRatingColor = averageRating === null
         ? "var(--border)"
@@ -135,8 +102,32 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                         <div className="flex min-w-0 flex-col justify-between">
                             <div className="min-w-0">
                                 <h1 className="max-w-full wrap-break-word text-4xl font-bold">{game.name}</h1>
-                                {developer && <p className="mt-2 max-w-full truncate font-body text-lg text-text-muted">Developer: <span className="font-bold">{developer.name}</span></p>}
-                                {publisher && <p className="max-w-full truncate font-body text-md text-text-muted">Publisher: <span className="font-bold">{publisher.name}</span></p>}
+                                {developers.length > 0 &&
+                                    <p className="mt-2 max-w-full truncate font-body text-lg text-text-muted">Developer:
+                                        <span> </span>
+                                        {
+                                            developers.map((dev, index) => (
+                                                <span key={dev.id ?? index} className="font-bold">{dev.name}{
+                                                    index < developers.length - 1 &&
+                                                    <span>, </span>
+                                                }</span>
+                                            ))
+                                        }
+                                    </p>
+                                }
+                                {publishers.length > 0 &&
+                                    <p className="mt-2 max-w-full truncate font-body text-md text-text-muted">Publisher:
+                                        <span> </span>
+                                        {
+                                            publishers.map((pub, index) => (
+                                                <span key={pub.id ?? index} className="font-bold">{pub.name}{
+                                                    index < publishers.length - 1 &&
+                                                    <span>, </span>
+                                                }</span>
+                                            ))
+                                        }
+                                    </p>
+                                }
                             </div>
                             <div className="flex flex-row">
                                 <PrimaryButton>Add to Library</PrimaryButton>
@@ -171,7 +162,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                             <div className="grid w-full min-w-0 grid-cols-[auto_minmax(0,1fr)] items-start gap-x-10 gap-y-5 border-b border-border">
                                 <p className="font-body text-md">Genres</p>
                                 <div className="font-body text-md flex min-w-0 flex-row flex-wrap gap-x-2 gap-y-1">
-                                    {game.genres?.length ? game.genres.map((genre, index) => (
+                                    {genres.length ? genres.map((genre, index) => (
                                         <span key={genre.id ?? genre.name} className="flex min-w-0 flex-row items-center gap-1">
                                             <span className="wrap-break-words hover:text-primary cursor-pointer transition-colors">{genre.name}</span>
                                             <p className="select-none">{index < game.genres!.length - 1 ? " • " : ""}</p>
@@ -181,7 +172,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
                                 <p className="font-body text-md">Platforms</p>
                                 <div className="font-body text-md flex min-w-0 flex-row flex-wrap gap-x-2 gap-y-1">
-                                    {game.platforms?.length ? game.platforms.map((platform, index) => (
+                                    {platforms?.length ? platforms.map((platform, index) => (
                                         <span key={platform.id ?? platform.name} className="flex min-w-0 flex-row items-center gap-1">
                                             <span className="flex min-w-0 items-center gap-2 wrap-break-words hover:text-primary cursor-pointer transition-colors">{platformIcon(platform.name)}{platform.name}</span>
                                             <p className="select-none">{index < game.platforms!.length - 1 ? " • " : ""}</p>
@@ -216,7 +207,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                         {/* RELEASE DATE */}
                         <section className="bg-bg-secondary p-4 rounded flex min-w-0 flex-row gap-2 items-start justify-start">
                             <h2 className="text-md text-text ml-5 shrink-0">Released</h2>
-                            <p className="ml-auto min-w-0 pr-5 text-right text-md font-bold text-text-muted">{game.first_release_date ? new Date(game.first_release_date * 1000).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" }) : "N/A"}</p>
+                            <p className="ml-auto min-w-0 pr-5 text-right text-md font-bold text-text-muted">{game.releaseDate ? game.releaseDate.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" }) : "N/A"}</p>
                         </section>
 
                         {/* LIBRARY STATS */}
@@ -269,7 +260,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                             </div>
                         </section>
 
-                        
+
                     </div>
                 </Container>
             </section>
@@ -277,7 +268,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             {/* RELATED GAMES */}
             <section className="w-full mt-20 mb-10">
                 <Container>
-                    <RelatedGamesTabs franchiesGames={franchiesGames} seriesGames={collectionsGames} similarGames={similarGames} />
+                    <RelatedGamesTabs franchiesGames={franchiseGames} seriesGames={collectionsGames} similarGames={similarGames} />
                 </Container>
             </section>
         </div>

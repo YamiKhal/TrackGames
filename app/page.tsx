@@ -11,6 +11,7 @@ import Gallary from "./components/layout/Gallary";
 import GamePlaylistDisplay from "./components/game/GamePlaylistDispaly";
 import { Hero } from "./components/SVG";
 import GameStatInfoCard from "./components/game/GameStatInfoCard";
+import { formatRawGame } from "@/lib/igdb/util";
 
 export default async function Home() {
   const [trendingDataList, yearlyDataList, hiddenDataList, mostAnticipatedList, comingSoonList, recentReleasesList] = await Promise.all([
@@ -66,7 +67,7 @@ export default async function Home() {
             <HorizontalScroller className="rounded-md overflow-clip gap-5 mt-4 max-w-full">
               {
                 trendingDataList.map((game) => (
-                  <GameCard key={game.id} game={game} size={160} effect="ripple" hover="name" slugged={true} />
+                  <GameCard key={game.id} game={formatRawGame(game)} size={160} effect="ripple" hover="name" slugged={true} />
                 ))
               }
             </HorizontalScroller>
@@ -84,7 +85,7 @@ export default async function Home() {
             <Gallary mode="fade" autoRotate autoRotateMs={20000} idleMs={8000}>
               {
                 yearlyDataList.map((game) => (
-                  <GameFeature key={game.id} game={game} />
+                  <GameFeature key={game.id} game={formatRawGame(game)} />
                 ))
               }
             </Gallary>
@@ -100,10 +101,10 @@ export default async function Home() {
               Playlists
             </h1>
             <div className="flex flex-row justify-between items-center gap-5">
-              <GamePlaylistDisplay game={trendingDataList[0]} rank={1} />
-              <GamePlaylistDisplay game={trendingDataList[1]} rank={2} />
-              <GamePlaylistDisplay game={trendingDataList[2]} rank={3} />
-              <GamePlaylistDisplay game={trendingDataList[3]} rank={4} />
+              <GamePlaylistDisplay game={formatRawGame(trendingDataList[0])} rank={1} />
+              <GamePlaylistDisplay game={formatRawGame(trendingDataList[1])} rank={2} />
+              <GamePlaylistDisplay game={formatRawGame(trendingDataList[2])} rank={3} />
+              <GamePlaylistDisplay game={formatRawGame(trendingDataList[3])} rank={4} />
             </div>
           </div>
         </Container>
@@ -119,7 +120,7 @@ export default async function Home() {
               </h1>
               {
                 recentReleasesList.slice(0, 4).map((game) => (
-                  <GameStatInfoCard key={game.id} game={game} />
+                  <GameStatInfoCard key={game.id} game={formatRawGame(game)} />
                 ))
               }
             </div>
@@ -129,7 +130,7 @@ export default async function Home() {
               </h1>
               {
                 comingSoonList.slice(0, 4).map((game) => (
-                  <GameStatInfoCard key={game.id} game={game} />
+                  <GameStatInfoCard key={game.id} game={formatRawGame(game)} />
                 ))
               }
             </div>
@@ -139,7 +140,7 @@ export default async function Home() {
               </h1>
               {
                 mostAnticipatedList.slice(0, 4).map((game) => (
-                  <GameStatInfoCard key={game.id} game={game} />
+                  <GameStatInfoCard key={game.id} game={formatRawGame(game)} />
                 ))
               }
             </div>
@@ -149,7 +150,7 @@ export default async function Home() {
               </h1>
               {
                 hiddenDataList.slice(0, 4).map((game) => (
-                  <GameStatInfoCard key={game.id} game={game} />
+                  <GameStatInfoCard key={game.id} game={formatRawGame(game)} />
                 ))
               }
             </div>

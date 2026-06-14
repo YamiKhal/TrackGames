@@ -14,7 +14,7 @@ export type TrendingScore = {
     weightedScore: number;
 };
 
-export type DisplayGame = {
+export type RawGame = {
     id?: number;
     slug?: string;
     name?: string;
@@ -32,16 +32,115 @@ export type DisplayGame = {
     similar_games?: number[];
 }
 
+export type RawCollection = {
+    id?: number;
+    name?: string;
+    slug?: string;
+    games?: number[];
+}
+
+export type RawFranchise = {
+    id?: number;
+    name?: string;
+    slug?: string;
+    games?: number[];
+}
+
+export type RawGenre = {
+    id?: number;
+    name?: string;
+    slug?: string;
+}
+
+export type RawPlatform = {
+    id?: number;
+    name?: string;
+    slug?: string;
+}
+
+export type RawCompany = {
+    id?: number;
+    slug?: string;
+    logo?: { image_id: string };
+    name?: string;
+    description?: string;
+    developed?: number[];
+    published?: number[];
+}
+
+export type Game = {
+    id?: number;
+    slug?: string;
+    name?: string;
+    summary?: string;
+    totalRating?: number;
+    releaseDate?: Date;
+    cover?: string;
+    screenshots?: string[];
+    videos?: string[]
+    platforms?: number[];
+    developers?: number[]; // involved_companies
+    publishers?: number[]; // involved_companies
+    genres?: number[];
+    franchises?: number[];
+    collections?: number[];
+    similarGames?: number[];
+}
+
+export type Collection = {
+    id: number;
+    name: string;
+    slug: string;
+    games: number[];
+}
+
+export type Franchise = {
+    id: number;
+    name: string;
+    slug: string;
+    games: number[];
+}
+
+export type Genre = {
+    id: number;
+    name: string;
+    slug: string;
+}
+
+export type Platform = {
+    id: number;
+    name: string;
+    slug: string;
+}
+
 export type Company = {
     id: number;
     slug: string;
-    start_date: number;
-    logo: string;
-    name: string;
-    description: string;
+    logo?: string;
+    name?: string;
+    description?: string;
     developed: number[];
     published: number[];
 }
+
+export type User = {
+    id: string;
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+    background?: string | null;
+    bio?: string | null;
+    profileColor?: string | null;
+    accentColor?: string | null;
+    privacy: string;
+    socials?: string | null;
+    preferences?: string | null;
+    widgets?: string | null;
+    hasPassword: boolean;
+    linkedProviders: string[];
+    createdAt: string;
+    updatedAt: string;
+};
 
 export type PublicUser = {
     id: string;
@@ -50,6 +149,8 @@ export type PublicUser = {
     image?: string;
     background?: string;
     bio?: string;
+    profileColor?: string | null;
+    accentColor?: string | null;
     socials?: string;
     widgets?: string;
 }

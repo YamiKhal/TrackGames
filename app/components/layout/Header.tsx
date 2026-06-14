@@ -5,10 +5,11 @@ import Link from "next/link";
 import ThemeSwitch from "../ui/ThemeSwitch";
 import { auth } from "@/lib/auth";
 import { UserMenu } from "../ui/UserMenu";
+import { getUser } from "@/lib/account/user";
 
 export default async function Header() {
     const session = await auth();
-    const user = session?.user;
+    const user = await getUser(session?.user);
 
     return (
         <header className="relative z-20 flex min-h-20 flex-row items-center justify-center border-b border-border bg-bg p-4 sm:p-5">

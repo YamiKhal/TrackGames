@@ -64,7 +64,7 @@
     ],
     "slug": "subnautica-2",
     "summary": "Subnautica 2 is an underwater survival adventure set on an all-new alien world, developed by Unknown Worlds. Play alone or with friends in 4-player co-op. Adapt to survive by building custom bases and crafting tools. Explore the unknown to uncover the mysteries hidden within the depths.",
-    "total_rating": 90.06834484499434
+    "total_rating": 90.05856888383866
   },
   {
     "id": 347668,
@@ -155,62 +155,7 @@
     ],
     "slug": "resident-evil-requiem",
     "summary": "Resident Evil Requiem is the ninth entry in the Resident Evil series. Experience terrifying survival horror with FBI analyst Grace Ashcroft, and dive into pulse-pounding action with legendary agent Leon S. Kennedy. Both of their journeys and unique gameplay styles intertwine into a heart-stopping, emotional experience that will chill you to your core.",
-    "total_rating": 90.0312855047879
-  },
-  {
-    "id": 134612,
-    "cover": {
-      "id": 556845,
-      "image_id": "cobxnx"
-    },
-    "name": "Pragmata",
-    "platforms": [
-      {
-        "id": 169,
-        "name": "Xbox Series X|S"
-      },
-      {
-        "id": 508,
-        "name": "Nintendo Switch 2"
-      },
-      {
-        "id": 6,
-        "name": "PC (Microsoft Windows)"
-      },
-      {
-        "id": 167,
-        "name": "PlayStation 5"
-      }
-    ],
-    "screenshots": [
-      {
-        "id": 388131,
-        "image_id": "sc8bhf"
-      },
-      {
-        "id": 388130,
-        "image_id": "sc8bhe"
-      },
-      {
-        "id": 388269,
-        "image_id": "sc8bl9"
-      },
-      {
-        "id": 388270,
-        "image_id": "sc8bla"
-      },
-      {
-        "id": 388272,
-        "image_id": "sc8blc"
-      },
-      {
-        "id": 388271,
-        "image_id": "sc8blb"
-      }
-    ],
-    "slug": "pragmata",
-    "summary": "Pragmata is a sci-fi action-adventure game set in the near future. The story follows Hugh and his android companion Diana as they navigate a Lunar research station. Gameplay incorporates action elements alongside mechanics involving interaction with systems within the environment.",
-    "total_rating": 87.53693526105809
+    "total_rating": 90.02911422420632
   },
   {
     "id": 361855,
@@ -265,7 +210,62 @@
     ],
     "slug": "lego-batman-legacy-of-the-dark-knight",
     "summary": "Rise as the Dark Knight and experience the essential Batman story in a bold, action-packed adventure with hard-hitting combat, an open-world Gotham City, and the signature LEGO charm that fans know and love.",
-    "total_rating": 85.69062075713208
+    "total_rating": 86.97401726231965
+  },
+  {
+    "id": 134612,
+    "cover": {
+      "id": 556845,
+      "image_id": "cobxnx"
+    },
+    "name": "Pragmata",
+    "platforms": [
+      {
+        "id": 169,
+        "name": "Xbox Series X|S"
+      },
+      {
+        "id": 508,
+        "name": "Nintendo Switch 2"
+      },
+      {
+        "id": 6,
+        "name": "PC (Microsoft Windows)"
+      },
+      {
+        "id": 167,
+        "name": "PlayStation 5"
+      }
+    ],
+    "screenshots": [
+      {
+        "id": 388131,
+        "image_id": "sc8bhf"
+      },
+      {
+        "id": 388130,
+        "image_id": "sc8bhe"
+      },
+      {
+        "id": 388269,
+        "image_id": "sc8bl9"
+      },
+      {
+        "id": 388270,
+        "image_id": "sc8bla"
+      },
+      {
+        "id": 388272,
+        "image_id": "sc8blc"
+      },
+      {
+        "id": 388271,
+        "image_id": "sc8blb"
+      }
+    ],
+    "slug": "pragmata",
+    "summary": "Pragmata is a sci-fi action-adventure game set in the near future. The story follows Hugh and his android companion Diana as they navigate a Lunar research station. Gameplay incorporates action elements alongside mechanics involving interaction with systems within the environment.",
+    "total_rating": 86.87346583622282
   },
   {
     "id": 125633,
@@ -419,7 +419,7 @@
     ],
     "slug": "forza-horizon-6",
     "summary": "Discover the breathtaking landscapes of Japan in over 550 real-world cars and become a racing Legend at the Horizon Festival. Start your journey as a tourist and explore a world full of hit music and Japanese culture. Build a Valley Estate, acquire awe-inspiring homes, and display your prized car collection in fully Customizable Garages. Cruise the roads with your friends and join Car Meets around Japan, unleash your imagination with EventLab and build together in Horizon CoLab.",
-    "total_rating": 85.07505147055362
+    "total_rating": 85.07491337736717
   },
   {
     "id": 152244,
@@ -675,7 +675,7 @@
     ],
     "slug": "reanimal",
     "summary": "The creators of Little Nightmares I & II have returned to take you on a darker, more terrifying journey than ever before. In this horror adventure game, a brother & sister go through hell to rescue their missing friends and escape the island that they used to call home.",
-    "total_rating": 80.96714049961264
+    "total_rating": 80.8802169973954
   },
   {
     "id": 141114,
@@ -738,7 +738,7 @@
     ],
     "slug": "007-first-light",
     "summary": "007 First Light is a thrilling espionage action-adventure game from IO Interactive. Players follow James Bond as a young, resourceful, and sometimes reckless recruit in MI6's training program and discover an origin story of the world's most famous spy.",
-    "total_rating": 80.8278246940196
+    "total_rating": 80.84431860952748
   },
   {
     "id": 250630,
@@ -833,7 +833,7 @@
     ],
     "slug": "marathon--2",
     "summary": "A PvP-focused extraction shooter set on the mysterious planet of Tau Ceti IV, Marathon will see players inhabit the bodies of Runners, cybernetic mercenaries who have been designed to survive the planet’s harsh environments and explore the lost colony that once inhabited Tau Ceti’s surface. Players will engage solo or in crews of three, searching for mysterious alien artifacts, as well as for valuable loot and new weapons and gear that they can add to their collection.",
-    "total_rating": 78.77969825618413
+    "total_rating": 78.76243306867019
   },
   {
     "id": 237780,
@@ -924,7 +924,7 @@
     ],
     "slug": "directive-8020",
     "summary": "Earth is dying and humanity is running out of time. 12 light years from home, Tau Ceti f offers a small sliver of hope. When the colony ship Cassiopeia crash lands on the planet, its crew soon realize they are far from being alone. In space, death takes many forms.",
-    "total_rating": 75.5873972042285
+    "total_rating": 75.56534953765959
   },
   {
     "id": 308535,
@@ -956,18 +956,6 @@
       }
     ],
     "screenshots": [
-      {
-        "id": 1354582,
-        "image_id": "sct17a"
-      },
-      {
-        "id": 1354583,
-        "image_id": "sct17b"
-      },
-      {
-        "id": 1354584,
-        "image_id": "sct17c"
-      },
       {
         "id": 1756135,
         "image_id": "sc11n1j"
@@ -1015,10 +1003,34 @@
       {
         "id": 1806142,
         "image_id": "sc12pmm"
+      },
+      {
+        "id": 1855835,
+        "image_id": "sc13ryz"
+      },
+      {
+        "id": 1855836,
+        "image_id": "sc13rz0"
+      },
+      {
+        "id": 1855837,
+        "image_id": "sc13rz1"
+      },
+      {
+        "id": 1855838,
+        "image_id": "sc13rz2"
+      },
+      {
+        "id": 1855839,
+        "image_id": "sc13rz3"
+      },
+      {
+        "id": 1855840,
+        "image_id": "sc13rz4"
       }
     ],
     "slug": "neverness-to-everness",
     "summary": "NTE: Neverness to Everness is a supernatural open-world RPG developed by Hotta Studio. The story begins in the city of Hethereau, where you play as its first \"unlicensed\" Anomaly Hunter. You'll join the crew at Eibon, a rundown antique shop that keeps the lights on by taking Anomaly commissions from anyone willing to pay. Alongside a diverse cast of extraordinary companions, you'll unravel urban mysteries, ride out adventures full of laughs and heartbreak, and write your own stories in the neon-lit streets.",
-    "total_rating": 57.05209567070085
+    "total_rating": 57.11799609353869
   }
 ]

@@ -4,7 +4,7 @@ import SubTabs from "@/app/components/layout/SubTabs";
 import { ReactNode, useState } from "react";
 import { useRouter } from 'next/navigation'
 
-export default function ProfileSwitcherPanel({user, children}: {user: string, children: ReactNode}) {
+export default function ProfileSwitcherPanel({user, defaultTab, children}: {user: string, defaultTab: string, children: ReactNode}) {
     const router = useRouter();
 
     const tabs = [
@@ -13,12 +13,12 @@ export default function ProfileSwitcherPanel({user, children}: {user: string, ch
         { id: "playlists" as const, label: "Playlists" },
     ];
 
-    function setTab(tab: any) {
+    function setTab(tab: string) {
         router.push(`/u/${user}?tab=${tab}`);
         setActiveTab(tab);
     }
 
-    const [activeTab, setActiveTab] = useState(tabs[0]?.id ?? "profile");
+    const [activeTab, setActiveTab] = useState(defaultTab);
 
     return (
         <SubTabs tabs={tabs} active={activeTab} setter={setTab}>

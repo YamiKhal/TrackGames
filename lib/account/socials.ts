@@ -1,17 +1,18 @@
 import { SOCIALPLATFORMS } from "../constants";
 import { LinkType } from "../enums";
 import { SocialLink } from "../types";
+import * as normalize from "../util/normalize";
 
 export function isSocialPlatform(value: string): boolean {
     return SOCIALPLATFORMS.some((platform) => platform.value === value);
 }
 
 export function getSocialPlatform(value: string, kind: LinkType) {
-    return SOCIALPLATFORMS.find((platform) => platform.value === value && platform.kind === kind) ?? SOCIALPLATFORMS.find((platform) => platform.value === value);
+    return normalize.byKeys(SOCIALPLATFORMS, { value, kind }) ?? normalize.byKey(SOCIALPLATFORMS, "value", value);
 }
 
 export function getSocialOption(id: string) {
-    return SOCIALPLATFORMS.find((platform) => platform.id === id);
+    return normalize.byKey(SOCIALPLATFORMS, "id", id);
 }
 
 export function getSocialPlatformLabel(value: string, kind: LinkType) {
@@ -20,6 +21,11 @@ export function getSocialPlatformLabel(value: string, kind: LinkType) {
 
 export function getSocialPlaceholder(value: string, kind: LinkType) {
     return getSocialPlatform(value, kind)?.placeholder ?? (kind === LinkType.COPY ? "username" : "https://...");
+}
+
+function normalizeSocialKind(value: unknown): LinkType {
+    if (value === LinkType.COPY) return LinkType.COPY;
+    return LinkType.LINK;
 }
 
 export function parseSocials(value: string | null | undefined): SocialLink[] {
@@ -36,7 +42,7 @@ export function parseSocials(value: string | null | undefined): SocialLink[] {
             return [{
                 id: typeof item.id === "string" ? item.id : `${Date.now()}-${index}`,
                 platform: item.platform,
-                kind: item.kind,
+                kind: normalizeSocialKind(item.kind),
                 value: item.value,
             }];
         });

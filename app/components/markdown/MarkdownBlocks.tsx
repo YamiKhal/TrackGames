@@ -1,7 +1,7 @@
-import { ALLOWEDHOSTS } from "@/lib/constants";
 import { MarkdownAlign } from "@/lib/enums";
 import { MarkdownBlock } from "@/lib/types";
-import { isSafeLinkHref, isSafeUrl, normalizeColorInput } from "@/lib/util/util";
+import * as normalize from "@/lib/util/normalize";
+import { isSafeLinkHref, isSafeUrl } from "@/lib/util/safety";
 import { Children, cloneElement, isValidElement, ReactNode } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeSanitize from "rehype-sanitize";
@@ -40,7 +40,7 @@ function renderColoredText(children: ReactNode): ReactNode {
         if (typeof child === "string") {
             return child.split(/(\[[^\]]+\]\{color=[^}]+\})/g).map((part, index) => {
                 const match = part.match(/^\[([^\]]+)\]\{color=([^}]+)\}$/);
-                const color = normalizeColorInput(match?.[2]);
+                const color = normalize.hexColor(match?.[2]);
 
                 if (!match || !color) return part;
 

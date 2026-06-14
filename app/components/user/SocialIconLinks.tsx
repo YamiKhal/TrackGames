@@ -1,11 +1,9 @@
 "use client";
 
-import { DiscordIcon, GithubIcon, TwitchIcon, XIcon, YoutubeIcon } from "@/app/components/SVG";
 import { getSocialPlatform } from "@/lib/account/socials";
 import { LinkType } from "@/lib/enums";
 import { SocialLink } from "@/lib/types";
-import { Check, Rss } from "lucide-react";
-import type { ElementType } from "react";
+import { Check } from "lucide-react";
 import { useState } from "react";
 
 export function SocialIconLinks({ socials }: { socials: SocialLink[] }) {

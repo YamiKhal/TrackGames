@@ -1,14 +1,14 @@
 "use server";
 
 import { Unix, UnixElapseMeasure } from "../util/Unix";
-import { DisplayGame, PopScoreEntry } from "../types";
+import { RawGame, PopScoreEntry } from "../types";
 import { fetchAPI } from "./IGDBAPI";
 
 
-export async function fetchDisplayGames(fields: string | null = null, body: string = ""): Promise<DisplayGame[]> {
+export async function fetchDisplayGames(fields: string | null = null, body: string = ""): Promise<RawGame[]> {
     fields = fields ? ", " + fields : "";
 
-    return await fetchAPI<DisplayGame[]>("games",
+    return await fetchAPI<RawGame[]>("games",
         `
         fields slug, name, cover.image_id, total_rating${fields};
         ${body}
@@ -17,7 +17,7 @@ export async function fetchDisplayGames(fields: string | null = null, body: stri
 }
 
 export async function fetchGameDataBySlug(slug: string) {
-    const data = await fetchAPI<DisplayGame[]>("games",
+    const data = await fetchAPI<RawGame[]>("games",
         `
         fields slug, name, summary, total_rating, first_release_date, cover.image_id, screenshots.image_id, videos.video_id, platforms.name, platforms.slug, involved_companies.company, involved_companies.developer, involved_companies.publisher, genres.name, genres.slug, franchises.name, franchises.slug, franchises.games, similar_games, collections.name, collections.slug, collections.games;
         where slug = ${JSON.stringify(slug)};

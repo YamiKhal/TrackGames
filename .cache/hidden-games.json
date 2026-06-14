@@ -10,16 +10,6 @@
     "total_rating": 73.29101733357055
   },
   {
-    "id": 389443,
-    "cover": {
-      "id": 537131,
-      "image_id": "cobigb"
-    },
-    "name": "God of War Sons of Sparta",
-    "slug": "god-of-war-sons-of-sparta",
-    "total_rating": 72.61211686473702
-  },
-  {
     "id": 272600,
     "cover": {
       "id": 555577,
@@ -38,5 +28,15 @@
     "name": "Going Medieval",
     "slug": "going-medieval",
     "total_rating": 67.35546784183265
+  },
+  {
+    "id": 278600,
+    "cover": {
+      "id": 533639,
+      "image_id": "cobfrb"
+    },
+    "name": "Unrailed 2: Back on Track",
+    "slug": "unrailed-2-back-on-track",
+    "total_rating": 65.04220596510973
   }
 ]

@@ -5,9 +5,7 @@ import { MarkdownBlocks } from "@/app/components/markdown/MarkdownBlocks";
 import { AlignCenter, AlignLeft, AlignRight, Bold, Eye, Image as ImageIcon, Italic, Link, Palette, Strikethrough, Table, Video, X } from "lucide-react";
 import { useRef, useState } from "react";
 import { parseMarkdownBlocks } from "@/lib/markdown";
-
-const inputClass = "bg-bg p-1 rounded mt-1 border border-border outline-none";
-const wideInputClass = `${inputClass} w-full`;
+import { Input, Textarea } from "@/app/components/ui/Inputs";
 
 type MarkdownWidgetEditorProps = {
     value: string;
@@ -121,7 +119,7 @@ export default function MarkdownWidgetEditor({ value, onChange }: MarkdownWidget
                 </GhostButton>
             </div>
 
-            <textarea ref={textareaRef} value={value} onChange={(event) => onChange(event.target.value)} className={`${wideInputClass} min-h-72 font-mono text-sm leading-6`} placeholder="# Markdown widget" />
+            <Textarea ref={textareaRef} value={value} onChange={(event) => onChange(event.target.value)} className="min-h-72 font-mono text-sm leading-6" placeholder="# Markdown widget" />
 
             <GhostButton type="button" onClick={() => setShowPreview((current) => !current)} className="px-3 py-2" title={showPreview ? "Hide preview" : "Show preview"} aria-label={showPreview ? "Hide preview" : "Show preview"}>
                 <Eye size={16} />
@@ -152,15 +150,15 @@ export default function MarkdownWidgetEditor({ value, onChange }: MarkdownWidget
                         <div className="flex flex-col gap-2">
                             {mediaModal === "image" ? (
                                 <>
-                                    <input value={imageSrc} onChange={(event) => setImageSrc(event.target.value)} className={wideInputClass} placeholder="https://images.unsplash.com/..." />
-                                    <input value={mediaAlt} onChange={(event) => setMediaAlt(event.target.value)} className={wideInputClass} placeholder="Alt text" />
+                                    <Input value={imageSrc} onChange={(event) => setImageSrc(event.target.value)} placeholder="https://images.unsplash.com/..." />
+                                    <Input value={mediaAlt} onChange={(event) => setMediaAlt(event.target.value)} placeholder="Alt text" />
                                 </>
                             ) : (
-                                <input value={videoSrc} onChange={(event) => setVideoSrc(event.target.value)} className={wideInputClass} placeholder="https://cdn.pixabay.com/video.mp4" />
+                                <Input value={videoSrc} onChange={(event) => setVideoSrc(event.target.value)} placeholder="https://cdn.pixabay.com/video.mp4" />
                             )}
                             <div className="grid grid-cols-2 gap-2">
-                                <input value={mediaWidth} onChange={(event) => setMediaWidth(event.target.value)} className={wideInputClass} placeholder="Width" inputMode="numeric" />
-                                <input value={mediaHeight} onChange={(event) => setMediaHeight(event.target.value)} className={wideInputClass} placeholder="Height" inputMode="numeric" />
+                                <Input value={mediaWidth} onChange={(event) => setMediaWidth(event.target.value)} placeholder="Width" inputMode="numeric" />
+                                <Input value={mediaHeight} onChange={(event) => setMediaHeight(event.target.value)} placeholder="Height" inputMode="numeric" />
                             </div>
                         </div>
                         <div className="mt-5 flex justify-end gap-2">

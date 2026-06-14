@@ -5,12 +5,13 @@ import { redirect } from "next/navigation";
 import * as z from "zod";
 import { auth } from "../auth";
 import db from "../db";
+import { LinkType } from "../enums";
 import { Prisma } from "../generated/prisma/client";
-import { hashPassword, verifyPassword } from "../util/Password";
+import { hashPassword, verifyPassword } from "../util/password";
 
 const tabSchema = z.enum(["profile", "privacy", "widgets", "preferences", "account"]);
 const socialPlatformSchema = z.enum(["x", "discord", "github", "twitch", "youtube", "instagram", "tiktok", "website"]);
-const socialKindSchema = z.enum(["link", "copy"]);
+const socialKindSchema = z.union([z.literal(LinkType.LINK), z.literal(LinkType.COPY)]);
 type SocialLinkValue = {
     platform: z.infer<typeof socialPlatformSchema>;
     kind: z.infer<typeof socialKindSchema>;
@@ -50,7 +51,7 @@ const socialLinksSchema = z.string().trim().max(5000).transform((value, ctx) => 
         const parsed = JSON.parse(value);
         const socialLinks = z.array(z.object({
             platform: socialPlatformSchema,
-            kind: socialKindSchema.default("link"),
+            kind: socialKindSchema.default(LinkType.LINK),
             value: z.string().trim().max(500),
         })).max(20).parse(parsed);
         const normalized: SocialLinkValue[] = [];
@@ -58,7 +59,7 @@ const socialLinksSchema = z.string().trim().max(5000).transform((value, ctx) => 
         for (const item of socialLinks) {
             if (!item.value) continue;
 
-            if (item.kind === "copy") {
+            if (item.kind === LinkType.COPY) {
                 if (item.value.length > 100) {
                     throw new Error("Copy values must be 100 characters or fewer.");
                 }
@@ -177,6 +178,22 @@ async function pickAccountUpdateData(userId: string, values: z.infer<typeof sett
     return data;
 }
 
+async function ensureProfileNameAvailable(userId: string, values: z.infer<typeof settingsSchema>) {
+    if (values.name === undefined) return;
+
+    const existing = await db.user.findFirst({
+        where: {
+            name: values.name,
+            NOT: { id: userId },
+        },
+        select: { id: true },
+    });
+
+    if (existing) {
+        redirect("/settings?tab=profile&edit=1&error=duplicate");
+    }
+}
+
 function pickUpdateData(tab: z.infer<typeof tabSchema>, values: z.infer<typeof settingsSchema>) {
     const data: Prisma.UserUpdateInput = {};
 
@@ -221,6 +238,11 @@ export async function updateUserSettings(tabValue: string, formData: FormData) {
     }
 
     const values = parsedValues.data;
+
+    if (tab === "profile") {
+        await ensureProfileNameAvailable(userId, values);
+    }
+
     const data = tab === "account" ? await pickAccountUpdateData(userId, values) : pickUpdateData(tab, values);
 
     try {
@@ -236,6 +258,7 @@ export async function updateUserSettings(tabValue: string, formData: FormData) {
         throw error;
     }
 
+    revalidatePath("/", "layout");
     revalidatePath("/settings");
     revalidatePath("/u/[user]", "page");
     redirect(`/settings?tab=${tab}&saved=1`);

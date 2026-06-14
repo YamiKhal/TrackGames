@@ -4,9 +4,8 @@ import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Eye, EyeOff, Plus, T
 import MarkdownWidgetEditor from "./MarkdownWidgetEditor";
 import { Widget } from "@/lib/types";
 import { WidgetType } from "@/lib/enums";
-
-const inputClass = "bg-bg p-1 rounded mt-1 border border-border outline-none";
-const wideInputClass = `${inputClass} w-full`;
+import * as normalize from "@/lib/util/normalize";
+import { Input, Select } from "@/app/components/ui/Inputs";
 
 const statOptions = [
     { value: "played", label: "Played" },
@@ -63,7 +62,7 @@ function StatsEditor({ widget, onChange }: { widget: Widget; onChange: (patch: P
 
     return (
         <div className="mt-3 flex flex-col gap-3">
-            <select value="" onChange={(event) => {
+            <Select value="" onChange={(event) => {
                 const value = event.target.value;
                 if (!value) return;
                 onChange({ stats: [...selectedStats, value] });
@@ -72,7 +71,7 @@ function StatsEditor({ widget, onChange }: { widget: Widget; onChange: (patch: P
                 {availableStats.map((stat) => (
                     <option key={stat.value} value={stat.value}>{stat.label}</option>
                 ))}
-            </select>
+            </Select>
             {selectedStats.length === 0 ? (
                 <p className="text-sm text-text-muted">No stats selected.</p>
             ) : (
@@ -80,7 +79,7 @@ function StatsEditor({ widget, onChange }: { widget: Widget; onChange: (patch: P
                     {selectedStats.map((stat, index) => (
                         <div key={stat} className="flex min-h-28 min-w-0 flex-col justify-center items-center gap-3 rounded border border-primary/80 bg-primary/5 p-3">
                             <p className="mt-2 truncate text-2xl font-semibold leading-tight text-text">000</p>
-                            <p className="mt-2 truncate text-md font-semibold leading-tight text-text-muted">{statOptions.find((opt) => opt.value === stat)?.label ?? stat}</p>
+                            <p className="mt-2 truncate text-md font-semibold leading-tight text-text-muted">{normalize.label(statOptions, "value", "label", stat, stat)}</p>
                             <div className="flex items-center justify-end gap-1 pt-2">
                                 <button type="button" onClick={() => onChange({ stats: moveItem(selectedStats, index, -1) })} disabled={index === 0} className="cursor-pointer rounded p-1.5 text-text-muted hover:text-primary disabled:cursor-not-allowed disabled:opacity-40" aria-label="Move stat left" title="Move stat left">
                                     <ChevronLeft size={17} />
@@ -105,7 +104,7 @@ function GameListEditor({ widget, onChange }: { widget: Widget; onChange: (patch
         <div className="mt-3 flex flex-col gap-3">
             <label>
                 <span className="text-sm font-bold text-text-muted">Title</span>
-                <input value={widget.title} onChange={(event) => onChange({ title: event.target.value })} className={wideInputClass} />
+                <Input value={widget.title} onChange={(event) => onChange({ title: event.target.value })} />
             </label>
             <div>
                 <span className="text-sm font-bold text-text-muted">Games</span>

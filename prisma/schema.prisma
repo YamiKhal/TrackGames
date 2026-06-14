@@ -27,8 +27,10 @@ model User {
   accounts      Account[]
   sessions      Session[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+  games     UserGameEntry[]
+  gameLists GameList[]
 }
 
 model Account {
@@ -70,4 +72,153 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Game {
+  id           Int       @id
+  slug         String    @unique
+  name         String
+  summary      String?
+  totalRating  Float?
+  releaseDate  DateTime?
+  cover        String?
+  screenshots  String[]
+  videos       String[]
+  developers   Int[]
+  publishers   Int[]
+  platforms    Int[]
+  genres       Int[]
+  franchises   Int[]
+  collections  Int[]
+  similarGames Int[]
+
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  users       UserGameEntry[]
+  listEntries GameListEntry[]
+}
+
+model UserGameEntry {
+  id         String     @id @default(cuid())
+  userId     String
+  gameId     Int
+  status     GameStatus @default(BACKLOG)
+  rating     Int?
+  progress   Int?
+  notes      String?    @db.Text
+  favorite   Boolean    @default(false)
+  addedAt    DateTime   @default(now())
+  startedAt  DateTime?
+  finishedAt DateTime?
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  game       Game       @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, gameId])
+  @@index([userId])
+  @@index([gameId])
+  @@index([userId, status])
+}
+
+model GameList {
+  id          String          @id @default(cuid())
+  userId      String
+  type        GameListType
+  name        String
+  slug        String?
+  description String?         @db.Text
+  image       String?
+  background  String?
+  color       String?
+  accentColor String?
+  privacy     String          @default("public")
+  entries     GameListEntry[]
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, slug])
+  @@index([userId])
+  @@index([userId, type])
+}
+
+model GameListEntry {
+  id       String   @id @default(cuid())
+  listId   String
+  gameId   Int
+  position Int?
+  addedAt  DateTime @default(now())
+  list     GameList @relation(fields: [listId], references: [id], onDelete: Cascade)
+  game     Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  @@unique([listId, gameId])
+  @@index([listId])
+  @@index([gameId])
+}
+
+model Collection {
+  id    Int    @id
+  slug  String @unique
+  name  String
+  games Int[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Franchise {
+  id    Int    @id
+  slug  String @unique
+  name  String
+  games Int[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Genre {
+  id   Int    @id
+  slug String @unique
+  name String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Platform {
+  id   Int    @id
+  slug String @unique
+  name String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Company {
+  id          Int     @id
+  slug        String  @unique
+  name        String?
+  logo        String?
+  description String?
+  developed   Int[]
+  published   Int[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum GameListType {
+  LIBRARY
+  PLAYLIST
+}
+
+enum GameStatus {
+  BACKLOG
+  PLAYING
+  COMPLETED
+  DROPPED
+  PAUSED
+  WISHLIST
 }

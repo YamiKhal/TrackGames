@@ -1,5 +1,12 @@
 import { ALLOWEDHOSTS } from "../constants";
 
+/*
+ * Safety checks
+ * These helpers validate whether untrusted strings are allowed to be used in
+ * rendered URLs or media sources. They do not rewrite input.
+ */
+
+/** Allows HTTPS media/source URLs only from explicitly approved hosts. */
 export function isSafeUrl(src: unknown) {
     try {
         if (typeof src !== "string") return false;
@@ -15,6 +22,7 @@ export function isSafeUrl(src: unknown) {
     }
 }
 
+/** Allows HTTPS absolute links and same-site relative paths, but rejects protocol-relative URLs. */
 export function isSafeLinkHref(href: unknown) {
     if (typeof href !== "string") return false;
 
@@ -27,10 +35,7 @@ export function isSafeLinkHref(href: unknown) {
     }
 }
 
+/** Detects local video file extensions in a URL-like string. */
 export function isVideoUrl(value: string) {
     return /\.(mp4|webm|ogg)(\?.*)?$/i.test(value);
-}
-
-export function normalizeColorInput(value: string | undefined) {
-    return /^#[0-9a-f]{6}$/i.test(value || "") ? value : "#7B5CDB";
 }

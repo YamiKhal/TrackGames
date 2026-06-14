@@ -6,7 +6,7 @@ import Twitch from "next-auth/providers/twitch";
 import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import db from "./db";
-import { verifyPassword } from "./util/Password";
+import { verifyPassword } from "./util/password";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
     adapter: PrismaAdapter(db),

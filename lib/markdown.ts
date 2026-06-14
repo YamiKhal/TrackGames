@@ -1,63 +1,34 @@
 import { MarkdownAlign } from "./enums";
 import { MarkdownBlock } from "./types";
-import { isSafeLinkHref, isSafeUrl, normalizeColorInput } from "./util/util";
+import * as normalize from "./util/normalize";
+import { isSafeLinkHref, isSafeUrl } from "./util/safety";
 
-function normalizeSize(value: string | undefined) {
-    if (!value) return undefined;
-
-    const parsed = Number(value);
-
-    if (!Number.isInteger(parsed)) return undefined;
-
-    return Math.min(Math.max(parsed, 40), 1200);
-}
-
-function normalizeColumns(value: string | undefined) {
-    const parsed = Number(value);
-
-    if (!Number.isInteger(parsed)) return 2;
-
-    return Math.min(Math.max(parsed, 1), 4);
-}
-
-function normalizeGap(value: string | undefined) {
-    const parsed = Number(value);
-
-    if (!Number.isInteger(parsed)) return 8;
-
-    return Math.min(Math.max(parsed, 0), 32);
-}
-
-function normalizeImageFit(value: string | undefined): string | undefined {
-    if (value === "contain" || value === "cover") return value;
-
-    return undefined;
-}
-
-function normalizeImagePosition(value: string | undefined): string | undefined {
-    if (value === "center" || value === "left" || value === "right" || value === "top" || value === "bottom") {
-        return value;
-    }
-
-    return undefined;
-}
+type ActiveState = | {
+    type: "group";
+    align?: MarkdownAlign;
+    color?: string;
+    href?: string;
+    lines: string[];
+} | {
+    type: "grid";
+    columns: number;
+    gap: number;
+    lines: string[];
+};
 
 function normalizeAlign(value: string | undefined): MarkdownAlign | undefined {
-    if (!value) return undefined;
-
-    const v = value.toLowerCase();
-
-    if (v === "start" || v === "left") return MarkdownAlign.START;
-    if (v === "center") return MarkdownAlign.CENTER;
-    if (v === "end" || v === "right") return MarkdownAlign.END;
-
-    return undefined;
-}
-
-function normalizeBoolean(value: string | undefined) {
-    if (!value) return false;
-
-    return value === "true" || value === "1" || value === "yes";
+    switch (normalize.choice(value, ["start", "left", "center", "end", "right"] as const)) {
+        case "start":
+        case "left":
+            return MarkdownAlign.START;
+        case "center":
+            return MarkdownAlign.CENTER;
+        case "end":
+        case "right":
+            return MarkdownAlign.END;
+        default:
+            return undefined;
+    }
 }
 
 function parseAttributes(input: string) {
@@ -84,39 +55,40 @@ export function parseMarkdownBlocks(markdown: string): MarkdownBlock[] {
     const blocks: MarkdownBlock[] = [];
     const defaultLines: string[] = [];
     const lines = markdown.replace(/\r\n?/g, "\n").split("\n");
-    let active: { type: "group" | "grid"; align?: MarkdownAlign; color?: string; href?: string; columns?: number; gap?: number; lines: string[] } | null = null;
+    let active: ActiveState | null = null;
 
     function flushDefault() {
         const content = defaultLines.join("\n").trim();
+        if (!content) return;
 
-        if (content) {
-            blocks.push({ type: "markdown", align: MarkdownAlign.START, content });
-            defaultLines.length = 0;
-        }
+        blocks.push({ type: "markdown", align: MarkdownAlign.START, content });
+        defaultLines.length = 0;
     }
 
     function flushActive() {
         if (!active) return;
 
         const content = active.lines.join("\n").trim();
+        if (!content) {
+            active = null;
+            return;
+        }
 
-        if (content) {
-            if (active.type === "grid") {
-                blocks.push({
-                    type: "grid",
-                    columns: active.columns ?? 2,
-                    gap: active.gap ?? 8,
-                    cells: splitGridCells(content).map(parseMarkdownBlocks),
-                });
-            } else {
-                blocks.push({
-                    type: "group",
-                    align: active.align,
-                    color: active.color,
-                    href: active.href,
-                    children: parseMarkdownBlocks(content),
-                });
-            }
+        if (active.type === "grid") {
+            blocks.push({
+                type: "grid",
+                columns: active.columns,
+                gap: active.gap,
+                cells: splitGridCells(content).map(parseMarkdownBlocks),
+            });
+        } else {
+            blocks.push({
+                type: "group",
+                align: active.align,
+                color: active.color,
+                href: active.href,
+                children: parseMarkdownBlocks(content),
+            });
         }
 
         active = null;
@@ -132,8 +104,8 @@ export function parseMarkdownBlocks(markdown: string): MarkdownBlock[] {
 
             const attributes = parseAttributes(mediaDirective[2]);
             const src = attributes.src;
-            const width = normalizeSize(attributes.width);
-            const height = normalizeSize(attributes.height);
+            const width = normalize.integer(attributes.width, { min: 40, max: 1200 });
+            const height = normalize.integer(attributes.height, { min: 40, max: 1200 });
 
             if (mediaDirective[1].toLowerCase() === "image" && isSafeUrl(src)) {
                 blocks.push({
@@ -143,9 +115,9 @@ export function parseMarkdownBlocks(markdown: string): MarkdownBlock[] {
                     align: normalizeAlign(attributes.align ?? "") ?? undefined,
                     width,
                     height,
-                    fit: normalizeImageFit(attributes.fit),
-                    position: normalizeImagePosition(attributes.position),
-                    rounded: normalizeBoolean(attributes.rounded),
+                    fit: normalize.choice(attributes.fit, ["contain", "cover"] as const),
+                    position: normalize.choice(attributes.position, ["center", "left", "right", "top", "bottom"] as const),
+                    rounded: normalize.boolean(attributes.rounded),
                 });
             }
 
@@ -157,7 +129,7 @@ export function parseMarkdownBlocks(markdown: string): MarkdownBlock[] {
                     align: normalizeAlign(attributes.align ?? "") ?? undefined,
                     width,
                     height,
-                    rounded: normalizeBoolean(attributes.rounded),
+                    rounded: normalize.boolean(attributes.rounded),
                 });
             }
 
@@ -173,19 +145,19 @@ export function parseMarkdownBlocks(markdown: string): MarkdownBlock[] {
             if (name === "grid") {
                 active = {
                     type: "grid",
-                    align: MarkdownAlign.START,
-                    columns: normalizeColumns(attributes.columns),
-                    gap: normalizeGap(attributes.gap),
+                    columns: normalize.integer(attributes.columns, { min: 1, max: 4, fallback: 2 }) ?? 2,
+                    gap: normalize.integer(attributes.gap, { min: 0, max: 32, fallback: 8 }) ?? 8,
                     lines: [],
                 };
             } else {
                 const align = normalizeAlign(name) ?? undefined;
                 const href = attributes.href && isSafeLinkHref(attributes.href) ? attributes.href : undefined;
+                const colorValue = attributes.value ?? attributes.color;
 
                 active = {
                     type: "group",
                     align,
-                    color: normalizeColorInput(attributes.value ?? attributes.color),
+                    color: colorValue ? normalize.hexColor(colorValue) : undefined,
                     href,
                     lines: [],
                 };

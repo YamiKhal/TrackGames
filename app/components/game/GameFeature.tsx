@@ -2,13 +2,14 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { DisplayGame } from "@/lib/types";
-import { ImageIdToURL } from "@/lib/util/IGDB";
+import { Game, RawGame } from "@/lib/types";
+import { ImageIdToURL } from "@/lib/igdb/util";
+import Link from "next/link";
 
-export default function GameFeature({ game }: { game: DisplayGame }) {
-    const coverSrc = ImageIdToURL(game.cover?.image_id, "cover_big");
+export default function GameFeature({ game }: { game: Game }) {
+    const coverSrc = ImageIdToURL(game.cover, "cover_big");
     const screenshots = game.screenshots?.slice(0, 4) ?? [];
-    const defaultHeroSrc = ImageIdToURL(screenshots[0]?.image_id ?? game.cover?.image_id, screenshots[0] ? "1080" : "720");
+    const defaultHeroSrc = ImageIdToURL(screenshots[0] ?? game.cover, screenshots[0] ? "1080" : "720");
     const [heroSrc, setHeroSrc] = useState(defaultHeroSrc ?? coverSrc);
     const [activeScreenshot, setActiveScreenshot] = useState(0);
 
@@ -21,7 +22,7 @@ export default function GameFeature({ game }: { game: DisplayGame }) {
         <article className="mx-auto grid max-w-5xl overflow-hidden rounded bg-bg-secondary shadow-main md:grid-cols-[minmax(240px,0.62fr)_minmax(0,1.38fr)]">
             <div className="order-2 flex flex-col justify-between gap-4 border border-border bg-bg-secondary/80 p-4 md:order-1 md:h-96 md:p-5">
                 <div className="flex flex-col gap-3">
-                    <h2 className="line-clamp-2 text-lg font-bold leading-tight text-text">{game.name}</h2>
+                    <Link href={`/game/${game.slug}`}><h2 className="line-clamp-2 text-lg font-bold leading-tight text-text hover:text-primary transition-colors">{game.name}</h2></Link>
 
                     {game.summary ? (
                         <p className="line-clamp-5 text-sm leading-6 text-text-muted">{game.summary}</p>
@@ -35,13 +36,13 @@ export default function GameFeature({ game }: { game: DisplayGame }) {
                         <p className="text-xs font-bold text-text-faint">Screenshots</p>
                         <div className="flex gap-2">
                         {screenshots.map((screenshot, index) => {
-                            const src = ImageIdToURL(screenshot.image_id, "1080");
+                            const src = ImageIdToURL(screenshot, "1080");
                             const isActive = index === activeScreenshot;
                             if (!src) return null;
 
                             return (
                                 <button
-                                    key={screenshot.image_id}
+                                    key={screenshot}
                                     type="button"
                                     aria-label={`Show ${game.name ?? "game"} screenshot ${index + 1}`}
                                     aria-pressed={isActive}
@@ -64,7 +65,7 @@ export default function GameFeature({ game }: { game: DisplayGame }) {
                 ) : null}
             </div>
 
-            <div className="order-1 relative h-72 overflow-hidden bg-bg sm:h-80 md:order-2 md:h-96 rounded">
+            <Link href={`/game/${game.slug}`} className="order-1 relative h-72 overflow-hidden bg-bg sm:h-80 md:order-2 md:h-96 rounded">
                 {heroSrc ? (
                     <Image
                         src={heroSrc}
@@ -88,7 +89,7 @@ export default function GameFeature({ game }: { game: DisplayGame }) {
                         />
                     </div>
                 ) : null}
-            </div>
+            </Link>
         </article>
     );
 }
