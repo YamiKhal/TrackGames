@@ -11,7 +11,7 @@ import Gallary from "./components/layout/Gallary";
 import GamePlaylistDisplay from "./components/game/GamePlaylistDispaly";
 import { Hero } from "./components/SVG";
 import GameStatInfoCard from "./components/game/GameStatInfoCard";
-import { formatRawGame } from "@/lib/igdb/util";
+import { formatRawGame } from "@/lib/external/igdb/util";
 
 export default async function Home() {
   const [trendingDataList, yearlyDataList, hiddenDataList, mostAnticipatedList, comingSoonList, recentReleasesList] = await Promise.all([

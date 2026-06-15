@@ -43,6 +43,21 @@ export type VerificationToken = Prisma.VerificationTokenModel
  */
 export type Game = Prisma.GameModel
 /**
+ * Model UserGameEntry
+ * 
+ */
+export type UserGameEntry = Prisma.UserGameEntryModel
+/**
+ * Model GameList
+ * 
+ */
+export type GameList = Prisma.GameListModel
+/**
+ * Model GameListEntry
+ * 
+ */
+export type GameListEntry = Prisma.GameListEntryModel
+/**
  * Model Collection
  * 
  */
@@ -67,3 +82,8 @@ export type Platform = Prisma.PlatformModel
  * 
  */
 export type Company = Prisma.CompanyModel
+/**
+ * Model Keyword
+ * 
+ */
+export type Keyword = Prisma.KeywordModel

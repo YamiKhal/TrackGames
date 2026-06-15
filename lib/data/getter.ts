@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client/extension";
-import { fetchAPI } from "../igdb/IGDBAPI";
+import { fetchAPI } from "../external/igdb/IGDBAPI";
 
 export async function getFallback<T>(select: {}, database: PrismaClient, fetching: {endpoint: string, body: string}, formatter: (data: any) => T ): Promise<T[]> {
     const fallbackData = await fetchAPI<any[]>(fetching.endpoint, fetching.body);

@@ -1,115 +1,5 @@
 [
   {
-    "id": 258748,
-    "cover": {
-      "id": 361826,
-      "image_id": "co7r6q"
-    },
-    "first_release_date": 1781481600,
-    "name": "Tales of Wakana",
-    "slug": "tales-of-wakana"
-  },
-  {
-    "id": 312679,
-    "cover": {
-      "id": 403130,
-      "image_id": "co8n22"
-    },
-    "first_release_date": 1781481600,
-    "name": "Alaric",
-    "slug": "alaric"
-  },
-  {
-    "id": 371154,
-    "cover": {
-      "id": 494615,
-      "image_id": "coalnb"
-    },
-    "first_release_date": 1781481600,
-    "name": "Gagged Love",
-    "slug": "gagged-love"
-  },
-  {
-    "id": 373036,
-    "cover": {
-      "id": 498086,
-      "image_id": "coaobq"
-    },
-    "first_release_date": 1781481600,
-    "name": "Beauties and the Stranded",
-    "slug": "beauties-and-the-stranded"
-  },
-  {
-    "id": 378189,
-    "cover": {
-      "id": 529887,
-      "image_id": "cobcv3"
-    },
-    "first_release_date": 1781481600,
-    "name": "MOLE",
-    "slug": "mole--4"
-  },
-  {
-    "id": 380253,
-    "cover": {
-      "id": 520580,
-      "image_id": "cob5ok"
-    },
-    "first_release_date": 1781481600,
-    "name": "Deliria",
-    "slug": "deliria--2"
-  },
-  {
-    "id": 389740,
-    "cover": {
-      "id": 537868,
-      "image_id": "cobj0s"
-    },
-    "first_release_date": 1781481600,
-    "name": "Songtail: Whiskers of Destiny",
-    "slug": "songtail-whiskers-of-destiny"
-  },
-  {
-    "id": 389931,
-    "cover": {
-      "id": 538124,
-      "image_id": "cobj7w"
-    },
-    "first_release_date": 1781481600,
-    "name": "Pickupbal",
-    "slug": "pickupbal"
-  },
-  {
-    "id": 396260,
-    "cover": {
-      "id": 553887,
-      "image_id": "cobvdr"
-    },
-    "first_release_date": 1781481600,
-    "name": "Pro Cycling Manager 26",
-    "slug": "pro-cycling-manager-26"
-  },
-  {
-    "id": 400741,
-    "cover": {
-      "id": 561269,
-      "image_id": "coc12t"
-    },
-    "first_release_date": 1781481600,
-    "name": "You Within Me",
-    "slug": "you-within-me"
-  },
-  {
-    "id": 405331,
-    "cover": {
-      "id": 569565,
-      "image_id": "coc7h9"
-    },
-    "first_release_date": 1781481600,
-    "name": "Tilt It! Golf",
-    "slug": "tilt-it-golf"
-  },
-  {
     "id": 305177,
     "cover": {
       "id": 551304,
@@ -190,6 +80,26 @@
     "slug": "glimvale-my-mini-overworld"
   },
   {
+    "id": 361826,
+    "cover": {
+      "id": 480707,
+      "image_id": "coaawz"
+    },
+    "first_release_date": 1781654400,
+    "name": "Denshattack!",
+    "slug": "denshattack"
+  },
+  {
+    "id": 367933,
+    "cover": {
+      "id": 568850,
+      "image_id": "coc6xe"
+    },
+    "first_release_date": 1781654400,
+    "name": "Kooeh: A Timeless Delight",
+    "slug": "kooeh-a-timeless-delight"
+  },
+  {
     "id": 376277,
     "cover": {
       "id": 565622,
@@ -238,6 +148,16 @@
     "first_release_date": 1781654400,
     "name": "Deep Enough",
     "slug": "deep-enough"
+  },
+  {
+    "id": 406251,
+    "cover": {
+      "id": 570898,
+      "image_id": "coc8ia"
+    },
+    "first_release_date": 1781654400,
+    "name": "Class of '09: Puzzle Showdown",
+    "slug": "class-of-09-puzzle-showdown"
   },
   {
     "id": 247791,
@@ -302,8 +222,8 @@
   {
     "id": 379586,
     "cover": {
-      "id": 509307,
-      "image_id": "coawzf"
+      "id": 571309,
+      "image_id": "coc8tp"
     },
     "first_release_date": 1781740800,
     "name": "Paparazzi",
@@ -654,6 +574,16 @@
     "slug": "farm2-plus"
   },
   {
+    "id": 406644,
+    "cover": {
+      "id": 571556,
+      "image_id": "coc90k"
+    },
+    "first_release_date": 1781913600,
+    "name": "Poem of the Starherd",
+    "slug": "poem-of-the-starherd"
+  },
+  {
     "id": 296455,
     "cover": {
       "id": 414652,
@@ -726,8 +656,8 @@
   {
     "id": 252846,
     "cover": {
-      "id": 502356,
-      "image_id": "coarmc"
+      "id": 571668,
+      "image_id": "coc93o"
     },
     "first_release_date": 1782086400,
     "name": "Sand: Raiders Of Sophie",
@@ -742,6 +672,16 @@
     "first_release_date": 1782086400,
     "name": "Flawed Tactics",
     "slug": "flawed-tactics"
+  },
+  {
+    "id": 339984,
+    "cover": {
+      "id": 451177,
+      "image_id": "co9o4p"
+    },
+    "first_release_date": 1782086400,
+    "name": "Ramen Simulator",
+    "slug": "ramen-simulator"
   },
   {
     "id": 345083,
@@ -982,5 +922,65 @@
     "first_release_date": 1782172800,
     "name": "Karjala",
     "slug": "karjala"
+  },
+  {
+    "id": 342738,
+    "cover": {
+      "id": 498650,
+      "image_id": "coaore"
+    },
+    "first_release_date": 1782172800,
+    "name": "Moldwasher",
+    "slug": "moldwasher"
+  },
+  {
+    "id": 378906,
+    "cover": {
+      "id": 508515,
+      "image_id": "coawdf"
+    },
+    "first_release_date": 1782172800,
+    "name": "Nodwar",
+    "slug": "nodwar"
+  },
+  {
+    "id": 384032,
+    "cover": {
+      "id": 522330,
+      "image_id": "cob716"
+    },
+    "first_release_date": 1782172800,
+    "name": "Sloop",
+    "slug": "sloop"
+  },
+  {
+    "id": 389590,
+    "cover": {
+      "id": 537491,
+      "image_id": "cobiqb"
+    },
+    "first_release_date": 1782172800,
+    "name": "Caravan Village: Farming Life",
+    "slug": "caravan-village-farming-life"
+  },
+  {
+    "id": 390211,
+    "cover": {
+      "id": 538602,
+      "image_id": "cobjl6"
+    },
+    "first_release_date": 1782172800,
+    "name": "Where the Hell Am I?",
+    "slug": "where-the-hell-am-i"
+  },
+  {
+    "id": 390990,
+    "cover": {
+      "id": 545324,
+      "image_id": "coborw"
+    },
+    "first_release_date": 1782172800,
+    "name": "Journey to the King",
+    "slug": "journey-to-the-king"
   }
 ]

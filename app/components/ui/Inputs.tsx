@@ -1,6 +1,6 @@
 import { forwardRef, InputHTMLAttributes, ReactNode, SelectHTMLAttributes, TextareaHTMLAttributes } from "react";
 
-const base = "bg-bg p-1 rounded mt-1 border border-border outline-none";
+const base = "bg-bg p-1 rounded mt-1 pl-3 pr-3 border border-border outline-none";
 
 function join(base: string, extra?: string) {
     return [base, extra].filter(Boolean).join(" ");

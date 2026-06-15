@@ -1,5 +1,5 @@
-import RequestQueue from "../cache/RequestQueue";
-import { getAccessToken } from "../token";
+import RequestQueue from "../../cache/RequestQueue";
+import { getAccessToken } from "../../token";
 
 const API = "https://api.igdb.com/v4/";
 const queue = new RequestQueue(3, 1100);

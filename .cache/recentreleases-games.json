@@ -1,5 +1,125 @@
 [
   {
+    "id": 405331,
+    "cover": {
+      "id": 569565,
+      "image_id": "coc7h9"
+    },
+    "first_release_date": 1781481600,
+    "name": "Tilt It! Golf",
+    "slug": "tilt-it-golf"
+  },
+  {
+    "id": 403983,
+    "cover": {
+      "id": 567390,
+      "image_id": "coc5su"
+    },
+    "first_release_date": 1781481600,
+    "name": "Eldara",
+    "slug": "eldara"
+  },
+  {
+    "id": 400741,
+    "cover": {
+      "id": 561269,
+      "image_id": "coc12t"
+    },
+    "first_release_date": 1781481600,
+    "name": "You Within Me",
+    "slug": "you-within-me"
+  },
+  {
+    "id": 396260,
+    "cover": {
+      "id": 553887,
+      "image_id": "cobvdr"
+    },
+    "first_release_date": 1781481600,
+    "name": "Pro Cycling Manager 26",
+    "slug": "pro-cycling-manager-26"
+  },
+  {
+    "id": 389931,
+    "cover": {
+      "id": 538124,
+      "image_id": "cobj7w"
+    },
+    "first_release_date": 1781481600,
+    "name": "Pickupbal",
+    "slug": "pickupbal"
+  },
+  {
+    "id": 389740,
+    "cover": {
+      "id": 537868,
+      "image_id": "cobj0s"
+    },
+    "first_release_date": 1781481600,
+    "name": "Songtail: Whiskers of Destiny",
+    "slug": "songtail-whiskers-of-destiny"
+  },
+  {
+    "id": 378189,
+    "cover": {
+      "id": 529887,
+      "image_id": "cobcv3"
+    },
+    "first_release_date": 1781481600,
+    "name": "MOLE",
+    "slug": "mole--4"
+  },
+  {
+    "id": 373036,
+    "cover": {
+      "id": 498086,
+      "image_id": "coaobq"
+    },
+    "first_release_date": 1781481600,
+    "name": "Beauties and the Stranded",
+    "slug": "beauties-and-the-stranded"
+  },
+  {
+    "id": 371154,
+    "cover": {
+      "id": 494615,
+      "image_id": "coalnb"
+    },
+    "first_release_date": 1781481600,
+    "name": "Gagged Love",
+    "slug": "gagged-love"
+  },
+  {
+    "id": 312679,
+    "cover": {
+      "id": 403130,
+      "image_id": "co8n22"
+    },
+    "first_release_date": 1781481600,
+    "name": "Alaric",
+    "slug": "alaric"
+  },
+  {
+    "id": 258748,
+    "cover": {
+      "id": 361826,
+      "image_id": "co7r6q"
+    },
+    "first_release_date": 1781481600,
+    "name": "Tales of Wakana",
+    "slug": "tales-of-wakana"
+  },
+  {
+    "id": 406711,
+    "cover": {
+      "id": 571675,
+      "image_id": "coc93v"
+    },
+    "first_release_date": 1781395200,
+    "name": "Not a Customer",
+    "slug": "not-a-customer"
+  },
+  {
     "id": 406134,
     "cover": {
       "id": 570744,
@@ -28,6 +148,32 @@
     "first_release_date": 1781395200,
     "name": "Beggar's Life",
     "slug": "beggars-life"
+  },
+  {
+    "id": 235724,
+    "cover": {
+      "id": 285135,
+      "image_id": "co640f"
+    },
+    "first_release_date": 1781395200,
+    "name": "Pact of Steel",
+    "slug": "pact-of-steel"
+  },
+  {
+    "id": 406510,
+    "cover": {
+      "id": 571392,
+      "image_id": "coc8w0"
+    },
+    "first_release_date": 1781308800,
+    "name": "The Blackwood Project",
+    "slug": "the-blackwood-project"
+  },
+  {
+    "id": 406409,
+    "first_release_date": 1781308800,
+    "name": "Power Typing Game Gori Da",
+    "slug": "power-typing-game-gori-da"
   },
   {
     "id": 404529,
@@ -66,6 +212,16 @@
     "slug": "reverse-dream-of-the-menasphere"
   },
   {
+    "id": 400258,
+    "cover": {
+      "id": 560286,
+      "image_id": "coc0bi"
+    },
+    "first_release_date": 1781308800,
+    "name": "Tollway Tycoon",
+    "slug": "tollway-tycoon"
+  },
+  {
     "id": 392306,
     "cover": {
       "id": 543366,
@@ -74,6 +230,112 @@
     "first_release_date": 1781308800,
     "name": "Rina's Undercover Train Operation",
     "slug": "rinas-undercover-train-operation"
+  },
+  {
+    "id": 390203,
+    "cover": {
+      "id": 538589,
+      "image_id": "cobjkt"
+    },
+    "first_release_date": 1781308800,
+    "name": "Girl With Gun",
+    "slug": "girl-with-gun"
+  },
+  {
+    "id": 386976,
+    "cover": {
+      "id": 529555,
+      "image_id": "cobclv"
+    },
+    "first_release_date": 1781308800,
+    "name": "Retrowave Barro Crazy Drift",
+    "slug": "retrowave-barro-crazy-drift"
+  },
+  {
+    "id": 379420,
+    "cover": {
+      "id": 509101,
+      "image_id": "coawtp"
+    },
+    "first_release_date": 1781308800,
+    "name": "Folklore Reloaded",
+    "slug": "folklore-reloaded"
+  },
+  {
+    "id": 378429,
+    "cover": {
+      "id": 507441,
+      "image_id": "coavjl"
+    },
+    "first_release_date": 1781308800,
+    "name": "Bladefall",
+    "slug": "bladefall"
+  },
+  {
+    "id": 406693,
+    "cover": {
+      "id": 571644,
+      "image_id": "coc930"
+    },
+    "first_release_date": 1781222400,
+    "name": "Escape the Marine Lab",
+    "slug": "escape-the-marine-lab"
+  },
+  {
+    "id": 406475,
+    "cover": {
+      "id": 571352,
+      "image_id": "coc8uw"
+    },
+    "first_release_date": 1781222400,
+    "name": "Fuck's Quest II",
+    "slug": "fucks-quest-ii"
+  },
+  {
+    "id": 406389,
+    "first_release_date": 1781222400,
+    "name": "Deadhead Angel!",
+    "slug": "deadhead-angel"
+  },
+  {
+    "id": 406370,
+    "cover": {
+      "id": 571261,
+      "image_id": "coc8sd"
+    },
+    "first_release_date": 1781222400,
+    "name": "Wet Wealth",
+    "slug": "wet-wealth"
+  },
+  {
+    "id": 406342,
+    "cover": {
+      "id": 571098,
+      "image_id": "coc8nu"
+    },
+    "first_release_date": 1781222400,
+    "name": "Eggfish",
+    "slug": "eggfish"
+  },
+  {
+    "id": 406293,
+    "cover": {
+      "id": 570993,
+      "image_id": "coc8kx"
+    },
+    "first_release_date": 1781222400,
+    "name": "Ex Change",
+    "slug": "ex-change"
+  },
+  {
+    "id": 406249,
+    "cover": {
+      "id": 570893,
+      "image_id": "coc8i5"
+    },
+    "first_release_date": 1781222400,
+    "name": "Pokémon Infinite Fusion 2: Hoenn",
+    "slug": "pokemon-infinite-fusion-2-hoenn"
   },
   {
     "id": 405934,
@@ -124,16 +386,6 @@
     "first_release_date": 1781222400,
     "name": "FeeBay",
     "slug": "feebay"
-  },
-  {
-    "id": 404198,
-    "cover": {
-      "id": 568155,
-      "image_id": "coc6e3"
-    },
-    "first_release_date": 1781222400,
-    "name": "Word Rift",
-    "slug": "word-rift"
   },
   {
     "id": 404093,
@@ -436,10 +688,14 @@
     "slug": "survival-machine"
   },
   {
-    "id": 406080,
+    "id": 406479,
+    "cover": {
+      "id": 571360,
+      "image_id": "coc8v4"
+    },
     "first_release_date": 1781136000,
-    "name": "Eggconsole Mirai MSX2",
-    "slug": "eggconsole-mirai-msx2"
+    "name": "Pixel Rain",
+    "slug": "pixel-rain"
   },
   {
     "id": 406072,
@@ -660,26 +916,6 @@
     "slug": "boxroom"
   },
   {
-    "id": 395183,
-    "cover": {
-      "id": 559740,
-      "image_id": "cobzwc"
-    },
-    "first_release_date": 1781136000,
-    "name": "Monopoly: Star Wars Heroes vs. Villains",
-    "slug": "monopoly-star-wars-heroes-vs-villains"
-  },
-  {
-    "id": 391468,
-    "cover": {
-      "id": 544805,
-      "image_id": "cobodh"
-    },
-    "first_release_date": 1781136000,
-    "name": "Myth Requiem",
-    "slug": "myth-requiem"
-  },
-  {
     "id": 391162,
     "cover": {
       "id": 545089,
@@ -706,8 +942,8 @@
       "image_id": "cobftw"
     },
     "first_release_date": 1781136000,
-    "name": "Pawafuru Puroyakyu 2026-2027",
-    "slug": "pawafuru-puroyakyu-2026-2027"
+    "name": "Powerful Pro Yakyuu 2026-2027",
+    "slug": "powerful-pro-yakyuu-2026-2027"
   },
   {
     "id": 385399,
@@ -738,246 +974,5 @@
     "first_release_date": 1781136000,
     "name": "Imago Season",
     "slug": "imago-season"
-  },
-  {
-    "id": 379585,
-    "cover": {
-      "id": 509248,
-      "image_id": "coawxs"
-    },
-    "first_release_date": 1781136000,
-    "name": "Zombutcher",
-    "slug": "zombutcher"
-  },
-  {
-    "id": 373282,
-    "cover": {
-      "id": 498205,
-      "image_id": "coaof1"
-    },
-    "first_release_date": 1781136000,
-    "name": "Tabletop Tavern",
-    "slug": "tabletop-tavern"
-  },
-  {
-    "id": 371649,
-    "cover": {
-      "id": 497364,
-      "image_id": "coanro"
-    },
-    "first_release_date": 1781136000,
-    "name": "Mirklurk: Every Step Matters",
-    "slug": "mirklurk-every-step-matters"
-  },
-  {
-    "id": 369526,
-    "cover": {
-      "id": 491577,
-      "image_id": "coajax"
-    },
-    "first_release_date": 1781136000,
-    "name": "Love Chemistry: Sibella's Formula",
-    "slug": "love-chemistry-sibellas-formula"
-  },
-  {
-    "id": 362324,
-    "cover": {
-      "id": 487344,
-      "image_id": "coag1c"
-    },
-    "first_release_date": 1781136000,
-    "name": "The Grey Company",
-    "slug": "the-grey-company"
-  },
-  {
-    "id": 362043,
-    "cover": {
-      "id": 481036,
-      "image_id": "coab64"
-    },
-    "first_release_date": 1781136000,
-    "name": "Beastro",
-    "slug": "beastro"
-  },
-  {
-    "id": 356571,
-    "cover": {
-      "id": 516108,
-      "image_id": "cob28c"
-    },
-    "first_release_date": 1781136000,
-    "name": "Bounce 2",
-    "slug": "bounce-2"
-  },
-  {
-    "id": 338089,
-    "cover": {
-      "id": 559953,
-      "image_id": "coc029"
-    },
-    "first_release_date": 1781136000,
-    "name": "Starseeker: Astroneer Expeditions",
-    "slug": "starseeker-astroneer-expeditions"
-  },
-  {
-    "id": 335835,
-    "cover": {
-      "id": 445279,
-      "image_id": "co9jkv"
-    },
-    "first_release_date": 1781136000,
-    "name": "Sportal",
-    "slug": "sportal"
-  },
-  {
-    "id": 334069,
-    "cover": {
-      "id": 442472,
-      "image_id": "co9hew"
-    },
-    "first_release_date": 1781136000,
-    "name": "D.O.T. Defence",
-    "slug": "dot-defence--1"
-  },
-  {
-    "id": 324574,
-    "cover": {
-      "id": 425506,
-      "image_id": "co94bm"
-    },
-    "first_release_date": 1781136000,
-    "name": "SpaceCraft",
-    "slug": "spacecraft--2"
-  },
-  {
-    "id": 278600,
-    "cover": {
-      "id": 533639,
-      "image_id": "cobfrb"
-    },
-    "first_release_date": 1781136000,
-    "name": "Unrailed 2: Back on Track",
-    "slug": "unrailed-2-back-on-track",
-    "total_rating": 65.04220596510973
-  },
-  {
-    "id": 263225,
-    "cover": {
-      "id": 379001,
-      "image_id": "co84ft"
-    },
-    "first_release_date": 1781136000,
-    "name": "Lost Castle 2",
-    "slug": "lost-castle-2"
-  },
-  {
-    "id": 245733,
-    "cover": {
-      "id": 298474,
-      "image_id": "co6eay"
-    },
-    "first_release_date": 1781136000,
-    "name": "Tales of Seikyu",
-    "slug": "tales-of-seikyu"
-  },
-  {
-    "id": 217326,
-    "cover": {
-      "id": 314097,
-      "image_id": "co6qcx"
-    },
-    "first_release_date": 1781136000,
-    "name": "Gem Venture",
-    "slug": "gem-venture"
-  },
-  {
-    "id": 206041,
-    "cover": {
-      "id": 460615,
-      "image_id": "co9vev"
-    },
-    "first_release_date": 1781136000,
-    "name": "Pardon My French Toast",
-    "slug": "pardon-my-french-toast"
-  },
-  {
-    "id": 156653,
-    "cover": {
-      "id": 352991,
-      "image_id": "co7kdb"
-    },
-    "first_release_date": 1781136000,
-    "name": "Kebab Chefs!: Restaurant Simulator",
-    "slug": "kebab-chefs-restaurant-simulator"
-  },
-  {
-    "id": 405717,
-    "cover": {
-      "id": 570102,
-      "image_id": "coc7w6"
-    },
-    "first_release_date": 1781049600,
-    "name": "Snowstorm",
-    "slug": "snowstorm"
-  },
-  {
-    "id": 404164,
-    "cover": {
-      "id": 571279,
-      "image_id": "coc8sv"
-    },
-    "first_release_date": 1781049600,
-    "name": "Scream You Lose",
-    "slug": "scream-you-lose"
-  },
-  {
-    "id": 400888,
-    "cover": {
-      "id": 561548,
-      "image_id": "coc1ak"
-    },
-    "first_release_date": 1781049600,
-    "name": "The Dreams in the Peacock House",
-    "slug": "the-dreams-in-the-peacock-house"
-  },
-  {
-    "id": 400663,
-    "cover": {
-      "id": 561092,
-      "image_id": "coc0xw"
-    },
-    "first_release_date": 1781049600,
-    "name": "Armory Simulator",
-    "slug": "armory-simulator"
-  },
-  {
-    "id": 393982,
-    "cover": {
-      "id": 546923,
-      "image_id": "cobq0b"
-    },
-    "first_release_date": 1781049600,
-    "name": "Quick Brown",
-    "slug": "quick-brown"
-  },
-  {
-    "id": 392606,
-    "cover": {
-      "id": 545592,
-      "image_id": "cobozc"
-    },
-    "first_release_date": 1781049600,
-    "name": "RWS",
-    "slug": "rws"
-  },
-  {
-    "id": 392036,
-    "cover": {
-      "id": 541565,
-      "image_id": "coblvh"
-    },
-    "first_release_date": 1781049600,
-    "name": "Latitude of the Cult",
-    "slug": "latitude-of-the-cult"
   }
 ]

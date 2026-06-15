@@ -105,7 +105,7 @@ export function UserMenu({ user }: UserMenuProps) {
                     <Link
                         role="menuitem"
                         tabIndex={isOpen ? undefined : -1}
-                        href="/library"
+                        href={`/library/${user.name}`}
                         onClick={() => setIsOpen(false)}
                         className="flex items-center gap-3 rounded px-3 py-3 font-medium text-text-muted transition-colors hover:bg-primary hover:text-text focus:bg-primary focus:text-text focus:outline-none md:py-2.5"
                     >

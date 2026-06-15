@@ -1,5 +1,5 @@
-import { RawCollection, RawCompany, RawFranchise, RawGame, RawGenre, RawPlatform } from "@/lib/types";
-import { formatRawCollection, formatRawCompany, formatRawFranchise, formatRawGame, formatRawGenre, formatRawPlatform } from "@/lib/igdb/util";
+import { RawCollection, RawCompany, RawFranchise, RawGame, RawGenre, RawKeyword, RawPlatform } from "@/lib/types";
+import { formatRawCollection, formatRawCompany, formatRawFranchise, formatRawGame, formatRawGenre, formatRawKeyword, formatRawPlatform } from "@/lib/external/igdb/util";
 import { loadEnvConfig } from "@next/env";
 import fs from "fs/promises";
 
@@ -10,7 +10,7 @@ const LIMIT = 500;
 const CHECKPOINT_FILE = "igdb-import-checkpoint.json";
 
 type DbClient = typeof import("@/lib/db").default;
-type ImportKind = "collections" | "franchises" | "genres" | "platforms" | "companies" | "games";
+type ImportKind = "collections" | "franchises" | "genres" | "platforms" | "companies" | "keywords" | "games";
 type Checkpoint = Partial<Record<ImportKind, number>>;
 type ImportConfig<Raw, Formatted> = {
     kind: ImportKind;
@@ -171,9 +171,17 @@ const importConfigs: ImportConfig<unknown, unknown>[] = [
         save: (db, item) => db.company.upsert({ where: { id: (item as { id: number }).id }, update: item as any, create: item as any }),
     },
     {
+        kind: "keywords",
+        endpoint: "keywords",
+        fields: "slug, name",
+        where: "name != null",
+        format: (raw) => formatRawKeyword(raw as RawKeyword),
+        save: (db, item) => db.keyword.upsert({ where: { id: (item as { id: number }).id }, update: item as any, create: item as any }),
+    },
+    {
         kind: "games",
         endpoint: "games",
-        fields: "slug, name, summary, total_rating, first_release_date, cover.image_id, screenshots.image_id, videos.video_id, platforms.name, platforms.slug, involved_companies.company, involved_companies.developer, involved_companies.publisher, genres.name, genres.slug, franchises.name, franchises.slug, franchises.games, similar_games, collections.name, collections.slug, collections.games",
+        fields: "slug, name, summary, total_rating, first_release_date, cover.image_id, screenshots.image_id, videos.video_id, platforms.name, platforms.slug, involved_companies.company, involved_companies.developer, involved_companies.publisher, genres.name, genres.slug, franchises.name, franchises.slug, franchises.games, similar_games, collections.name, collections.slug, collections.games, keywords, game_type",
         where: "name != null & slug != null",
         format: (raw) => formatRawGame(raw as RawGame),
         save: (db, item) => db.game.upsert({ where: { id: (item as { id: number }).id }, update: item as any, create: item as any }),

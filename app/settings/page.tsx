@@ -3,7 +3,7 @@ import ProfileBackground from "@/app/components/user/BackgroundView";
 import { auth } from "@/lib/auth";
 import { getUser, profileThemeStyle } from "@/lib/account/user";
 import * as normalize from "@/lib/util/normalize";
-import { Bell, LayoutGrid, Settings, Shield, UserIcon } from "lucide-react";
+import { Bell, Download, LayoutGrid, Settings, Shield, UserIcon } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import SettingsPanel from "./SettingsPanel";
@@ -15,6 +15,7 @@ const tabs: { id: string; label: string; description: string; icon: typeof UserI
     { id: "privacy", label: "Privacy", description: "Who can view and interact", icon: Shield },
     { id: "widgets", label: "Widgets", description: "Profile blocks and per-widget settings", icon: LayoutGrid },
     { id: "preferences", label: "Preferences", description: "Site defaults and notifications", icon: Bell },
+    { id: "import", label: "Import", description: "Import external libraries", icon: Download },
     { id: "account", label: "Account", description: "Email and account metadata", icon: Settings },
 ];
 

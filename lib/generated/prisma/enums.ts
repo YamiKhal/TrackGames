@@ -9,7 +9,42 @@
 * 🟢 You can import this file directly.
 */
 
+export const GameListType = {
+  LIBRARY: 'LIBRARY',
+  PLAYLIST: 'PLAYLIST'
+} as const
+
+export type GameListType = (typeof GameListType)[keyof typeof GameListType]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const GameStatus = {
+  BACKLOG: 'BACKLOG',
+  PLAYING: 'PLAYING',
+  COMPLETED: 'COMPLETED',
+  DROPPED: 'DROPPED',
+  PAUSED: 'PAUSED',
+  WISHLIST: 'WISHLIST'
+} as const
+
+export type GameStatus = (typeof GameStatus)[keyof typeof GameStatus]
+
+
+export const GameType = {
+  MAINGAME: 'MAINGAME',
+  DLC: 'DLC',
+  EXPANSION: 'EXPANSION',
+  BUNDLE: 'BUNDLE',
+  STANDALONE_EXPANSION: 'STANDALONE_EXPANSION',
+  MOD: 'MOD',
+  EPISODE: 'EPISODE',
+  SEASON: 'SEASON',
+  REMAKE: 'REMAKE',
+  REMASTER: 'REMASTER',
+  EXPANDED_GAME: 'EXPANDED_GAME',
+  PORT: 'PORT',
+  FORK: 'FORK',
+  PACK: 'PACK',
+  UPDATE: 'UPDATE'
+} as const
+
+export type GameType = (typeof GameType)[keyof typeof GameType]

@@ -6,6 +6,7 @@ import ThemeSwitch from "../ui/ThemeSwitch";
 import { auth } from "@/lib/auth";
 import { UserMenu } from "../ui/UserMenu";
 import { getUser } from "@/lib/account/user";
+import HeaderSearch from "./HeaderSearch";
 
 export default async function Header() {
     const session = await auth();
@@ -13,18 +14,13 @@ export default async function Header() {
 
     return (
         <header className="relative z-20 flex min-h-20 flex-row items-center justify-center border-b border-border bg-bg p-4 sm:p-5">
-            <Container className="flex flex-row justify-between items-center">
-                <Link href="/" className="min-w-0">
+            <Container className="flex flex-row justify-between items-center gap-3">
+                <Link href="/" className="min-w-0 shrink-0">
                     <h1 className="text-xl font-bold text-text sm:text-2xl">Track<span className="text-primary">Games</span></h1>
                 </Link>
+                
                 <div className="flex flex-row items-center gap-2 sm:gap-3 md:gap-8">
-                    <button
-                        type="button"
-                        className="hidden cursor-pointer text-text-muted transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:grid"
-                        aria-label="Help"
-                    >
-                        <CircleQuestionMark size={24} aria-hidden="true" />
-                    </button>
+                    <HeaderSearch />
                     <ThemeSwitch className="hidden md:grid" />
                     {user ? (
                         <UserMenu user={user} />

@@ -56,11 +56,15 @@ export const ModelName = {
   Session: 'Session',
   VerificationToken: 'VerificationToken',
   Game: 'Game',
+  UserGameEntry: 'UserGameEntry',
+  GameList: 'GameList',
+  GameListEntry: 'GameListEntry',
   Collection: 'Collection',
   Franchise: 'Franchise',
   Genre: 'Genre',
   Platform: 'Platform',
-  Company: 'Company'
+  Company: 'Company',
+  Keyword: 'Keyword'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -161,11 +165,65 @@ export const GameScalarFieldEnum = {
   franchises: 'franchises',
   collections: 'collections',
   similarGames: 'similarGames',
+  keywords: 'keywords',
+  gameType: 'gameType',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type GameScalarFieldEnum = (typeof GameScalarFieldEnum)[keyof typeof GameScalarFieldEnum]
+
+
+export const UserGameEntryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  gameId: 'gameId',
+  status: 'status',
+  rating: 'rating',
+  timePlayed: 'timePlayed',
+  timeFinished: 'timeFinished',
+  timeMastered: 'timeMastered',
+  notes: 'notes',
+  favorite: 'favorite',
+  addedAt: 'addedAt',
+  startedAt: 'startedAt',
+  finishedAt: 'finishedAt',
+  masteredAt: 'masteredAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserGameEntryScalarFieldEnum = (typeof UserGameEntryScalarFieldEnum)[keyof typeof UserGameEntryScalarFieldEnum]
+
+
+export const GameListScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  name: 'name',
+  slug: 'slug',
+  description: 'description',
+  image: 'image',
+  background: 'background',
+  color: 'color',
+  accentColor: 'accentColor',
+  privacy: 'privacy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GameListScalarFieldEnum = (typeof GameListScalarFieldEnum)[keyof typeof GameListScalarFieldEnum]
+
+
+export const GameListEntryScalarFieldEnum = {
+  id: 'id',
+  listId: 'listId',
+  gameId: 'gameId',
+  position: 'position',
+  addedAt: 'addedAt'
+} as const
+
+export type GameListEntryScalarFieldEnum = (typeof GameListEntryScalarFieldEnum)[keyof typeof GameListEntryScalarFieldEnum]
 
 
 export const CollectionScalarFieldEnum = {
@@ -227,6 +285,17 @@ export const CompanyScalarFieldEnum = {
 } as const
 
 export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum]
+
+
+export const KeywordScalarFieldEnum = {
+  id: 'id',
+  slug: 'slug',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type KeywordScalarFieldEnum = (typeof KeywordScalarFieldEnum)[keyof typeof KeywordScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Game, RawGame } from "@/lib/types";
-import { ImageIdToURL } from "@/lib/igdb/util";
+import { ImageIdToURL } from "@/lib/external/igdb/util";
 import Link from "next/link";
 
 export default function GameFeature({ game }: { game: Game }) {

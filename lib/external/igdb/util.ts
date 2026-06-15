@@ -1,4 +1,5 @@
-import { Collection, Company, Franchise, Game, Genre, Platform, RawCollection, RawCompany, RawFranchise, RawGame, RawGenre, RawPlatform } from "../types";
+import { GameType } from "../../generated/prisma/enums";
+import { Collection, Company, Franchise, Game, Genre, Keyword, Platform, RawCollection, RawCompany, RawFranchise, RawGame, RawGenre, RawKeyword, RawPlatform } from "../../types";
 
 export function ImageIdToURL(id?: string, type: "cover" | "cover_big" | "1080" | "720" = "cover_big"): string | null {
     if (id != null) {
@@ -26,6 +27,27 @@ function requireBaseEntity(entity: { id?: number; name?: string; slug?: string }
     };
 }
 
+function getGameType(id: number): GameType {
+    switch (id) {
+        case 0: return GameType.MAINGAME;
+        case 1: return GameType.DLC;
+        case 2: return GameType.EXPANSION;
+        case 3: return GameType.BUNDLE;
+        case 4: return GameType.STANDALONE_EXPANSION;
+        case 5: return GameType.MOD;
+        case 6: return GameType.EPISODE;
+        case 7: return GameType.SEASON;
+        case 8: return GameType.REMAKE;
+        case 9: return GameType.REMASTER;
+        case 10: return GameType.EXPANDED_GAME;
+        case 11: return GameType.PORT;
+        case 12: return GameType.FORK;
+        case 13: return GameType.PACK;
+        case 14: return GameType.UPDATE;
+        default: throw new Error(`Unknown game type id: ${id}`);
+    }
+}
+
 export function formatRawGame(game: RawGame): Game {
     if (!game.id || !game.name || !game.slug) {
         throw new Error("Cannot format an API game without an id, name, and slug.");
@@ -48,6 +70,8 @@ export function formatRawGame(game: RawGame): Game {
         franchises: game.franchises ? game.franchises.map((item) => item.id) : [],
         collections: game.collections ? game.collections.map((item) => item.id) : [],
         similarGames: game.similar_games,
+        keywords: game.keywords ? game.keywords : [],
+        gameType: game.game_type ? getGameType(game.game_type) : undefined,
     }
 }
 
@@ -75,6 +99,14 @@ export function formatRawGenre(genre: RawGenre): Genre {
 
 export function formatRawPlatform(platform: RawPlatform): Platform {
     return requireBaseEntity(platform, "platform");
+}
+
+export function formatRawKeyword(keyword: RawKeyword): Keyword {
+    return {
+        id: keyword.id!,
+        name: keyword.name!,
+        slug: keyword.slug ?? "unknown"
+    };
 }
 
 export function formatRawCompany(company: RawCompany): Company {

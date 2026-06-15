@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useCallback, useRef } from "react";
 import { Game } from "@/lib/types";
-import { ImageIdToURL } from "@/lib/igdb/util";
+import { ImageIdToURL } from "@/lib/external/igdb/util";
 import { rippleEffect } from "@/lib/util/effects";
 import Link from "next/link";
 

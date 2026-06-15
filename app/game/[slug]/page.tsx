@@ -1,12 +1,12 @@
 import GameCard from "@/app/components/game/GameCard";
+import GameLibraryButtonPanel from "@/app/components/game/GameLibraryButtonPanel";
 import RelatedGamesTabs from "@/app/components/game/RelatedGamesTabs";
 import Container from "@/app/components/layout/Container";
 import MediaGallary from "@/app/components/layout/MediaGallary";
-import { PrimaryButton } from "@/app/components/ui/Buttons";
 import { Company, Game, Genre, Platform } from "@/lib/types";
-import { ImageIdToURL } from "@/lib/igdb/util";
+import { ImageIdToURL } from "@/lib/external/igdb/util";
 import * as normalize from "@/lib/util/normalize";
-import { Monitor, ToggleRight, Gamepad2, GamepadDirectional, TabletSmartphone, Astroid, Play, Library, Apple, Clock, Flag, BadgeCheck } from "lucide-react";
+import { Monitor, ToggleRight, Gamepad2, GamepadDirectional, TabletSmartphone, Astroid, Play, Library, Apple, Clock, Flag, BadgeCheck, Star } from "lucide-react";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getGame, getGameBySlug } from "@/lib/data/games";
@@ -15,6 +15,9 @@ import { getFranchise } from "@/lib/data/franchises";
 import { getCollection } from "@/lib/data/colllections";
 import { getGenre } from "@/lib/data/genre";
 import { getPlatform } from "@/lib/data/platforms";
+import { auth } from "@/lib/auth";
+import { getUserGameEntry } from "@/lib/data/library";
+import { ratingToFive } from "@/lib/util/rating";
 
 function platformIcon(name: string) {
     const lower = name.toLowerCase();
@@ -29,25 +32,25 @@ function platformIcon(name: string) {
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
-    const [game] = await Promise.all([getGameBySlug(slug)]);
+    const [game, session] = await Promise.all([getGameBySlug(slug), auth()]);
     if (!game) redirect("/not-found");
 
     let backdrop;
-    let developers: Company[];
-    let publishers: Company[];
     let franchiseGames: Game[] = [];
     let collectionsGames: Game[] = [];
     let similarGames: Game[] = [];
     let genres: Genre[] = [];
     let platforms: Platform[] = [];
 
+    const owned = session?.user?.id && game.id ? await getUserGameEntry(session.user.id, game.id) : null;
+
     const developerIds = game.developers ? game.developers.map(id => id) : [];
     const publisherIds = game.publishers ? game.publishers.filter(id => !developerIds.some(v => v === id)) : [];
     const franchises = game.franchises ? await getFranchise(game.franchises) : [];
     const collections = game.collections ? await getCollection(game.collections) : [];
 
-    developers = await getCompany(Array.from(developerIds.values()));
-    publishers = await getCompany(Array.from(publisherIds.values()));
+    const developers: Company[] = await getCompany(Array.from(developerIds.values()));
+    const publishers: Company[] = await getCompany(Array.from(publisherIds.values()));
 
     franchiseGames = franchises.length ? await getGame(franchises[0].games) : [];
     collectionsGames = collections.length ? await getGame(collections[0].games) : [];
@@ -55,8 +58,6 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
     genres = (game.genres && game.genres.length) ? await getGenre(game.genres) : [];
     platforms = (game.platforms && game.platforms.length) ? await getPlatform(game.platforms) : [];
-
-    console.log(developers)
 
 
     if (game.screenshots && game.screenshots.length > 0) {
@@ -129,9 +130,14 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                                     </p>
                                 }
                             </div>
-                            <div className="flex flex-row">
-                                <PrimaryButton>Add to Library</PrimaryButton>
-                            </div>
+                            {game.id && game.slug &&
+                                <GameLibraryButtonPanel
+                                    gameId={game.id}
+                                    gameSlug={game.slug}
+                                    loggedIn={Boolean(session?.user)}
+                                    inLibrary={Boolean(owned)}
+                                />
+                            }
                         </div>
                     </div>
                 </Container>
@@ -155,8 +161,8 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                                 aria-label={averageRating !== null ? `Average rating ${averageRating.toFixed(1)} out of 100` : "Average rating unavailable"}
                             >
                                 <div className="flex h-full w-full flex-col items-center justify-center rounded bg-bg-secondary pb-5 pt-5 pr-10 pl-10">
-                                    <h2 className="text-md text-text-muted mb-2">Avg Rating</h2>
-                                    <p className="text-2xl font-bold text-text">{averageRating !== null ? averageRating.toFixed(1) : "N/A"}</p>
+                                    <h2 className="text-md text-text-muted mb-2">Avg. Rating</h2>
+                                    <p className="text-2xl font-bold text-text">{averageRating !== null ? ratingToFive(Number(averageRating.toFixed(1)))?.toFixed(2) : "N/A"}</p>
                                 </div>
                             </div>
                             <div className="grid w-full min-w-0 grid-cols-[auto_minmax(0,1fr)] items-start gap-x-10 gap-y-5 border-b border-border">

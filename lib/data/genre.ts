@@ -1,5 +1,5 @@
 import db from "../db";
-import { formatRawGenre } from "../igdb/util";
+import { formatRawGenre } from "../external/igdb/util";
 import { Genre } from "../types";
 import { getByIds, getBySlugs } from "./getter";
 

@@ -1,0 +1,5 @@
+UPDATE "Game" SET "keywords" = ARRAY[]::INTEGER[] WHERE "keywords" IS NULL;
+
+ALTER TABLE "Game"
+ALTER COLUMN "keywords" SET DEFAULT ARRAY[]::INTEGER[],
+ALTER COLUMN "keywords" SET NOT NULL;

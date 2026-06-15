@@ -91,27 +91,36 @@ model Game {
   franchises   Int[]
   collections  Int[]
   similarGames Int[]
+  keywords     Int[]     @default([])
+  gameType     GameType  @default(MAINGAME)
 
   createdAt   DateTime        @default(now())
   updatedAt   DateTime        @updatedAt
   users       UserGameEntry[]
   listEntries GameListEntry[]
+
+  @@index([name])
+  @@index([gameType])
+  @@index([keywords], type: Gin, map: "Game_keywords_gin_idx")
 }
 
 model UserGameEntry {
-  id         String     @id @default(cuid())
-  userId     String
-  gameId     Int
-  status     GameStatus @default(BACKLOG)
-  rating     Int?
-  progress   Int?
-  notes      String?    @db.Text
-  favorite   Boolean    @default(false)
-  addedAt    DateTime   @default(now())
-  startedAt  DateTime?
-  finishedAt DateTime?
-  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  game       Game       @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  id           String     @id @default(cuid())
+  userId       String
+  gameId       Int
+  status       GameStatus @default(BACKLOG)
+  rating       Float?
+  timePlayed   Float?
+  timeFinished Float?
+  timeMastered Float?
+  notes        String?    @db.Text
+  favorite     Boolean    @default(false)
+  addedAt      DateTime   @default(now())
+  startedAt    DateTime?
+  finishedAt   DateTime?
+  masteredAt   DateTime?
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  game         Game       @relation(fields: [gameId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -209,6 +218,17 @@ model Company {
   updatedAt DateTime @updatedAt
 }
 
+model Keyword {
+  id   Int    @id
+  slug String @unique
+  name String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([name])
+}
+
 enum GameListType {
   LIBRARY
   PLAYLIST
@@ -221,4 +241,22 @@ enum GameStatus {
   DROPPED
   PAUSED
   WISHLIST
+}
+
+enum GameType {
+  MAINGAME
+  DLC
+  EXPANSION
+  BUNDLE
+  STANDALONE_EXPANSION
+  MOD
+  EPISODE
+  SEASON
+  REMAKE
+  REMASTER
+  EXPANDED_GAME
+  PORT
+  FORK
+  PACK
+  UPDATE
 }

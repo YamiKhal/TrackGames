@@ -29,7 +29,7 @@ export default function ProfileHeader({ owned, isSettings, profileImage, display
                                     ) : (
                                         <PrimaryButton>Follow</PrimaryButton>
                                     )}
-                                    <PrimaryButton>Library</PrimaryButton>
+                                    <PrimaryButton href={`/library/${displayName}`}>Library</PrimaryButton>
                                 </>
                             )}
                         </div>

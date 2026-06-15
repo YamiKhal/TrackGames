@@ -1,5 +1,5 @@
 import CachedResource from "./CachedResource";
-import { calculateTrendingGames, calculateYearlyHitGames, calculateHiddenGems, calculateMostAnticipated, calculateComingSoon, calculateRecentlyReleased } from "../igdb/games";
+import { calculateTrendingGames, calculateYearlyHitGames, calculateHiddenGems, calculateMostAnticipated, calculateComingSoon, calculateRecentlyReleased } from "../external/igdb/games";
 
 export const trendingGames = new CachedResource({
     name: "trending-games",

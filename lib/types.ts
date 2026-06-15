@@ -1,4 +1,5 @@
 import { LinkType, MarkdownAlign, WidgetType } from "./enums";
+import { GameStatus, GameType } from "./generated/prisma/enums";
 
 export type PopScoreEntry = {
     game_id: number;
@@ -30,6 +31,8 @@ export type RawGame = {
     franchises?: { id: number; name: string; slug: string; games: number[] }[];
     collections?: { id: number; name: string; slug: string; games: number[] }[];
     similar_games?: number[];
+    keywords?: number[];
+    game_type: number;
 }
 
 export type RawCollection = {
@@ -68,6 +71,12 @@ export type RawCompany = {
     published?: number[];
 }
 
+export type RawKeyword = {
+    id?: number;
+    name?: string;
+    slug?: string;
+}
+
 export type Game = {
     id?: number;
     slug?: string;
@@ -85,6 +94,27 @@ export type Game = {
     franchises?: number[];
     collections?: number[];
     similarGames?: number[];
+    keywords?: number[];
+    gameType?: GameType;
+}
+
+export type UserGameEntry = {
+    id: string;
+    userId: string;
+    gameId: number;
+    status: GameStatus;
+    rating?: number;
+    timePlayed?: number;
+    timeFinished?: number;
+    timeMastered?: number;
+    notes?: string;
+    favorite?: boolean;
+    addedAt?: Date;
+    startedAt?: Date;
+    finishedAt?: Date;
+    masteredAt?: Date;
+    user: User;
+    game: Game;
 }
 
 export type Collection = {
@@ -121,6 +151,12 @@ export type Company = {
     description?: string;
     developed: number[];
     published: number[];
+}
+
+export type Keyword = {
+    id: number;
+    name: string;
+    slug?: string;
 }
 
 export type User = {

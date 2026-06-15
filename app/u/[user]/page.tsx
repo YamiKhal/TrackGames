@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { Badge } from "lucide-react";
 import { auth } from "@/lib/auth";
 import FollowerPreviewPanel from "./FollowerPreviewPanel";
-import ProfileBackground from "../../components/user/BackgroundView";
+import BackgroundView from "../../components/user/BackgroundView";
 import ProfileSwitcherPanel from "./ProfileSwitcherPanel";
 import UserWidget from "./UserWidget";
 import { parseSocials } from "@/lib/account/socials";
@@ -22,7 +22,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
 
     const isOwnProfile = profile.id === session?.user?.id;
     const displayName = profile.name ?? user;
-    const background = profile.background ?? "https://cdn.pixabay.com/video/2020/06/16/42197-429661458_large.mp4";
+    const background = profile.background ?? null;
     const bio = profile.bio ?? "No bio yet."
     const socials = parseSocials(profile.socials);
     const savedWidgets = parseWidgets(profile.widgets);
@@ -30,7 +30,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
 
     return (
         <main className="relative z-0 flex-1" style={profileThemeStyle(profile.profileColor, profile.accentColor)}>
-            <ProfileBackground src={background} />
+            <BackgroundView src={background} />
             <Container>
                 {/* BANNER PROFILE */}
                 <ProfileHeader owned={isOwnProfile} profileImage={profile.image} displayName={profile.name ?? "Unknown"} socials={socials} bio={bio} />

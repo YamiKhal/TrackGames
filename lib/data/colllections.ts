@@ -1,5 +1,5 @@
 import db from "../db";
-import { formatRawCollection } from "../igdb/util";
+import { formatRawCollection } from "../external/igdb/util";
 import { Collection } from "../types";
 import { getByIds, getBySlugs } from "./getter";
 
