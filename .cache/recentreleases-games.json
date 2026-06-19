@@ -1,9 +1,325 @@
 [
   {
-    "id": 407104,
+    "id": 407309,
+    "cover": {
+      "id": 573086,
+      "image_id": "coca72"
+    },
+    "first_release_date": 1781827200,
+    "name": "Star Cosmic",
+    "slug": "star-cosmic"
+  },
+  {
+    "id": 406317,
+    "cover": {
+      "id": 571053,
+      "image_id": "coc8ml"
+    },
+    "first_release_date": 1781827200,
+    "name": "Just a Little Longer",
+    "slug": "just-a-little-longer--1"
+  },
+  {
+    "id": 406041,
+    "cover": {
+      "id": 570606,
+      "image_id": "coc8a6"
+    },
+    "first_release_date": 1781827200,
+    "name": "The Man Behind the Trigger",
+    "slug": "the-man-behind-the-trigger"
+  },
+  {
+    "id": 405912,
+    "cover": {
+      "id": 570396,
+      "image_id": "coc84c"
+    },
+    "first_release_date": 1781827200,
+    "name": "Alien Cat 2: Retro Collection",
+    "slug": "alien-cat-2-retro-collection"
+  },
+  {
+    "id": 405901,
+    "cover": {
+      "id": 572581,
+      "image_id": "coc9t1"
+    },
+    "first_release_date": 1781827200,
+    "name": "Fruits Slot Machine",
+    "slug": "fruits-slot-machine"
+  },
+  {
+    "id": 404799,
+    "cover": {
+      "id": 568632,
+      "image_id": "coc6rc"
+    },
+    "first_release_date": 1781827200,
+    "name": "Team Panic",
+    "slug": "team-panic"
+  },
+  {
+    "id": 404618,
+    "cover": {
+      "id": 568338,
+      "image_id": "coc6j6"
+    },
+    "first_release_date": 1781827200,
+    "name": "Monologin",
+    "slug": "monologin"
+  },
+  {
+    "id": 404270,
+    "first_release_date": 1781827200,
+    "name": "Pets and Friends Summer Vibes",
+    "slug": "pets-and-friends-summer-vibes"
+  },
+  {
+    "id": 404160,
+    "cover": {
+      "id": 568239,
+      "image_id": "coc6gf"
+    },
+    "first_release_date": 1781827200,
+    "name": "A Good Deed On Harris Avenue",
+    "slug": "a-good-deed-on-harris-avenue"
+  },
+  {
+    "id": 403747,
+    "cover": {
+      "id": 566713,
+      "image_id": "coc5a1"
+    },
+    "first_release_date": 1781827200,
+    "name": "Offroad Craft Runner 4x4 Simulator",
+    "slug": "offroad-craft-runner-4x4-simulator"
+  },
+  {
+    "id": 403727,
+    "cover": {
+      "id": 566693,
+      "image_id": "coc59h"
+    },
+    "first_release_date": 1781827200,
+    "name": "Strays POV Tales",
+    "slug": "strays-pov-tales"
+  },
+  {
+    "id": 403545,
+    "cover": {
+      "id": 566266,
+      "image_id": "coc4xm"
+    },
+    "first_release_date": 1781827200,
+    "name": "The Labyrinth on Burrow Hill",
+    "slug": "the-labyrinth-on-burrow-hill"
+  },
+  {
+    "id": 401434,
+    "cover": {
+      "id": 562487,
+      "image_id": "coc20n"
+    },
+    "first_release_date": 1781827200,
+    "name": "Real Car Parking Simulator",
+    "slug": "real-car-parking-simulator"
+  },
+  {
+    "id": 401402,
+    "cover": {
+      "id": 562458,
+      "image_id": "coc1zu"
+    },
+    "first_release_date": 1781827200,
+    "name": "Immunuzzle",
+    "slug": "immunuzzle"
+  },
+  {
+    "id": 400095,
+    "cover": {
+      "id": 565207,
+      "image_id": "coc447"
+    },
+    "first_release_date": 1781827200,
+    "name": "EA Sports UFC 6",
+    "slug": "ea-sports-ufc-6"
+  },
+  {
+    "id": 391303,
+    "cover": {
+      "id": 540346,
+      "image_id": "cobkxm"
+    },
+    "first_release_date": 1781827200,
+    "name": "Sheeps",
+    "slug": "sheeps"
+  },
+  {
+    "id": 390627,
+    "cover": {
+      "id": 539237,
+      "image_id": "cobk2t"
+    },
+    "first_release_date": 1781827200,
+    "name": "Alisa’s Incident Report",
+    "slug": "alisas-incident-report"
+  },
+  {
+    "id": 390271,
+    "cover": {
+      "id": 545579,
+      "image_id": "coboyz"
+    },
+    "first_release_date": 1781827200,
+    "name": "Tarot Spell",
+    "slug": "tarot-spell"
+  },
+  {
+    "id": 389223,
+    "cover": {
+      "id": 536244,
+      "image_id": "cobhro"
+    },
+    "first_release_date": 1781827200,
+    "name": "Reloadian",
+    "slug": "reloadian"
+  },
+  {
+    "id": 333552,
+    "cover": {
+      "id": 441452,
+      "image_id": "co9gmk"
+    },
+    "first_release_date": 1781827200,
+    "name": "Fire: The First Dreamer",
+    "slug": "fire-the-first-dreamer"
+  },
+  {
+    "id": 312791,
+    "cover": {
+      "id": 461967,
+      "image_id": "co9wgf"
+    },
+    "first_release_date": 1781827200,
+    "name": "Thank You For Your Application",
+    "slug": "thank-you-for-your-application"
+  },
+  {
+    "id": 302107,
+    "cover": {
+      "id": 558761,
+      "image_id": "cobz55"
+    },
+    "first_release_date": 1781827200,
+    "name": "Maseylia: Echoes of the Past",
+    "slug": "maseylia-echoes-of-the-past"
+  },
+  {
+    "id": 276020,
+    "cover": {
+      "id": 343270,
+      "image_id": "co7cva"
+    },
+    "first_release_date": 1781827200,
+    "name": "Dave.exe",
+    "slug": "dave-dot-exe"
+  },
+  {
+    "id": 407284,
     "first_release_date": 1781740800,
-    "name": "Until Then: Deluxe Edition",
-    "slug": "until-then-deluxe-edition"
+    "name": "Kokoro Appliqué",
+    "slug": "kokoro-applique"
+  },
+  {
+    "id": 407276,
+    "cover": {
+      "id": 572935,
+      "image_id": "coca2v"
+    },
+    "first_release_date": 1781740800,
+    "name": "True or False: The World",
+    "slug": "true-or-false-the-world"
+  },
+  {
+    "id": 407270,
+    "cover": {
+      "id": 572928,
+      "image_id": "coca2o"
+    },
+    "first_release_date": 1781740800,
+    "name": "Phrase Passport Japan A Travel Japanese Quiz",
+    "slug": "phrase-passport-japan-a-travel-japanese-quiz"
+  },
+  {
+    "id": 407264,
+    "cover": {
+      "id": 572922,
+      "image_id": "coca2i"
+    },
+    "first_release_date": 1781740800,
+    "name": "Clay&Cats",
+    "slug": "clay-and-cats"
+  },
+  {
+    "id": 407260,
+    "cover": {
+      "id": 572919,
+      "image_id": "coca2f"
+    },
+    "first_release_date": 1781740800,
+    "name": "Girls Force 2: Rising Academy",
+    "slug": "girls-force-2-rising-academy"
+  },
+  {
+    "id": 407258,
+    "cover": {
+      "id": 572918,
+      "image_id": "coca2e"
+    },
+    "first_release_date": 1781740800,
+    "name": "Handsome Watching Face Memory Challenge",
+    "slug": "handsome-watching-face-memory-challenge"
+  },
+  {
+    "id": 407233,
+    "cover": {
+      "id": 572891,
+      "image_id": "coca1n"
+    },
+    "first_release_date": 1781740800,
+    "name": "Fortune Pact",
+    "slug": "fortune-pact"
+  },
+  {
+    "id": 407227,
+    "cover": {
+      "id": 572864,
+      "image_id": "coca0w"
+    },
+    "first_release_date": 1781740800,
+    "name": "WordRaid",
+    "slug": "wordraid"
+  },
+  {
+    "id": 407102,
+    "cover": {
+      "id": 572592,
+      "image_id": "coc9tc"
+    },
+    "first_release_date": 1781740800,
+    "name": "Ultimate Wobble Run",
+    "slug": "ultimate-wobble-run"
+  },
+  {
+    "id": 406798,
+    "cover": {
+      "id": 571820,
+      "image_id": "coc97w"
+    },
+    "first_release_date": 1781740800,
+    "name": "Emoji Battlefield: Sky Massacre",
+    "slug": "emoji-battlefield-sky-massacre"
   },
   {
     "id": 406081,
@@ -18,6 +334,16 @@
     "slug": "tokyo-yakuza-idols-save-the-heart-of-a-rebel-girl"
   },
   {
+    "id": 406068,
+    "cover": {
+      "id": 570650,
+      "image_id": "coc8be"
+    },
+    "first_release_date": 1781740800,
+    "name": "Dead End Escape",
+    "slug": "dead-end-escape"
+  },
+  {
     "id": 405918,
     "cover": {
       "id": 570403,
@@ -26,6 +352,16 @@
     "first_release_date": 1781740800,
     "name": "Tokyo Yakuza Idols: Save the Heart of a Rebel Boy",
     "slug": "tokyo-yakuza-idols-save-the-heart-of-a-rebel-boy"
+  },
+  {
+    "id": 405914,
+    "cover": {
+      "id": 570400,
+      "image_id": "coc84g"
+    },
+    "first_release_date": 1781740800,
+    "name": "Super Scram Kitty",
+    "slug": "super-scram-kitty"
   },
   {
     "id": 405674,
@@ -96,6 +432,26 @@
     "first_release_date": 1781740800,
     "name": "Inversion: The Single Path",
     "slug": "inversion-the-single-path"
+  },
+  {
+    "id": 402430,
+    "cover": {
+      "id": 564311,
+      "image_id": "coc3fb"
+    },
+    "first_release_date": 1781740800,
+    "name": "Angels Online Global",
+    "slug": "angels-online-global"
+  },
+  {
+    "id": 401041,
+    "cover": {
+      "id": 561879,
+      "image_id": "coc1jr"
+    },
+    "first_release_date": 1781740800,
+    "name": "Illustack",
+    "slug": "illustack"
   },
   {
     "id": 400243,
@@ -174,8 +530,8 @@
       "image_id": "coc9wt"
     },
     "first_release_date": 1781740800,
-    "name": "Need",
-    "slug": "need"
+    "name": "Need: No End",
+    "slug": "need-no-end"
   },
   {
     "id": 386288,
@@ -259,6 +615,16 @@
     "slug": "color-a-cube"
   },
   {
+    "id": 324721,
+    "cover": {
+      "id": 425752,
+      "image_id": "co94ig"
+    },
+    "first_release_date": 1781740800,
+    "name": "Bakso Simulator 2",
+    "slug": "bakso-simulator-2"
+  },
+  {
     "id": 247791,
     "cover": {
       "id": 412422,
@@ -267,6 +633,16 @@
     "first_release_date": 1781740800,
     "name": "The Quiet Things",
     "slug": "the-quiet-things"
+  },
+  {
+    "id": 407083,
+    "cover": {
+      "id": 572898,
+      "image_id": "coca1u"
+    },
+    "first_release_date": 1781654400,
+    "name": "Date Math",
+    "slug": "date-math"
   },
   {
     "id": 407058,
@@ -291,8 +667,8 @@
   {
     "id": 407003,
     "cover": {
-      "id": 572395,
-      "image_id": "coc9nv"
+      "id": 572725,
+      "image_id": "coc9x1"
     },
     "first_release_date": 1781654400,
     "name": "Caged In Concrete",
@@ -459,6 +835,36 @@
     "slug": "glimvale-my-mini-overworld"
   },
   {
+    "id": 341952,
+    "cover": {
+      "id": 529489,
+      "image_id": "cobck1"
+    },
+    "first_release_date": 1781654400,
+    "name": "MuteX+",
+    "slug": "mutex-plus"
+  },
+  {
+    "id": 330261,
+    "cover": {
+      "id": 436447,
+      "image_id": "co9crj"
+    },
+    "first_release_date": 1781654400,
+    "name": "Melon Clicker",
+    "slug": "melon-clicker"
+  },
+  {
+    "id": 324576,
+    "cover": {
+      "id": 507002,
+      "image_id": "coav7e"
+    },
+    "first_release_date": 1781654400,
+    "name": "Prologue: Go Wayback!",
+    "slug": "prologue-go-wayback"
+  },
+  {
     "id": 277267,
     "cover": {
       "id": 371962,
@@ -488,6 +894,26 @@
     "name": "The Scroll of Taiwu",
     "slug": "the-scroll-of-taiwu",
     "total_rating": 70
+  },
+  {
+    "id": 407103,
+    "cover": {
+      "id": 572589,
+      "image_id": "coc9t9"
+    },
+    "first_release_date": 1781568000,
+    "name": "The Magic School",
+    "slug": "the-magic-school"
+  },
+  {
+    "id": 407097,
+    "cover": {
+      "id": 572587,
+      "image_id": "coc9t7"
+    },
+    "first_release_date": 1781568000,
+    "name": "Big Adventure: Trip To Europe 11 - Collector's Edition",
+    "slug": "big-adventure-trip-to-europe-11-collectors-edition"
   },
   {
     "id": 407076,
@@ -554,435 +980,5 @@
     "first_release_date": 1781568000,
     "name": "Vibe or Dare",
     "slug": "vibe-or-dare"
-  },
-  {
-    "id": 403690,
-    "cover": {
-      "id": 571248,
-      "image_id": "coc8s0"
-    },
-    "first_release_date": 1781568000,
-    "name": "City Car Driving 2.0",
-    "slug": "city-car-driving-2-dot-0"
-  },
-  {
-    "id": 402063,
-    "cover": {
-      "id": 563653,
-      "image_id": "coc2x1"
-    },
-    "first_release_date": 1781568000,
-    "name": "Grid Tactics: Duel",
-    "slug": "grid-tactics-duel"
-  },
-  {
-    "id": 401495,
-    "cover": {
-      "id": 562620,
-      "image_id": "coc24c"
-    },
-    "first_release_date": 1781568000,
-    "name": "Trail & Error",
-    "slug": "trail-and-error--1"
-  },
-  {
-    "id": 401368,
-    "cover": {
-      "id": 562436,
-      "image_id": "coc1z8"
-    },
-    "first_release_date": 1781568000,
-    "name": "Auto Shop Simulator",
-    "slug": "auto-shop-simulator"
-  },
-  {
-    "id": 400538,
-    "cover": {
-      "id": 560871,
-      "image_id": "coc0rr"
-    },
-    "first_release_date": 1781568000,
-    "name": "Obscuris",
-    "slug": "obscuris"
-  },
-  {
-    "id": 398424,
-    "cover": {
-      "id": 556614,
-      "image_id": "cobxhi"
-    },
-    "first_release_date": 1781568000,
-    "name": "Barbie: Horse Ride & Rescue",
-    "slug": "barbie-horse-ride-and-rescue"
-  },
-  {
-    "id": 390879,
-    "cover": {
-      "id": 545327,
-      "image_id": "coborz"
-    },
-    "first_release_date": 1781568000,
-    "name": "Meowtabolism: Examining Feline Behavior Within Unicellular Algae",
-    "slug": "meowtabolism-examining-feline-behavior-within-unicellular-algae"
-  },
-  {
-    "id": 378242,
-    "cover": {
-      "id": 507074,
-      "image_id": "coav9e"
-    },
-    "first_release_date": 1781568000,
-    "name": "Daughter of the Rift",
-    "slug": "daughter-of-the-rift"
-  },
-  {
-    "id": 377125,
-    "cover": {
-      "id": 505285,
-      "image_id": "coatvp"
-    },
-    "first_release_date": 1781568000,
-    "name": "8 Ball by Pokerist",
-    "slug": "8-ball-by-pokerist"
-  },
-  {
-    "id": 376970,
-    "cover": {
-      "id": 505072,
-      "image_id": "coatps"
-    },
-    "first_release_date": 1781568000,
-    "name": "Junkster",
-    "slug": "junkster"
-  },
-  {
-    "id": 351713,
-    "cover": {
-      "id": 469374,
-      "image_id": "coa266"
-    },
-    "first_release_date": 1781568000,
-    "name": "Total Driftin': Touge Dreams",
-    "slug": "total-driftin-touge-dreams"
-  },
-  {
-    "id": 305177,
-    "cover": {
-      "id": 551304,
-      "image_id": "cobte0"
-    },
-    "first_release_date": 1781568000,
-    "name": "Copa City",
-    "slug": "copa-city"
-  },
-  {
-    "id": 270555,
-    "cover": {
-      "id": 391923,
-      "image_id": "co8eer"
-    },
-    "first_release_date": 1781568000,
-    "name": "Icaria",
-    "slug": "icaria"
-  },
-  {
-    "id": 258967,
-    "cover": {
-      "id": 348332,
-      "image_id": "co7grw"
-    },
-    "first_release_date": 1781568000,
-    "name": "Cube Kingdoms",
-    "slug": "cube-kingdoms"
-  },
-  {
-    "id": 159531,
-    "cover": {
-      "id": 192373,
-      "image_id": "co44fp"
-    },
-    "first_release_date": 1781568000,
-    "name": "Karting4Fun",
-    "slug": "karting4fun"
-  },
-  {
-    "id": 113046,
-    "cover": {
-      "id": 186180,
-      "image_id": "co3zno"
-    },
-    "first_release_date": 1781568000,
-    "name": "Fight or Flight",
-    "slug": "fight-or-flight"
-  },
-  {
-    "id": 407005,
-    "cover": {
-      "id": 572400,
-      "image_id": "coc9o0"
-    },
-    "first_release_date": 1781481600,
-    "name": "Break The Chain",
-    "slug": "break-the-chain"
-  },
-  {
-    "id": 406943,
-    "cover": {
-      "id": 572185,
-      "image_id": "coc9i1"
-    },
-    "first_release_date": 1781481600,
-    "name": "The Apothecary Diaries Palace Chronicles",
-    "slug": "the-apothecary-diaries-palace-chronicles"
-  },
-  {
-    "id": 406933,
-    "cover": {
-      "id": 572173,
-      "image_id": "coc9hp"
-    },
-    "first_release_date": 1781481600,
-    "name": "Till The Light",
-    "slug": "till-the-light"
-  },
-  {
-    "id": 406883,
-    "cover": {
-      "id": 572218,
-      "image_id": "coc9iy"
-    },
-    "first_release_date": 1781481600,
-    "name": "Crococo",
-    "slug": "crococo"
-  },
-  {
-    "id": 406722,
-    "cover": {
-      "id": 571701,
-      "image_id": "coc94l"
-    },
-    "first_release_date": 1781481600,
-    "name": "Cat Chases Mouse",
-    "slug": "cat-chases-mouse"
-  },
-  {
-    "id": 405948,
-    "cover": {
-      "id": 571548,
-      "image_id": "coc90c"
-    },
-    "first_release_date": 1781481600,
-    "name": "Unconventional Broadcasting Department Mika & Luna",
-    "slug": "unconventional-broadcasting-department-mika-and-luna"
-  },
-  {
-    "id": 405331,
-    "cover": {
-      "id": 569565,
-      "image_id": "coc7h9"
-    },
-    "first_release_date": 1781481600,
-    "name": "Tilt It! Golf",
-    "slug": "tilt-it-golf"
-  },
-  {
-    "id": 404401,
-    "cover": {
-      "id": 568228,
-      "image_id": "coc6g4"
-    },
-    "first_release_date": 1781481600,
-    "name": "College Quest",
-    "slug": "college-quest"
-  },
-  {
-    "id": 404021,
-    "cover": {
-      "id": 567276,
-      "image_id": "coc5po"
-    },
-    "first_release_date": 1781481600,
-    "name": "Autotelic",
-    "slug": "autotelic"
-  },
-  {
-    "id": 403983,
-    "cover": {
-      "id": 567390,
-      "image_id": "coc5su"
-    },
-    "first_release_date": 1781481600,
-    "name": "Eldara",
-    "slug": "eldara"
-  },
-  {
-    "id": 403705,
-    "cover": {
-      "id": 566654,
-      "image_id": "coc58e"
-    },
-    "first_release_date": 1781481600,
-    "name": "Mini Lucy",
-    "slug": "mini-lucy"
-  },
-  {
-    "id": 402545,
-    "cover": {
-      "id": 564565,
-      "image_id": "coc3md"
-    },
-    "first_release_date": 1781481600,
-    "name": "Broken Crown",
-    "slug": "broken-crown"
-  },
-  {
-    "id": 400741,
-    "cover": {
-      "id": 561269,
-      "image_id": "coc12t"
-    },
-    "first_release_date": 1781481600,
-    "name": "You Within Me",
-    "slug": "you-within-me"
-  },
-  {
-    "id": 396260,
-    "cover": {
-      "id": 553887,
-      "image_id": "cobvdr"
-    },
-    "first_release_date": 1781481600,
-    "name": "Pro Cycling Manager 26",
-    "slug": "pro-cycling-manager-26"
-  },
-  {
-    "id": 389931,
-    "cover": {
-      "id": 538124,
-      "image_id": "cobj7w"
-    },
-    "first_release_date": 1781481600,
-    "name": "Pickupbal",
-    "slug": "pickupbal"
-  },
-  {
-    "id": 389740,
-    "cover": {
-      "id": 537868,
-      "image_id": "cobj0s"
-    },
-    "first_release_date": 1781481600,
-    "name": "Songtail: Whiskers of Destiny",
-    "slug": "songtail-whiskers-of-destiny"
-  },
-  {
-    "id": 382593,
-    "cover": {
-      "id": 518014,
-      "image_id": "cob3pa"
-    },
-    "first_release_date": 1781481600,
-    "name": "Morbus",
-    "slug": "morbus"
-  },
-  {
-    "id": 378189,
-    "cover": {
-      "id": 529887,
-      "image_id": "cobcv3"
-    },
-    "first_release_date": 1781481600,
-    "name": "MOLE",
-    "slug": "mole--4"
-  },
-  {
-    "id": 373036,
-    "cover": {
-      "id": 498086,
-      "image_id": "coaobq"
-    },
-    "first_release_date": 1781481600,
-    "name": "Beauties and the Stranded",
-    "slug": "beauties-and-the-stranded"
-  },
-  {
-    "id": 371154,
-    "cover": {
-      "id": 494615,
-      "image_id": "coalnb"
-    },
-    "first_release_date": 1781481600,
-    "name": "Gagged Love",
-    "slug": "gagged-love"
-  },
-  {
-    "id": 359341,
-    "cover": {
-      "id": 477166,
-      "image_id": "coa86m"
-    },
-    "first_release_date": 1781481600,
-    "name": "Animal Times",
-    "slug": "animal-times"
-  },
-  {
-    "id": 346553,
-    "cover": {
-      "id": 572510,
-      "image_id": "coc9r2"
-    },
-    "first_release_date": 1781481600,
-    "name": "General Idler",
-    "slug": "general-idler"
-  },
-  {
-    "id": 312679,
-    "cover": {
-      "id": 571776,
-      "image_id": "coc96o"
-    },
-    "first_release_date": 1781481600,
-    "name": "Alaric",
-    "slug": "alaric"
-  },
-  {
-    "id": 258748,
-    "cover": {
-      "id": 361826,
-      "image_id": "co7r6q"
-    },
-    "first_release_date": 1781481600,
-    "name": "Tales of Wakana",
-    "slug": "tales-of-wakana"
-  },
-  {
-    "id": 406844,
-    "cover": {
-      "id": 572214,
-      "image_id": "coc9iu"
-    },
-    "first_release_date": 1781395200,
-    "name": "Ember Seeker",
-    "slug": "ember-seeker"
-  },
-  {
-    "id": 406711,
-    "cover": {
-      "id": 571675,
-      "image_id": "coc93v"
-    },
-    "first_release_date": 1781395200,
-    "name": "Not a Customer",
-    "slug": "not-a-customer"
-  },
-  {
-    "id": 406134,
-    "cover": {
-      "id": 570744,
-      "image_id": "coc8e0"
-    },
-    "first_release_date": 1781395200,
-    "name": "Sneaky Bimbuls",
-    "slug": "sneaky-bimbuls"
   }
 ]

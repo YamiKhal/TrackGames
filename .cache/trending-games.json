@@ -1,15 +1,5 @@
 [
   {
-    "id": 141114,
-    "cover": {
-      "id": 498347,
-      "image_id": "coaoiz"
-    },
-    "name": "007 First Light",
-    "slug": "007-first-light",
-    "total_rating": 79.84985014083328
-  },
-  {
     "id": 405028,
     "cover": {
       "id": 569403,
@@ -17,6 +7,16 @@
     },
     "name": "Meccha Chameleon",
     "slug": "meccha-chameleon--1"
+  },
+  {
+    "id": 141114,
+    "cover": {
+      "id": 498347,
+      "image_id": "coaoiz"
+    },
+    "name": "007 First Light",
+    "slug": "007-first-light",
+    "total_rating": 79.84785248751527
   },
   {
     "id": 308535,
@@ -36,7 +36,7 @@
     },
     "name": "Forza Horizon 6",
     "slug": "forza-horizon-6",
-    "total_rating": 85.09141249403497
+    "total_rating": 85.09071499281843
   },
   {
     "id": 403674,
@@ -68,16 +68,6 @@
     "total_rating": 83.26707790724241
   },
   {
-    "id": 361890,
-    "cover": {
-      "id": 565449,
-      "image_id": "coc4ax"
-    },
-    "name": "World of Tanks: Heat",
-    "slug": "world-of-tanks-heat",
-    "total_rating": 78
-  },
-  {
     "id": 403497,
     "cover": {
       "id": 566449,
@@ -97,6 +87,16 @@
     "total_rating": 90.03710862727858
   },
   {
+    "id": 361890,
+    "cover": {
+      "id": 565449,
+      "image_id": "coc4ax"
+    },
+    "name": "World of Tanks: Heat",
+    "slug": "world-of-tanks-heat",
+    "total_rating": 78
+  },
+  {
     "id": 399673,
     "cover": {
       "id": 559237,
@@ -107,16 +107,6 @@
     "total_rating": 100
   },
   {
-    "id": 189781,
-    "cover": {
-      "id": 207401,
-      "image_id": "co4g15"
-    },
-    "name": "Mina the Hollower",
-    "slug": "mina-the-hollower",
-    "total_rating": 88.20209138337071
-  },
-  {
     "id": 358534,
     "cover": {
       "id": 541422,
@@ -125,6 +115,16 @@
     "name": "The Adventures of Elliot: The Millennium Tales",
     "slug": "the-adventures-of-elliot-the-millennium-tales",
     "total_rating": 77.33333333333333
+  },
+  {
+    "id": 189781,
+    "cover": {
+      "id": 207401,
+      "image_id": "co4g15"
+    },
+    "name": "Mina the Hollower",
+    "slug": "mina-the-hollower",
+    "total_rating": 88.20209138337071
   },
   {
     "id": 237780,
@@ -147,22 +147,34 @@
     "total_rating": 73.59015751406093
   },
   {
-    "id": 403017,
+    "id": 314543,
     "cover": {
-      "id": 570069,
-      "image_id": "coc7v9"
+      "id": 500872,
+      "image_id": "coaqh4"
     },
-    "name": "Road to Empress II",
-    "slug": "road-to-empress-ii"
+    "name": "Heroes of Might & Magic: Olden Era",
+    "slug": "heroes-of-might-and-magic-olden-era",
+    "total_rating": 79.93517265094137
   },
   {
-    "id": 405795,
+    "id": 331215,
     "cover": {
-      "id": 570210,
-      "image_id": "coc7z6"
+      "id": 492422,
+      "image_id": "coajye"
     },
-    "name": "Aux Court",
-    "slug": "aux-court"
+    "name": "Saros",
+    "slug": "saros",
+    "total_rating": 84.71583305882089
+  },
+  {
+    "id": 341400,
+    "cover": {
+      "id": 460041,
+      "image_id": "co9uyx"
+    },
+    "name": "Voidling Bound",
+    "slug": "voidling-bound--1",
+    "total_rating": 80
   },
   {
     "id": 404400,
@@ -172,15 +184,5 @@
     },
     "name": "FIFA World Cup: Launch Edition",
     "slug": "fifa-world-cup-launch-edition"
-  },
-  {
-    "id": 314543,
-    "cover": {
-      "id": 500872,
-      "image_id": "coaqh4"
-    },
-    "name": "Heroes of Might & Magic: Olden Era",
-    "slug": "heroes-of-might-and-magic-olden-era",
-    "total_rating": 79.93517265094137
   }
 ]

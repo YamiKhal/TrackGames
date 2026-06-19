@@ -222,10 +222,25 @@ export type User = {
     libraryPrivacy: string;
     logsPrivacy: string;
     activityPrivacy: string;
+    playlistPrivacy: string;
     socials?: string | null;
     preferences?: string | null;
     widgets?: string | null;
     commentsHidden: boolean;
+    hideCommentsEverywhere: boolean;
+    defaultGameListStatus: string;
+    defaultGameListSort: string;
+    defaultGameListView: string;
+    defaultActivityFilter: string;
+    siteThemeMode: string;
+    siteThemeColor?: string | null;
+    siteAccentColor?: string | null;
+    notifyCommentReplies: boolean;
+    notifyProfileComments: boolean;
+    notifyLikes: boolean;
+    notifyFollows: boolean;
+    notifyFollowerLists: boolean;
+    notifyBadges: boolean;
     roles: UserRole[];
     hasPassword: boolean;
     linkedProviders: string[];
@@ -246,9 +261,11 @@ export type PublicUser = {
     libraryPrivacy: string;
     logsPrivacy: string;
     activityPrivacy: string;
+    playlistPrivacy: string;
     socials?: string;
     widgets?: string;
     commentsHidden: boolean;
+    hideCommentsEverywhere: boolean;
     roles: UserRole[];
 }
 

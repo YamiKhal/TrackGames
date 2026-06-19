@@ -1,7 +1,7 @@
 "use client";
 
 import { GhostButton } from "@/app/components/ui/Buttons";
-import { Checkbox, Field, Input, Select, Textarea } from "@/app/components/ui/Inputs";
+import { Field, Input, Select, Textarea } from "@/app/components/ui/Inputs";
 import AvatarPreview from "@/app/components/user/AvatarView";
 import BackgroundView from "@/app/components/user/BackgroundView";
 import { SOCIALPLATFORMS } from "@/lib/constants";
@@ -75,10 +75,6 @@ export default function ProfileSettingsForm({ profile }: { profile: User; }) {
             <Field label="Bio" hint="Maximum of 150 characters.">
                 <Textarea name="bio" value={bio} onChange={(event) => setBio(event.target.value)} maxLength={150} className="min-h-24" />
             </Field>
-            <label className="flex items-center gap-2 text-sm font-bold text-text-muted">
-                <Checkbox name="commentsHidden" defaultChecked={profile.commentsHidden} />
-                Hide comments on profile
-            </label>
             <div>
                 <div className="flex flex-col gap-8 md:flex-row md:gap-28">
                     <div className="flex flex-col">

@@ -22,12 +22,27 @@ model User {
   libraryPrivacy String     @default("public")
   logsPrivacy    String     @default("public")
   activityPrivacy String    @default("public")
+  playlistPrivacy String    @default("public")
   contactEmail   String?
   website        String?
   socials        String?    @db.Text
   preferences    String?    @db.Text
   widgets        String?    @db.Text
   commentsHidden Boolean    @default(false)
+  hideCommentsEverywhere Boolean @default(false)
+  defaultGameListStatus String @default("all")
+  defaultGameListSort String @default("added")
+  defaultGameListView String @default("grid")
+  defaultActivityFilter String @default("all")
+  siteThemeMode String @default("default")
+  siteThemeColor String?
+  siteAccentColor String?
+  notifyCommentReplies Boolean @default(true)
+  notifyProfileComments Boolean @default(true)
+  notifyLikes Boolean @default(true)
+  notifyFollows Boolean @default(true)
+  notifyFollowerLists Boolean @default(true)
+  notifyBadges Boolean @default(true)
   roles          UserRole[] @default([])
   accounts       Account[]
   sessions       Session[]

@@ -16,10 +16,13 @@ import { getCollection } from "@/lib/data/colllections";
 import { getGenre } from "@/lib/data/genre";
 import { getPlatform } from "@/lib/data/platforms";
 import { auth } from "@/lib/auth";
+import { getUser } from "@/lib/account/user";
+import { viewerThemeStyle } from "@/lib/account/preferences";
 import { getUserGameEntry } from "@/lib/data/library";
 import { ratingToFive } from "@/lib/util/rating";
 import CommentSection from "@/app/components/comments/CommentSection";
 import { InteractionTargetType } from "@/lib/generated/prisma/enums";
+import { shouldHideComments } from "@/lib/account/preferences";
 
 function platformIcon(name: string) {
     const lower = name.toLowerCase();
@@ -44,7 +47,10 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     let genres: Genre[] = [];
     let platforms: Platform[] = [];
 
-    const owned = session?.user?.id && game.id ? await getUserGameEntry(session.user.id, game.id) : null;
+    const [owned, viewer] = await Promise.all([
+        session?.user?.id && game.id ? getUserGameEntry(session.user.id, game.id) : null,
+        getUser(session?.user),
+    ]);
 
     const developerIds = game.developers ? game.developers.map(id => id) : [];
     const publisherIds = game.publishers ? game.publishers.filter(id => !developerIds.some(v => v === id)) : [];
@@ -90,7 +96,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     const averageRatingTrackColor = "color-mix(in srgb, var(--bg-secondary) 70%, transparent)";
 
     return (
-        <div>
+        <div style={viewer ? viewerThemeStyle(viewer) : undefined}>
             {/* GAME TITLE / CONTROLS */}
             <section className="relative h-100 w-full">
                 {backdrop ? (
@@ -278,7 +284,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                 <Container>
                     <RelatedGamesTabs franchiesGames={franchiseGames} seriesGames={collectionsGames} similarGames={similarGames} />
                     <div className="mt-10">
-                        <CommentSection targetType={InteractionTargetType.GAME} targetId={game.id!.toString()} />
+                        {!shouldHideComments(viewer) && <CommentSection targetType={InteractionTargetType.GAME} targetId={game.id!.toString()} />}
                     </div>
                 </Container>
             </section>

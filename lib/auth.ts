@@ -18,10 +18,10 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         error: "/login",
     },
     providers: [
-        Github({ allowDangerousEmailAccountLinking: true }),
-        Discord({ allowDangerousEmailAccountLinking: true }),
-        Twitch({ allowDangerousEmailAccountLinking: true }),
-        Google({ allowDangerousEmailAccountLinking: true }),
+        Github,
+        Discord,
+        Twitch,
+        Google,
         Credentials({
             credentials: {
                 email: { label: "Email", type: "email" },

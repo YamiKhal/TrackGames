@@ -38,11 +38,12 @@ function SelectFilter({ filter }: { filter: SelectFilter }) {
     );
 }
 
-export function FilterBar({ filters, actions }: { filters: Filter[]; actions?: ReactNode }) {
+export function FilterBar({ filters, actions, className }: { filters: Filter[]; actions?: ReactNode; className?: string; }) {
     const router = useRouter();
+    className = "flex flex-col gap-3 md:flex-row md:items-center md:justify-between" + " " + className
 
     return (
-        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <div className={className}>
             <div className="flex flex-row flex-wrap gap-3">
                 {filters.map((filter) => {
                     if (filter.type === "search") {

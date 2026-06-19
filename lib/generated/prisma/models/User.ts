@@ -39,12 +39,27 @@ export type UserMinAggregateOutputType = {
   libraryPrivacy: string | null
   logsPrivacy: string | null
   activityPrivacy: string | null
+  playlistPrivacy: string | null
   contactEmail: string | null
   website: string | null
   socials: string | null
   preferences: string | null
   widgets: string | null
   commentsHidden: boolean | null
+  hideCommentsEverywhere: boolean | null
+  defaultGameListStatus: string | null
+  defaultGameListSort: string | null
+  defaultGameListView: string | null
+  defaultActivityFilter: string | null
+  siteThemeMode: string | null
+  siteThemeColor: string | null
+  siteAccentColor: string | null
+  notifyCommentReplies: boolean | null
+  notifyProfileComments: boolean | null
+  notifyLikes: boolean | null
+  notifyFollows: boolean | null
+  notifyFollowerLists: boolean | null
+  notifyBadges: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -64,12 +79,27 @@ export type UserMaxAggregateOutputType = {
   libraryPrivacy: string | null
   logsPrivacy: string | null
   activityPrivacy: string | null
+  playlistPrivacy: string | null
   contactEmail: string | null
   website: string | null
   socials: string | null
   preferences: string | null
   widgets: string | null
   commentsHidden: boolean | null
+  hideCommentsEverywhere: boolean | null
+  defaultGameListStatus: string | null
+  defaultGameListSort: string | null
+  defaultGameListView: string | null
+  defaultActivityFilter: string | null
+  siteThemeMode: string | null
+  siteThemeColor: string | null
+  siteAccentColor: string | null
+  notifyCommentReplies: boolean | null
+  notifyProfileComments: boolean | null
+  notifyLikes: boolean | null
+  notifyFollows: boolean | null
+  notifyFollowerLists: boolean | null
+  notifyBadges: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -89,12 +119,27 @@ export type UserCountAggregateOutputType = {
   libraryPrivacy: number
   logsPrivacy: number
   activityPrivacy: number
+  playlistPrivacy: number
   contactEmail: number
   website: number
   socials: number
   preferences: number
   widgets: number
   commentsHidden: number
+  hideCommentsEverywhere: number
+  defaultGameListStatus: number
+  defaultGameListSort: number
+  defaultGameListView: number
+  defaultActivityFilter: number
+  siteThemeMode: number
+  siteThemeColor: number
+  siteAccentColor: number
+  notifyCommentReplies: number
+  notifyProfileComments: number
+  notifyLikes: number
+  notifyFollows: number
+  notifyFollowerLists: number
+  notifyBadges: number
   roles: number
   createdAt: number
   updatedAt: number
@@ -117,12 +162,27 @@ export type UserMinAggregateInputType = {
   libraryPrivacy?: true
   logsPrivacy?: true
   activityPrivacy?: true
+  playlistPrivacy?: true
   contactEmail?: true
   website?: true
   socials?: true
   preferences?: true
   widgets?: true
   commentsHidden?: true
+  hideCommentsEverywhere?: true
+  defaultGameListStatus?: true
+  defaultGameListSort?: true
+  defaultGameListView?: true
+  defaultActivityFilter?: true
+  siteThemeMode?: true
+  siteThemeColor?: true
+  siteAccentColor?: true
+  notifyCommentReplies?: true
+  notifyProfileComments?: true
+  notifyLikes?: true
+  notifyFollows?: true
+  notifyFollowerLists?: true
+  notifyBadges?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -142,12 +202,27 @@ export type UserMaxAggregateInputType = {
   libraryPrivacy?: true
   logsPrivacy?: true
   activityPrivacy?: true
+  playlistPrivacy?: true
   contactEmail?: true
   website?: true
   socials?: true
   preferences?: true
   widgets?: true
   commentsHidden?: true
+  hideCommentsEverywhere?: true
+  defaultGameListStatus?: true
+  defaultGameListSort?: true
+  defaultGameListView?: true
+  defaultActivityFilter?: true
+  siteThemeMode?: true
+  siteThemeColor?: true
+  siteAccentColor?: true
+  notifyCommentReplies?: true
+  notifyProfileComments?: true
+  notifyLikes?: true
+  notifyFollows?: true
+  notifyFollowerLists?: true
+  notifyBadges?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -167,12 +242,27 @@ export type UserCountAggregateInputType = {
   libraryPrivacy?: true
   logsPrivacy?: true
   activityPrivacy?: true
+  playlistPrivacy?: true
   contactEmail?: true
   website?: true
   socials?: true
   preferences?: true
   widgets?: true
   commentsHidden?: true
+  hideCommentsEverywhere?: true
+  defaultGameListStatus?: true
+  defaultGameListSort?: true
+  defaultGameListView?: true
+  defaultActivityFilter?: true
+  siteThemeMode?: true
+  siteThemeColor?: true
+  siteAccentColor?: true
+  notifyCommentReplies?: true
+  notifyProfileComments?: true
+  notifyLikes?: true
+  notifyFollows?: true
+  notifyFollowerLists?: true
+  notifyBadges?: true
   roles?: true
   createdAt?: true
   updatedAt?: true
@@ -266,12 +356,27 @@ export type UserGroupByOutputType = {
   libraryPrivacy: string
   logsPrivacy: string
   activityPrivacy: string
+  playlistPrivacy: string
   contactEmail: string | null
   website: string | null
   socials: string | null
   preferences: string | null
   widgets: string | null
   commentsHidden: boolean
+  hideCommentsEverywhere: boolean
+  defaultGameListStatus: string
+  defaultGameListSort: string
+  defaultGameListView: string
+  defaultActivityFilter: string
+  siteThemeMode: string
+  siteThemeColor: string | null
+  siteAccentColor: string | null
+  notifyCommentReplies: boolean
+  notifyProfileComments: boolean
+  notifyLikes: boolean
+  notifyFollows: boolean
+  notifyFollowerLists: boolean
+  notifyBadges: boolean
   roles: $Enums.UserRole[]
   createdAt: Date
   updatedAt: Date
@@ -313,12 +418,27 @@ export type UserWhereInput = {
   libraryPrivacy?: Prisma.StringFilter<"User"> | string
   logsPrivacy?: Prisma.StringFilter<"User"> | string
   activityPrivacy?: Prisma.StringFilter<"User"> | string
+  playlistPrivacy?: Prisma.StringFilter<"User"> | string
   contactEmail?: Prisma.StringNullableFilter<"User"> | string | null
   website?: Prisma.StringNullableFilter<"User"> | string | null
   socials?: Prisma.StringNullableFilter<"User"> | string | null
   preferences?: Prisma.StringNullableFilter<"User"> | string | null
   widgets?: Prisma.StringNullableFilter<"User"> | string | null
   commentsHidden?: Prisma.BoolFilter<"User"> | boolean
+  hideCommentsEverywhere?: Prisma.BoolFilter<"User"> | boolean
+  defaultGameListStatus?: Prisma.StringFilter<"User"> | string
+  defaultGameListSort?: Prisma.StringFilter<"User"> | string
+  defaultGameListView?: Prisma.StringFilter<"User"> | string
+  defaultActivityFilter?: Prisma.StringFilter<"User"> | string
+  siteThemeMode?: Prisma.StringFilter<"User"> | string
+  siteThemeColor?: Prisma.StringNullableFilter<"User"> | string | null
+  siteAccentColor?: Prisma.StringNullableFilter<"User"> | string | null
+  notifyCommentReplies?: Prisma.BoolFilter<"User"> | boolean
+  notifyProfileComments?: Prisma.BoolFilter<"User"> | boolean
+  notifyLikes?: Prisma.BoolFilter<"User"> | boolean
+  notifyFollows?: Prisma.BoolFilter<"User"> | boolean
+  notifyFollowerLists?: Prisma.BoolFilter<"User"> | boolean
+  notifyBadges?: Prisma.BoolFilter<"User"> | boolean
   roles?: Prisma.EnumUserRoleNullableListFilter<"User">
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -352,12 +472,27 @@ export type UserOrderByWithRelationInput = {
   libraryPrivacy?: Prisma.SortOrder
   logsPrivacy?: Prisma.SortOrder
   activityPrivacy?: Prisma.SortOrder
+  playlistPrivacy?: Prisma.SortOrder
   contactEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   website?: Prisma.SortOrderInput | Prisma.SortOrder
   socials?: Prisma.SortOrderInput | Prisma.SortOrder
   preferences?: Prisma.SortOrderInput | Prisma.SortOrder
   widgets?: Prisma.SortOrderInput | Prisma.SortOrder
   commentsHidden?: Prisma.SortOrder
+  hideCommentsEverywhere?: Prisma.SortOrder
+  defaultGameListStatus?: Prisma.SortOrder
+  defaultGameListSort?: Prisma.SortOrder
+  defaultGameListView?: Prisma.SortOrder
+  defaultActivityFilter?: Prisma.SortOrder
+  siteThemeMode?: Prisma.SortOrder
+  siteThemeColor?: Prisma.SortOrderInput | Prisma.SortOrder
+  siteAccentColor?: Prisma.SortOrderInput | Prisma.SortOrder
+  notifyCommentReplies?: Prisma.SortOrder
+  notifyProfileComments?: Prisma.SortOrder
+  notifyLikes?: Prisma.SortOrder
+  notifyFollows?: Prisma.SortOrder
+  notifyFollowerLists?: Prisma.SortOrder
+  notifyBadges?: Prisma.SortOrder
   roles?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -394,12 +529,27 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   libraryPrivacy?: Prisma.StringFilter<"User"> | string
   logsPrivacy?: Prisma.StringFilter<"User"> | string
   activityPrivacy?: Prisma.StringFilter<"User"> | string
+  playlistPrivacy?: Prisma.StringFilter<"User"> | string
   contactEmail?: Prisma.StringNullableFilter<"User"> | string | null
   website?: Prisma.StringNullableFilter<"User"> | string | null
   socials?: Prisma.StringNullableFilter<"User"> | string | null
   preferences?: Prisma.StringNullableFilter<"User"> | string | null
   widgets?: Prisma.StringNullableFilter<"User"> | string | null
   commentsHidden?: Prisma.BoolFilter<"User"> | boolean
+  hideCommentsEverywhere?: Prisma.BoolFilter<"User"> | boolean
+  defaultGameListStatus?: Prisma.StringFilter<"User"> | string
+  defaultGameListSort?: Prisma.StringFilter<"User"> | string
+  defaultGameListView?: Prisma.StringFilter<"User"> | string
+  defaultActivityFilter?: Prisma.StringFilter<"User"> | string
+  siteThemeMode?: Prisma.StringFilter<"User"> | string
+  siteThemeColor?: Prisma.StringNullableFilter<"User"> | string | null
+  siteAccentColor?: Prisma.StringNullableFilter<"User"> | string | null
+  notifyCommentReplies?: Prisma.BoolFilter<"User"> | boolean
+  notifyProfileComments?: Prisma.BoolFilter<"User"> | boolean
+  notifyLikes?: Prisma.BoolFilter<"User"> | boolean
+  notifyFollows?: Prisma.BoolFilter<"User"> | boolean
+  notifyFollowerLists?: Prisma.BoolFilter<"User"> | boolean
+  notifyBadges?: Prisma.BoolFilter<"User"> | boolean
   roles?: Prisma.EnumUserRoleNullableListFilter<"User">
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -433,12 +583,27 @@ export type UserOrderByWithAggregationInput = {
   libraryPrivacy?: Prisma.SortOrder
   logsPrivacy?: Prisma.SortOrder
   activityPrivacy?: Prisma.SortOrder
+  playlistPrivacy?: Prisma.SortOrder
   contactEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   website?: Prisma.SortOrderInput | Prisma.SortOrder
   socials?: Prisma.SortOrderInput | Prisma.SortOrder
   preferences?: Prisma.SortOrderInput | Prisma.SortOrder
   widgets?: Prisma.SortOrderInput | Prisma.SortOrder
   commentsHidden?: Prisma.SortOrder
+  hideCommentsEverywhere?: Prisma.SortOrder
+  defaultGameListStatus?: Prisma.SortOrder
+  defaultGameListSort?: Prisma.SortOrder
+  defaultGameListView?: Prisma.SortOrder
+  defaultActivityFilter?: Prisma.SortOrder
+  siteThemeMode?: Prisma.SortOrder
+  siteThemeColor?: Prisma.SortOrderInput | Prisma.SortOrder
+  siteAccentColor?: Prisma.SortOrderInput | Prisma.SortOrder
+  notifyCommentReplies?: Prisma.SortOrder
+  notifyProfileComments?: Prisma.SortOrder
+  notifyLikes?: Prisma.SortOrder
+  notifyFollows?: Prisma.SortOrder
+  notifyFollowerLists?: Prisma.SortOrder
+  notifyBadges?: Prisma.SortOrder
   roles?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -465,12 +630,27 @@ export type UserScalarWhereWithAggregatesInput = {
   libraryPrivacy?: Prisma.StringWithAggregatesFilter<"User"> | string
   logsPrivacy?: Prisma.StringWithAggregatesFilter<"User"> | string
   activityPrivacy?: Prisma.StringWithAggregatesFilter<"User"> | string
+  playlistPrivacy?: Prisma.StringWithAggregatesFilter<"User"> | string
   contactEmail?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   website?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   socials?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   preferences?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   widgets?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   commentsHidden?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  hideCommentsEverywhere?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  defaultGameListStatus?: Prisma.StringWithAggregatesFilter<"User"> | string
+  defaultGameListSort?: Prisma.StringWithAggregatesFilter<"User"> | string
+  defaultGameListView?: Prisma.StringWithAggregatesFilter<"User"> | string
+  defaultActivityFilter?: Prisma.StringWithAggregatesFilter<"User"> | string
+  siteThemeMode?: Prisma.StringWithAggregatesFilter<"User"> | string
+  siteThemeColor?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  siteAccentColor?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  notifyCommentReplies?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  notifyProfileComments?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  notifyLikes?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  notifyFollows?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  notifyFollowerLists?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  notifyBadges?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   roles?: Prisma.EnumUserRoleNullableListFilter<"User">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -491,12 +671,27 @@ export type UserCreateInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -530,12 +725,27 @@ export type UserUncheckedCreateInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -569,12 +779,27 @@ export type UserUpdateInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -608,12 +833,27 @@ export type UserUncheckedUpdateInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -647,12 +887,27 @@ export type UserCreateManyInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -673,12 +928,27 @@ export type UserUpdateManyMutationInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -699,12 +969,27 @@ export type UserUncheckedUpdateManyInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -733,12 +1018,27 @@ export type UserCountOrderByAggregateInput = {
   libraryPrivacy?: Prisma.SortOrder
   logsPrivacy?: Prisma.SortOrder
   activityPrivacy?: Prisma.SortOrder
+  playlistPrivacy?: Prisma.SortOrder
   contactEmail?: Prisma.SortOrder
   website?: Prisma.SortOrder
   socials?: Prisma.SortOrder
   preferences?: Prisma.SortOrder
   widgets?: Prisma.SortOrder
   commentsHidden?: Prisma.SortOrder
+  hideCommentsEverywhere?: Prisma.SortOrder
+  defaultGameListStatus?: Prisma.SortOrder
+  defaultGameListSort?: Prisma.SortOrder
+  defaultGameListView?: Prisma.SortOrder
+  defaultActivityFilter?: Prisma.SortOrder
+  siteThemeMode?: Prisma.SortOrder
+  siteThemeColor?: Prisma.SortOrder
+  siteAccentColor?: Prisma.SortOrder
+  notifyCommentReplies?: Prisma.SortOrder
+  notifyProfileComments?: Prisma.SortOrder
+  notifyLikes?: Prisma.SortOrder
+  notifyFollows?: Prisma.SortOrder
+  notifyFollowerLists?: Prisma.SortOrder
+  notifyBadges?: Prisma.SortOrder
   roles?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -759,12 +1059,27 @@ export type UserMaxOrderByAggregateInput = {
   libraryPrivacy?: Prisma.SortOrder
   logsPrivacy?: Prisma.SortOrder
   activityPrivacy?: Prisma.SortOrder
+  playlistPrivacy?: Prisma.SortOrder
   contactEmail?: Prisma.SortOrder
   website?: Prisma.SortOrder
   socials?: Prisma.SortOrder
   preferences?: Prisma.SortOrder
   widgets?: Prisma.SortOrder
   commentsHidden?: Prisma.SortOrder
+  hideCommentsEverywhere?: Prisma.SortOrder
+  defaultGameListStatus?: Prisma.SortOrder
+  defaultGameListSort?: Prisma.SortOrder
+  defaultGameListView?: Prisma.SortOrder
+  defaultActivityFilter?: Prisma.SortOrder
+  siteThemeMode?: Prisma.SortOrder
+  siteThemeColor?: Prisma.SortOrder
+  siteAccentColor?: Prisma.SortOrder
+  notifyCommentReplies?: Prisma.SortOrder
+  notifyProfileComments?: Prisma.SortOrder
+  notifyLikes?: Prisma.SortOrder
+  notifyFollows?: Prisma.SortOrder
+  notifyFollowerLists?: Prisma.SortOrder
+  notifyBadges?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -784,12 +1099,27 @@ export type UserMinOrderByAggregateInput = {
   libraryPrivacy?: Prisma.SortOrder
   logsPrivacy?: Prisma.SortOrder
   activityPrivacy?: Prisma.SortOrder
+  playlistPrivacy?: Prisma.SortOrder
   contactEmail?: Prisma.SortOrder
   website?: Prisma.SortOrder
   socials?: Prisma.SortOrder
   preferences?: Prisma.SortOrder
   widgets?: Prisma.SortOrder
   commentsHidden?: Prisma.SortOrder
+  hideCommentsEverywhere?: Prisma.SortOrder
+  defaultGameListStatus?: Prisma.SortOrder
+  defaultGameListSort?: Prisma.SortOrder
+  defaultGameListView?: Prisma.SortOrder
+  defaultActivityFilter?: Prisma.SortOrder
+  siteThemeMode?: Prisma.SortOrder
+  siteThemeColor?: Prisma.SortOrder
+  siteAccentColor?: Prisma.SortOrder
+  notifyCommentReplies?: Prisma.SortOrder
+  notifyProfileComments?: Prisma.SortOrder
+  notifyLikes?: Prisma.SortOrder
+  notifyFollows?: Prisma.SortOrder
+  notifyFollowerLists?: Prisma.SortOrder
+  notifyBadges?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -1032,12 +1362,27 @@ export type UserCreateWithoutAccountsInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1070,12 +1415,27 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1124,12 +1484,27 @@ export type UserUpdateWithoutAccountsInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1162,12 +1537,27 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1200,12 +1590,27 @@ export type UserCreateWithoutSessionsInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1238,12 +1643,27 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1292,12 +1712,27 @@ export type UserUpdateWithoutSessionsInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1330,12 +1765,27 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1368,12 +1818,27 @@ export type UserCreateWithoutGamesInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1406,12 +1871,27 @@ export type UserUncheckedCreateWithoutGamesInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1460,12 +1940,27 @@ export type UserUpdateWithoutGamesInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1498,12 +1993,27 @@ export type UserUncheckedUpdateWithoutGamesInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1536,12 +2046,27 @@ export type UserCreateWithoutUserGamePlayLogsInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1574,12 +2099,27 @@ export type UserUncheckedCreateWithoutUserGamePlayLogsInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1628,12 +2168,27 @@ export type UserUpdateWithoutUserGamePlayLogsInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1666,12 +2221,27 @@ export type UserUncheckedUpdateWithoutUserGamePlayLogsInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1704,12 +2274,27 @@ export type UserCreateWithoutGameListsInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1742,12 +2327,27 @@ export type UserUncheckedCreateWithoutGameListsInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1796,12 +2396,27 @@ export type UserUpdateWithoutGameListsInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1834,12 +2449,27 @@ export type UserUncheckedUpdateWithoutGameListsInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1872,12 +2502,27 @@ export type UserCreateWithoutActivitiesInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1910,12 +2555,27 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1964,12 +2624,27 @@ export type UserUpdateWithoutActivitiesInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2002,12 +2677,27 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2040,12 +2730,27 @@ export type UserCreateWithoutLikesInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2078,12 +2783,27 @@ export type UserUncheckedCreateWithoutLikesInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2132,12 +2852,27 @@ export type UserUpdateWithoutLikesInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2170,12 +2905,27 @@ export type UserUncheckedUpdateWithoutLikesInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2208,12 +2958,27 @@ export type UserCreateWithoutCommentsInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2246,12 +3011,27 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2300,12 +3080,27 @@ export type UserUpdateWithoutCommentsInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2338,12 +3133,27 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2376,12 +3186,27 @@ export type UserCreateWithoutFollowingInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2414,12 +3239,27 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2457,12 +3297,27 @@ export type UserCreateWithoutFollowersInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2495,12 +3350,27 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2549,12 +3419,27 @@ export type UserUpdateWithoutFollowingInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2587,12 +3472,27 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2636,12 +3536,27 @@ export type UserUpdateWithoutFollowersInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2674,12 +3589,27 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2712,12 +3642,27 @@ export type UserCreateWithoutBadgesInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2750,12 +3695,27 @@ export type UserUncheckedCreateWithoutBadgesInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2804,12 +3764,27 @@ export type UserUpdateWithoutBadgesInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2842,12 +3817,27 @@ export type UserUncheckedUpdateWithoutBadgesInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2880,12 +3870,27 @@ export type UserCreateWithoutNotificationsInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2918,12 +3923,27 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2961,12 +3981,27 @@ export type UserCreateWithoutSentNotificationsInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2999,12 +4034,27 @@ export type UserUncheckedCreateWithoutSentNotificationsInput = {
   libraryPrivacy?: string
   logsPrivacy?: string
   activityPrivacy?: string
+  playlistPrivacy?: string
   contactEmail?: string | null
   website?: string | null
   socials?: string | null
   preferences?: string | null
   widgets?: string | null
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -3053,12 +4103,27 @@ export type UserUpdateWithoutNotificationsInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3091,12 +4156,27 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3140,12 +4220,27 @@ export type UserUpdateWithoutSentNotificationsInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3178,12 +4273,27 @@ export type UserUncheckedUpdateWithoutSentNotificationsInput = {
   libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
   roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3355,12 +4465,27 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   libraryPrivacy?: boolean
   logsPrivacy?: boolean
   activityPrivacy?: boolean
+  playlistPrivacy?: boolean
   contactEmail?: boolean
   website?: boolean
   socials?: boolean
   preferences?: boolean
   widgets?: boolean
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: boolean
+  defaultGameListSort?: boolean
+  defaultGameListView?: boolean
+  defaultActivityFilter?: boolean
+  siteThemeMode?: boolean
+  siteThemeColor?: boolean
+  siteAccentColor?: boolean
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -3395,12 +4520,27 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   libraryPrivacy?: boolean
   logsPrivacy?: boolean
   activityPrivacy?: boolean
+  playlistPrivacy?: boolean
   contactEmail?: boolean
   website?: boolean
   socials?: boolean
   preferences?: boolean
   widgets?: boolean
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: boolean
+  defaultGameListSort?: boolean
+  defaultGameListView?: boolean
+  defaultActivityFilter?: boolean
+  siteThemeMode?: boolean
+  siteThemeColor?: boolean
+  siteAccentColor?: boolean
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -3421,12 +4561,27 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   libraryPrivacy?: boolean
   logsPrivacy?: boolean
   activityPrivacy?: boolean
+  playlistPrivacy?: boolean
   contactEmail?: boolean
   website?: boolean
   socials?: boolean
   preferences?: boolean
   widgets?: boolean
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: boolean
+  defaultGameListSort?: boolean
+  defaultGameListView?: boolean
+  defaultActivityFilter?: boolean
+  siteThemeMode?: boolean
+  siteThemeColor?: boolean
+  siteAccentColor?: boolean
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -3447,18 +4602,33 @@ export type UserSelectScalar = {
   libraryPrivacy?: boolean
   logsPrivacy?: boolean
   activityPrivacy?: boolean
+  playlistPrivacy?: boolean
   contactEmail?: boolean
   website?: boolean
   socials?: boolean
   preferences?: boolean
   widgets?: boolean
   commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: boolean
+  defaultGameListSort?: boolean
+  defaultGameListView?: boolean
+  defaultActivityFilter?: boolean
+  siteThemeMode?: boolean
+  siteThemeColor?: boolean
+  siteAccentColor?: boolean
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
   roles?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "passwordHash" | "image" | "background" | "bio" | "profileColor" | "accentColor" | "privacy" | "libraryPrivacy" | "logsPrivacy" | "activityPrivacy" | "contactEmail" | "website" | "socials" | "preferences" | "widgets" | "commentsHidden" | "roles" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "passwordHash" | "image" | "background" | "bio" | "profileColor" | "accentColor" | "privacy" | "libraryPrivacy" | "logsPrivacy" | "activityPrivacy" | "playlistPrivacy" | "contactEmail" | "website" | "socials" | "preferences" | "widgets" | "commentsHidden" | "hideCommentsEverywhere" | "defaultGameListStatus" | "defaultGameListSort" | "defaultGameListView" | "defaultActivityFilter" | "siteThemeMode" | "siteThemeColor" | "siteAccentColor" | "notifyCommentReplies" | "notifyProfileComments" | "notifyLikes" | "notifyFollows" | "notifyFollowerLists" | "notifyBadges" | "roles" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
@@ -3510,12 +4680,27 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     libraryPrivacy: string
     logsPrivacy: string
     activityPrivacy: string
+    playlistPrivacy: string
     contactEmail: string | null
     website: string | null
     socials: string | null
     preferences: string | null
     widgets: string | null
     commentsHidden: boolean
+    hideCommentsEverywhere: boolean
+    defaultGameListStatus: string
+    defaultGameListSort: string
+    defaultGameListView: string
+    defaultActivityFilter: string
+    siteThemeMode: string
+    siteThemeColor: string | null
+    siteAccentColor: string | null
+    notifyCommentReplies: boolean
+    notifyProfileComments: boolean
+    notifyLikes: boolean
+    notifyFollows: boolean
+    notifyFollowerLists: boolean
+    notifyBadges: boolean
     roles: $Enums.UserRole[]
     createdAt: Date
     updatedAt: Date
@@ -3969,12 +5154,27 @@ export interface UserFieldRefs {
   readonly libraryPrivacy: Prisma.FieldRef<"User", 'String'>
   readonly logsPrivacy: Prisma.FieldRef<"User", 'String'>
   readonly activityPrivacy: Prisma.FieldRef<"User", 'String'>
+  readonly playlistPrivacy: Prisma.FieldRef<"User", 'String'>
   readonly contactEmail: Prisma.FieldRef<"User", 'String'>
   readonly website: Prisma.FieldRef<"User", 'String'>
   readonly socials: Prisma.FieldRef<"User", 'String'>
   readonly preferences: Prisma.FieldRef<"User", 'String'>
   readonly widgets: Prisma.FieldRef<"User", 'String'>
   readonly commentsHidden: Prisma.FieldRef<"User", 'Boolean'>
+  readonly hideCommentsEverywhere: Prisma.FieldRef<"User", 'Boolean'>
+  readonly defaultGameListStatus: Prisma.FieldRef<"User", 'String'>
+  readonly defaultGameListSort: Prisma.FieldRef<"User", 'String'>
+  readonly defaultGameListView: Prisma.FieldRef<"User", 'String'>
+  readonly defaultActivityFilter: Prisma.FieldRef<"User", 'String'>
+  readonly siteThemeMode: Prisma.FieldRef<"User", 'String'>
+  readonly siteThemeColor: Prisma.FieldRef<"User", 'String'>
+  readonly siteAccentColor: Prisma.FieldRef<"User", 'String'>
+  readonly notifyCommentReplies: Prisma.FieldRef<"User", 'Boolean'>
+  readonly notifyProfileComments: Prisma.FieldRef<"User", 'Boolean'>
+  readonly notifyLikes: Prisma.FieldRef<"User", 'Boolean'>
+  readonly notifyFollows: Prisma.FieldRef<"User", 'Boolean'>
+  readonly notifyFollowerLists: Prisma.FieldRef<"User", 'Boolean'>
+  readonly notifyBadges: Prisma.FieldRef<"User", 'Boolean'>
   readonly roles: Prisma.FieldRef<"User", 'UserRole[]'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>

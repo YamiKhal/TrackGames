@@ -1,5 +1,6 @@
 import Container from "@/app/components/layout/Container";
-import { canViewPrivacy, getPublicUser, profileThemeStyle } from "@/lib/account/user";
+import { canViewPrivacy, getPublicUser, getUser, profileThemeStyle } from "@/lib/account/user";
+import { defaultActivityFilter, shouldHideComments } from "@/lib/account/preferences";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import FollowerPreviewPanel from "./FollowerPreviewPanel";
@@ -19,7 +20,7 @@ import ActivityList from "./ActivityList";
 
 export default async function Page({ params, searchParams }: { params: Promise<{ user: string }>; searchParams: Promise<{ tab?: string; activityPage?: string; activityFilter?: string }>; }) {
     const { user } = await params;
-    const { tab = "profile", activityPage = "1", activityFilter = "all" } = await searchParams;
+    const { tab = "profile", activityPage = "1", activityFilter } = await searchParams;
     const activeTab = tab === "logs" ? "activity" : tab;
     const [profile, session] = await Promise.all([getPublicUser(user), auth()]);
 
@@ -40,9 +41,11 @@ export default async function Page({ params, searchParams }: { params: Promise<{
     ]);
     const canViewProfile = canViewPrivacy(profile.privacy, isOwnProfile, socialState.isFollowing);
     const canViewLibrary = canViewPrivacy(profile.libraryPrivacy, isOwnProfile, socialState.isFollowing);
-    const canViewLogs = canViewPrivacy(profile.logsPrivacy, isOwnProfile, socialState.isFollowing);
     const canViewActivity = canViewPrivacy(profile.activityPrivacy, isOwnProfile, socialState.isFollowing);
-    const safeActivityFilter = activityFilter === "logs" && !canViewLogs ? "all" : activityFilter;
+    const viewer = await getUser(session?.user);
+    const canViewLogs = canViewActivity;
+    const selectedActivityFilter = activityFilter ?? (viewer ? defaultActivityFilter(viewer) : "all");
+    const safeActivityFilter = selectedActivityFilter === "logs" && !canViewLogs ? "all" : selectedActivityFilter;
     const [playlists, activity] = await Promise.all([
         activeTab === "playlists" && canViewLibrary ? getUserPlaylists(profile.id) : [],
         activeTab === "activity" && canViewActivity ? getUserActivities(profile.id, Number(activityPage), safeActivityFilter, canViewLogs) : null,
@@ -85,7 +88,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
                                                 <UserWidget key={index} widget={widget} userId={profile.id} />
                                             ))
                                         }
-                                        {!profile.commentsHidden && <CommentSection targetType={InteractionTargetType.USER_PROFILE} targetId={profile.id} />}
+                                        {!profile.commentsHidden && !shouldHideComments(viewer) && <CommentSection targetType={InteractionTargetType.USER_PROFILE} targetId={profile.id} />}
                                     </div>
 
                                 )}

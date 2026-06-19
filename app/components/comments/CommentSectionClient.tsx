@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRef, useState, useTransition } from "react";
 import { PrimaryButton } from "../ui/Buttons";
-import RatingStars from "../game/RatingStars";
+import StarRating from "../game/StarRating";
 import RoleTags from "../user/RoleTags";
 
 type Comment = {
@@ -102,7 +102,7 @@ function CommentItem({ comment, comments, targetType, targetId, currentUserId }:
                         <RoleTags roles={comment.user.roles} />
                         <span className="text-xs text-text-faint">{new Date(comment.createdAt).toLocaleDateString()}</span>
                         {targetType === InteractionTargetType.GAME && (
-                            <RatingStars rating={ratingToFive(comment.userRating)} size={13} />
+                            <StarRating rating={ratingToFive(comment.userRating)} size={13} />
                         )}
                     </div>
                     <p className="mt-2 whitespace-pre-wrap text-sm text-text-muted">{comment.content}</p>

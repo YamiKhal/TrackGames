@@ -1,14 +1,14 @@
 "use client";
 
-import { Field, Select } from "@/app/components/ui/Inputs";
+import { Checkbox, Field, Select } from "@/app/components/ui/Inputs";
 import type { User } from "@/lib/types";
 import { useState } from "react";
 
 export default function PrivacySettingsForm({ profile }: { profile: User }) {
     const [profilePrivacy, setProfilePrivacy] = useState(profile.privacy);
     const [libraryPrivacy, setLibraryPrivacy] = useState(profile.libraryPrivacy);
-    const [logsPrivacy, setLogsPrivacy] = useState(profile.logsPrivacy);
     const [activityPrivacy, setActivityPrivacy] = useState(profile.activityPrivacy);
+    const [playlistPrivacy, setPlaylistPrivacy] = useState(profile.playlistPrivacy);
 
     return (
         <div className="grid gap-4 md:grid-cols-2">
@@ -26,8 +26,8 @@ export default function PrivacySettingsForm({ profile }: { profile: User }) {
                     <option value="private">Private</option>
                 </Select>
             </Field>
-            <Field label="Play log visibility">
-                <Select name="logsPrivacy" value={logsPrivacy} onChange={(event) => setLogsPrivacy(event.target.value)} className="w-full">
+            <Field label="Playlist default visibility">
+                <Select name="playlistPrivacy" value={playlistPrivacy} onChange={(event) => setPlaylistPrivacy(event.target.value)} className="w-full">
                     <option value="public">Public</option>
                     <option value="followers">Followers only</option>
                     <option value="private">Private</option>
@@ -40,6 +40,10 @@ export default function PrivacySettingsForm({ profile }: { profile: User }) {
                     <option value="private">Private</option>
                 </Select>
             </Field>
+            <label className="flex items-center gap-2 text-sm font-bold text-text-muted md:col-span-2">
+                <Checkbox name="commentsHidden" defaultChecked={profile.commentsHidden} />
+                Hide comments on profile
+            </label>
         </div>
     );
 }

@@ -11,6 +11,8 @@ import AddPlaylistGameForm from "./AddPlaylistGameForm";
 import TierLabelsForm from "./TierLabelsForm";
 import GameListEditButton from "@/app/components/playlist/GameListEditButton";
 import { profileThemeStyle } from "@/lib/account/user";
+import { getUser } from "@/lib/account/user";
+import { shouldHideComments } from "@/lib/account/preferences";
 import CommentSection from "@/app/components/comments/CommentSection";
 import { InteractionTargetType, LikeTargetType } from "@/lib/generated/prisma/enums";
 import LikeButton from "@/app/components/social/LikeButton";
@@ -25,6 +27,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
     }
 
     const canEdit = session?.user?.id === playlist.userId;
+    const viewer = await getUser(session?.user);
     const gameIds = playlist.entries.map((entry) => entry.gameId);
     const [ownedCount, likeState] = await Promise.all([
         getPlaylistLibraryCount(session?.user?.id, gameIds),
@@ -62,7 +65,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                     <Container className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
                         <div className="flex min-w-0 flex-col gap-5">
                             <PlaylistEntriesView listId={playlist.id} entries={playlist.entries} mode={playlist.displayMode} canEdit={canEdit} tiers={tiers} tierColors={tierColors} />
-                            {!playlist.commentsHidden && <CommentSection targetType={InteractionTargetType.GAME_LIST} targetId={playlist.id} />}
+                            {!playlist.commentsHidden && !shouldHideComments(viewer) && <CommentSection targetType={InteractionTargetType.GAME_LIST} targetId={playlist.id} />}
                         </div>
 
                         <aside className="flex flex-col gap-4 border-l border-border">

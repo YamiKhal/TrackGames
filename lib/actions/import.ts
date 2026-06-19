@@ -122,21 +122,28 @@ export async function importSteamLibrary(steamId: string, skipImportedLogs = tru
 
     const matched = Array.from(matchedGames.values());
     const playedAt = new Date();
+    let imported = 0;
 
     for (let index = 0; index < matched.length; index += 50) {
         await db.$transaction(async (tx) => {
             for (const game of matched.slice(index, index + 50)) {
-                const entry = await tx.userGameEntry.upsert({
+                const current = await tx.userGameEntry.findUnique({
                     where: {
                         userId_gameId: {
                             userId,
                             gameId: game.id,
                         },
                     },
-                    update: {
-                        timePlayed: game.hours,
+                    select: {
+                        id: true,
+                        timePlayed: true,
                     },
-                    create: {
+                });
+                const currentHours = current?.timePlayed ?? 0;
+                const hours = Math.round((game.hours - currentHours) * 10) / 10;
+
+                const entry = current ?? await tx.userGameEntry.create({
+                    data: {
                         userId,
                         gameId: game.id,
                         timePlayed: game.hours,
@@ -146,12 +153,28 @@ export async function importSteamLibrary(steamId: string, skipImportedLogs = tru
                     },
                 });
 
+                if (hours <= 0) {
+                    if (!current) imported += 1;
+                    continue;
+                }
+
+                if (current) {
+                    await tx.userGameEntry.update({
+                        where: {
+                            id: current.id,
+                        },
+                        data: {
+                            timePlayed: game.hours,
+                        },
+                    });
+                }
+
                 await tx.userGamePlayLog.create({
                     data: {
                         userId,
                         entryId: entry.id,
                         gameId: game.id,
-                        hours: game.hours,
+                        hours,
                         note: "Imported from Steam.",
                         skip: skipImportedLogs,
                         playedAt,
@@ -168,11 +191,13 @@ export async function importSteamLibrary(steamId: string, skipImportedLogs = tru
                         message: "Imported from Steam.",
                     },
                 });
+
+                imported += 1;
             }
         });
     }
 
     revalidatePath("/library/[slug]", "page");
     revalidatePath("/u/[user]", "page");
-    return { imported: matchedGames.size, failed };
+    return { imported, failed };
 }

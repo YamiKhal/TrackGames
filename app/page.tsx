@@ -12,20 +12,25 @@ import GamePlaylistDisplay from "./components/game/GamePlaylistDispaly";
 import { Hero } from "./components/SVG";
 import GameStatInfoCard from "./components/game/GameStatInfoCard";
 import { formatRawGame } from "@/lib/external/igdb/util";
+import { auth } from "@/lib/auth";
+import { getUser } from "@/lib/account/user";
+import { viewerThemeStyle } from "@/lib/account/preferences";
 
 export default async function Home() {
-  const [trendingDataList, yearlyDataList, hiddenDataList, mostAnticipatedList, comingSoonList, recentReleasesList, stats] = await Promise.all([
+  const session = await auth();
+  const [trendingDataList, yearlyDataList, hiddenDataList, mostAnticipatedList, comingSoonList, recentReleasesList, stats, viewer] = await Promise.all([
     trendingGames.get(),
     yearlyGames.get(),
     hiddenGames.get(),
     mostAnticipated.get(),
     comingSoon.get(),
     recentreleases.get(),
-    siteStats.get()
+    siteStats.get(),
+    getUser(session?.user),
   ]);
 
   return (
-    <div>
+    <div style={viewer ? viewerThemeStyle(viewer) : undefined}>
       {/* HERO */}
       <section className="relative overflow-hidden flex justify-center p-20 items-center">
         <div className="pointer-events-none absolute inset-0 bg-[url('/assets/lucid-games-bg.webp')] bg-cover bg-center mask-[radial-gradient(ellipse_at_center,black_48%,transparent_78%)] mask-size-[120%_120%] mask-no-repeat before:absolute before:inset-0 before:bg-bg/92 before:content-['']" />

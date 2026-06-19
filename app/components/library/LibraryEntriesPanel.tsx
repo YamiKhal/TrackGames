@@ -3,6 +3,7 @@
 import { GameStatus } from "@/lib/generated/prisma/enums";
 import { UserGameEntry } from "@/lib/types";
 import { Grid2X2, List } from "lucide-react";
+import type { CSSProperties } from "react";
 import { useMemo, useState } from "react";
 import PaginatedList from "../layout/PaginatedList";
 import { FilterBar } from "../ui/FilterBar";
@@ -12,11 +13,11 @@ function statusLabel(status: string) {
     return status.toLowerCase().replace("_", " ");
 }
 
-export default function LibraryEntriesPanel({ entries, canEdit }: { entries: UserGameEntry[]; canEdit: boolean }) {
+export default function LibraryEntriesPanel({ entries, canEdit, themeStyle, defaults }: { entries: UserGameEntry[]; canEdit: boolean; themeStyle?: CSSProperties; defaults?: { status: string; sort: string; mode: "grid" | "list" } }) {
     const [items, setItems] = useState(entries);
-    const [mode, setMode] = useState<"grid" | "list">("grid");
-    const [status, setStatus] = useState("all");
-    const [sort, setSort] = useState("added");
+    const [mode, setMode] = useState<"grid" | "list">(defaults?.mode ?? "grid");
+    const [status, setStatus] = useState(defaults?.status ?? "all");
+    const [sort, setSort] = useState(defaults?.sort ?? "added");
     const [query, setQuery] = useState("");
     const filtered = useMemo(() => {
         const search = query.trim().toLowerCase();
@@ -37,6 +38,10 @@ export default function LibraryEntriesPanel({ entries, canEdit }: { entries: Use
 
     function updateEntry(updated: UserGameEntry) {
         setItems((current) => current.map((entry) => entry.id === updated.id ? updated : entry));
+    }
+
+    function removeEntry(entryId: string) {
+        setItems((current) => current.filter((entry) => entry.id !== entryId));
     }
 
     return (
@@ -86,7 +91,7 @@ export default function LibraryEntriesPanel({ entries, canEdit }: { entries: Use
                     className={mode === "grid" ? "w-full grid gap-4 grid-cols-[repeat(auto-fill,8rem)]" : "flex w-full flex-col gap-3"}
                 >
                     {filtered.map((entry) => (
-                        <PlaylistCard key={entry.id} entry={entry} mode={mode} canEdit={canEdit} onUpdate={updateEntry} />
+                        <PlaylistCard key={entry.id} entry={entry} mode={mode} canEdit={canEdit} onUpdate={updateEntry} onRemove={removeEntry} themeStyle={themeStyle} />
                     ))}
                 </PaginatedList>
             ) : (

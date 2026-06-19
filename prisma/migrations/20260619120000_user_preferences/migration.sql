@@ -1,0 +1,16 @@
+ALTER TABLE "User"
+ADD COLUMN "playlistPrivacy" TEXT NOT NULL DEFAULT 'public',
+ADD COLUMN "hideCommentsEverywhere" BOOLEAN NOT NULL DEFAULT false,
+ADD COLUMN "defaultGameListStatus" TEXT NOT NULL DEFAULT 'all',
+ADD COLUMN "defaultGameListSort" TEXT NOT NULL DEFAULT 'added',
+ADD COLUMN "defaultGameListView" TEXT NOT NULL DEFAULT 'grid',
+ADD COLUMN "defaultActivityFilter" TEXT NOT NULL DEFAULT 'all',
+ADD COLUMN "siteThemeMode" TEXT NOT NULL DEFAULT 'default',
+ADD COLUMN "siteThemeColor" TEXT,
+ADD COLUMN "siteAccentColor" TEXT,
+ADD COLUMN "notifyCommentReplies" BOOLEAN NOT NULL DEFAULT true,
+ADD COLUMN "notifyProfileComments" BOOLEAN NOT NULL DEFAULT true,
+ADD COLUMN "notifyLikes" BOOLEAN NOT NULL DEFAULT true,
+ADD COLUMN "notifyFollows" BOOLEAN NOT NULL DEFAULT true,
+ADD COLUMN "notifyFollowerLists" BOOLEAN NOT NULL DEFAULT true,
+ADD COLUMN "notifyBadges" BOOLEAN NOT NULL DEFAULT true;

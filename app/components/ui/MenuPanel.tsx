@@ -21,16 +21,18 @@ type MenuPanelProps = {
     id?: string;
     anchorRef?: RefObject<HTMLElement | null>;
     width?: string;
+    style?: CSSProperties;
 };
 
 function join(base: string, extra?: string) {
     return [base, extra].filter(Boolean).join(" ");
 }
 
-export default function MenuPanel({ open, onClose, title, children, footer, variant = "modal", panelClassName, className, closeLabel = "Close", portal = false, showClose = true, role = "dialog", id, anchorRef, width }: MenuPanelProps) {
+export default function MenuPanel({ open, onClose, title, children, footer, variant = "modal", panelClassName, className, closeLabel = "Close", portal = false, showClose = true, role = "dialog", id, anchorRef, width, style }: MenuPanelProps) {
     const [rendered, setRendered] = useState(open);
     const panelRef = useRef<HTMLDivElement>(null);
-    const panelStyle = variant === "modal" && width ? { "--menu-panel-width": width } as CSSProperties : undefined;
+    const panelStyle = variant === "modal" && width ? { ...style, "--menu-panel-width": width } as CSSProperties : style;
+    const shouldPortal = portal || variant === "modal";
 
     useEffect(() => {
         if (!open) return;
@@ -101,7 +103,7 @@ export default function MenuPanel({ open, onClose, title, children, footer, vari
 
     const content = variant === "modal" ? (
         <div
-            className={join("fixed inset-0 z-50 flex items-center justify-center bg-overlay p-4", `${open ? "animate-menu-overlay-in" : "animate-menu-overlay-out"} ${className ?? ""}`)}
+            className={join("fixed inset-0 z-100 flex items-center justify-center bg-overlay p-4", `${open ? "animate-menu-overlay-in" : "animate-menu-overlay-out"} ${className ?? ""}`)}
             onMouseDown={(event) => {
                 if (event.target === event.currentTarget) onClose();
             }}
@@ -110,7 +112,7 @@ export default function MenuPanel({ open, onClose, title, children, footer, vari
         </div>
     ) : panel;
 
-    if (portal && typeof document !== "undefined") {
+    if (shouldPortal && typeof document !== "undefined") {
         return createPortal(content, document.body);
     }
 

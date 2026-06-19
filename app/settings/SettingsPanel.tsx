@@ -22,7 +22,7 @@ export default function SettingsPanel({ activeTab, profile }: { activeTab: strin
             {activeTab === "profile" && <ProfileSettingsForm profile={profile} />}
             {activeTab === "privacy" && <PrivacySettingsForm profile={profile} />}
             {activeTab === "widgets" && <WidgetsSettingsForm profile={profile} />}
-            {activeTab === "preferences" && <PreferencesSettingsForm preferences={profile.preferences} />}
+            {activeTab === "preferences" && <PreferencesSettingsForm profile={profile} />}
             {activeTab === "account" && <AccountSettingsForm profile={profile} />}
 
             <SaveBar />

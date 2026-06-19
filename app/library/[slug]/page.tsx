@@ -8,6 +8,8 @@ import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import GameListEditButton from "@/app/components/playlist/GameListEditButton";
 import { canViewPrivacy, profileThemeStyle } from "@/lib/account/user";
+import { defaultLibraryFilters } from "@/lib/account/preferences";
+import { getUser } from "@/lib/account/user";
 import db from "@/lib/db";
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
@@ -29,10 +31,12 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     }) : null;
     const canViewLibrary = canViewPrivacy(library.user?.libraryPrivacy ?? library.privacy, isOwnLibrary, Boolean(follow));
     const userEntries = canViewLibrary ? await getUserGameEntries(library?.userId) : [];
+    const viewer = await getUser(session?.user);
     const background = library.background ?? null;
+    const themeStyle = profileThemeStyle(library.color, library.accentColor);
 
     return (
-        <main className="relative z-0 flex-1 mb-40" style={profileThemeStyle(library.color, library.accentColor)}>
+        <main className="relative z-0 flex-1 mb-40" style={themeStyle}>
             <BackgroundView src={background} />
             <Container>
                 {/* HEADER */}
@@ -41,7 +45,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                         <div className="flex min-w-0 flex-1 flex-col justify-end mb-4 gap-3 md:flex-row md:items-end md:justify-between md:gap-5">
                             <div>
                                 <h1 className="text-3xl">{library.name}</h1>
-                                <p className="text-md text-text-muted">{library.description}Testing Description</p>
+                                <p className="text-md text-text-muted">{library.description}</p>
                             </div>
                             <div className="flex shrink-0 flex-row flex-wrap justify-end gap-3 md:gap-5">
                                 {isOwnLibrary && <GameListEditButton list={library} />}
@@ -56,7 +60,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                         {!canViewLibrary ? (
                             <p className="rounded border border-border bg-bg p-4 text-sm text-text-muted">This library is private.</p>
                         ) : userEntries.length ? (
-                            <LibraryEntriesPanel entries={userEntries} canEdit={isOwnLibrary} />
+                            <LibraryEntriesPanel entries={userEntries} canEdit={isOwnLibrary} themeStyle={themeStyle} defaults={viewer ? defaultLibraryFilters(viewer) : undefined} />
                         ) : (
                             <p>No games found.</p>
                         )}

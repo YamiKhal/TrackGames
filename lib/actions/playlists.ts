@@ -88,6 +88,10 @@ export async function createPlaylist(formData: FormData) {
     const name = String(formData.get("name") ?? "").trim();
     const description = String(formData.get("description") ?? "").trim();
     const displayMode = String(formData.get("displayMode") ?? "GRID");
+    const user = await db.user.findUnique({
+        where: { id: userId },
+        select: { playlistPrivacy: true },
+    });
 
     if (!name) {
         throw new Error("Playlist name is required.");
@@ -100,7 +104,7 @@ export async function createPlaylist(formData: FormData) {
             name,
             description: description || null,
             displayMode: displayModes.includes(displayMode) ? displayMode : "GRID",
-            privacy: "public",
+            privacy: user?.playlistPrivacy === "private" ? "private" : "public",
         },
         select: {
             id: true,

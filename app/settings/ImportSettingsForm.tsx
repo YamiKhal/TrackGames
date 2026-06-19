@@ -89,7 +89,7 @@ export default function ImportSettingsForm() {
                                 )}
                                 <div>
                                     <p className="font-bold text-text">Import games from profile <a href={profile.profileurl} target="_blank" className="bg-bg p-1 text-secondary">{profile.personaname}</a>?</p>
-                                    <p className="mt-1 text-sm text-text-muted">Importing a Steam library will add matched games, overwrite existing time played values, and create an import log for each matched game.</p>
+                                    <p className="mt-1 text-sm text-text-muted">Importing a Steam library will add matched games and only create logs for new playtime since your current total.</p>
                                 </div>
                             </div>
                             <label className="flex cursor-pointer items-start gap-3 rounded border border-border bg-bg/60 p-3 text-sm text-text-muted">

@@ -155,7 +155,7 @@
     ],
     "slug": "resident-evil-requiem",
     "summary": "Resident Evil Requiem is the ninth entry in the Resident Evil series. Experience terrifying survival horror with FBI analyst Grace Ashcroft, and dive into pulse-pounding action with legendary agent Leon S. Kennedy. Both of their journeys and unique gameplay styles intertwine into a heart-stopping, emotional experience that will chill you to your core.",
-    "total_rating": 90.02884515306263
+    "total_rating": 90.0308239700089
   },
   {
     "id": 134612,
@@ -210,7 +210,7 @@
     ],
     "slug": "pragmata",
     "summary": "Pragmata is a sci-fi action-adventure game set in the near future. The story follows Hugh and his android companion Diana as they navigate a Lunar research station. Gameplay incorporates action elements alongside mechanics involving interaction with systems within the environment.",
-    "total_rating": 87.25038843156199
+    "total_rating": 87.24760327715686
   },
   {
     "id": 361855,
@@ -419,54 +419,7 @@
     ],
     "slug": "forza-horizon-6",
     "summary": "Discover the breathtaking landscapes of Japan in over 550 real-world cars and become a racing Legend at the Horizon Festival. Start your journey as a tourist and explore a world full of hit music and Japanese culture. Build a Valley Estate, acquire awe-inspiring homes, and display your prized car collection in fully Customizable Garages. Cruise the roads with your friends and join Car Meets around Japan, unleash your imagination with EventLab and build together in Horizon CoLab.",
-    "total_rating": 85.09141249403497
-  },
-  {
-    "id": 152244,
-    "cover": {
-      "id": 152619,
-      "image_id": "co39rf"
-    },
-    "name": "Replaced",
-    "platforms": [
-      {
-        "id": 169,
-        "name": "Xbox Series X|S"
-      },
-      {
-        "id": 6,
-        "name": "PC (Microsoft Windows)"
-      },
-      {
-        "id": 49,
-        "name": "Xbox One"
-      }
-    ],
-    "screenshots": [
-      {
-        "id": 489289,
-        "image_id": "scahjd"
-      },
-      {
-        "id": 489290,
-        "image_id": "scahje"
-      },
-      {
-        "id": 489291,
-        "image_id": "scahjf"
-      },
-      {
-        "id": 489292,
-        "image_id": "scahjg"
-      },
-      {
-        "id": 489293,
-        "image_id": "scahjh"
-      }
-    ],
-    "slug": "replaced",
-    "summary": "Replaced is a 2.5D sci-fi retro-futuristic action platformer where you play as R.E.A.C.H. - an artificial intelligence trapped in a human body against its own will. Replaced combines cinematic platforming, pixel art and free-flow action combat set in an alternative 1980's.",
-    "total_rating": 84.74426659868601
+    "total_rating": 85.09071499281843
   },
   {
     "id": 113360,
@@ -542,6 +495,53 @@
     "slug": "hytale",
     "summary": "Hytale combines the scope of a sandbox with the depth of a roleplaying game, immersing players in a procedurally generated world where teetering towers and deep dungeons promise rich rewards throughout their adventures. Hytale supports everything from block-by-block construction to scripting and minigame creation, delivered using easy to use and powerful tools.",
     "total_rating": 84.7340521713458
+  },
+  {
+    "id": 152244,
+    "cover": {
+      "id": 152619,
+      "image_id": "co39rf"
+    },
+    "name": "Replaced",
+    "platforms": [
+      {
+        "id": 169,
+        "name": "Xbox Series X|S"
+      },
+      {
+        "id": 6,
+        "name": "PC (Microsoft Windows)"
+      },
+      {
+        "id": 49,
+        "name": "Xbox One"
+      }
+    ],
+    "screenshots": [
+      {
+        "id": 489289,
+        "image_id": "scahjd"
+      },
+      {
+        "id": 489290,
+        "image_id": "scahje"
+      },
+      {
+        "id": 489291,
+        "image_id": "scahjf"
+      },
+      {
+        "id": 489292,
+        "image_id": "scahjg"
+      },
+      {
+        "id": 489293,
+        "image_id": "scahjh"
+      }
+    ],
+    "slug": "replaced",
+    "summary": "Replaced is a 2.5D sci-fi retro-futuristic action platformer where you play as R.E.A.C.H. - an artificial intelligence trapped in a human body against its own will. Replaced combines cinematic platforming, pixel art and free-flow action combat set in an alternative 1980's.",
+    "total_rating": 84.73131713801382
   },
   {
     "id": 331215,
@@ -675,7 +675,7 @@
     ],
     "slug": "reanimal",
     "summary": "The creators of Little Nightmares I & II have returned to take you on a darker, more terrifying journey than ever before. In this horror adventure game, a brother & sister go through hell to rescue their missing friends and escape the island that they used to call home.",
-    "total_rating": 80.87922879634075
+    "total_rating": 80.8757257909905
   },
   {
     "id": 141114,
@@ -738,7 +738,7 @@
     ],
     "slug": "007-first-light",
     "summary": "007 First Light is a thrilling espionage action-adventure game from IO Interactive. Players follow James Bond as a young, resourceful, and sometimes reckless recruit in MI6's training program and discover an origin story of the world's most famous spy.",
-    "total_rating": 79.84985014083328
+    "total_rating": 79.71552819512581
   },
   {
     "id": 250630,

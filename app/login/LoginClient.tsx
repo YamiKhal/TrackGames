@@ -16,10 +16,10 @@ const providers = [
 
 const authErrorMessages: Record<string, string> = {
     AccessDenied: "Access denied. Please try another sign-in method.",
-    AccountNotLinked: "This email is already linked to another sign-in method.",
+    AccountNotLinked: "An account with this email already exists. Sign in first, then link this provider.",
     CallbackRouteError: "Sign in failed. Please try again.",
     CredentialsSignin: "Invalid email or password.",
-    OAuthAccountNotLinked: "This email is already linked to another sign-in method.",
+    OAuthAccountNotLinked: "An account with this email already exists. Sign in first, then link this provider.",
     OAuthCallbackError: "The provider sign-in failed. Please try again.",
     OAuthSignInError: "The provider sign-in failed. Please try again.",
 };

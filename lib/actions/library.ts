@@ -7,6 +7,8 @@ import db from "../db";
 import { ActivityType, GameStatus, InteractionTargetType } from "../generated/prisma/enums";
 import { ratingToHundred } from "../util/rating";
 
+const DEFAULT_LOG_NOTE = "No note.";
+
 async function getCurrentUserId() {
     const session = await auth();
 
@@ -121,7 +123,7 @@ export async function updateUserGameEntry(entryId: string, formData: FormData) {
             game: true,
             userGamePlayLogs: {
                 orderBy: {
-                    playedAt: "desc",
+                    createdAt: "desc",
                 },
             },
         },
@@ -135,17 +137,13 @@ export async function createUserGamePlayLog(entryId: string, formData: FormData)
     const userId = await getCurrentUserId();
     const playedAtValue = String(formData.get("playedat") ?? "").trim();
     const hours = Math.max(0, Number(String(formData.get("hours") ?? "").trim()));
-    const note = String(formData.get("note") ?? "").trim();
+    const note = String(formData.get("note") ?? "").trim() || DEFAULT_LOG_NOTE;
     const skip = formData.get("skip") === "on";
     const finished = formData.get("finished") === "on";
     const mastered = formData.get("mastered") === "on";
 
     if (!Number.isFinite(hours) || hours <= 0) {
         throw new Error("Hours played must be greater than zero.");
-    }
-
-    if (!note) {
-        throw new Error("Log note is required.");
     }
 
     const playedAt = playedAtValue ? new Date(`${playedAtValue}T12:00:00`) : new Date();
@@ -215,7 +213,7 @@ export async function createUserGamePlayLog(entryId: string, formData: FormData)
             game: true,
             userGamePlayLogs: {
                 orderBy: {
-                    playedAt: "desc",
+                    createdAt: "desc",
                 },
             },
         },
@@ -241,15 +239,11 @@ export async function updateUserGamePlayLog(logId: string, formData: FormData) {
     const userId = await getCurrentUserId();
     const playedAtValue = String(formData.get("playedat") ?? "").trim();
     const hours = Math.max(0, Number(String(formData.get("hours") ?? "").trim()));
-    const note = String(formData.get("note") ?? "").trim();
+    const note = String(formData.get("note") ?? "").trim() || DEFAULT_LOG_NOTE;
     const skip = formData.get("skip") === "on";
 
     if (!Number.isFinite(hours) || hours <= 0) {
         throw new Error("Hours played must be greater than zero.");
-    }
-
-    if (!note) {
-        throw new Error("Log note is required.");
     }
 
     const playedAt = playedAtValue ? new Date(`${playedAtValue}T12:00:00`) : new Date();
@@ -309,7 +303,7 @@ export async function updateUserGamePlayLog(logId: string, formData: FormData) {
             game: true,
             userGamePlayLogs: {
                 orderBy: {
-                    playedAt: "desc",
+                    createdAt: "desc",
                 },
             },
         },
@@ -367,7 +361,7 @@ export async function deleteUserGamePlayLog(logId: string) {
             game: true,
             userGamePlayLogs: {
                 orderBy: {
-                    playedAt: "desc",
+                    createdAt: "desc",
                 },
             },
         },

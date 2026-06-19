@@ -64,8 +64,8 @@ export default function ActivityList({ user, activities, page, totalPages, filte
     ].filter((item): item is { id: string; label: string } => Boolean(item));
 
     return (
-        <div className="flex flex-col gap-3">
-            <FilterBar filters={[{
+        <div className="flex flex-col">
+            <FilterBar className="mb-2" filters={[{
                 type: "linkSelect",
                 label: "Filter activity",
                 value: filter,
@@ -77,7 +77,7 @@ export default function ActivityList({ user, activities, page, totalPages, filte
             }]} />
 
             {activities.length ? activities.map((activity) => (
-                <div key={activity.id} className="rounded border border-border bg-bg p-4">
+                <div key={activity.id} className="border-b border-border bg-bg p-4">
                     <ActivityText activity={activity} />
                     <p className="mt-1 text-xs text-text-faint">{new Date(activity.createdAt).toLocaleDateString()}</p>
                 </div>

@@ -1,5 +1,6 @@
 import db from "../db";
 import { ActivityType, InteractionTargetType, LikeTargetType, NotificationType } from "../generated/prisma/enums";
+import { notificationAllowed } from "../account/preferences";
 
 export const activityPageSize = 32;
 
@@ -245,23 +246,36 @@ export async function getUserBadges(userId: string) {
 }
 
 export async function getUserNotifications(userId: string) {
-    const notifications = await db.notification.findMany({
-        where: {
-            userId,
-        },
-        take: 10,
-        orderBy: {
-            createdAt: "desc",
-        },
-        include: {
-            actor: {
-                select: {
-                    name: true,
-                    image: true,
-                },
-            },
+    const user = await db.user.findUnique({
+        where: { id: userId },
+        select: {
+            notifyCommentReplies: true,
+            notifyProfileComments: true,
+            notifyLikes: true,
+            notifyFollows: true,
+            notifyFollowerLists: true,
+            notifyBadges: true,
         },
     });
+    const notifications = (await db.notification.findMany({
+            where: {
+                userId,
+            },
+            take: 30,
+            orderBy: {
+                createdAt: "desc",
+            },
+            include: {
+                actor: {
+                    select: {
+                        name: true,
+                        image: true,
+                    },
+                },
+            },
+        }))
+        .filter((notification) => !user || notificationAllowed(user, notification.type))
+        .slice(0, 10);
     const profileIds = notifications.flatMap((notification) => notification.targetType === InteractionTargetType.USER_PROFILE && notification.targetId ? [notification.targetId] : []);
     const gameIds = notifications.flatMap((notification) => notification.targetType === InteractionTargetType.GAME && notification.targetId ? [Number(notification.targetId)] : []).filter(Number.isInteger);
     const [profiles, games] = await Promise.all([

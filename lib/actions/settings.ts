@@ -3,10 +3,11 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import * as z from "zod";
-import { auth } from "../auth";
+import { auth, signOut } from "../auth";
 import db from "../db";
 import { LinkType } from "../enums";
 import { Prisma } from "../generated/prisma/client";
+import { ActivityType } from "../generated/prisma/enums";
 import { hashPassword, verifyPassword } from "../util/password";
 
 const tabSchema = z.enum(["profile", "privacy", "widgets", "preferences", "account"]);
@@ -43,6 +44,7 @@ const colorSchema = z.string().trim().transform((value, ctx) => {
     ctx.addIssue({ code: "custom", message: "Colors must use #RRGGBB format." });
     return z.NEVER;
 });
+const checkboxSchema = z.union([z.literal("true"), z.literal("on"), z.literal("false")]).transform((value) => value === "true" || value === "on");
 
 const socialLinksSchema = z.string().trim().max(5000).transform((value, ctx) => {
     if (!value) return null;
@@ -95,7 +97,22 @@ const settingsSchema = z.object({
     libraryPrivacy: z.enum(["public", "followers", "private"]).optional(),
     logsPrivacy: z.enum(["public", "followers", "private"]).optional(),
     activityPrivacy: z.enum(["public", "followers", "private"]).optional(),
-    commentsHidden: z.coerce.boolean().optional(),
+    playlistPrivacy: z.enum(["public", "followers", "private"]).optional(),
+    commentsHidden: checkboxSchema.optional(),
+    hideCommentsEverywhere: checkboxSchema.optional(),
+    defaultGameListStatus: z.enum(["all", "PLAYING", "COMPLETED", "BACKLOG", "PAUSED", "DROPPED", "WISHLIST"]).optional(),
+    defaultGameListSort: z.enum(["added", "rating", "time", "name", "release", "notes"]).optional(),
+    defaultGameListView: z.enum(["grid", "list"]).optional(),
+    defaultActivityFilter: z.enum(["all", "logs", "games", "playlists", "comments", "social"]).optional(),
+    siteThemeMode: z.enum(["default", "profile", "custom"]).optional(),
+    siteThemeColor: colorSchema.optional(),
+    siteAccentColor: colorSchema.optional(),
+    notifyCommentReplies: checkboxSchema.optional(),
+    notifyProfileComments: checkboxSchema.optional(),
+    notifyLikes: checkboxSchema.optional(),
+    notifyFollows: checkboxSchema.optional(),
+    notifyFollowerLists: checkboxSchema.optional(),
+    notifyBadges: checkboxSchema.optional(),
     socials: socialLinksSchema.optional(),
     preferences: nullableText(2000).optional(),
     widgets: nullableText(20000).optional(),
@@ -131,6 +148,47 @@ async function getCurrentUserId() {
     }
 
     return user.id;
+}
+
+async function getConfirmedUser(confirmName: string) {
+    const userId = await getCurrentUserId();
+    const user = await db.user.findUnique({
+        where: { id: userId },
+        select: { id: true, name: true },
+    });
+
+    if (!user?.name || confirmName !== user.name) {
+        throw new Error("Username confirmation did not match.");
+    }
+
+    return user;
+}
+
+async function clearAccountData(userId: string) {
+    await db.$transaction([
+        db.notification.deleteMany({
+            where: {
+                OR: [
+                    { userId },
+                    { actorId: userId },
+                ],
+            },
+        }),
+        db.userFollow.deleteMany({
+            where: {
+                OR: [
+                    { followerId: userId },
+                    { followingId: userId },
+                ],
+            },
+        }),
+        db.userBadge.deleteMany({ where: { userId } }),
+        db.like.deleteMany({ where: { userId } }),
+        db.activity.deleteMany({ where: { userId } }),
+        db.comment.deleteMany({ where: { userId } }),
+        db.gameList.deleteMany({ where: { userId } }),
+        db.userGameEntry.deleteMany({ where: { userId } }),
+    ]);
 }
 
 async function pickAccountUpdateData(userId: string, values: z.infer<typeof settingsSchema>) {
@@ -209,14 +267,14 @@ function pickUpdateData(tab: z.infer<typeof tabSchema>, values: z.infer<typeof s
         data.profileColor = values.profileColor;
         data.accentColor = values.accentColor;
         data.socials = values.socials;
-        data.commentsHidden = values.commentsHidden ?? false;
     }
 
     if (tab === "privacy") {
         data.privacy = values.privacy;
         data.libraryPrivacy = values.libraryPrivacy;
-        data.logsPrivacy = values.logsPrivacy;
         data.activityPrivacy = values.activityPrivacy;
+        data.playlistPrivacy = values.playlistPrivacy;
+        data.commentsHidden = values.commentsHidden ?? false;
     }
 
     if (tab === "widgets") {
@@ -224,7 +282,20 @@ function pickUpdateData(tab: z.infer<typeof tabSchema>, values: z.infer<typeof s
     }
 
     if (tab === "preferences") {
-        data.preferences = values.preferences;
+        data.defaultGameListStatus = values.defaultGameListStatus;
+        data.defaultGameListSort = values.defaultGameListSort;
+        data.defaultGameListView = values.defaultGameListView;
+        data.defaultActivityFilter = values.defaultActivityFilter;
+        data.siteThemeMode = values.siteThemeMode;
+        data.siteThemeColor = values.siteThemeMode === "custom" ? values.siteThemeColor : null;
+        data.siteAccentColor = values.siteThemeMode === "custom" ? values.siteAccentColor : null;
+        data.hideCommentsEverywhere = values.hideCommentsEverywhere ?? false;
+        data.notifyCommentReplies = values.notifyCommentReplies ?? false;
+        data.notifyProfileComments = values.notifyProfileComments ?? false;
+        data.notifyLikes = values.notifyLikes ?? false;
+        data.notifyFollows = values.notifyFollows ?? false;
+        data.notifyFollowerLists = values.notifyFollowerLists ?? false;
+        data.notifyBadges = values.notifyBadges ?? false;
     }
 
     return data;
@@ -270,4 +341,89 @@ export async function updateUserSettings(tabValue: string, formData: FormData) {
     revalidatePath("/settings");
     revalidatePath("/u/[user]", "page");
     redirect(`/settings?tab=${tab}&saved=1`);
+}
+
+export async function clearUserLibrary(confirmName: string) {
+    const user = await getConfirmedUser(confirmName);
+
+    await db.$transaction([
+        db.activity.deleteMany({
+            where: {
+                userId: user.id,
+                type: {
+                    in: [
+                        ActivityType.ADDED_GAME_TO_LIBRARY,
+                        ActivityType.RATED_GAME,
+                        ActivityType.LOGGED_GAME_PLAY,
+                    ],
+                },
+            },
+        }),
+        db.userGameEntry.deleteMany({
+            where: { userId: user.id },
+        }),
+    ]);
+
+    revalidatePath("/", "layout");
+    revalidatePath("/settings");
+    revalidatePath("/library/[slug]", "page");
+}
+
+export async function resetUserAccountData(confirmName: string) {
+    const user = await getConfirmedUser(confirmName);
+
+    await clearAccountData(user.id);
+    await db.user.update({
+        where: { id: user.id },
+        data: {
+            bio: null,
+            image: null,
+            background: null,
+            profileColor: null,
+            accentColor: null,
+            privacy: "public",
+            libraryPrivacy: "public",
+            logsPrivacy: "public",
+            activityPrivacy: "public",
+            playlistPrivacy: "public",
+            socials: null,
+            preferences: null,
+            widgets: null,
+            commentsHidden: false,
+            hideCommentsEverywhere: false,
+            defaultGameListStatus: "all",
+            defaultGameListSort: "added",
+            defaultGameListView: "grid",
+            defaultActivityFilter: "all",
+            siteThemeMode: "default",
+            siteThemeColor: null,
+            siteAccentColor: null,
+            notifyCommentReplies: true,
+            notifyProfileComments: true,
+            notifyLikes: true,
+            notifyFollows: true,
+            notifyFollowerLists: true,
+            notifyBadges: true,
+        },
+    });
+
+    revalidatePath("/", "layout");
+    revalidatePath("/settings");
+    revalidatePath("/u/[user]", "page");
+    revalidatePath("/library/[slug]", "page");
+}
+
+export async function deleteUserAccount(confirmName: string) {
+    const user = await getConfirmedUser(confirmName);
+
+    await db.notification.deleteMany({
+        where: {
+            actorId: user.id,
+        },
+    });
+    await db.user.delete({
+        where: { id: user.id },
+    });
+
+    await signOut({ redirectTo: "/" });
 }
