@@ -28,6 +28,7 @@ export default async function Home() {
     siteStats.get(),
     getUser(session?.user),
   ]);
+  const playlistPreviewGames = trendingDataList.slice(0, 4).map((game) => formatRawGame(game));
 
   return (
     <div style={viewer ? viewerThemeStyle(viewer) : undefined}>
@@ -99,22 +100,22 @@ export default async function Home() {
         </Container>
       </section>
 
-      {/* PLAYLISTS */}
-      <section className="mt-10">
-        <Container>
-          <div className="pb-20 border-b-2 border-primary/30 rounded">
-            <h1 className="flex flex-row items-center gap-2 text-xl font-bold text-text-muted mb-5">
-              Playlists
-            </h1>
-            <div className="flex flex-row justify-between items-center gap-5">
-              <GamePlaylistDisplay game={formatRawGame(trendingDataList[0])} rank={1} />
-              <GamePlaylistDisplay game={formatRawGame(trendingDataList[1])} rank={2} />
-              <GamePlaylistDisplay game={formatRawGame(trendingDataList[2])} rank={3} />
-              <GamePlaylistDisplay game={formatRawGame(trendingDataList[3])} rank={4} />
+      {playlistPreviewGames.length > 0 && (
+        <section className="mt-10">
+          <Container>
+            <div className="pb-20 border-b-2 border-primary/30 rounded">
+              <h1 className="flex flex-row items-center gap-2 text-xl font-bold text-text-muted mb-5">
+                Playlists
+              </h1>
+              <div className="flex flex-row justify-between items-center gap-5">
+                {playlistPreviewGames.map((game, index) => (
+                  <GamePlaylistDisplay key={game.id ?? game.slug ?? index} game={game} rank={index + 1} />
+                ))}
+              </div>
             </div>
-          </div>
-        </Container>
-      </section>
+          </Container>
+        </section>
+      )}
 
       {/* OTHER GAME QUERIES */}
       <section className="mt-10 mb-10">

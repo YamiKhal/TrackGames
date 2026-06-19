@@ -232,7 +232,7 @@ export const UserGamePlayLogScalarFieldEnum = {
   gameId: 'gameId',
   hours: 'hours',
   note: 'note',
-  skip: 'skip',
+  skipRecap: 'skipRecap',
   playedAt: 'playedAt',
   createdAt: 'createdAt'
 } as const

@@ -1,24 +1,29 @@
 import db from "../db";
 import { GameStatus } from "../generated/prisma/enums";
-import { Game, UserGameEntry } from "../types";
+import type { UserGameEntryGetPayload } from "../generated/prisma/models/UserGameEntry";
+import { Game } from "../types";
 
-export async function getUserGameEntries(userId: string): Promise<UserGameEntry[]> {
+const userGameEntryInclude = {
+    game: true,
+    userGamePlayLogs: {
+        orderBy: {
+            playedAt: "desc" as const,
+        },
+    },
+} as const;
+
+export type UserLibraryEntry = UserGameEntryGetPayload<{ include: typeof userGameEntryInclude }>;
+
+export async function getUserGameEntries(userId: string): Promise<UserLibraryEntry[]> {
     return await db.userGameEntry.findMany({
         where: {
             userId,
         },
-        include: {
-            game: true,
-            userGamePlayLogs: {
-                orderBy: {
-                    playedAt: "desc",
-                },
-            },
-        },
+        include: userGameEntryInclude,
         orderBy: {
             addedAt: "desc",
         },
-    }) as unknown[] as UserGameEntry[]
+    });
 }
 
 export async function getUserGameEntry(userId: string, gameId: number) {

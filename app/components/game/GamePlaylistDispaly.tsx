@@ -1,8 +1,13 @@
-import { Game } from "@/lib/types";
 import GameCard from "./GameCard";
 import Link from "next/link";
 
-export default function GamePlaylistDisplay({ game, games, rank, title, by, href }: { game?: Game; games?: Game[]; rank?: number; title?: string; by?: string; href?: string }) {
+type PlaylistDisplayGame = {
+    cover?: string | null;
+    name?: string | null;
+    slug?: string | null;
+};
+
+export default function GamePlaylistDisplay({ game, games, rank, title, by, href }: { game?: PlaylistDisplayGame; games?: PlaylistDisplayGame[]; rank?: number; title?: string; by?: string; href?: string }) {
     const items = games?.length ? games : game ? [game, game, game, game] : [];
     const card = (
         <div className="w-full max-w-82 flex flex-col">
@@ -17,7 +22,7 @@ export default function GamePlaylistDisplay({ game, games, rank, title, by, href
                     </div>
                 ))}
             </div>
-            <h1 className="text-text-muted">{rank && <span className="text-secondary">#{rank}</span>} {title ?? "Name of Playlist"}</h1>
+            <h1 className="text-text-muted">{rank && <span className="text-secondary">#{rank}</span>} {title ?? game?.name ?? "Featured game"}</h1>
             {by && <p className="text-text-faint text-sm">By {by}</p>}
         </div>
     );

@@ -32,15 +32,21 @@ type Comment = {
 function CommentForm({ action, placeholder = "Write a comment" }: { action: (formData: FormData) => Promise<void>; placeholder?: string }) {
     const ref = useRef<HTMLFormElement>(null);
     const [content, setContent] = useState("");
+    const [error, setError] = useState<string | null>(null);
     const [pending, startTransition] = useTransition();
     const router = useRouter();
 
     function save(formData: FormData) {
+        setError(null);
         startTransition(async () => {
-            await action(formData);
-            setContent("");
-            ref.current?.reset();
-            router.refresh();
+            try {
+                await action(formData);
+                setContent("");
+                ref.current?.reset();
+                router.refresh();
+            } catch {
+                setError("Could not post comment.");
+            }
         });
     }
 
@@ -63,28 +69,40 @@ function CommentForm({ action, placeholder = "Write a comment" }: { action: (for
                     {pending ? "Posting..." : "Post"}
                 </PrimaryButton>
             </div>
+            {error && <p className="border-t border-border px-3 py-2 text-xs text-error" role="status">{error}</p>}
         </form>
     );
 }
 
 function CommentItem({ comment, comments, targetType, targetId, currentUserId }: { comment: Comment; comments: Comment[]; targetType: InteractionTargetType; targetId: string; currentUserId: string | null }) {
     const [replying, setReplying] = useState(false);
+    const [error, setError] = useState<string | null>(null);
     const [pending, startTransition] = useTransition();
     const router = useRouter();
     const replies = comments.filter((reply) => reply.parentId === comment.id);
     const replyAction = addComment.bind(null, targetType, targetId, comment.id);
 
     function like() {
+        setError(null);
         startTransition(async () => {
-            await toggleLike(LikeTargetType.COMMENT, comment.id);
-            router.refresh();
+            try {
+                await toggleLike(LikeTargetType.COMMENT, comment.id);
+                router.refresh();
+            } catch {
+                setError("Could not update like.");
+            }
         });
     }
 
     function remove() {
+        setError(null);
         startTransition(async () => {
-            await deleteComment(comment.id);
-            router.refresh();
+            try {
+                await deleteComment(comment.id);
+                router.refresh();
+            } catch {
+                setError("Could not delete comment.");
+            }
         });
     }
 
@@ -127,6 +145,7 @@ function CommentItem({ comment, comments, targetType, targetId, currentUserId }:
                         </button>
                     )}
                 </div>
+                {error && <p className="mt-1 text-xs text-error" role="status">{error}</p>}
                 {replying && (
                     <div className="mt-2">
                         <CommentForm action={replyAction} placeholder="Write a reply" />

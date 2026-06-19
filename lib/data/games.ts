@@ -1,5 +1,6 @@
 import db from "../db";
 import { formatRawGame } from "../external/igdb/util";
+import { GameListType, GameStatus } from "../generated/prisma/enums";
 import { Game } from "../types";
 import { getByIds, getBySlugs } from "./getter";
 
@@ -68,6 +69,57 @@ export async function getGameBySlug(slug: string[]): Promise<Game[]>;
 export async function getGameBySlug(slug: string | string[]): Promise<Game | Game[] | null> {
     const res = await getBySlugs(Array.isArray(slug) ? slug : [slug], gameSelect, db.game, fetching, formatRawGame);
     return Array.isArray(slug) ? res : res[0] ?? null;
+}
+
+export async function getGameStats(gameId: number) {
+    const [
+        plays,
+        backlog,
+        wishlisted,
+        publicPlaylistEntries,
+        averageTimes,
+    ] = await Promise.all([
+        db.userGamePlayLog.count({ where: { gameId } }),
+        db.userGameEntry.count({
+            where: {
+                gameId,
+                status: GameStatus.BACKLOG,
+            },
+        }),
+        db.userGameEntry.count({
+            where: {
+                gameId,
+                status: GameStatus.WISHLIST,
+            },
+        }),
+        db.gameListEntry.count({
+            where: {
+                gameId,
+                list: {
+                    type: GameListType.PLAYLIST,
+                    privacy: "public",
+                },
+            },
+        }),
+        db.userGameEntry.aggregate({
+            where: { gameId },
+            _avg: {
+                timePlayed: true,
+                timeFinished: true,
+                timeMastered: true,
+            },
+        }),
+    ]);
+
+    return {
+        plays,
+        backlog,
+        wishlisted,
+        publicPlaylistEntries,
+        averagePlaytime: averageTimes._avg.timePlayed,
+        averageCompletionTime: averageTimes._avg.timeFinished,
+        averageMasteryTime: averageTimes._avg.timeMastered,
+    };
 }
 
 export async function getMinifiedGameBySlug(slug: string): Promise<Game | null>;

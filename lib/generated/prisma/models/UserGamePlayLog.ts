@@ -43,7 +43,7 @@ export type UserGamePlayLogMinAggregateOutputType = {
   gameId: number | null
   hours: number | null
   note: string | null
-  skip: boolean | null
+  skipRecap: boolean | null
   playedAt: Date | null
   createdAt: Date | null
 }
@@ -55,7 +55,7 @@ export type UserGamePlayLogMaxAggregateOutputType = {
   gameId: number | null
   hours: number | null
   note: string | null
-  skip: boolean | null
+  skipRecap: boolean | null
   playedAt: Date | null
   createdAt: Date | null
 }
@@ -67,7 +67,7 @@ export type UserGamePlayLogCountAggregateOutputType = {
   gameId: number
   hours: number
   note: number
-  skip: number
+  skipRecap: number
   playedAt: number
   createdAt: number
   _all: number
@@ -91,7 +91,7 @@ export type UserGamePlayLogMinAggregateInputType = {
   gameId?: true
   hours?: true
   note?: true
-  skip?: true
+  skipRecap?: true
   playedAt?: true
   createdAt?: true
 }
@@ -103,7 +103,7 @@ export type UserGamePlayLogMaxAggregateInputType = {
   gameId?: true
   hours?: true
   note?: true
-  skip?: true
+  skipRecap?: true
   playedAt?: true
   createdAt?: true
 }
@@ -115,7 +115,7 @@ export type UserGamePlayLogCountAggregateInputType = {
   gameId?: true
   hours?: true
   note?: true
-  skip?: true
+  skipRecap?: true
   playedAt?: true
   createdAt?: true
   _all?: true
@@ -214,7 +214,7 @@ export type UserGamePlayLogGroupByOutputType = {
   gameId: number
   hours: number
   note: string
-  skip: boolean
+  skipRecap: boolean
   playedAt: Date
   createdAt: Date
   _count: UserGamePlayLogCountAggregateOutputType | null
@@ -249,7 +249,7 @@ export type UserGamePlayLogWhereInput = {
   gameId?: Prisma.IntFilter<"UserGamePlayLog"> | number
   hours?: Prisma.FloatFilter<"UserGamePlayLog"> | number
   note?: Prisma.StringFilter<"UserGamePlayLog"> | string
-  skip?: Prisma.BoolFilter<"UserGamePlayLog"> | boolean
+  skipRecap?: Prisma.BoolFilter<"UserGamePlayLog"> | boolean
   playedAt?: Prisma.DateTimeFilter<"UserGamePlayLog"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"UserGamePlayLog"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -264,7 +264,7 @@ export type UserGamePlayLogOrderByWithRelationInput = {
   gameId?: Prisma.SortOrder
   hours?: Prisma.SortOrder
   note?: Prisma.SortOrder
-  skip?: Prisma.SortOrder
+  skipRecap?: Prisma.SortOrder
   playedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
@@ -282,7 +282,7 @@ export type UserGamePlayLogWhereUniqueInput = Prisma.AtLeast<{
   gameId?: Prisma.IntFilter<"UserGamePlayLog"> | number
   hours?: Prisma.FloatFilter<"UserGamePlayLog"> | number
   note?: Prisma.StringFilter<"UserGamePlayLog"> | string
-  skip?: Prisma.BoolFilter<"UserGamePlayLog"> | boolean
+  skipRecap?: Prisma.BoolFilter<"UserGamePlayLog"> | boolean
   playedAt?: Prisma.DateTimeFilter<"UserGamePlayLog"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"UserGamePlayLog"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -297,7 +297,7 @@ export type UserGamePlayLogOrderByWithAggregationInput = {
   gameId?: Prisma.SortOrder
   hours?: Prisma.SortOrder
   note?: Prisma.SortOrder
-  skip?: Prisma.SortOrder
+  skipRecap?: Prisma.SortOrder
   playedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.UserGamePlayLogCountOrderByAggregateInput
@@ -317,7 +317,7 @@ export type UserGamePlayLogScalarWhereWithAggregatesInput = {
   gameId?: Prisma.IntWithAggregatesFilter<"UserGamePlayLog"> | number
   hours?: Prisma.FloatWithAggregatesFilter<"UserGamePlayLog"> | number
   note?: Prisma.StringWithAggregatesFilter<"UserGamePlayLog"> | string
-  skip?: Prisma.BoolWithAggregatesFilter<"UserGamePlayLog"> | boolean
+  skipRecap?: Prisma.BoolWithAggregatesFilter<"UserGamePlayLog"> | boolean
   playedAt?: Prisma.DateTimeWithAggregatesFilter<"UserGamePlayLog"> | Date | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"UserGamePlayLog"> | Date | string
 }
@@ -326,7 +326,7 @@ export type UserGamePlayLogCreateInput = {
   id?: string
   hours: number
   note: string
-  skip?: boolean
+  skipRecap?: boolean
   playedAt?: Date | string
   createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutUserGamePlayLogsInput
@@ -341,7 +341,7 @@ export type UserGamePlayLogUncheckedCreateInput = {
   gameId: number
   hours: number
   note: string
-  skip?: boolean
+  skipRecap?: boolean
   playedAt?: Date | string
   createdAt?: Date | string
 }
@@ -350,7 +350,7 @@ export type UserGamePlayLogUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   hours?: Prisma.FloatFieldUpdateOperationsInput | number
   note?: Prisma.StringFieldUpdateOperationsInput | string
-  skip?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  skipRecap?: Prisma.BoolFieldUpdateOperationsInput | boolean
   playedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutUserGamePlayLogsNestedInput
@@ -365,7 +365,7 @@ export type UserGamePlayLogUncheckedUpdateInput = {
   gameId?: Prisma.IntFieldUpdateOperationsInput | number
   hours?: Prisma.FloatFieldUpdateOperationsInput | number
   note?: Prisma.StringFieldUpdateOperationsInput | string
-  skip?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  skipRecap?: Prisma.BoolFieldUpdateOperationsInput | boolean
   playedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -377,7 +377,7 @@ export type UserGamePlayLogCreateManyInput = {
   gameId: number
   hours: number
   note: string
-  skip?: boolean
+  skipRecap?: boolean
   playedAt?: Date | string
   createdAt?: Date | string
 }
@@ -386,7 +386,7 @@ export type UserGamePlayLogUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   hours?: Prisma.FloatFieldUpdateOperationsInput | number
   note?: Prisma.StringFieldUpdateOperationsInput | string
-  skip?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  skipRecap?: Prisma.BoolFieldUpdateOperationsInput | boolean
   playedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -398,7 +398,7 @@ export type UserGamePlayLogUncheckedUpdateManyInput = {
   gameId?: Prisma.IntFieldUpdateOperationsInput | number
   hours?: Prisma.FloatFieldUpdateOperationsInput | number
   note?: Prisma.StringFieldUpdateOperationsInput | string
-  skip?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  skipRecap?: Prisma.BoolFieldUpdateOperationsInput | boolean
   playedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -420,7 +420,7 @@ export type UserGamePlayLogCountOrderByAggregateInput = {
   gameId?: Prisma.SortOrder
   hours?: Prisma.SortOrder
   note?: Prisma.SortOrder
-  skip?: Prisma.SortOrder
+  skipRecap?: Prisma.SortOrder
   playedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -437,7 +437,7 @@ export type UserGamePlayLogMaxOrderByAggregateInput = {
   gameId?: Prisma.SortOrder
   hours?: Prisma.SortOrder
   note?: Prisma.SortOrder
-  skip?: Prisma.SortOrder
+  skipRecap?: Prisma.SortOrder
   playedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -449,7 +449,7 @@ export type UserGamePlayLogMinOrderByAggregateInput = {
   gameId?: Prisma.SortOrder
   hours?: Prisma.SortOrder
   note?: Prisma.SortOrder
-  skip?: Prisma.SortOrder
+  skipRecap?: Prisma.SortOrder
   playedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -597,7 +597,7 @@ export type UserGamePlayLogCreateWithoutUserInput = {
   id?: string
   hours: number
   note: string
-  skip?: boolean
+  skipRecap?: boolean
   playedAt?: Date | string
   createdAt?: Date | string
   game: Prisma.GameCreateNestedOneWithoutUserGamePlayLogsInput
@@ -610,7 +610,7 @@ export type UserGamePlayLogUncheckedCreateWithoutUserInput = {
   gameId: number
   hours: number
   note: string
-  skip?: boolean
+  skipRecap?: boolean
   playedAt?: Date | string
   createdAt?: Date | string
 }
@@ -651,7 +651,7 @@ export type UserGamePlayLogScalarWhereInput = {
   gameId?: Prisma.IntFilter<"UserGamePlayLog"> | number
   hours?: Prisma.FloatFilter<"UserGamePlayLog"> | number
   note?: Prisma.StringFilter<"UserGamePlayLog"> | string
-  skip?: Prisma.BoolFilter<"UserGamePlayLog"> | boolean
+  skipRecap?: Prisma.BoolFilter<"UserGamePlayLog"> | boolean
   playedAt?: Prisma.DateTimeFilter<"UserGamePlayLog"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"UserGamePlayLog"> | Date | string
 }
@@ -660,7 +660,7 @@ export type UserGamePlayLogCreateWithoutGameInput = {
   id?: string
   hours: number
   note: string
-  skip?: boolean
+  skipRecap?: boolean
   playedAt?: Date | string
   createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutUserGamePlayLogsInput
@@ -673,7 +673,7 @@ export type UserGamePlayLogUncheckedCreateWithoutGameInput = {
   entryId: string
   hours: number
   note: string
-  skip?: boolean
+  skipRecap?: boolean
   playedAt?: Date | string
   createdAt?: Date | string
 }
@@ -708,7 +708,7 @@ export type UserGamePlayLogCreateWithoutGameEntryInput = {
   id?: string
   hours: number
   note: string
-  skip?: boolean
+  skipRecap?: boolean
   playedAt?: Date | string
   createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutUserGamePlayLogsInput
@@ -721,7 +721,7 @@ export type UserGamePlayLogUncheckedCreateWithoutGameEntryInput = {
   gameId: number
   hours: number
   note: string
-  skip?: boolean
+  skipRecap?: boolean
   playedAt?: Date | string
   createdAt?: Date | string
 }
@@ -758,7 +758,7 @@ export type UserGamePlayLogCreateManyUserInput = {
   gameId: number
   hours: number
   note: string
-  skip?: boolean
+  skipRecap?: boolean
   playedAt?: Date | string
   createdAt?: Date | string
 }
@@ -767,7 +767,7 @@ export type UserGamePlayLogUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   hours?: Prisma.FloatFieldUpdateOperationsInput | number
   note?: Prisma.StringFieldUpdateOperationsInput | string
-  skip?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  skipRecap?: Prisma.BoolFieldUpdateOperationsInput | boolean
   playedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   game?: Prisma.GameUpdateOneRequiredWithoutUserGamePlayLogsNestedInput
@@ -780,7 +780,7 @@ export type UserGamePlayLogUncheckedUpdateWithoutUserInput = {
   gameId?: Prisma.IntFieldUpdateOperationsInput | number
   hours?: Prisma.FloatFieldUpdateOperationsInput | number
   note?: Prisma.StringFieldUpdateOperationsInput | string
-  skip?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  skipRecap?: Prisma.BoolFieldUpdateOperationsInput | boolean
   playedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -791,7 +791,7 @@ export type UserGamePlayLogUncheckedUpdateManyWithoutUserInput = {
   gameId?: Prisma.IntFieldUpdateOperationsInput | number
   hours?: Prisma.FloatFieldUpdateOperationsInput | number
   note?: Prisma.StringFieldUpdateOperationsInput | string
-  skip?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  skipRecap?: Prisma.BoolFieldUpdateOperationsInput | boolean
   playedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -802,7 +802,7 @@ export type UserGamePlayLogCreateManyGameInput = {
   entryId: string
   hours: number
   note: string
-  skip?: boolean
+  skipRecap?: boolean
   playedAt?: Date | string
   createdAt?: Date | string
 }
@@ -811,7 +811,7 @@ export type UserGamePlayLogUpdateWithoutGameInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   hours?: Prisma.FloatFieldUpdateOperationsInput | number
   note?: Prisma.StringFieldUpdateOperationsInput | string
-  skip?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  skipRecap?: Prisma.BoolFieldUpdateOperationsInput | boolean
   playedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutUserGamePlayLogsNestedInput
@@ -824,7 +824,7 @@ export type UserGamePlayLogUncheckedUpdateWithoutGameInput = {
   entryId?: Prisma.StringFieldUpdateOperationsInput | string
   hours?: Prisma.FloatFieldUpdateOperationsInput | number
   note?: Prisma.StringFieldUpdateOperationsInput | string
-  skip?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  skipRecap?: Prisma.BoolFieldUpdateOperationsInput | boolean
   playedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -835,7 +835,7 @@ export type UserGamePlayLogUncheckedUpdateManyWithoutGameInput = {
   entryId?: Prisma.StringFieldUpdateOperationsInput | string
   hours?: Prisma.FloatFieldUpdateOperationsInput | number
   note?: Prisma.StringFieldUpdateOperationsInput | string
-  skip?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  skipRecap?: Prisma.BoolFieldUpdateOperationsInput | boolean
   playedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -846,7 +846,7 @@ export type UserGamePlayLogCreateManyGameEntryInput = {
   gameId: number
   hours: number
   note: string
-  skip?: boolean
+  skipRecap?: boolean
   playedAt?: Date | string
   createdAt?: Date | string
 }
@@ -855,7 +855,7 @@ export type UserGamePlayLogUpdateWithoutGameEntryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   hours?: Prisma.FloatFieldUpdateOperationsInput | number
   note?: Prisma.StringFieldUpdateOperationsInput | string
-  skip?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  skipRecap?: Prisma.BoolFieldUpdateOperationsInput | boolean
   playedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutUserGamePlayLogsNestedInput
@@ -868,7 +868,7 @@ export type UserGamePlayLogUncheckedUpdateWithoutGameEntryInput = {
   gameId?: Prisma.IntFieldUpdateOperationsInput | number
   hours?: Prisma.FloatFieldUpdateOperationsInput | number
   note?: Prisma.StringFieldUpdateOperationsInput | string
-  skip?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  skipRecap?: Prisma.BoolFieldUpdateOperationsInput | boolean
   playedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -879,7 +879,7 @@ export type UserGamePlayLogUncheckedUpdateManyWithoutGameEntryInput = {
   gameId?: Prisma.IntFieldUpdateOperationsInput | number
   hours?: Prisma.FloatFieldUpdateOperationsInput | number
   note?: Prisma.StringFieldUpdateOperationsInput | string
-  skip?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  skipRecap?: Prisma.BoolFieldUpdateOperationsInput | boolean
   playedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -893,7 +893,7 @@ export type UserGamePlayLogSelect<ExtArgs extends runtime.Types.Extensions.Inter
   gameId?: boolean
   hours?: boolean
   note?: boolean
-  skip?: boolean
+  skipRecap?: boolean
   playedAt?: boolean
   createdAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -908,7 +908,7 @@ export type UserGamePlayLogSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   gameId?: boolean
   hours?: boolean
   note?: boolean
-  skip?: boolean
+  skipRecap?: boolean
   playedAt?: boolean
   createdAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -923,7 +923,7 @@ export type UserGamePlayLogSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   gameId?: boolean
   hours?: boolean
   note?: boolean
-  skip?: boolean
+  skipRecap?: boolean
   playedAt?: boolean
   createdAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -938,12 +938,12 @@ export type UserGamePlayLogSelectScalar = {
   gameId?: boolean
   hours?: boolean
   note?: boolean
-  skip?: boolean
+  skipRecap?: boolean
   playedAt?: boolean
   createdAt?: boolean
 }
 
-export type UserGamePlayLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "entryId" | "gameId" | "hours" | "note" | "skip" | "playedAt" | "createdAt", ExtArgs["result"]["userGamePlayLog"]>
+export type UserGamePlayLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "entryId" | "gameId" | "hours" | "note" | "skipRecap" | "playedAt" | "createdAt", ExtArgs["result"]["userGamePlayLog"]>
 export type UserGamePlayLogInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   game?: boolean | Prisma.GameDefaultArgs<ExtArgs>
@@ -974,7 +974,7 @@ export type $UserGamePlayLogPayload<ExtArgs extends runtime.Types.Extensions.Int
     gameId: number
     hours: number
     note: string
-    skip: boolean
+    skipRecap: boolean
     playedAt: Date
     createdAt: Date
   }, ExtArgs["result"]["userGamePlayLog"]>
@@ -1409,7 +1409,7 @@ export interface UserGamePlayLogFieldRefs {
   readonly gameId: Prisma.FieldRef<"UserGamePlayLog", 'Int'>
   readonly hours: Prisma.FieldRef<"UserGamePlayLog", 'Float'>
   readonly note: Prisma.FieldRef<"UserGamePlayLog", 'String'>
-  readonly skip: Prisma.FieldRef<"UserGamePlayLog", 'Boolean'>
+  readonly skipRecap: Prisma.FieldRef<"UserGamePlayLog", 'Boolean'>
   readonly playedAt: Prisma.FieldRef<"UserGamePlayLog", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"UserGamePlayLog", 'DateTime'>
 }

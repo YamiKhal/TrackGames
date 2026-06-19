@@ -5,22 +5,56 @@ import { Select } from "@/app/components/ui/Inputs";
 import BackgroundView from "@/app/components/user/BackgroundView";
 import { updatePlaylistDisplayMode } from "@/lib/actions/playlists";
 import { auth } from "@/lib/auth";
-import { getPlaylist, getPlaylistLibraryCount } from "@/lib/data/playlists";
+import { getPlaylist, getPlaylistAccess, getPlaylistLibraryCount } from "@/lib/data/playlists";
 import { redirect } from "next/navigation";
 import AddPlaylistGameForm from "./AddPlaylistGameForm";
 import TierLabelsForm from "./TierLabelsForm";
 import GameListEditButton from "@/app/components/playlist/GameListEditButton";
-import { profileThemeStyle } from "@/lib/account/user";
-import { getUser } from "@/lib/account/user";
+import { canViewPrivacy, getUser, profileThemeStyle } from "@/lib/account/user";
 import { shouldHideComments } from "@/lib/account/preferences";
 import CommentSection from "@/app/components/comments/CommentSection";
 import { InteractionTargetType, LikeTargetType } from "@/lib/generated/prisma/enums";
 import LikeButton from "@/app/components/social/LikeButton";
 import { getPlaylistLikeState } from "@/lib/data/social";
+import db from "@/lib/db";
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
-    const [playlist, session] = await Promise.all([getPlaylist(id), auth()]);
+    const [access, session] = await Promise.all([getPlaylistAccess(id), auth()]);
+
+    if (!access) {
+        redirect("/not-found");
+    }
+
+    const isOwner = session?.user?.id === access.userId;
+    const follow = !isOwner && session?.user?.id ? await db.userFollow.findUnique({
+        where: {
+            followerId_followingId: {
+                followerId: session.user.id,
+                followingId: access.userId,
+            },
+        },
+        select: {
+            id: true,
+        },
+    }) : null;
+    const canViewPlaylist = canViewPrivacy(access.privacy, isOwner, Boolean(follow));
+
+    if (!canViewPlaylist) {
+        return (
+            <main className="relative z-0 flex-1">
+                <Container>
+                    <section className="relative z-10 bg-bg/95 py-5">
+                        <Container>
+                            <p className="rounded border border-border bg-bg p-4 text-sm text-text-muted">This playlist is private.</p>
+                        </Container>
+                    </section>
+                </Container>
+            </main>
+        );
+    }
+
+    const playlist = await getPlaylist(id);
 
     if (!playlist) {
         redirect("/not-found");

@@ -53,7 +53,7 @@ export async function getSteamProfileImportPreview(steamId: string) {
     };
 }
 
-export async function importSteamLibrary(steamId: string, skipImportedLogs = true) {
+export async function importSteamLibrary(steamId: string, skipImportedLogsRecap = true) {
     const id = steamId.trim();
 
     if (!/^\d{17}$/.test(id)) {
@@ -176,7 +176,7 @@ export async function importSteamLibrary(steamId: string, skipImportedLogs = tru
                         gameId: game.id,
                         hours,
                         note: "Imported from Steam.",
-                        skip: skipImportedLogs,
+                        skipRecap: skipImportedLogsRecap,
                         playedAt,
                     },
                 });

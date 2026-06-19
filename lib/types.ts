@@ -126,7 +126,7 @@ export type UserGamePlayLog = {
     gameId: number;
     hours: number;
     note: string;
-    skip: boolean;
+    skipRecap: boolean;
     playedAt: Date;
     createdAt: Date;
     game?: Game;

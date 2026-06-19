@@ -9,7 +9,7 @@ import { useState, useTransition } from "react";
 export default function ImportSettingsForm() {
     const [steamId, setSteamId] = useState("");
     const [profile, setProfile] = useState<{ steamId: string; personaname: string; profileurl: string; avatar: string; } | null>(null);
-    const [skipImportedLogs, setSkipImportedLogs] = useState(true);
+    const [skipImportedLogsRecap, setSkipImportedLogsRecap] = useState(true);
     const [error, setError] = useState("");
     const [result, setResult] = useState<{ imported: number; failed: string[] } | null>(null);
     const [pending, startTransition] = useTransition();
@@ -42,7 +42,7 @@ export default function ImportSettingsForm() {
         setError("");
         startTransition(async () => {
             try {
-                setResult(await importSteamLibrary(profile.steamId, skipImportedLogs));
+                setResult(await importSteamLibrary(profile.steamId, skipImportedLogsRecap));
             } catch {
                 setError("Steam import failed. Check your profile ID and try again.");
             }
@@ -94,13 +94,13 @@ export default function ImportSettingsForm() {
                             </div>
                             <label className="flex cursor-pointer items-start gap-3 rounded border border-border bg-bg/60 p-3 text-sm text-text-muted">
                                 <Checkbox
-                                    checked={skipImportedLogs}
-                                    onChange={(event) => setSkipImportedLogs(event.target.checked)}
+                                    checked={skipImportedLogsRecap}
+                                    onChange={(event) => setSkipImportedLogsRecap(event.target.checked)}
                                     className="mt-0.5"
                                 />
                                 <span>
-                                    <span className="block font-bold text-text">Exclude imported logs from recaps</span>
-                                    <span>Excluded logs still appear in your log history, but do not count toward recap and rollup totals.</span>
+                                    <span className="block font-bold text-text">Skip imported logs in recaps</span>
+                                    <span>Imported logs still appear in your history and count toward game time. They will only be left out of recap features.</span>
                                 </span>
                             </label>
                             <PrimaryButton type="button" onClick={importLibrary} disabled={pending} className="mt-4 w-fit">

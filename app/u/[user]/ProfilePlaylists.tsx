@@ -3,13 +3,13 @@
 import GamePlaylistDisplay from "@/app/components/game/GamePlaylistDispaly";
 import MenuPanel from "@/app/components/ui/MenuPanel";
 import { createPlaylist } from "@/lib/actions/playlists";
-import { GameList } from "@/lib/types";
+import type { Playlist } from "@/lib/data/playlists";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import { GhostButton, PrimaryButton } from "../../components/ui/Buttons";
 import { Input, Textarea } from "../../components/ui/Inputs";
 
-export default function ProfilePlaylists({ playlists, canCreate }: { playlists: GameList[]; canCreate: boolean }) {
+export default function ProfilePlaylists({ playlists, canCreate }: { playlists: Playlist[]; canCreate: boolean }) {
     const [open, setOpen] = useState(false);
 
     return (

@@ -171,7 +171,7 @@ model UserGamePlayLog {
   gameId   Int
   hours    Float
   note     String   @db.Text
-  skip     Boolean  @default(false) // if true, log isn't accounted for totals, recaps, etc.
+  skipRecap Boolean @default(false)
   playedAt DateTime @default(now())
 
   user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)

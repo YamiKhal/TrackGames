@@ -3,7 +3,7 @@
 import { createUserGamePlayLog, deleteUserGamePlayLog, removeGameFromLibrary, updateUserGameEntry, updateUserGamePlayLog } from "@/lib/actions/library";
 import { GameStatus } from "@/lib/generated/prisma/enums";
 import { ImageIdToURL } from "@/lib/external/igdb/util";
-import { UserGameEntry } from "@/lib/types";
+import type { UserLibraryEntry } from "@/lib/data/library";
 import { ratingToFive } from "@/lib/util/rating";
 import { Check, CircleHelp, Clock, Crown, Edit3, NotebookText, Trash2, X } from "lucide-react";
 import Image from "next/image";
@@ -30,7 +30,7 @@ function statusColor(status: GameStatus) {
     return "bg-text-faint";
 }
 
-export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove, themeStyle }: { entry: UserGameEntry; mode: "grid" | "list"; canEdit: boolean; onUpdate: (entry: UserGameEntry) => void; onRemove: (entryId: string) => void; themeStyle?: CSSProperties }) {
+export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove, themeStyle }: { entry: UserLibraryEntry; mode: "grid" | "list"; canEdit: boolean; onUpdate: (entry: UserLibraryEntry) => void; onRemove: (entryId: string) => void; themeStyle?: CSSProperties }) {
     const [editing, setEditing] = useState(false);
     const [showNotes, setShowNotes] = useState(false);
     const [confirmingRemove, setConfirmingRemove] = useState(false);
@@ -42,7 +42,7 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
     const [error, setError] = useState("");
     const [pending, startTransition] = useTransition();
     const game = entry.game;
-    const src = ImageIdToURL(game.cover);
+    const src = ImageIdToURL(game.cover ?? undefined);
     const hasNotes = Boolean(entry.notes?.trim());
     const logs = [...(entry.userGamePlayLogs ?? [])].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     const filteredLogs = logDate ? logs.filter((log) => new Date(log.playedAt).toISOString().slice(0, 10) === logDate) : logs;
@@ -62,7 +62,7 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
         setError("");
         startTransition(async () => {
             const updated = await updateUserGameEntry(entry.id, formData);
-            onUpdate(updated as unknown as UserGameEntry);
+            onUpdate(updated);
             setEditing(false);
         });
     }
@@ -71,7 +71,7 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
         setError("");
         startTransition(async () => {
             const updated = await createUserGamePlayLog(entry.id, formData);
-            onUpdate(updated as unknown as UserGameEntry);
+            onUpdate(updated);
             setEditing(false);
         });
     }
@@ -82,7 +82,7 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
         setError("");
         startTransition(async () => {
             const updated = await updateUserGamePlayLog(selectedLogId, formData);
-            onUpdate(updated as unknown as UserGameEntry);
+            onUpdate(updated);
             setSelectedLogId("");
         });
     }
@@ -91,7 +91,7 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
         setError("");
         startTransition(async () => {
             const updated = await deleteUserGamePlayLog(logId);
-            onUpdate(updated as unknown as UserGameEntry);
+            onUpdate(updated);
             setSelectedLogId("");
         });
     }
@@ -298,10 +298,10 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
                                         Mastered
                                     </label>
                                     <label className="flex cursor-pointer items-center gap-2 rounded border border-border p-2">
-                                        <Checkbox name="skip" />
-                                        Exclude
-                                        <span title="Excluded logs stay visible, but do not count toward total play time, recaps, or other rollups.">
-                                            <CircleHelp size={15} className="text-text-faint" aria-label="Excluded logs stay visible, but do not count toward total play time, recaps, or other rollups." />
+                                        <Checkbox name="skipRecap" />
+                                        Skip recap
+                                        <span title="This log still counts toward your game time. It will only be left out of recap features.">
+                                            <CircleHelp size={15} className="text-text-faint" aria-label="This log still counts toward your game time. It will only be left out of recap features." />
                                         </span>
                                     </label>
                                 </div>
@@ -331,7 +331,7 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
                                             className={`cursor-pointer rounded border p-3 text-left text-xs transition ${selectedLogId === log.id ? "border-primary bg-primary/10" : "border-border bg-bg/60 hover:border-primary"}`}
                                         >
                                             <span className="block font-bold text-text">{new Date(log.playedAt).toLocaleDateString()} - {log.hours}h</span>
-                                            {log.skip && <span className="mt-1 block text-text-faint">excluded from recaps</span>}
+                                            {log.skipRecap && <span className="mt-1 block text-text-faint">skipped in recaps</span>}
                                             <span className="mt-1 line-clamp-2 whitespace-pre-wrap text-text-muted">{log.note}</span>
                                         </button>
                                     )) : (
@@ -355,8 +355,8 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
                                             <Textarea name="note" rows={4} defaultValue={selectedLog.note} />
                                         </label>
                                         <label className="flex cursor-pointer items-center gap-2 rounded border border-border p-2 text-sm font-bold text-text-muted">
-                                            <Checkbox name="skip" defaultChecked={selectedLog.skip} />
-                                            Exclude from recaps
+                                            <Checkbox name="skipRecap" defaultChecked={selectedLog.skipRecap} />
+                                            Skip recap
                                         </label>
                                         <div className="mt-2 flex justify-end gap-2">
                                             <GhostButton type="button" onClick={() => deleteHistoryLog(selectedLog.id)} disabled={pending} className="px-3 py-2 text-error hover:border-error hover:text-error">

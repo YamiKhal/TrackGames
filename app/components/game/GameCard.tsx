@@ -2,17 +2,22 @@
 
 import Image from "next/image";
 import { useCallback, useRef } from "react";
-import { Game } from "@/lib/types";
 import { ImageIdToURL } from "@/lib/external/igdb/util";
 import { rippleEffect } from "@/lib/util/effects";
 import Link from "next/link";
 
-export default function GameCard({ game, size = 140, effect, hover, slugged = false, preload = false }: { game: Game; size?: number | "full"; effect?: "ripple", hover?: "name", slugged?: boolean; preload?: boolean }) {
+type GameCardGame = {
+    cover?: string | null;
+    name?: string | null;
+    slug?: string | null;
+};
+
+export default function GameCard({ game, size = 140, effect, hover, slugged = false, preload = false }: { game: GameCardGame; size?: number | "full"; effect?: "ripple", hover?: "name", slugged?: boolean; preload?: boolean }) {
     const cardRef = useRef<HTMLDivElement>(null);
     const isFullSize = size === "full";
     const height = isFullSize ? "100%" : Math.round(size * 1.4);
     const imageSizes = isFullSize ? "(max-width: 640px) 42vw, 140px" : `${size}px`;
-    const src = ImageIdToURL(game.cover, "cover_big");
+    const src = ImageIdToURL(game.cover ?? undefined, "cover_big");
 
     const createRipple = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
         if (!effect) return;

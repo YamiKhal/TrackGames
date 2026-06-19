@@ -1,7 +1,7 @@
 "use client";
 
 import { GameStatus } from "@/lib/generated/prisma/enums";
-import { UserGameEntry } from "@/lib/types";
+import type { UserLibraryEntry } from "@/lib/data/library";
 import { Grid2X2, List } from "lucide-react";
 import type { CSSProperties } from "react";
 import { useMemo, useState } from "react";
@@ -13,7 +13,7 @@ function statusLabel(status: string) {
     return status.toLowerCase().replace("_", " ");
 }
 
-export default function LibraryEntriesPanel({ entries, canEdit, themeStyle, defaults }: { entries: UserGameEntry[]; canEdit: boolean; themeStyle?: CSSProperties; defaults?: { status: string; sort: string; mode: "grid" | "list" } }) {
+export default function LibraryEntriesPanel({ entries, canEdit, themeStyle, defaults }: { entries: UserLibraryEntry[]; canEdit: boolean; themeStyle?: CSSProperties; defaults?: { status: string; sort: string; mode: "grid" | "list" } }) {
     const [items, setItems] = useState(entries);
     const [mode, setMode] = useState<"grid" | "list">(defaults?.mode ?? "grid");
     const [status, setStatus] = useState(defaults?.status ?? "all");
@@ -36,7 +36,7 @@ export default function LibraryEntriesPanel({ entries, canEdit, themeStyle, defa
         });
     }, [items, query, sort, status]);
 
-    function updateEntry(updated: UserGameEntry) {
+    function updateEntry(updated: UserLibraryEntry) {
         setItems((current) => current.map((entry) => entry.id === updated.id ? updated : entry));
     }
 

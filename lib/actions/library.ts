@@ -138,7 +138,7 @@ export async function createUserGamePlayLog(entryId: string, formData: FormData)
     const playedAtValue = String(formData.get("playedat") ?? "").trim();
     const hours = Math.max(0, Number(String(formData.get("hours") ?? "").trim()));
     const note = String(formData.get("note") ?? "").trim() || DEFAULT_LOG_NOTE;
-    const skip = formData.get("skip") === "on";
+    const skipRecap = formData.get("skipRecap") === "on";
     const finished = formData.get("finished") === "on";
     const mastered = formData.get("mastered") === "on";
 
@@ -173,61 +173,65 @@ export async function createUserGamePlayLog(entryId: string, formData: FormData)
         throw new Error("Library entry not found.");
     }
 
-    await db.userGamePlayLog.create({
-        data: {
-            userId,
-            entryId,
-            gameId: current.gameId,
-            hours,
-            note,
-            skip,
-            playedAt,
-        },
-    });
+    const entry = await db.$transaction(async (tx) => {
+        await tx.userGamePlayLog.create({
+            data: {
+                userId,
+                entryId,
+                gameId: current.gameId,
+                hours,
+                note,
+                skipRecap,
+                playedAt,
+            },
+        });
 
-    const loggedTime = await db.userGamePlayLog.aggregate({
-        where: {
-            entryId,
-        },
-        _sum: {
-            hours: true,
-        },
-    });
-    const totalTime = loggedTime._sum.hours ?? 0;
-    const timePlayed = current.timeMode === "logs" ? totalTime : current.timePlayed;
+        const loggedTime = await tx.userGamePlayLog.aggregate({
+            where: {
+                entryId,
+            },
+            _sum: {
+                hours: true,
+            },
+        });
+        const totalTime = loggedTime._sum.hours ?? 0;
+        const timePlayed = current.timeMode === "logs" ? totalTime : current.timePlayed;
 
-    const entry = await db.userGameEntry.update({
-        where: {
-            id: entryId,
-            userId,
-        },
-        data: {
-            timePlayed,
-            status: finished || mastered ? GameStatus.COMPLETED : undefined,
-            timeFinished: finished ? current.timeFinished ?? timePlayed ?? hours : undefined,
-            timeMastered: mastered ? current.timeMastered ?? timePlayed ?? hours : undefined,
-            finishedAt: finished ? current.finishedAt ?? playedAt : undefined,
-            masteredAt: mastered ? current.masteredAt ?? playedAt : undefined,
-        },
-        include: {
-            game: true,
-            userGamePlayLogs: {
-                orderBy: {
-                    createdAt: "desc",
+        const updatedEntry = await tx.userGameEntry.update({
+            where: {
+                id: entryId,
+                userId,
+            },
+            data: {
+                timePlayed,
+                status: finished || mastered ? GameStatus.COMPLETED : undefined,
+                timeFinished: finished ? current.timeFinished ?? timePlayed ?? hours : undefined,
+                timeMastered: mastered ? current.timeMastered ?? timePlayed ?? hours : undefined,
+                finishedAt: finished ? current.finishedAt ?? playedAt : undefined,
+                masteredAt: mastered ? current.masteredAt ?? playedAt : undefined,
+            },
+            include: {
+                game: true,
+                userGamePlayLogs: {
+                    orderBy: {
+                        createdAt: "desc",
+                    },
                 },
             },
-        },
-    });
+        });
 
-    await db.activity.create({
-        data: {
-            userId,
-            type: ActivityType.LOGGED_GAME_PLAY,
-            targetType: InteractionTargetType.GAME,
-            targetId: String(current.gameId),
-            gameId: current.gameId,
-            message: note,
-        },
+        await tx.activity.create({
+            data: {
+                userId,
+                type: ActivityType.LOGGED_GAME_PLAY,
+                targetType: InteractionTargetType.GAME,
+                targetId: String(current.gameId),
+                gameId: current.gameId,
+                message: note,
+            },
+        });
+
+        return updatedEntry;
     });
 
     revalidatePath("/library/[slug]", "page");
@@ -240,7 +244,7 @@ export async function updateUserGamePlayLog(logId: string, formData: FormData) {
     const playedAtValue = String(formData.get("playedat") ?? "").trim();
     const hours = Math.max(0, Number(String(formData.get("hours") ?? "").trim()));
     const note = String(formData.get("note") ?? "").trim() || DEFAULT_LOG_NOTE;
-    const skip = formData.get("skip") === "on";
+    const skipRecap = formData.get("skipRecap") === "on";
 
     if (!Number.isFinite(hours) || hours <= 0) {
         throw new Error("Hours played must be greater than zero.");
@@ -252,61 +256,63 @@ export async function updateUserGamePlayLog(logId: string, formData: FormData) {
         throw new Error("Invalid played date.");
     }
 
-    const log = await db.userGamePlayLog.update({
-        where: {
-            id: logId,
-            userId,
-        },
-        data: {
-            playedAt,
-            hours,
-            note,
-            skip,
-        },
-        select: {
-            entryId: true,
-        },
-    });
+    const entry = await db.$transaction(async (tx) => {
+        const log = await tx.userGamePlayLog.update({
+            where: {
+                id: logId,
+                userId,
+            },
+            data: {
+                playedAt,
+                hours,
+                note,
+                skipRecap,
+            },
+            select: {
+                entryId: true,
+            },
+        });
 
-    const current = await db.userGameEntry.findUnique({
-        where: {
-            id: log.entryId,
-            userId,
-        },
-        select: {
-            timeMode: true,
-        },
-    });
+        const current = await tx.userGameEntry.findUnique({
+            where: {
+                id: log.entryId,
+                userId,
+            },
+            select: {
+                timeMode: true,
+            },
+        });
 
-    if (!current) {
-        throw new Error("Library entry not found.");
-    }
+        if (!current) {
+            throw new Error("Library entry not found.");
+        }
 
-    const loggedTime = await db.userGamePlayLog.aggregate({
-        where: {
-            entryId: log.entryId,
-        },
-        _sum: {
-            hours: true,
-        },
-    });
+        const loggedTime = await tx.userGamePlayLog.aggregate({
+            where: {
+                entryId: log.entryId,
+            },
+            _sum: {
+                hours: true,
+            },
+        });
 
-    const entry = await db.userGameEntry.update({
-        where: {
-            id: log.entryId,
-            userId,
-        },
-        data: {
-            timePlayed: current.timeMode === "logs" ? loggedTime._sum.hours ?? null : undefined,
-        },
-        include: {
-            game: true,
-            userGamePlayLogs: {
-                orderBy: {
-                    createdAt: "desc",
+        return tx.userGameEntry.update({
+            where: {
+                id: log.entryId,
+                userId,
+            },
+            data: {
+                timePlayed: current.timeMode === "logs" ? loggedTime._sum.hours ?? null : undefined,
+            },
+            include: {
+                game: true,
+                userGamePlayLogs: {
+                    orderBy: {
+                        createdAt: "desc",
+                    },
                 },
             },
-        },
+        });
     });
 
     revalidatePath("/library/[slug]", "page");
@@ -316,55 +322,57 @@ export async function updateUserGamePlayLog(logId: string, formData: FormData) {
 
 export async function deleteUserGamePlayLog(logId: string) {
     const userId = await getCurrentUserId();
-    const log = await db.userGamePlayLog.delete({
-        where: {
-            id: logId,
-            userId,
-        },
-        select: {
-            entryId: true,
-        },
-    });
+    const entry = await db.$transaction(async (tx) => {
+        const log = await tx.userGamePlayLog.delete({
+            where: {
+                id: logId,
+                userId,
+            },
+            select: {
+                entryId: true,
+            },
+        });
 
-    const current = await db.userGameEntry.findUnique({
-        where: {
-            id: log.entryId,
-            userId,
-        },
-        select: {
-            timeMode: true,
-        },
-    });
+        const current = await tx.userGameEntry.findUnique({
+            where: {
+                id: log.entryId,
+                userId,
+            },
+            select: {
+                timeMode: true,
+            },
+        });
 
-    if (!current) {
-        throw new Error("Library entry not found.");
-    }
+        if (!current) {
+            throw new Error("Library entry not found.");
+        }
 
-    const loggedTime = await db.userGamePlayLog.aggregate({
-        where: {
-            entryId: log.entryId,
-        },
-        _sum: {
-            hours: true,
-        },
-    });
+        const loggedTime = await tx.userGamePlayLog.aggregate({
+            where: {
+                entryId: log.entryId,
+            },
+            _sum: {
+                hours: true,
+            },
+        });
 
-    const entry = await db.userGameEntry.update({
-        where: {
-            id: log.entryId,
-            userId,
-        },
-        data: {
-            timePlayed: current.timeMode === "logs" ? loggedTime._sum.hours ?? null : undefined,
-        },
-        include: {
-            game: true,
-            userGamePlayLogs: {
-                orderBy: {
-                    createdAt: "desc",
+        return tx.userGameEntry.update({
+            where: {
+                id: log.entryId,
+                userId,
+            },
+            data: {
+                timePlayed: current.timeMode === "logs" ? loggedTime._sum.hours ?? null : undefined,
+            },
+            include: {
+                game: true,
+                userGamePlayLogs: {
+                    orderBy: {
+                        createdAt: "desc",
+                    },
                 },
             },
-        },
+        });
     });
 
     revalidatePath("/library/[slug]", "page");

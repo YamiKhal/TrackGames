@@ -5,14 +5,14 @@ import { FilterBar } from "@/app/components/ui/FilterBar";
 import MenuPanel from "@/app/components/ui/MenuPanel";
 import { Input, Select } from "@/app/components/ui/Inputs";
 import { removeGameFromPlaylist, updatePlaylistEntry } from "@/lib/actions/playlists";
-import { GameListEntry } from "@/lib/types";
+import type { PlaylistEntry } from "@/lib/data/playlists";
 import { Edit3, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState, useTransition, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { GhostButton, PrimaryButton } from "../ui/Buttons";
 
-function EntryShell({ listId, entry, canEdit, tiers, children }: { listId: string; entry: GameListEntry; canEdit: boolean; tiers: string[]; children: ReactNode }) {
+function EntryShell({ listId, entry, canEdit, tiers, children }: { listId: string; entry: PlaylistEntry; canEdit: boolean; tiers: string[]; children: ReactNode }) {
     const [editing, setEditing] = useState(false);
     const [pending, startTransition] = useTransition();
     const router = useRouter();
@@ -73,7 +73,7 @@ function EntryShell({ listId, entry, canEdit, tiers, children }: { listId: strin
     );
 }
 
-export default function PlaylistEntriesView({ listId, entries, mode, canEdit, tiers, tierColors }: { listId: string; entries: GameListEntry[]; mode: string; canEdit: boolean; tiers: string[]; tierColors: string[] }) {
+export default function PlaylistEntriesView({ listId, entries, mode, canEdit, tiers, tierColors }: { listId: string; entries: PlaylistEntry[]; mode: string; canEdit: boolean; tiers: string[]; tierColors: string[] }) {
     const [query, setQuery] = useState("");
     const [sort, setSort] = useState("position");
     const ordered = useMemo(() => [...entries].sort((a, b) => (a.position ?? 999999) - (b.position ?? 999999) || Number(a.addedAt ?? 0) - Number(b.addedAt ?? 0)), [entries]);

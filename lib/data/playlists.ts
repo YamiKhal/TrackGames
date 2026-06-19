@@ -1,64 +1,72 @@
 import db from "../db";
 import { GameListType } from "../generated/prisma/enums";
-import { GameList } from "../types";
+import type { GameListDefaultArgs, GameListGetPayload } from "../generated/prisma/models/GameList";
 
-const playlistSelect = {
-    id: true,
-    userId: true,
-    type: true,
-    displayMode: true,
-    tierLabels: true,
-    tierColors: true,
-    name: true,
-    slug: true,
-    description: true,
-    image: true,
-    background: true,
-    color: true,
-    accentColor: true,
-    privacy: true,
-    commentsHidden: true,
-    createdAt: true,
-    updatedAt: true,
-    user: {
-        select: {
-            id: true,
-            name: true,
-            image: true,
+const playlistArgs = {
+    include: {
+        user: {
+            select: {
+                id: true,
+                name: true,
+                image: true,
+            },
+        },
+        entries: {
+            include: {
+                game: true,
+            },
+            orderBy: [
+                { position: "asc" },
+                { addedAt: "asc" },
+            ],
         },
     },
-    entries: {
-        include: {
-            game: true,
-        },
-        orderBy: [
-            { position: "asc" as const },
-            { addedAt: "asc" as const },
-        ],
-    },
+} satisfies GameListDefaultArgs;
+
+export type Playlist = GameListGetPayload<typeof playlistArgs>;
+export type PlaylistEntry = Playlist["entries"][number];
+
+type PlaylistAccess = {
+    id: string;
+    userId: string;
+    privacy: string;
 };
 
-export async function getUserPlaylists(userId: string): Promise<GameList[]> {
+export async function getUserPlaylists(userId: string) {
     return await db.gameList.findMany({
         where: {
             userId,
             type: GameListType.PLAYLIST,
         },
-        select: playlistSelect,
+        ...playlistArgs,
         orderBy: {
             updatedAt: "desc",
         },
-    }) as unknown[] as GameList[];
+    });
 }
 
-export async function getPlaylist(id: string): Promise<GameList | null> {
+export async function getPlaylistAccess(id: string): Promise<PlaylistAccess | null> {
     return await db.gameList.findFirst({
         where: {
             id,
             type: GameListType.PLAYLIST,
         },
-        select: playlistSelect,
-    }) as unknown as GameList | null;
+        select: {
+            id: true,
+            userId: true,
+            privacy: true,
+        },
+    });
+}
+
+export async function getPlaylist(id: string) {
+    return await db.gameList.findFirst({
+        where: {
+            id,
+            type: GameListType.PLAYLIST,
+        },
+        ...playlistArgs,
+    });
 }
 
 export async function getPlaylistLibraryCount(userId: string | undefined, gameIds: number[]) {
