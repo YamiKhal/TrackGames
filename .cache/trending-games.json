@@ -6,7 +6,8 @@
       "image_id": "coc7cr"
     },
     "name": "Meccha Chameleon",
-    "slug": "meccha-chameleon--1"
+    "slug": "meccha-chameleon--1",
+    "total_rating": 70.2014355174809
   },
   {
     "id": 141114,
@@ -16,7 +17,7 @@
     },
     "name": "007 First Light",
     "slug": "007-first-light",
-    "total_rating": 79.71552819512581
+    "total_rating": 80.99287332218783
   },
   {
     "id": 308535,
@@ -26,7 +27,7 @@
     },
     "name": "Neverness to Everness",
     "slug": "neverness-to-everness",
-    "total_rating": 57.11799609353869
+    "total_rating": 57.20761353736919
   },
   {
     "id": 348330,
@@ -36,16 +37,26 @@
     },
     "name": "Forza Horizon 6",
     "slug": "forza-horizon-6",
-    "total_rating": 85.09071499281843
+    "total_rating": 85.24706938707153
   },
   {
-    "id": 403674,
+    "id": 407331,
     "cover": {
-      "id": 571298,
-      "image_id": "coc8te"
+      "id": 573157,
+      "image_id": "coca91"
     },
-    "name": "Don’t Sleep with the Fishes",
-    "slug": "dont-sleep-with-the-fishes"
+    "name": "Tales Beyond the Tomb: No Witnesses",
+    "slug": "tales-beyond-the-tomb-no-witnesses"
+  },
+  {
+    "id": 320140,
+    "cover": {
+      "id": 417780,
+      "image_id": "co8yd0"
+    },
+    "name": "Subnautica 2",
+    "slug": "subnautica-2",
+    "total_rating": 90.02264041609132
   },
   {
     "id": 361855,
@@ -55,7 +66,7 @@
     },
     "name": "LEGO Batman: Legacy of the Dark Knight",
     "slug": "lego-batman-legacy-of-the-dark-knight",
-    "total_rating": 86.9754001021264
+    "total_rating": 86.97822874949537
   },
   {
     "id": 393398,
@@ -68,23 +79,14 @@
     "total_rating": 83.26707790724241
   },
   {
-    "id": 403497,
+    "id": 358534,
     "cover": {
-      "id": 566449,
-      "image_id": "coc52p"
+      "id": 541422,
+      "image_id": "coblri"
     },
-    "name": "Fortune Mill",
-    "slug": "fortune-mill"
-  },
-  {
-    "id": 320140,
-    "cover": {
-      "id": 417780,
-      "image_id": "co8yd0"
-    },
-    "name": "Subnautica 2",
-    "slug": "subnautica-2",
-    "total_rating": 90.03710862727858
+    "name": "The Adventures of Elliot: The Millennium Tales",
+    "slug": "the-adventures-of-elliot-the-millennium-tales",
+    "total_rating": 78.75
   },
   {
     "id": 361890,
@@ -94,7 +96,16 @@
     },
     "name": "World of Tanks: Heat",
     "slug": "world-of-tanks-heat",
-    "total_rating": 78
+    "total_rating": 79.36
+  },
+  {
+    "id": 406644,
+    "cover": {
+      "id": 571556,
+      "image_id": "coc90k"
+    },
+    "name": "Poem of the Starherd",
+    "slug": "poem-of-the-starherd"
   },
   {
     "id": 399673,
@@ -107,14 +118,14 @@
     "total_rating": 87.58620689655173
   },
   {
-    "id": 358534,
+    "id": 400095,
     "cover": {
-      "id": 541422,
-      "image_id": "coblri"
+      "id": 565207,
+      "image_id": "coc447"
     },
-    "name": "The Adventures of Elliot: The Millennium Tales",
-    "slug": "the-adventures-of-elliot-the-millennium-tales",
-    "total_rating": 77.33333333333333
+    "name": "EA Sports UFC 6",
+    "slug": "ea-sports-ufc-6",
+    "total_rating": 85
   },
   {
     "id": 189781,
@@ -124,7 +135,7 @@
     },
     "name": "Mina the Hollower",
     "slug": "mina-the-hollower",
-    "total_rating": 88.20209138337071
+    "total_rating": 86.75983239423262
   },
   {
     "id": 237780,
@@ -134,7 +145,7 @@
     },
     "name": "Directive 8020",
     "slug": "directive-8020",
-    "total_rating": 75.56534953765959
+    "total_rating": 75.56541542089774
   },
   {
     "id": 305157,
@@ -144,17 +155,7 @@
     },
     "name": "Mixtape",
     "slug": "mixtape--1",
-    "total_rating": 73.59015751406093
-  },
-  {
-    "id": 314543,
-    "cover": {
-      "id": 500872,
-      "image_id": "coaqh4"
-    },
-    "name": "Heroes of Might & Magic: Olden Era",
-    "slug": "heroes-of-might-and-magic-olden-era",
-    "total_rating": 79.93517265094137
+    "total_rating": 73.63133098253374
   },
   {
     "id": 331215,
@@ -167,22 +168,23 @@
     "total_rating": 84.71583305882089
   },
   {
-    "id": 341400,
+    "id": 314543,
     "cover": {
-      "id": 460041,
-      "image_id": "co9uyx"
+      "id": 500872,
+      "image_id": "coaqh4"
     },
-    "name": "Voidling Bound",
-    "slug": "voidling-bound--1",
-    "total_rating": 80
+    "name": "Heroes of Might & Magic: Olden Era",
+    "slug": "heroes-of-might-and-magic-olden-era",
+    "total_rating": 79.93517265094137
   },
   {
-    "id": 404400,
+    "id": 312791,
     "cover": {
-      "id": 568251,
-      "image_id": "coc6gr"
+      "id": 461967,
+      "image_id": "co9wgf"
     },
-    "name": "FIFA World Cup: Launch Edition",
-    "slug": "fifa-world-cup-launch-edition"
+    "name": "Thank You For Your Application",
+    "slug": "thank-you-for-your-application",
+    "total_rating": 90
   }
 ]
