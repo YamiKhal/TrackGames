@@ -1,5 +1,15 @@
 [
   {
+    "id": 407331,
+    "cover": {
+      "id": 573157,
+      "image_id": "coca91"
+    },
+    "first_release_date": 1781827200,
+    "name": "Tales Beyond the Tomb: No Witnesses",
+    "slug": "tales-beyond-the-tomb-no-witnesses"
+  },
+  {
     "id": 407309,
     "cover": {
       "id": 573086,
@@ -174,6 +184,16 @@
     "first_release_date": 1781827200,
     "name": "Tarot Spell",
     "slug": "tarot-spell"
+  },
+  {
+    "id": 389581,
+    "cover": {
+      "id": 537682,
+      "image_id": "cobivm"
+    },
+    "first_release_date": 1781827200,
+    "name": "Chopping Together",
+    "slug": "chopping-together"
   },
   {
     "id": 389223,
@@ -960,25 +980,5 @@
     "first_release_date": 1781568000,
     "name": "Darkness Has Eyes",
     "slug": "darkness-has-eyes"
-  },
-  {
-    "id": 404168,
-    "cover": {
-      "id": 567575,
-      "image_id": "coc5xz"
-    },
-    "first_release_date": 1781568000,
-    "name": "Again: Loop",
-    "slug": "again-loop"
-  },
-  {
-    "id": 404046,
-    "cover": {
-      "id": 567410,
-      "image_id": "coc5te"
-    },
-    "first_release_date": 1781568000,
-    "name": "Vibe or Dare",
-    "slug": "vibe-or-dare"
   }
 ]
