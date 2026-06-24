@@ -1,72 +1,5 @@
 [
   {
-    "id": 320140,
-    "cover": {
-      "id": 417780,
-      "image_id": "co8yd0"
-    },
-    "name": "Subnautica 2",
-    "platforms": [
-      {
-        "id": 169,
-        "name": "Xbox Series X|S"
-      },
-      {
-        "id": 6,
-        "name": "PC (Microsoft Windows)"
-      }
-    ],
-    "screenshots": [
-      {
-        "id": 1410408,
-        "image_id": "scu8a0"
-      },
-      {
-        "id": 1410409,
-        "image_id": "scu8a1"
-      },
-      {
-        "id": 1410410,
-        "image_id": "scu8a2"
-      },
-      {
-        "id": 1410411,
-        "image_id": "scu8a3"
-      },
-      {
-        "id": 1410254,
-        "image_id": "scu85q"
-      },
-      {
-        "id": 1410255,
-        "image_id": "scu85r"
-      },
-      {
-        "id": 1410256,
-        "image_id": "scu85s"
-      },
-      {
-        "id": 1410257,
-        "image_id": "scu85t"
-      },
-      {
-        "id": 1410258,
-        "image_id": "scu85u"
-      },
-      {
-        "id": 1410412,
-        "image_id": "scu8a4"
-      },
-      {
-        "id": 1410259,
-        "image_id": "scu85v"
-      }
-    ],
-    "slug": "subnautica-2",
-    "summary": "Subnautica 2 is an underwater survival adventure set on an all-new alien world, developed by Unknown Worlds. Play alone or with friends in 4-player co-op. Adapt to survive by building custom bases and crafting tools. Explore the unknown to uncover the mysteries hidden within the depths.",
-    "total_rating": 90.03710862727858
-  },
-  {
     "id": 347668,
     "cover": {
       "id": 542412,
@@ -151,11 +84,90 @@
       {
         "id": 1718066,
         "image_id": "sc10to2"
+      },
+      {
+        "id": 1863491,
+        "image_id": "sc13xvn"
+      },
+      {
+        "id": 1863492,
+        "image_id": "sc13xvo"
+      },
+      {
+        "id": 1863493,
+        "image_id": "sc13xvp"
       }
     ],
     "slug": "resident-evil-requiem",
     "summary": "Resident Evil Requiem is the ninth entry in the Resident Evil series. Experience terrifying survival horror with FBI analyst Grace Ashcroft, and dive into pulse-pounding action with legendary agent Leon S. Kennedy. Both of their journeys and unique gameplay styles intertwine into a heart-stopping, emotional experience that will chill you to your core.",
-    "total_rating": 90.0308239700089
+    "total_rating": 90.02750131697556
+  },
+  {
+    "id": 320140,
+    "cover": {
+      "id": 417780,
+      "image_id": "co8yd0"
+    },
+    "name": "Subnautica 2",
+    "platforms": [
+      {
+        "id": 169,
+        "name": "Xbox Series X|S"
+      },
+      {
+        "id": 6,
+        "name": "PC (Microsoft Windows)"
+      }
+    ],
+    "screenshots": [
+      {
+        "id": 1410408,
+        "image_id": "scu8a0"
+      },
+      {
+        "id": 1410409,
+        "image_id": "scu8a1"
+      },
+      {
+        "id": 1410410,
+        "image_id": "scu8a2"
+      },
+      {
+        "id": 1410411,
+        "image_id": "scu8a3"
+      },
+      {
+        "id": 1410254,
+        "image_id": "scu85q"
+      },
+      {
+        "id": 1410255,
+        "image_id": "scu85r"
+      },
+      {
+        "id": 1410256,
+        "image_id": "scu85s"
+      },
+      {
+        "id": 1410257,
+        "image_id": "scu85t"
+      },
+      {
+        "id": 1410258,
+        "image_id": "scu85u"
+      },
+      {
+        "id": 1410412,
+        "image_id": "scu8a4"
+      },
+      {
+        "id": 1410259,
+        "image_id": "scu85v"
+      }
+    ],
+    "slug": "subnautica-2",
+    "summary": "Subnautica 2 is an underwater survival adventure set on an all-new alien world, developed by Unknown Worlds. Play alone or with friends in 4-player co-op. Adapt to survive by building custom bases and crafting tools. Explore the unknown to uncover the mysteries hidden within the depths.",
+    "total_rating": 90.02264041609132
   },
   {
     "id": 134612,
@@ -210,7 +222,7 @@
     ],
     "slug": "pragmata",
     "summary": "Pragmata is a sci-fi action-adventure game set in the near future. The story follows Hugh and his android companion Diana as they navigate a Lunar research station. Gameplay incorporates action elements alongside mechanics involving interaction with systems within the environment.",
-    "total_rating": 87.24760327715686
+    "total_rating": 87.24248922157751
   },
   {
     "id": 361855,
@@ -265,7 +277,7 @@
     ],
     "slug": "lego-batman-legacy-of-the-dark-knight",
     "summary": "Rise as the Dark Knight and experience the essential Batman story in a bold, action-packed adventure with hard-hitting combat, an open-world Gotham City, and the signature LEGO charm that fans know and love.",
-    "total_rating": 86.9754001021264
+    "total_rating": 86.97822874949537
   },
   {
     "id": 125633,
@@ -340,7 +352,7 @@
     ],
     "slug": "crimson-desert",
     "summary": "Crimson Desert is an open-world action-adventure game set in the beautiful yet brutal continent of Pywel. Embark on a journey as the Greymane Kliff and restore what has been lost. Explore uncharted lands, fight against threats that stand in your way, and discover the wonders the world has in store.",
-    "total_rating": 85.6462799446314
+    "total_rating": 85.6427268125056
   },
   {
     "id": 348330,
@@ -419,7 +431,7 @@
     ],
     "slug": "forza-horizon-6",
     "summary": "Discover the breathtaking landscapes of Japan in over 550 real-world cars and become a racing Legend at the Horizon Festival. Start your journey as a tourist and explore a world full of hit music and Japanese culture. Build a Valley Estate, acquire awe-inspiring homes, and display your prized car collection in fully Customizable Garages. Cruise the roads with your friends and join Car Meets around Japan, unleash your imagination with EventLab and build together in Horizon CoLab.",
-    "total_rating": 85.09071499281843
+    "total_rating": 85.24706938707153
   },
   {
     "id": 113360,
@@ -591,6 +603,69 @@
     "total_rating": 84.71583305882089
   },
   {
+    "id": 141114,
+    "cover": {
+      "id": 498347,
+      "image_id": "coaoiz"
+    },
+    "name": "007 First Light",
+    "platforms": [
+      {
+        "id": 169,
+        "name": "Xbox Series X|S"
+      },
+      {
+        "id": 508,
+        "name": "Nintendo Switch 2"
+      },
+      {
+        "id": 6,
+        "name": "PC (Microsoft Windows)"
+      },
+      {
+        "id": 167,
+        "name": "PlayStation 5"
+      }
+    ],
+    "screenshots": [
+      {
+        "id": 1549074,
+        "image_id": "scx79u"
+      },
+      {
+        "id": 1549075,
+        "image_id": "scx79v"
+      },
+      {
+        "id": 1549076,
+        "image_id": "scx79w"
+      },
+      {
+        "id": 1549077,
+        "image_id": "scx79x"
+      },
+      {
+        "id": 1629314,
+        "image_id": "scyx6q"
+      },
+      {
+        "id": 1629315,
+        "image_id": "scyx6r"
+      },
+      {
+        "id": 1633600,
+        "image_id": "scz0hs"
+      },
+      {
+        "id": 1633601,
+        "image_id": "scz0ht"
+      }
+    ],
+    "slug": "007-first-light",
+    "summary": "007 First Light is a thrilling espionage action-adventure game from IO Interactive. Players follow James Bond as a young, resourceful, and sometimes reckless recruit in MI6's training program and discover an origin story of the world's most famous spy.",
+    "total_rating": 80.99287332218783
+  },
+  {
     "id": 314265,
     "cover": {
       "id": 562518,
@@ -676,69 +751,6 @@
     "slug": "reanimal",
     "summary": "The creators of Little Nightmares I & II have returned to take you on a darker, more terrifying journey than ever before. In this horror adventure game, a brother & sister go through hell to rescue their missing friends and escape the island that they used to call home.",
     "total_rating": 80.8757257909905
-  },
-  {
-    "id": 141114,
-    "cover": {
-      "id": 498347,
-      "image_id": "coaoiz"
-    },
-    "name": "007 First Light",
-    "platforms": [
-      {
-        "id": 169,
-        "name": "Xbox Series X|S"
-      },
-      {
-        "id": 508,
-        "name": "Nintendo Switch 2"
-      },
-      {
-        "id": 6,
-        "name": "PC (Microsoft Windows)"
-      },
-      {
-        "id": 167,
-        "name": "PlayStation 5"
-      }
-    ],
-    "screenshots": [
-      {
-        "id": 1549074,
-        "image_id": "scx79u"
-      },
-      {
-        "id": 1549075,
-        "image_id": "scx79v"
-      },
-      {
-        "id": 1549076,
-        "image_id": "scx79w"
-      },
-      {
-        "id": 1549077,
-        "image_id": "scx79x"
-      },
-      {
-        "id": 1629314,
-        "image_id": "scyx6q"
-      },
-      {
-        "id": 1629315,
-        "image_id": "scyx6r"
-      },
-      {
-        "id": 1633600,
-        "image_id": "scz0hs"
-      },
-      {
-        "id": 1633601,
-        "image_id": "scz0ht"
-      }
-    ],
-    "slug": "007-first-light",
-    "summary": "007 First Light is a thrilling espionage action-adventure game from IO Interactive. Players follow James Bond as a young, resourceful, and sometimes reckless recruit in MI6's training program and discover an origin story of the world's most famous spy.",
-    "total_rating": 79.71552819512581
   },
   {
     "id": 250630,
@@ -924,7 +936,7 @@
     ],
     "slug": "directive-8020",
     "summary": "Earth is dying and humanity is running out of time. 12 light years from home, Tau Ceti f offers a small sliver of hope. When the colony ship Cassiopeia crash lands on the planet, its crew soon realize they are far from being alone. In space, death takes many forms.",
-    "total_rating": 75.56534953765959
+    "total_rating": 75.56541542089774
   },
   {
     "id": 308535,
@@ -1031,6 +1043,6 @@
     ],
     "slug": "neverness-to-everness",
     "summary": "NTE: Neverness to Everness is a supernatural open-world RPG developed by Hotta Studio. The story begins in the city of Hethereau, where you play as its first \"unlicensed\" Anomaly Hunter. You'll join the crew at Eibon, a rundown antique shop that keeps the lights on by taking Anomaly commissions from anyone willing to pay. Alongside a diverse cast of extraordinary companions, you'll unravel urban mysteries, ride out adventures full of laughs and heartbreak, and write your own stories in the neon-lit streets.",
-    "total_rating": 57.11799609353869
+    "total_rating": 57.20761353736919
   }
 ]
