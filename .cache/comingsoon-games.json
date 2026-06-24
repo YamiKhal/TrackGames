@@ -348,6 +348,12 @@
     "slug": "gone-me"
   },
   {
+    "id": 408074,
+    "first_release_date": 1782345600,
+    "name": "Floor 12",
+    "slug": "floor-12"
+  },
+  {
     "id": 272575,
     "cover": {
       "id": 573894,
@@ -964,15 +970,5 @@
     "first_release_date": 1782691200,
     "name": "Electric Sheep",
     "slug": "electric-sheep"
-  },
-  {
-    "id": 407024,
-    "cover": {
-      "id": 572415,
-      "image_id": "coc9of"
-    },
-    "first_release_date": 1782691200,
-    "name": "Professional Cats",
-    "slug": "professional-cats"
   }
 ]

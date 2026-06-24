@@ -41,10 +41,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-#cache
-igdb-import-checkpoint.json
-/.cache/
-/.cache
-.cache
-.cache/trending-games.json
