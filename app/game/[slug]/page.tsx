@@ -116,17 +116,22 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                 )}
 
                 <Container className="relative z-1 flex justify-start gap-10 items-end h-full flex-row">
-                    <div className="mb-4 flex min-h-max min-w-0 max-w-full gap-6 text-text">
-                        <GameCard game={game} preload />
+                    <div className="mb-4 flex flex-col md:flex-row min-h-max min-w-0 max-w-full gap-2 md:gap-6 text-text">
+                        <div className="hidden md:flex">
+                            <GameCard game={game} size={140} preload />
+                        </div>
+                        <div className="flex md:hidden">
+                            <GameCard game={game} size={120} preload />
+                        </div>
                         <div className="flex min-w-0 flex-col justify-between">
-                            <div className="min-w-0">
-                                <h1 className="max-w-full wrap-break-word text-4xl font-bold">{game.name}</h1>
+                            <div className="min-w-0 pb-2 md:pb-0">
+                                <h1 className="max-w-full wrap-break-word text-2xl md:text-4xl font-bold">{game.name}</h1>
                                 {developers.length > 0 &&
-                                    <p className="mt-2 max-w-full truncate font-body text-lg text-text-muted">Developer:
+                                    <p className="mt-2 max-w-full truncate font-body text-md md:text-lg text-text-muted wrap-break-word text-wrap">Developer:
                                         <span> </span>
                                         {
                                             developers.map((dev, index) => (
-                                                <span key={dev.id ?? index} className="font-bold">{dev.name}{
+                                                <span key={dev.id ?? index} className="font-bold wrap-break-word text-wrap">{dev.name}{
                                                     index < developers.length - 1 &&
                                                     <span>, </span>
                                                 }</span>
@@ -135,11 +140,11 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                                     </p>
                                 }
                                 {publishers.length > 0 &&
-                                    <p className="mt-2 max-w-full truncate font-body text-md text-text-muted">Publisher:
+                                    <p className="max-w-full truncate font-body text-sm md:text-md text-text-muted wrap-break-word text-wrap">Publisher:
                                         <span> </span>
                                         {
                                             publishers.map((pub, index) => (
-                                                <span key={pub.id ?? index} className="font-bold">{pub.name}{
+                                                <span key={pub.id ?? index} className="font-bold wrap-break-word text-wrap">{pub.name}{
                                                     index < publishers.length - 1 &&
                                                     <span>, </span>
                                                 }</span>
@@ -168,7 +173,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                     <div className="min-w-0 flex-1">
 
                         {/* RATING & GENRES/PLATFORMS */}
-                        <section className="flex min-w-0 flex-row gap-10">
+                        <section className="flex min-w-0 flex-col md:flex-row gap-10">
                             <div
                                 className="rounded flex shrink-0 flex-col items-center justify-center min-w-50 p-0.5"
                                 style={{
@@ -178,27 +183,27 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                                 }}
                                 aria-label={averageRating !== null ? `Average rating ${averageRating.toFixed(1)} out of 100` : "Average rating unavailable"}
                             >
-                                <div className="flex h-full w-full flex-col items-center justify-center rounded bg-bg-secondary pb-5 pt-5 pr-10 pl-10">
-                                    <h2 className="text-md text-text-muted mb-2">Avg. Rating</h2>
+                                <div className="flex h-full w-full flex-row gap-10 md:gap-0 md:flex-col items-center justify-center rounded bg-bg-secondary pb-5 pt-5 pr-10 pl-10">
+                                    <h2 className="text-md text-text-muted md:mb-2">Avg. Rating</h2>
                                     <p className="text-2xl font-bold text-text">{averageRating !== null ? ratingToFive(Number(averageRating.toFixed(1)))?.toFixed(2) : "N/A"}</p>
                                 </div>
                             </div>
-                            <div className="grid w-full min-w-0 grid-cols-[auto_minmax(0,1fr)] items-start gap-x-10 gap-y-5 border-b border-border">
-                                <p className="font-body text-md">Genres</p>
+                            <div className="grid w-full min-w-0 grid-cols-1 md:grid-cols-[auto_minmax(0,1fr)] items-start gap-x-10 gap-y-2 md:gap-y-5 border-b pb-5 md:pb-0 border-border">
+                                <p className="font-body text-md bg-bg-secondary p-1 text-center md:text-start md:p-0 md:bg-bg">Genres</p>
                                 <div className="font-body text-md flex min-w-0 flex-row flex-wrap gap-x-2 gap-y-1">
                                     {genres.length ? genres.map((genre, index) => (
                                         <span key={genre.id ?? genre.name} className="flex min-w-0 flex-row items-center gap-1">
-                                            <span className="wrap-break-words hover:text-primary cursor-pointer transition-colors">{genre.name}</span>
+                                            <span className="wrap-break-words hover:text-primary cursor-pointer transition-colors text-sm md:text-md">{genre.name}</span>
                                             <p className="select-none">{index < game.genres!.length - 1 ? " • " : ""}</p>
                                         </span>
                                     )) : "N/A"}
                                 </div>
 
-                                <p className="font-body text-md">Platforms</p>
+                                <p className="font-body text-md bg-bg-secondary p-1 text-center md:text-start md:p-0 md:bg-bg">Platforms</p>
                                 <div className="font-body text-md flex min-w-0 flex-row flex-wrap gap-x-2 gap-y-1">
                                     {platforms?.length ? platforms.map((platform, index) => (
                                         <span key={platform.id ?? platform.name} className="flex min-w-0 flex-row items-center gap-1">
-                                            <span className="flex min-w-0 items-center gap-2 wrap-break-words hover:text-primary cursor-pointer transition-colors">{platformIcon(platform.name)}{platform.name}</span>
+                                            <span className="flex min-w-0 items-center gap-2 wrap-break-words hover:text-primary cursor-pointer transition-colors text-sm md:text-md">{platformIcon(platform.name)}{platform.name}</span>
                                             <p className="select-none">{index < game.platforms!.length - 1 ? " • " : ""}</p>
                                         </span>
                                     )) : "N/A"}

@@ -1,5 +1,15 @@
 [
   {
+    "id": 408104,
+    "cover": {
+      "id": 574570,
+      "image_id": "cocbca"
+    },
+    "first_release_date": 1782345600,
+    "name": "MemGrid",
+    "slug": "memgrid"
+  },
+  {
     "id": 408074,
     "cover": {
       "id": 574494,
@@ -18,6 +28,16 @@
     "first_release_date": 1782345600,
     "name": "Gone Me",
     "slug": "gone-me"
+  },
+  {
+    "id": 407844,
+    "cover": {
+      "id": 573963,
+      "image_id": "cocavf"
+    },
+    "first_release_date": 1782345600,
+    "name": "Chronime Puzzle: Girls",
+    "slug": "chronime-puzzle-girls"
   },
   {
     "id": 407285,
@@ -232,6 +252,16 @@
     "slug": "type-or-die"
   },
   {
+    "id": 403480,
+    "cover": {
+      "id": 566453,
+      "image_id": "coc52t"
+    },
+    "first_release_date": 1782345600,
+    "name": "OK Boomer",
+    "slug": "ok-boomer--1"
+  },
+  {
     "id": 401883,
     "cover": {
       "id": 563353,
@@ -388,6 +418,16 @@
     "slug": "psycasso--1"
   },
   {
+    "id": 408064,
+    "cover": {
+      "id": 574640,
+      "image_id": "cocbe8"
+    },
+    "first_release_date": 1782259200,
+    "name": "Lost In The Store",
+    "slug": "lost-in-the-store"
+  },
+  {
     "id": 408045,
     "cover": {
       "id": 574394,
@@ -426,16 +466,6 @@
     "first_release_date": 1782259200,
     "name": "Heavenly Island",
     "slug": "heavenly-island"
-  },
-  {
-    "id": 407844,
-    "cover": {
-      "id": 573963,
-      "image_id": "cocavf"
-    },
-    "first_release_date": 1782259200,
-    "name": "Chronime Puzzle: Girls",
-    "slug": "chronime-puzzle-girls"
   },
   {
     "id": 407306,
@@ -648,16 +678,6 @@
     "slug": "hexara"
   },
   {
-    "id": 403480,
-    "cover": {
-      "id": 566453,
-      "image_id": "coc52t"
-    },
-    "first_release_date": 1782259200,
-    "name": "OK Boomer",
-    "slug": "ok-boomer--1"
-  },
-  {
     "id": 402884,
     "cover": {
       "id": 565077,
@@ -768,6 +788,16 @@
     "slug": "ann--1"
   },
   {
+    "id": 408124,
+    "cover": {
+      "id": 574606,
+      "image_id": "cocbda"
+    },
+    "first_release_date": 1782172800,
+    "name": "Wave 43",
+    "slug": "wave-43"
+  },
+  {
     "id": 408015,
     "cover": {
       "id": 574344,
@@ -786,6 +816,16 @@
     "first_release_date": 1782172800,
     "name": "Public Fears: George's Farm",
     "slug": "public-fears-georges-farm"
+  },
+  {
+    "id": 407960,
+    "cover": {
+      "id": 574221,
+      "image_id": "cocb2l"
+    },
+    "first_release_date": 1782172800,
+    "name": "Triston",
+    "slug": "triston"
   },
   {
     "id": 407921,
@@ -946,45 +986,5 @@
     "first_release_date": 1782172800,
     "name": "Ninja Cat Remewstered",
     "slug": "ninja-cat-remewstered"
-  },
-  {
-    "id": 406723,
-    "cover": {
-      "id": 571702,
-      "image_id": "coc94m"
-    },
-    "first_release_date": 1782172800,
-    "name": "Cart by Cart",
-    "slug": "cart-by-cart"
-  },
-  {
-    "id": 406294,
-    "cover": {
-      "id": 573736,
-      "image_id": "cocap4"
-    },
-    "first_release_date": 1782172800,
-    "name": "KeyFortress",
-    "slug": "keyfortress"
-  },
-  {
-    "id": 406235,
-    "cover": {
-      "id": 570871,
-      "image_id": "coc8hj"
-    },
-    "first_release_date": 1782172800,
-    "name": "The Bone Crypt",
-    "slug": "the-bone-crypt"
-  },
-  {
-    "id": 406234,
-    "cover": {
-      "id": 570870,
-      "image_id": "coc8hi"
-    },
-    "first_release_date": 1782172800,
-    "name": "Jolt: Neon Breaker",
-    "slug": "jolt-neon-breaker"
   }
 ]

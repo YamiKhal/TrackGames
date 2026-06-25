@@ -126,7 +126,7 @@ export default async function Home() {
                 ))}
               </div>
             ) : (
-              <p className="rounded border border-border bg-bg-secondary p-4 text-sm text-text-muted">No public playlists yet.</p>
+              <p className="p-4 text-sm text-text-muted">No public playlists yet.</p>
             )}
           </div>
         </Container>
@@ -135,9 +135,9 @@ export default async function Home() {
       {/* OTHER GAME QUERIES */}
       <section className="mt-10 mb-10">
         <Container>
-          <div className="grid grid-cols-2 gap-10 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-10 sm:grid-cols-2 lg:grid-cols-4">
             <div className="flex min-w-0 flex-col gap-2">
-              <h1 className="flex flex-row items-center gap-2 text-xl font-bold text-text-muted mb-5 text-nowrap">
+              <h1 className="text-xl font-bold text-text-muted mb-5 text-nowrap text-center sm:text-start">
                 Recent Releases
               </h1>
               {
@@ -147,7 +147,7 @@ export default async function Home() {
               }
             </div>
             <div className="flex min-w-0 flex-col gap-2">
-              <h1 className="flex flex-row items-center gap-2 text-xl font-bold text-text-muted mb-5 text-nowrap">
+              <h1 className="text-xl font-bold text-text-muted mb-5 text-nowrap text-center sm:text-start">
                 Coming Soon
               </h1>
               {
@@ -157,7 +157,7 @@ export default async function Home() {
               }
             </div>
             <div className="flex min-w-0 flex-col gap-2">
-              <h1 className="flex flex-row items-center gap-2 text-xl font-bold text-text-muted mb-5 text-nowrap">
+              <h1 className="text-xl font-bold text-text-muted mb-5 text-nowrap text-center sm:text-start">
                 Most Anticipated
               </h1>
               {
@@ -167,7 +167,7 @@ export default async function Home() {
               }
             </div>
             <div className="flex min-w-0 flex-col gap-2">
-              <h1 className="flex flex-row items-center gap-2 text-xl font-bold text-text-muted mb-5 text-nowrap">
+              <h1 className="text-xl font-bold text-text-muted mb-5 text-nowrap text-center sm:text-start">
                 Hidden Gems
               </h1>
               {

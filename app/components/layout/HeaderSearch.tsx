@@ -132,18 +132,18 @@ export default function HeaderSearch() {
 
     return (
         <>
-            <div className="hidden w-full max-w-md lg:block">
+            <div className="hidden w-full max-w-md md:block">
                 <SearchBox />
             </div>
             <button
                 type="button"
                 onClick={() => setOpen(true)}
-                className="grid size-11 cursor-pointer place-items-center text-text-muted transition-colors hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary lg:hidden"
+                className="grid size-11 cursor-pointer place-items-center text-text-muted transition-colors hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:hidden"
                 aria-label="Search games"
             >
                 <Search size={20} aria-hidden="true" />
             </button>
-            <HighLevelIsland className="lg:hidden">
+            <HighLevelIsland className="md:hidden">
                 <div className={`pointer-events-auto fixed inset-0 bg-overlay transition-opacity ${open ? "opacity-100" : "pointer-events-none opacity-0"}`}>
                     <div className={`fixed inset-y-0 right-0 w-full bg-bg p-4 shadow-main transition-transform duration-200 ease-out ${open ? "translate-x-0" : "translate-x-full"}`}>
                         <div className="flex items-center gap-3">
@@ -151,7 +151,7 @@ export default function HeaderSearch() {
                             <button
                                 type="button"
                                 onClick={() => setOpen(false)}
-                                className="grid size-11 shrink-0 cursor-pointer place-items-center text-text-muted transition-colors hover:border-primary hover:text-primary"
+                                className="grid size-11 shrink-0 cursor-pointer place-items-center rounded border border-border bg-bg-secondary text-text-muted transition-colors hover:border-primary hover:text-primary"
                                 aria-label="Close search"
                             >
                                 <ArrowRight size={20} aria-hidden="true" />
