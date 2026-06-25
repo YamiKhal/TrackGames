@@ -221,7 +221,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                         {/* SUMMARY */}
                         <section className="flex flex-col mt-4 pb-4">
                             <div className="mb-5 flex min-w-0 flex-row flex-wrap items-center justify-between gap-2">
-                                <h2 className="text-2xl font-bold text-text">Summary</h2>
+                                <h2 className="text-xl md:text-2xl font-bold text-text">Summary</h2>
                                 <span className="min-w-8 flex-1 border-t border-border" aria-hidden="true" />
                                 <p className="text-text-muted text-md font-body">More info on <Link href={`https://www.igdb.com/games/${game.slug}`} target="_blank" rel="noopener noreferrer" className="hover:text-primary-hover text-primary cursor-pointer transition-colors">IGDB</Link></p>
                             </div>

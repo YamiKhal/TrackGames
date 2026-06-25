@@ -22,7 +22,7 @@ export default function RelatedGamesTabs({ franchiesGames, seriesGames, similarG
     }
 
     return (
-        <SubTabs tabs={tabs} active={activeTab} setter={setActiveTab} viewAll={activeTab !== "similar"}>
+        <SubTabs tabs={tabs} active={activeTab} setter={setActiveTab} viewAll={activeTab !== "similar"} compact>
             <HorizontalScroller className="rounded-md overflow-clip gap-5 mt-4 max-w-full">
                 {activeGames.map((game) => (
                     <GameCard key={game.id} game={game} size={160} effect="ripple" hover="name" slugged={true} />
