@@ -8,6 +8,7 @@ import Credentials from "next-auth/providers/credentials";
 import { cookies } from "next/headers";
 import db from "./db";
 import { verifyPassword } from "./util/password";
+import { USERNAME_MAX_LENGTH, USERNAME_PATTERN } from "./account/username";
 
 export const OAUTH_USERNAME_COOKIE = "trackgames-oauth-username";
 const loginProviders = new Set(["google", "github", "twitch", "discord"]);
@@ -101,9 +102,9 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
                 }
             }
 
-            const username = (await cookies()).get(OAUTH_USERNAME_COOKIE)?.value.trim();
+            const username = (await cookies()).get(OAUTH_USERNAME_COOKIE)?.value;
 
-            if (!username || username.length > 24) {
+            if (!username || username.length > USERNAME_MAX_LENGTH || !USERNAME_PATTERN.test(username)) {
                 return "/login?mode=register&error=OAuthUsernameRequired";
             }
 

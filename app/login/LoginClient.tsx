@@ -22,7 +22,7 @@ const authErrorMessages: Record<string, string> = {
     OAuthAccountNotLinked: "An account with this email already exists. Sign in first, then link this provider.",
     OAuthCallbackError: "The provider sign-in failed. Please try again.",
     OAuthSignInError: "The provider sign-in failed. Please try again.",
-    OAuthUsernameRequired: "Enter a username before registering with a provider.",
+    OAuthUsernameRequired: "Use 1-32 letters, numbers, underscores, or hyphens.",
     OAuthUsernameTaken: "That username is already in use.",
 };
 
@@ -113,6 +113,8 @@ export default function LoginClient() {
                                 type="text"
                                 autoComplete="username"
                                 placeholder="Your display name"
+                                maxLength={32}
+                                pattern="[A-Za-z0-9_-]+"
                                 value={name}
                                 onChange={(event) => setName(event.target.value)}
                                 aria-invalid={Boolean(fieldErrors.name)}

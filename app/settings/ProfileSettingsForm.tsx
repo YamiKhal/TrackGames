@@ -70,7 +70,7 @@ export default function ProfileSettingsForm({ profile }: { profile: User; }) {
             <input type="hidden" name="background" value={background} />
             <input type="hidden" name="socials" value={socialPayload} />
             <Field label="Username" hint="You can change your name once every 30 days.">
-                <Input name="name" type="text" value={name} onChange={(event) => setName(event.target.value)} className="w-auto" />
+                <Input name="name" type="text" value={name} onChange={(event) => setName(event.target.value)} maxLength={32} pattern="[A-Za-z0-9_-]+" className="w-auto" />
             </Field>
             <Field label="Bio" hint="Maximum of 150 characters.">
                 <Textarea name="bio" value={bio} onChange={(event) => setBio(event.target.value)} maxLength={150} className="min-h-24" />

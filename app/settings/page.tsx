@@ -38,6 +38,8 @@ function settingsErrorMessage(error: string) {
     switch (error) {
         case "duplicate":
             return "That username or email is already in use.";
+        case "invalid-username":
+            return "Use 1-32 letters, numbers, underscores, or hyphens.";
         case "invalid-password":
             return "Enter matching passwords with at least 8 characters.";
         case "current-password":

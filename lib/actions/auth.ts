@@ -8,12 +8,12 @@ import db from "../db";
 import { hashPassword } from "../util/password";
 import { Prisma } from "../generated/prisma/client";
 import { cookies } from "next/headers";
+import { USERNAME_ERROR, usernameSchema } from "../account/username";
 
 const SIGN_IN_REDIRECT = "/";
 const ACCOUNT_SETTINGS_REDIRECT = "/settings?tab=account";
 const MIN_PASSWORD_LENGTH = 8;
 const loginProviders = new Set(["google", "github", "twitch", "discord"]);
-const usernameSchema = zod.string().trim().min(1).max(24);
 
 type AuthActionResult = {
     error?: string;
@@ -49,7 +49,7 @@ export async function loginProvider(provider: string, formData?: FormData): Prom
         if (!name.success) {
             return {
                 error: "Enter a username before registering with a provider.",
-                fieldErrors: { name: "Enter a username between 1 and 24 characters." },
+                fieldErrors: { name: USERNAME_ERROR },
             };
         }
 
@@ -184,7 +184,7 @@ export async function signup(formData: FormData): Promise<AuthActionResult> {
     if (!name.success) {
         return {
             error: "Please fix the highlighted fields.",
-            fieldErrors: { name: "Enter a username between 1 and 24 characters." },
+            fieldErrors: { name: USERNAME_ERROR },
         }
     }
 

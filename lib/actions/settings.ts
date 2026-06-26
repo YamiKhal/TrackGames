@@ -9,6 +9,7 @@ import { LinkType } from "../enums";
 import { Prisma } from "../generated/prisma/client";
 import { ActivityType } from "../generated/prisma/enums";
 import { hashPassword, verifyPassword } from "../util/password";
+import { usernameSchema } from "../account/username";
 
 const tabSchema = z.enum(["profile", "privacy", "widgets", "preferences", "account"]);
 const socialPlatformSchema = z.enum(["x", "discord", "github", "twitch", "youtube", "instagram", "tiktok", "website"]);
@@ -87,7 +88,7 @@ const socialLinksSchema = z.string().trim().max(5000).transform((value, ctx) => 
 });
 
 const settingsSchema = z.object({
-    name: z.string().trim().min(1).max(24).optional(),
+    name: usernameSchema.optional(),
     bio: nullableText(280).optional(),
     image: nullableUrl.optional(),
     background: nullableUrl.optional(),
@@ -311,6 +312,10 @@ export async function updateUserSettings(tabValue: string, formData: FormData) {
     const tab = tabResult.data;
     const userId = await getCurrentUserId();
     const parsedValues = settingsSchema.safeParse(Object.fromEntries(formData));
+
+    if (tab === "profile" && !usernameSchema.safeParse(formData.get("name")).success) {
+        redirect("/settings?tab=profile&edit=1&error=invalid-username");
+    }
 
     if (!parsedValues.success) {
         redirect(`/settings?tab=${tab}&edit=1&error=invalid`);
