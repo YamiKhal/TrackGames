@@ -7,7 +7,7 @@ import { GameStatus } from "@/lib/generated/prisma/enums";
 import { ratingToFive } from "@/lib/util/rating";
 import { Bookmark, CheckCircle2, CirclePause, Heart, Library, ListPlus, NotebookText, Plus, Trophy, X, XCircle } from "lucide-react";
 import Link from "next/link";
-import { GhostButton, PrimaryButton } from "../ui/Buttons";
+import { FloatedSquareButton, GhostButton, PrimaryButton } from "../ui/Buttons";
 import ConfirmAction from "../ui/ConfirmAction";
 import MenuPanel from "../ui/MenuPanel";
 import StarRating from "./StarRating";
@@ -116,48 +116,43 @@ export default function GameLibraryButtonPanel({
                 </div>
             </div>
             <div className="mb-5 flex flex-row flex-wrap justify-center gap-x-5 gap-y-3 md:contents">
-                <div className="relative grid size-12 place-items-center text-xs font-bold">
-                    <button
-                        type="button"
-                        title={isInLibrary ? "Manage library status" : "Add to library"}
-                        aria-label={isInLibrary ? "Manage library status" : "Add to library"}
-                        disabled={pending}
-                        onClick={() => isInLibrary ? setManagingStatus(true) : startTransition(async () => {
-                            const result = await addGameToLibrary(gameId, gameSlug);
-                            setCurrentEntry(result);
-                        })}
-                        className={`grid size-12 cursor-pointer place-items-center rounded border transition disabled:cursor-wait disabled:opacity-60 ${currentStatus ? currentStatus.activeClassName : isInLibrary ? "border-primary bg-primary text-text-inverse" : "border-text-faint text-text-muted hover:border-primary hover:text-primary"}`}
-                    >
-                        <CurrentStatusIcon size={21} />
-                    </button>
-                    <span className="absolute top-full left-1/2 mt-1 max-w-18 -translate-x-1/2 truncate whitespace-nowrap">{currentStatus?.label ?? (isInLibrary ? "Library" : "Add")}</span>
-                </div>
-                <div className="relative grid size-12 place-items-center text-xs font-bold">
-                    <button
-                        type="button"
-                        title="Backlog"
-                        aria-label="Backlog"
-                        disabled={pending}
-                        onClick={() => setStatus(GameStatus.BACKLOG)}
-                        className={`grid size-12 cursor-pointer place-items-center rounded border transition disabled:cursor-wait disabled:opacity-60 ${currentEntry?.status === GameStatus.BACKLOG ? "border-secondary bg-secondary text-text-inverse" : "border-text-faint text-text-muted hover:border-secondary hover:text-secondary"}`}
-                    >
-                        <Bookmark size={21} />
-                    </button>
-                    <span className="absolute top-full left-1/2 mt-1 -translate-x-1/2 whitespace-nowrap">Backlog</span>
-                </div>
-                <div className="relative grid size-12 place-items-center text-xs font-bold">
-                    <button
-                        type="button"
-                        title="Wishlist"
-                        aria-label="Wishlist"
-                        disabled={pending}
-                        onClick={() => setStatus(GameStatus.WISHLIST)}
-                        className={`grid size-12 cursor-pointer place-items-center rounded border transition disabled:cursor-wait disabled:opacity-60 ${currentEntry?.status === GameStatus.WISHLIST ? "border-secondary bg-secondary text-text-inverse" : "border-text-faint text-text-muted hover:border-secondary hover:text-secondary"}`}
-                    >
-                        <Heart size={21} />
-                    </button>
-                    <span className="absolute top-full left-1/2 mt-1 -translate-x-1/2 whitespace-nowrap">Wishlist</span>
-                </div>
+                <FloatedSquareButton
+                    type="button"
+                    title={isInLibrary ? "Manage library status" : "Add to library"}
+                    aria-label={isInLibrary ? "Manage library status" : "Add to library"}
+                    label={currentStatus?.label ?? (isInLibrary ? "Library" : "Add")}
+                    labelClassName="max-w-18 truncate"
+                    disabled={pending}
+                    onClick={() => isInLibrary ? setManagingStatus(true) : startTransition(async () => {
+                        const result = await addGameToLibrary(gameId, gameSlug);
+                        setCurrentEntry(result);
+                    })}
+                    className={currentStatus ? currentStatus.activeClassName : isInLibrary ? "border-primary bg-primary text-text-inverse" : "border-text-faint text-text-muted hover:border-primary hover:text-primary"}
+                >
+                    <CurrentStatusIcon size={21} />
+                </FloatedSquareButton>
+                <FloatedSquareButton
+                    type="button"
+                    title="Backlog"
+                    aria-label="Backlog"
+                    label="Backlog"
+                    disabled={pending}
+                    onClick={() => setStatus(GameStatus.BACKLOG)}
+                    className={currentEntry?.status === GameStatus.BACKLOG ? "border-secondary bg-secondary text-text-inverse" : "border-text-faint text-text-muted hover:border-secondary hover:text-secondary"}
+                >
+                    <Bookmark size={21} />
+                </FloatedSquareButton>
+                <FloatedSquareButton
+                    type="button"
+                    title="Wishlist"
+                    aria-label="Wishlist"
+                    label="Wishlist"
+                    disabled={pending}
+                    onClick={() => setStatus(GameStatus.WISHLIST)}
+                    className={currentEntry?.status === GameStatus.WISHLIST ? "border-secondary bg-secondary text-text-inverse" : "border-text-faint text-text-muted hover:border-secondary hover:text-secondary"}
+                >
+                    <Heart size={21} />
+                </FloatedSquareButton>
                 <ConfirmAction
                     open={confirming}
                     title="Remove from library?"

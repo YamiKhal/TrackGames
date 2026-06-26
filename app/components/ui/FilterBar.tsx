@@ -30,7 +30,7 @@ type SelectFilter = Extract<Filter, { type: "select" }>;
 
 function SelectFilter({ filter }: { filter: SelectFilter }) {
     return (
-        <Select className="border-t-0 border-l-0 border-r-0 rounded-none" value={filter.value} onChange={(event) => filter.onChange(event.target.value)} aria-label={filter.label}>
+        <Select className="w-full rounded-none border-t-0 border-r-0 border-l-0 md:w-auto" value={filter.value} onChange={(event) => filter.onChange(event.target.value)} aria-label={filter.label}>
             {filter.options.map((option) => (
                 <option key={option.value} value={option.value}>{option.label}</option>
             ))}
@@ -40,15 +40,15 @@ function SelectFilter({ filter }: { filter: SelectFilter }) {
 
 export function FilterBar({ filters, actions, className }: { filters: Filter[]; actions?: ReactNode; className?: string; }) {
     const router = useRouter();
-    className = "flex flex-col gap-3 md:flex-row md:items-center md:justify-between" + " " + className
+    className = ["grid gap-3 md:flex md:items-center md:justify-between", className].filter(Boolean).join(" ");
 
     return (
         <div className={className}>
-            <div className="flex flex-row flex-wrap gap-3">
+            <div className="grid min-w-0 gap-3 sm:grid-cols-[minmax(0,1fr)_auto] md:flex md:flex-row md:flex-wrap">
                 {filters.map((filter) => {
                     if (filter.type === "search") {
                         return (
-                            <div key={filter.placeholder} className="relative min-w-64">
+                            <div key={filter.placeholder} className="relative min-w-0 md:min-w-64">
                                 <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-faint" size={17} />
                                 <Input value={filter.value} onChange={(event) => filter.onChange(event.target.value)} placeholder={filter.placeholder} className="pl-9" />
                             </div>
@@ -58,7 +58,7 @@ export function FilterBar({ filters, actions, className }: { filters: Filter[]; 
                     if (filter.type === "select") return <SelectFilter key={filter.label} filter={filter} />;
 
                     return (
-                        <Select key={filter.label} className="border-t-0 border-l-0 border-r-0 rounded-none" value={filter.value} onChange={(event) => {
+                        <Select key={filter.label} className="w-full rounded-none border-t-0 border-r-0 border-l-0 md:w-auto" value={filter.value} onChange={(event) => {
                             const option = filter.options.find((item) => item.value === event.target.value);
                             if (option) router.push(option.href);
                         }} aria-label={filter.label}>

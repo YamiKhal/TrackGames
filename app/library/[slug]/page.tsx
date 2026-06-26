@@ -44,12 +44,12 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                     <Container className="relative z-1 flex flex-row items-end justify-start gap-10 pt-5">
                         <div className="flex min-w-0 flex-1 flex-col justify-end mb-4 gap-3 md:flex-row md:items-end md:justify-between md:gap-5">
                             <div>
-                                <h1 className="text-3xl">{library.name}</h1>
-                                <p className="text-md text-text-muted">{library.description}</p>
+                                <h1 className="text-3xl text-center md:text-start">{library.name}</h1>
+                                <p className="text-md text-text-muted text-center md:text-start">{library.description}</p>
                             </div>
-                            <div className="flex shrink-0 flex-row flex-wrap justify-end gap-3 md:gap-5">
+                            <div className="flex shrink-0 flex-row flex-wrap justify-center md:justify-emd gap-3 md:gap-5">
                                 {isOwnLibrary && <GameListEditButton list={library} />}
-                                <GhostButton href={`/u/${slug}`}>View Profile</GhostButton>
+                                <GhostButton href={`/u/${slug}`}>Profile</GhostButton>
                             </div>
                         </div>
                     </Container>

@@ -92,7 +92,7 @@ export default function PlaylistEntriesView({ listId, entries, mode, canEdit, ti
     }, [entries, query, sort]);
 
     if (!entries.length) {
-        return <p className="rounded border border-border bg-bg p-4 text-text-muted">No games in this playlist yet.</p>;
+        return <p className="rounded bg-bg p-4 text-text-muted">No games in this playlist yet.</p>;
     }
 
     if (mode === "RANKING") {
@@ -156,10 +156,12 @@ export default function PlaylistEntriesView({ listId, entries, mode, canEdit, ti
                 }]}
             />
             {filtered.length ? (
-                <div className="grid gap-4 grid-cols-[repeat(auto-fill,8rem)]">
+                <div className="grid gap-3 grid-cols-[repeat(auto-fill,6rem)] justify-center items-center md:gap-4 md:grid-cols-[repeat(auto-fill,8rem)]">
                     {filtered.map((entry) => (
                         <EntryShell key={entry.id} listId={listId} entry={entry} canEdit={canEdit} tiers={tiers}>
-                            <GameCard game={entry.game} size={128} hover="name" slugged={true} />
+                            <div className="h-[8.4rem] w-24 md:h-[11.2rem] md:w-32">
+                                <GameCard game={entry.game} size="full" hover="name" slugged={true} />
+                            </div>
                         </EntryShell>
                     ))}
                 </div>

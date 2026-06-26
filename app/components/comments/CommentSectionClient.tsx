@@ -51,7 +51,7 @@ function CommentForm({ action, placeholder = "Write a comment" }: { action: (for
     }
 
     return (
-        <form ref={ref} action={save} className="overflow-hidden rounded border border-border bg-bg-secondary/80">
+        <form ref={ref} action={save} className="overflow-hidden rounded border border-border bg-bg-secondary/50">
             <textarea
                 name="content"
                 rows={3}
@@ -64,8 +64,8 @@ function CommentForm({ action, placeholder = "Write a comment" }: { action: (for
             />
             <div className="flex items-center justify-between border-t border-border px-3 py-2">
                 <span className="text-xs text-text-faint">{content.length}/2000</span>
-                <PrimaryButton type="submit" disabled={pending || !content.trim()} className="gap-2 px-4 py-2">
-                    <Send size={16} />
+                <PrimaryButton type="submit" disabled={pending || !content.trim()} className="gap-2 px-2 md:px-4 py-2 text-sm md:text-md">
+                    <Send size={14} />
                     {pending ? "Posting..." : "Post"}
                 </PrimaryButton>
             </div>
@@ -176,7 +176,7 @@ export default function CommentSectionClient({ targetType, targetId, comments, c
             {currentUserId ? (
                 <CommentForm action={addTopLevel} />
             ) : (
-                <p className="rounded border border-border p-3 text-sm text-text-muted">
+                <p className="rounded p-3 text-sm text-text-muted">
                     <Link href="/login" className="font-bold text-primary">Log in</Link> to comment.
                 </p>
             )}

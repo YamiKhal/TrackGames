@@ -133,9 +133,6 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
         <>
             {mode === "grid" ? (
                 <div className="group relative min-w-0 overflow-hidden rounded border border-border bg-bg-secondary">
-                    <span className={`absolute left-2 top-2 z-10 rounded px-2 py-1 text-[0.65rem] font-bold uppercase text-text opacity-100 select-none md:opacity-0 md:group-hover:opacity-100 ${statusColor(entry.status)}/50`}>
-                        {statusLabel(entry.status)}
-                    </span>
                     <button type="button" onClick={() => setShowInfo(true)} className="block w-full cursor-pointer md:hidden">
                         <div className="relative aspect-5/7 bg-bg">
                             {src && <Image src={src} alt={game.name ?? "game cover"} fill sizes="160px" className="object-cover" />}

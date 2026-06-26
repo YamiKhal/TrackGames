@@ -81,12 +81,12 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                         <div className="mb-4 flex min-w-0 flex-1 flex-col justify-end gap-3 md:flex-row md:items-end md:justify-between md:gap-5">
                             <div>
                                 <div className="flex flex-col gap-2 md:flex-row md:items-end">
-                                    <h1 className="text-3xl">{playlist.name}</h1>
-                                    <p className="text-sm text-text-faint">By {playlist.user?.name ?? "Unknown"}</p>
+                                    <h1 className="text-3xl text-center md:text-start">{playlist.name}</h1>
+                                    <p className="text-sm text-text-faint text-center md:text-start">By {playlist.user?.name ?? "Unknown"}</p>
                                 </div>
-                                <p className="text-md text-text-muted">{playlist.description || "No description."}</p>
+                                <p className="text-md text-text-muted text-center md:text-start">{playlist.description || "No description."}</p>
                             </div>
-                            <div className="flex shrink-0 flex-row flex-wrap justify-end gap-3 md:gap-5">
+                            <div className="flex shrink-0 flex-row flex-wrap justify-center md:justify-emd gap-3 md:gap-5">
                                 <LikeButton targetType={LikeTargetType.GAME_LIST} targetId={playlist.id} initialLikes={likeState.likes} initiallyLiked={likeState.liked} loggedIn={Boolean(session?.user?.id)} />
                                 {canEdit && <GameListEditButton list={playlist} />}
                                 {playlist.user?.name && <GhostButton href={`/u/${playlist.user.name}`}>View Profile</GhostButton>}
@@ -97,12 +97,12 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
 
                 <section className="relative z-10 bg-bg/95 py-5">
                     <Container className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
-                        <div className="flex min-w-0 flex-col gap-5">
+                        <div className="flex min-w-0 flex-col gap-5 order-2 md:order-1">
                             <PlaylistEntriesView listId={playlist.id} entries={playlist.entries} mode={playlist.displayMode} canEdit={canEdit} tiers={tiers} tierColors={tierColors} />
                             {!playlist.commentsHidden && !shouldHideComments(viewer) && <CommentSection targetType={InteractionTargetType.GAME_LIST} targetId={playlist.id} />}
                         </div>
 
-                        <aside className="flex flex-col gap-4 border-l border-border">
+                        <aside className="flex flex-col gap-4 md:border-l border-border order-1 md:order-2">
                             <div className="rounded bg-bg p-4">
                                 <h2 className="border-b border-border pb-2 text-sm font-bold">Games tracked</h2>
                                 <div className="mt-4 flex flex-col items-center">

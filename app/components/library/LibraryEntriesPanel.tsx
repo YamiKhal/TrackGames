@@ -75,20 +75,20 @@ export default function LibraryEntriesPanel({ entries, canEdit, themeStyle, defa
                             ],
                         },
                     ]}
-                    actions={<div className="flex flex-row gap-2">
-                    <button type="button" onClick={() => setMode("grid")} className={`grid size-9 cursor-pointer place-items-center rounded border ${mode === "grid" ? "border-primary text-primary" : "border-border text-text-muted"}`} aria-label="Grid view">
-                        <Grid2X2 size={18} aria-hidden="true" />
-                    </button>
-                    <button type="button" onClick={() => setMode("list")} className={`grid size-9 cursor-pointer place-items-center rounded border ${mode === "list" ? "border-primary text-primary" : "border-border text-text-muted"}`} aria-label="List view">
-                        <List size={18} aria-hidden="true" />
-                    </button>
-                </div>}
+                    actions={<div className="flex flex-row justify-end gap-2">
+                        <button type="button" onClick={() => setMode("grid")} className={`grid size-9 cursor-pointer place-items-center rounded border ${mode === "grid" ? "border-primary text-primary" : "border-border text-text-muted"}`} aria-label="Grid view">
+                            <Grid2X2 size={18} aria-hidden="true" />
+                        </button>
+                        <button type="button" onClick={() => setMode("list")} className={`grid size-9 cursor-pointer place-items-center rounded border ${mode === "list" ? "border-primary text-primary" : "border-border text-text-muted"}`} aria-label="List view">
+                            <List size={18} aria-hidden="true" />
+                        </button>
+                    </div>}
                 />
             </div>
             {filtered.length ? (
                 <PaginatedList
                     pageSize={mode === "grid" ? 32 : 12}
-                    className={mode === "grid" ? "w-full grid gap-4 grid-cols-[repeat(auto-fill,8rem)]" : "flex w-full flex-col gap-3"}
+                    className={mode === "grid" ? "w-full grid gap-2 grid-cols-[repeat(auto-fill,5rem)] justify-center items-center md:gap-4 md:grid-cols-[repeat(auto-fill,8rem)]" : "flex w-full flex-col gap-3"}
                 >
                     {filtered.map((entry) => (
                         <PlaylistCard key={entry.id} entry={entry} mode={mode} canEdit={canEdit} onUpdate={updateEntry} onRemove={removeEntry} themeStyle={themeStyle} />
