@@ -14,7 +14,7 @@ export default function AvatarPreview({ image, size = 24, mdSize = size*1.5, ico
 
     return (
         <div
-            className={`relative flex aspect-square h-(--avatar-size) w-(--avatar-size) shrink-0 items-center justify-center overflow-hidden rounded-full bg-bg md:h-(--avatar-md-size) md:w-(--avatar-md-size) ${className}`}
+            className={`relative flex aspect-square h-(--avatar-size) w-(--avatar-size) shrink-0 items-center justify-center overflow-hidden bg-bg md:h-(--avatar-md-size) md:w-(--avatar-md-size) ${className}`}
             style={style}
         >
             {image ?

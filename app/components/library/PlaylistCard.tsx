@@ -14,7 +14,7 @@ import StarRating from "../game/StarRating";
 import SubTabs from "../layout/SubTabs";
 import { GhostButton, PrimaryButton } from "../ui/Buttons";
 import ConfirmAction from "../ui/ConfirmAction";
-import { Checkbox, Input, Select, Textarea } from "../ui/Inputs";
+import { Checkbox, Input, Select, SuffixedInput, Textarea } from "../ui/Inputs";
 import MenuPanel from "../ui/MenuPanel";
 
 function statusLabel(status: string) {
@@ -48,15 +48,21 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
     const logs = [...(entry.userGamePlayLogs ?? [])].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     const filteredLogs = logDate ? logs.filter((log) => new Date(log.playedAt).toISOString().slice(0, 10) === logDate) : logs;
     const selectedLog = logs.find((log) => log.id === selectedLogId);
+    const now = new Date();
+    const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+    const finishedAtValue = entry.finishedAt ? new Date(entry.finishedAt).toISOString().slice(0, 10) : "";
+    const masteredAtValue = entry.masteredAt ? new Date(entry.masteredAt).toISOString().slice(0, 10) : "";
 
     function save(formData: FormData) {
         const timePlayed = String(formData.get("timeplayed") ?? "").trim();
+        const timeFinished = String(formData.get("timefinished") ?? "").trim();
+        const timeMastered = String(formData.get("timemastered") ?? "").trim();
         const timeMode = String(formData.get("timemode") ?? "manual");
         const finished = formData.get("finished") === "on";
         const mastered = formData.get("mastered") === "on";
 
-        if ((finished || mastered) && timeMode === "manual" && !timePlayed) {
-            setError("Add time played before marking a game as finished or mastered.");
+        if (((finished && !timeFinished) || (mastered && !timeMastered)) && timeMode === "manual" && !timePlayed) {
+            setError("Add time played, finished time, or mastered time before marking a game as finished or mastered.");
             return;
         }
 
@@ -226,7 +232,7 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
                             <span className={`size-2 rounded-full ${statusColor(entry.status)}`} aria-hidden="true" />
                             {statusLabel(entry.status)}
                         </p>
-                        <p><span className="font-bold text-text">Rating:</span> {(ratingToFive(entry.rating ?? 0) ?? 0).toFixed(1)}/5</p>
+                        <p className="flex flex-row gap-2 items-center"><span className="font-bold text-text">Rating:</span> <StarRating rating={(ratingToFive(entry.rating ?? 0) ?? 0)} size={15} /></p>
                         <p><span className="font-bold text-text">Time:</span> {entry.timePlayed != null ? `${entry.timePlayed}h` : "No time"}</p>
                         {hasNotes && (
                             <button type="button" onClick={() => {
@@ -254,7 +260,7 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
                 <p className="whitespace-pre-wrap text-sm text-text-muted">{entry.notes}</p>
             </MenuPanel>
 
-            <MenuPanel open={editing} onClose={() => setEditing(false)} showClose={false} width="42rem" panelClassName="flex h-[min(36rem,calc(100vh-2rem))] flex-col gap-4 overflow-hidden bg-bg md:flex-row" style={themeStyle}>
+            <MenuPanel open={editing} onClose={() => setEditing(false)} showClose={false} width="42rem" panelClassName="flex h-[min(42rem,calc(100dvh-1rem))] w-[calc(100vw-1rem)] flex-col gap-4 overflow-hidden bg-bg p-4 md:h-[min(36rem,calc(100vh-2rem))] md:w-[min(var(--menu-panel-width,42rem),calc(100vw-2rem))] md:flex-row md:p-5" style={themeStyle}>
                 <div className="hidden w-32 shrink-0 flex-col gap-3 md:flex">
                     <div className="relative h-44 overflow-hidden rounded bg-bg">
                         {src && <Image src={src} alt={game.name ?? "game cover"} fill sizes="128px" className="object-cover" />}
@@ -264,24 +270,46 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
                     </GhostButton>
                 </div>
                 <div className="flex min-h-0 min-w-0 flex-1 flex-col">
-                    <div className="mb-4 flex shrink-0 items-center justify-between gap-3">
-                        <h3 className="truncate text-lg font-bold">{game.name}</h3>
+                    <div className="mb-3 grid shrink-0 grid-cols-[3.75rem_minmax(0,1fr)_auto] items-center gap-3 md:mb-4 md:flex md:justify-between">
+                        <div className="relative h-20 overflow-hidden rounded bg-bg md:hidden">
+                            {src && <Image src={src} alt={game.name ?? "game cover"} fill sizes="60px" className="object-cover" />}
+                        </div>
+                        <h3 className="min-w-0 truncate text-base font-bold md:text-lg">{game.name}</h3>
                         <button type="button" onClick={() => setEditing(false)} className="grid size-8 shrink-0 cursor-pointer place-items-center rounded text-text-muted hover:text-primary" aria-label="Close">
                             <X size={18} aria-hidden="true" />
                         </button>
                     </div>
                     <div className="shrink-0">
-                        <SubTabs
-                            tabs={[
+                        <div className="mb-4 grid grid-cols-4 gap-1 p-1 md:hidden">
+                            {[
                                 { id: "entry", label: "Entry" },
                                 { id: "log", label: "Log" },
                                 { id: "history", label: "History" },
                                 { id: "time", label: "Time" },
-                            ]}
-                            active={activeTab}
-                            setter={setActiveTab}
-                            compact
-                        />
+                            ].map((tab) => (
+                                <button
+                                    key={tab.id}
+                                    type="button"
+                                    onClick={() => setActiveTab(tab.id as typeof activeTab)}
+                                    className={`min-w-0 rounded px-2 py-2 text-xs font-bold transition ${activeTab === tab.id ? "bg-primary text-text-inverse" : "text-text-muted bg-bg-secondary/50 border border-border hover:bg-bg-secondary hover:text-text"}`}
+                                    aria-pressed={activeTab === tab.id}
+                                >
+                                    <span className="block truncate">{tab.label}</span>
+                                </button>
+                            ))}
+                        </div>
+                        <div className="hidden md:block">
+                            <SubTabs
+                                tabs={[
+                                    { id: "entry", label: "Entry" },
+                                    { id: "log", label: "Log" },
+                                    { id: "history", label: "History" },
+                                    { id: "time", label: "Time" },
+                                ]}
+                                active={activeTab}
+                                setter={setActiveTab}
+                            />
+                        </div>
                     </div>
                     {error && (
                         <p className="mb-3 shrink-0 rounded border border-error/50 bg-error/15 p-2 text-sm text-error">
@@ -315,7 +343,7 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
                                 Notes
                                 <Textarea name="notes" rows={3} defaultValue={entry.notes ?? ""} />
                             </label>
-                            <div className="mt-auto flex justify-end gap-2 pt-2">
+                            <div className="mt-auto grid grid-cols-3 gap-2 pt-2 md:flex md:justify-end">
                                 <GhostButton type="button" className="text-sm md:text-md" onClick={() => setActiveTab("log")}>Create Log</GhostButton>
                                 <GhostButton type="button" className="text-sm md:text-md" onClick={() => setEditing(false)}>Cancel</GhostButton>
                                 <PrimaryButton type="submit" className="text-sm md:text-md" disabled={pending}>{pending ? "Saving..." : "Save"}</PrimaryButton>
@@ -326,11 +354,11 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
                                 <div className="grid gap-3 sm:grid-cols-2">
                                     <label className="text-sm font-bold text-text-muted">
                                         Date played
-                                        <Input name="playedat" type="date" defaultValue={new Date().toISOString().slice(0, 10)} />
+                                        <Input name="playedat" type="date" max={today} defaultValue={today} />
                                     </label>
                                     <label className="text-sm font-bold text-text-muted">
                                         Hours played
-                                        <Input name="hours" type="number" min={0.1} step={0.1} />
+                                        <SuffixedInput name="hours" type="number" min={0.1} step={0.1} suffix="h" />
                                     </label>
                                 </div>
                                 <label className="text-sm font-bold text-text-muted">
@@ -365,7 +393,7 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
                                 <div className="flex max-h-112 flex-col gap-2 overflow-y-auto pr-1">
                                     <label className="text-sm font-bold text-text-muted">
                                         Filter
-                                        <Input name="logdate" type="date" value={logDate} onChange={(event) => setLogDate(event.target.value)} />
+                                        <Input name="logdate" type="date" max={today} value={logDate} onChange={(event) => setLogDate(event.target.value)} />
                                     </label>
                                     {logDate && (
                                         <GhostButton type="button" onClick={() => setLogDate("")} className="justify-center py-2">
@@ -392,11 +420,11 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
                                         <div className="grid gap-3 sm:grid-cols-2">
                                             <label className="text-sm font-bold text-text-muted">
                                                 Date played
-                                                <Input name="playedat" type="date" defaultValue={new Date(selectedLog.playedAt).toISOString().slice(0, 10)} />
+                                                <Input name="playedat" type="date" max={today} defaultValue={new Date(selectedLog.playedAt).toISOString().slice(0, 10)} />
                                             </label>
                                             <label className="text-sm font-bold text-text-muted">
                                                 Hours played
-                                                <Input name="hours" type="number" min={0.1} step={0.1} defaultValue={selectedLog.hours} />
+                                                <SuffixedInput name="hours" type="number" min={0.1} step={0.1} defaultValue={selectedLog.hours} suffix="h" />
                                             </label>
                                         </div>
                                         <label className="text-sm font-bold text-text-muted">
@@ -447,25 +475,31 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
                                         </span>
                                     </label>
                                 </div>
-                                {timeMode === "manual" && (
-                                    <label className="text-sm font-bold text-text-muted">
-                                        Manual time played
-                                        <Input name="timeplayed" type="number" min={0} step={0.1} defaultValue={entry.timePlayed ?? "0"} />
-                                    </label>
-                                )}
-                                <div className="rounded bg-bg/60 p-3 text-sm text-text-muted">
-                                    <div className="flex items-center gap-2 font-bold text-text">
-                                        <Clock size={15} aria-hidden="true" />
-                                        <span className="text-text-muted font-medium">Current total time:</span> {entry.timePlayed != null ? `${entry.timePlayed}h` : "No time"}
+                                <div className="grid gap-2 rounded bg-bg/60 p-3 text-sm text-text-muted">
+                                    <div className="grid gap-2 font-bold text-text sm:grid-cols-[8rem_minmax(0,1fr)_minmax(0,1fr)] sm:items-center">
+                                        <span className="flex items-center gap-2 text-text-muted font-medium">
+                                            <Clock size={15} aria-hidden="true" />
+                                            Current total
+                                        </span>
+                                        <SuffixedInput name="timeplayed" type="number" min={0} step={0.1} defaultValue={entry.timePlayed ?? "0"} suffix="h" disabled={timeMode !== "manual"} aria-label="Current total time" />
+                                        <span className="hidden sm:block" aria-hidden="true" />
                                     </div>
-                                    {entry.timeFinished != null && <p className="mt-2 flex items-center gap-2 font-bold text-text">
-                                        <Check size={15} aria-hidden="true" />
-                                        <span className="text-text-muted font-medium">Finished in:</span> <span className="font-bold text-text">{entry.timeFinished}h
-                                        </span></p>}
-                                    {entry.timeMastered != null && <p className="mt-2 flex items-center gap-2 font-bold text-text">
-                                        <Crown size={15} aria-hidden="true" />
-                                        <span className="text-text-muted font-medium">Mastered in:</span> <span className="font-bold text-text">{entry.timeMastered}h
-                                        </span></p>}
+                                    {entry.timeFinished != null && <div className="grid gap-2 font-bold text-text sm:grid-cols-[8rem_minmax(0,1fr)_minmax(0,1fr)] sm:items-center">
+                                        <span className="flex items-center gap-2 text-text-muted font-medium">
+                                            <Check size={15} aria-hidden="true" />
+                                            Finished
+                                        </span>
+                                        <SuffixedInput name="timefinished" type="number" min={0} step={0.1} defaultValue={entry.timeFinished} suffix="h" aria-label="Finished time" />
+                                        <Input name="finishedat" type="date" max={today} defaultValue={finishedAtValue || today} aria-label="Finished date" />
+                                    </div>}
+                                    {entry.timeMastered != null && <div className="grid gap-2 font-bold text-text sm:grid-cols-[8rem_minmax(0,1fr)_minmax(0,1fr)] sm:items-center">
+                                        <span className="flex items-center gap-2 text-text-muted font-medium">
+                                            <Crown size={15} aria-hidden="true" />
+                                            Mastered
+                                        </span>
+                                        <SuffixedInput name="timemastered" type="number" min={0} step={0.1} defaultValue={entry.timeMastered} suffix="h" aria-label="Mastered time" />
+                                        <Input name="masteredat" type="date" max={today} defaultValue={masteredAtValue || today} aria-label="Mastered date" />
+                                    </div>}
                                 </div>
                                 <div className="mt-auto flex justify-end gap-2 pt-2">
                                     <GhostButton type="button" onClick={() => setEditing(false)}>Cancel</GhostButton>

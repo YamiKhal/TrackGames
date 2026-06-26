@@ -20,6 +20,17 @@ export const Input = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputE
     return <input ref={ref} {...props} className={join(`${base} w-full`, className)} />;
 });
 
+export const SuffixedInput = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement> & { suffix: ReactNode; inputClassName?: string }>(function SuffixedInput({ className, inputClassName, suffix, disabled, ...props }, ref) {
+    return (
+        <span className={join(`mt-1 flex w-full overflow-hidden rounded border border-border bg-bg-secondary/80 outline-none focus-within:border-primary ${disabled ? "opacity-60" : ""}`, className)}>
+            <input ref={ref} {...props} disabled={disabled} className={join("min-w-0 flex-1 bg-transparent px-3 py-1 outline-none disabled:cursor-not-allowed", inputClassName)} />
+            <span className="flex shrink-0 items-center border-l border-border bg-bg px-3 py-1 text-text-muted select-none">
+                {suffix}
+            </span>
+        </span>
+    );
+});
+
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaHTMLAttributes<HTMLTextAreaElement>>(function Textarea({ className, ...props }, ref) {
     return <textarea ref={ref} {...props} className={join(`${base} w-full`, className)} />;
 });

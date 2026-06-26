@@ -82,7 +82,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
                         <div className="min-w-0 flex-1">
                             <ProfileSwitcherPanel user={displayName} defaultTab={activeTab}>
                                 {activeTab === "profile" && canViewProfile && (
-                                    <div className="flex flex-col gap-2 w-full justify-center">
+                                    <div className="flex flex-col md:gap-2 w-full justify-center">
                                         {profileWidgets &&
                                             profileWidgets.map((widget, index) => (
                                                 <UserWidget key={index} widget={widget} userId={profile.id} />

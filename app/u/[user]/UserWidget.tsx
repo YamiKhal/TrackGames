@@ -121,7 +121,7 @@ export default async function UserWidget({ widget, userId }: { widget: Widget; u
     const stats = widget.type === WidgetType.STATS ? await getUserGameStats(userId) : null;
 
     return (
-        <div className="w-full p-5">
+        <div className="w-full md:p-5">
             {widget.type === WidgetType.GAMELIST &&
                 <GameList widget={widget} games={games} />
             }

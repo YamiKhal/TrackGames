@@ -19,6 +19,25 @@ async function getCurrentUserId() {
     return session.user.id;
 }
 
+function pastDateFromInput(value: string, label: string) {
+    if (!value) return null;
+
+    const date = new Date(`${value}T12:00:00`);
+
+    if (Number.isNaN(date.getTime())) {
+        throw new Error(`Invalid ${label} date.`);
+    }
+
+    const today = new Date();
+    today.setHours(23, 59, 59, 999);
+
+    if (date > today) {
+        throw new Error(`${label} date cannot be in the future.`);
+    }
+
+    return date;
+}
+
 export async function addGameToLibrary(gameId: number, gameSlug: string) {
     const userId = await getCurrentUserId();
 
@@ -127,6 +146,10 @@ export async function updateUserGameEntry(entryId: string, formData: FormData) {
     const status = String(formData.get("status"));
     const ratingValue = String(formData.get("rating") ?? "").trim();
     const timePlayedValue = String(formData.get("timeplayed") ?? "").trim();
+    const timeFinishedValue = String(formData.get("timefinished") ?? "").trim();
+    const timeMasteredValue = String(formData.get("timemastered") ?? "").trim();
+    const finishedAtValue = String(formData.get("finishedat") ?? "").trim();
+    const masteredAtValue = String(formData.get("masteredat") ?? "").trim();
     const timeMode = String(formData.get("timemode") ?? "manual") === "logs" ? "logs" : "manual";
     const notesValue = String(formData.get("notes") ?? "").trim();
     const finished = formData.get("finished") === "on";
@@ -138,7 +161,12 @@ export async function updateUserGameEntry(entryId: string, formData: FormData) {
 
     const rating = ratingValue ? ratingToHundred(Number(ratingValue)) ?? null : null;
     const manualTime = timePlayedValue ? Math.max(0, Number(timePlayedValue)) : null;
-    const hasManualTime = Number.isFinite(manualTime);
+    const finishedTime = timeFinishedValue ? Math.max(0, Number(timeFinishedValue)) : null;
+    const masteredTime = timeMasteredValue ? Math.max(0, Number(timeMasteredValue)) : null;
+    const safeFinishedTime = Number.isFinite(finishedTime) ? finishedTime : null;
+    const safeMasteredTime = Number.isFinite(masteredTime) ? masteredTime : null;
+    const finishedAt = pastDateFromInput(finishedAtValue, "Finished");
+    const masteredAt = pastDateFromInput(masteredAtValue, "Mastered");
 
     const current = await db.userGameEntry.findUnique({
         where: {
@@ -166,9 +194,11 @@ export async function updateUserGameEntry(entryId: string, formData: FormData) {
     const logTime = current.userGamePlayLogs.reduce((total, log) => total + log.hours, 0);
     const timePlayed = timeMode === "logs" ? logTime : manualTime;
     const hasTimePlayed = Number.isFinite(timePlayed) && timePlayed != null && timePlayed > 0;
+    const hasFinishedTime = Number.isFinite(finishedTime) && finishedTime != null && finishedTime > 0;
+    const hasMasteredTime = Number.isFinite(masteredTime) && masteredTime != null && masteredTime > 0;
 
-    if ((finished || mastered) && !hasTimePlayed) {
-        throw new Error("Time played is required before marking a game as finished or mastered.");
+    if ((finished && !hasTimePlayed && !hasFinishedTime) || (mastered && !hasTimePlayed && !hasMasteredTime)) {
+        throw new Error("Time played, finished time, or mastered time is required before marking a game as finished or mastered.");
     }
 
     const entry = await db.userGameEntry.update({
@@ -181,10 +211,10 @@ export async function updateUserGameEntry(entryId: string, formData: FormData) {
             rating: Number.isFinite(rating) ? rating : null,
             timeMode,
             timePlayed: hasTimePlayed ? timePlayed : null,
-            timeFinished: finished ? current.timeFinished ?? timePlayed : null,
-            timeMastered: mastered ? current.timeMastered ?? timePlayed : null,
-            finishedAt: finished ? current.finishedAt ?? (hasTimePlayed ? new Date() : null) : null,
-            masteredAt: mastered ? current.masteredAt ?? (hasTimePlayed ? new Date() : null) : null,
+            timeFinished: finished ? safeFinishedTime ?? current.timeFinished ?? timePlayed : null,
+            timeMastered: mastered ? safeMasteredTime ?? current.timeMastered ?? timePlayed : null,
+            finishedAt: finished ? finishedAt ?? current.finishedAt ?? new Date() : null,
+            masteredAt: mastered ? masteredAt ?? current.masteredAt ?? new Date() : null,
             notes: notesValue || null,
         },
         include: {
