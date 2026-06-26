@@ -78,6 +78,7 @@ export async function getGameStats(gameId: number) {
         wishlisted,
         publicPlaylistEntries,
         averageTimes,
+        ratings,
     ] = await Promise.all([
         db.userGamePlayLog.count({ where: { gameId } }),
         db.userGameEntry.count({
@@ -109,7 +110,28 @@ export async function getGameStats(gameId: number) {
                 timeMastered: true,
             },
         }),
+        db.userGameEntry.groupBy({
+            by: ["rating"],
+            where: {
+                gameId,
+                rating: {
+                    not: null,
+                },
+            },
+            _count: {
+                rating: true,
+            },
+        }),
     ]);
+    const ratingDistribution = Array.from({ length: 11 }, (_, index) => {
+        const value = index * 0.5;
+        const count = ratings.reduce((total, rating) => {
+            const stars = rating.rating == null ? 0 : Math.round(rating.rating / 20 * 2) / 2;
+            return stars === value ? total + rating._count.rating : total;
+        }, 0);
+
+        return { rating: value, count };
+    });
 
     return {
         plays,
@@ -119,6 +141,7 @@ export async function getGameStats(gameId: number) {
         averagePlaytime: averageTimes._avg.timePlayed,
         averageCompletionTime: averageTimes._avg.timeFinished,
         averageMasteryTime: averageTimes._avg.timeMastered,
+        ratingDistribution,
     };
 }
 

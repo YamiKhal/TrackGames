@@ -160,22 +160,6 @@ export async function addGameToPlaylist(listId: string, formData: FormData) {
     const playlist = await getOwnedPlaylist(listId, userId);
     const tier = requestedTier || playlist.tierLabels[0] || "A";
 
-    const ownedGame = await db.userGameEntry.findUnique({
-        where: {
-            userId_gameId: {
-                userId,
-                gameId,
-            },
-        },
-        select: {
-            id: true,
-        },
-    });
-
-    if (!ownedGame) {
-        throw new Error("Only games from your library can be added.");
-    }
-
     const lastEntry = await db.gameListEntry.findFirst({
         where: {
             listId,
@@ -188,7 +172,7 @@ export async function addGameToPlaylist(listId: string, formData: FormData) {
         },
     });
 
-    await db.gameListEntry.upsert({
+    const entry = await db.gameListEntry.upsert({
         where: {
             listId_gameId: {
                 listId,
@@ -204,9 +188,14 @@ export async function addGameToPlaylist(listId: string, formData: FormData) {
             tier: tier || "A",
             position: (lastEntry?.position ?? 0) + 1,
         },
+        select: {
+            id: true,
+            gameId: true,
+        },
     });
 
     revalidatePath(`/playlist/${listId}`);
+    return entry;
 }
 
 export async function removeGameFromPlaylist(listId: string, entryId: string) {

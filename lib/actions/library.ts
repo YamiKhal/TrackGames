@@ -22,7 +22,7 @@ async function getCurrentUserId() {
 export async function addGameToLibrary(gameId: number, gameSlug: string) {
     const userId = await getCurrentUserId();
 
-    await db.userGameEntry.upsert({
+    const entry = await db.userGameEntry.upsert({
         where: {
             userId_gameId: {
                 userId,
@@ -34,10 +34,15 @@ export async function addGameToLibrary(gameId: number, gameSlug: string) {
             userId,
             gameId,
         },
+        select: {
+            id: true,
+            status: true,
+            rating: true,
+        },
     });
 
     revalidatePath(`/game/${gameSlug}`);
-    return { inLibrary: true };
+    return entry;
 }
 
 export async function removeGameFromLibrary(gameId: number, gameSlug: string) {
@@ -52,6 +57,69 @@ export async function removeGameFromLibrary(gameId: number, gameSlug: string) {
 
     revalidatePath(`/game/${gameSlug}`);
     return { inLibrary: false };
+}
+
+export async function setGameLibraryStatus(gameId: number, gameSlug: string, status: GameStatus) {
+    const userId = await getCurrentUserId();
+
+    if (!Object.values(GameStatus).includes(status)) {
+        throw new Error("Invalid game status.");
+    }
+
+    const entry = await db.userGameEntry.upsert({
+        where: {
+            userId_gameId: {
+                userId,
+                gameId,
+            },
+        },
+        update: {
+            status,
+        },
+        create: {
+            userId,
+            gameId,
+            status,
+        },
+        select: {
+            id: true,
+            status: true,
+            rating: true,
+        },
+    });
+
+    revalidatePath(`/game/${gameSlug}`);
+    return entry;
+}
+
+export async function updateGameQuickRating(gameId: number, gameSlug: string, value: number) {
+    const userId = await getCurrentUserId();
+    const rating = ratingToHundred(value) ?? null;
+
+    const entry = await db.userGameEntry.upsert({
+        where: {
+            userId_gameId: {
+                userId,
+                gameId,
+            },
+        },
+        update: {
+            rating,
+        },
+        create: {
+            userId,
+            gameId,
+            rating,
+        },
+        select: {
+            id: true,
+            status: true,
+            rating: true,
+        },
+    });
+
+    revalidatePath(`/game/${gameSlug}`);
+    return entry;
 }
 
 export async function updateUserGameEntry(entryId: string, formData: FormData) {

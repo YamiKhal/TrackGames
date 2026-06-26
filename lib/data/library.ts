@@ -36,6 +36,8 @@ export async function getUserGameEntry(userId: string, gameId: number) {
         },
         select: {
             id: true,
+            status: true,
+            rating: true,
         },
     });
 }
