@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
+import { resolveStillImage } from "@/lib/util/image";
 import { hexColor } from "@/lib/util/normalize";
 
 export const size = {
@@ -15,19 +16,19 @@ type OpenGraphImageProps = {
     image?: string | null;
     coverImage?: string | null;
     libraryGameCount?: number;
+    playlistGameCount?: number;
     primaryColor?: string | null;
     playlistImages?: string[];
     variant?: "site" | "game" | "profile" | "library" | "playlist";
 };
 
-export async function createOpenGraphImage({ title, description, label = "TrackGames", image, coverImage, libraryGameCount, primaryColor, playlistImages = [], variant = "site" }: OpenGraphImageProps) {
+export async function createOpenGraphImage({ title, description, label = "TrackGames", image, coverImage, libraryGameCount, playlistGameCount, primaryColor, playlistImages = [], variant = "site" }: OpenGraphImageProps) {
     const icon = await readFile(
         join(process.cwd(), "app/android-chrome-512x512.png"),
     );
     const iconSrc = `data:image/png;base64,${icon.toString("base64")}`;
-    const imageSrc = image?.toLowerCase().split("?")[0].endsWith(".webp") ? null : image;
-    const coverSrc = coverImage?.toLowerCase().split("?")[0].endsWith(".webp") ? null : coverImage;
-    const accent = variant === "library" ? "#60D394" : variant === "profile" || variant === "playlist" ? "#D6A85C" : "#9A7BFF";
+    const imageSrc = await resolveStillImage(image);
+    const coverSrc = await resolveStillImage(coverImage);
     const dissolveColor = hexColor(primaryColor, "#9A7BFF");
     const dissolveRgb = `${parseInt(dissolveColor.slice(1, 3), 16)}, ${parseInt(dissolveColor.slice(3, 5), 16)}, ${parseInt(dissolveColor.slice(5, 7), 16)}`;
     const titleSize = title.length > 42 ? "54px" : "64px";
@@ -136,7 +137,7 @@ export async function createOpenGraphImage({ title, description, label = "TrackG
                 {imageSrc && (
                     <img src={imageSrc} width="1200" height="630" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.18, zIndex: 1 }} />
                 )}
-                <div style={{ position: "absolute", right: "86px", top: "96px", width: "330px", height: "248px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "4px", zIndex: 2 }}>
+                <div style={{ position: "absolute", right: "74px", top: "96px", width: "486px", height: "248px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "4px", zIndex: 2 }}>
                     <div style={{ position: "relative", width: "210px", height: "168px", display: "flex" }}>
                         <div style={{ position: "absolute", left: 0, top: 0, width: "98px", height: "168px", display: "flex", border: "8px solid #D6A85C", borderRight: "4px solid #D6A85C", borderRadius: "8px 0 0 8px", background: "#232633" }} />
                         <div style={{ position: "absolute", right: 0, top: 0, width: "98px", height: "168px", display: "flex", border: "8px solid #9A7BFF", borderLeft: "4px solid #9A7BFF", borderRadius: "0 8px 8px 0", background: "#232633" }} />
@@ -182,7 +183,7 @@ export async function createOpenGraphImage({ title, description, label = "TrackG
                 </div>
                 <div style={{ position: "absolute", right: "74px", bottom: "78px", display: "flex", flexDirection: "column", width: "486px", padding: "22px 26px", borderRadius: "8px", border: "2px solid #302A3B", background: "rgba(20,21,26,0.94)" }}>
                     <div style={{ display: "flex", color: "#D6A85C", fontSize: "26px", fontWeight: 900 }}>{label}</div>
-                    <div style={{ display: "flex", marginTop: "6px", color: "#D8D3E6", fontSize: "24px", lineHeight: 1.25 }}>{playlistImages.length ? `${playlistImages.length} featured games` : "Curated game list"}</div>
+                    <div style={{ display: "flex", marginTop: "6px", color: "#D8D3E6", fontSize: "24px", lineHeight: 1.25 }}>{playlistGameCount != null ? `${playlistGameCount} ${playlistGameCount === 1 ? "game" : "games"}` : "Curated game list"}</div>
                 </div>
                 <div style={{ position: "relative", display: "flex", flexDirection: "column", justifyContent: "space-between", width: "100%", padding: "58px 82px 74px" }}>
                     {brand}

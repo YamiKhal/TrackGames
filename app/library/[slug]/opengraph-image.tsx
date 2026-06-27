@@ -18,17 +18,13 @@ export default async function Image({ params }: { params: Promise<{ slug: string
             type: GameListType.LIBRARY,
         },
         select: {
+            userId: true,
             name: true,
             description: true,
             image: true,
             background: true,
             color: true,
             privacy: true,
-            _count: {
-                select: {
-                    entries: true,
-                },
-            },
             user: {
                 select: {
                     libraryPrivacy: true,
@@ -43,13 +39,18 @@ export default async function Image({ params }: { params: Promise<{ slug: string
     const description = library
         ? isPublic ? `Browse ${library.name} on TrackGames.` : "This TrackGames library is private."
         : "The requested library could not be found.";
+    const gameCount = isPublic && library ? await db.userGameEntry.count({
+        where: {
+            userId: library.userId,
+        },
+    }) : undefined;
 
     return createOpenGraphImage({
         title,
         label: "Library",
         description: metadataDescription(isPublic ? library?.description : null, description),
         image: image === DEFAULT_OG_IMAGE ? null : image,
-        libraryGameCount: isPublic ? library?._count.entries : undefined,
+        libraryGameCount: gameCount,
         primaryColor: isPublic ? library?.color : null,
         variant: "library",
     });

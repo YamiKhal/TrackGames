@@ -22,6 +22,11 @@ export default async function Image({ params }: { params: Promise<{ id: string }
             name: true,
             description: true,
             privacy: true,
+            _count: {
+                select: {
+                    entries: true,
+                },
+            },
             user: {
                 select: {
                     name: true,
@@ -57,6 +62,7 @@ export default async function Image({ params }: { params: Promise<{ id: string }
         label: "Playlist",
         description: metadataDescription(isPublic ? playlist?.description : null, description),
         playlistImages,
+        playlistGameCount: isPublic ? playlist?._count.entries : undefined,
         variant: "playlist",
     });
 }

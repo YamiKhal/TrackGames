@@ -23,12 +23,20 @@
   },
   {
     "id": 408327,
+    "cover": {
+      "id": 575150,
+      "image_id": "cocbse"
+    },
     "first_release_date": 1782432000,
     "name": "Count Down",
     "slug": "count-down--1"
   },
   {
     "id": 408326,
+    "cover": {
+      "id": 575148,
+      "image_id": "cocbsc"
+    },
     "first_release_date": 1782432000,
     "name": "Decked Out",
     "slug": "decked-out"
@@ -612,6 +620,10 @@
   },
   {
     "id": 408325,
+    "cover": {
+      "id": 575147,
+      "image_id": "cocbsb"
+    },
     "first_release_date": 1782345600,
     "name": "Wetline: Fire Break",
     "slug": "wetline-fire-break"
