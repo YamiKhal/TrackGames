@@ -1,27 +1,5 @@
 [
   {
-    "id": 406230,
-    "cover": {
-      "id": 574330,
-      "image_id": "cocb5m"
-    },
-    "first_release_date": 1782518400,
-    "name": "V-Dash Dungeon",
-    "slug": "v-dash-dungeon"
-  },
-  {
-    "id": 407283,
-    "first_release_date": 1782518400,
-    "name": "Dragon of Illusion",
-    "slug": "dragon-of-illusion"
-  },
-  {
-    "id": 407286,
-    "first_release_date": 1782518400,
-    "name": "Cash Movers",
-    "slug": "cash-movers"
-  },
-  {
     "id": 252665,
     "cover": {
       "id": 308113,
@@ -990,5 +968,35 @@
     "first_release_date": 1782777600,
     "name": "Innocence Rewrite",
     "slug": "innocence-rewrite"
+  },
+  {
+    "id": 349045,
+    "cover": {
+      "id": 490832,
+      "image_id": "coaiq8"
+    },
+    "first_release_date": 1782777600,
+    "name": "Arca",
+    "slug": "arca"
+  },
+  {
+    "id": 349083,
+    "cover": {
+      "id": 465234,
+      "image_id": "co9yz6"
+    },
+    "first_release_date": 1782777600,
+    "name": "Spacerocks",
+    "slug": "spacerocks"
+  },
+  {
+    "id": 349099,
+    "cover": {
+      "id": 466769,
+      "image_id": "coa05t"
+    },
+    "first_release_date": 1782777600,
+    "name": "Broth Bounty",
+    "slug": "broth-bounty"
   }
 ]

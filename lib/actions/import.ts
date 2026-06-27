@@ -4,7 +4,33 @@ import { revalidatePath } from "next/cache";
 import { auth } from "../auth";
 import db from "../db";
 import { getOwnedGames, getSteamProfile } from "../external/steam/api";
-import { ActivityType, InteractionTargetType } from "../generated/prisma/enums";
+import { ActivityType, GameStatus, InteractionTargetType } from "../generated/prisma/enums";
+
+type TgLibraryEntry = {
+    game?: {
+        id?: number;
+        slug?: string | null;
+    };
+    status?: string;
+    rating?: number | null;
+    timePlayed?: number | null;
+    timeMode?: string | null;
+    timeFinished?: number | null;
+    timeMastered?: number | null;
+    notes?: string | null;
+    favorite?: boolean;
+    addedAt?: string | null;
+    startedAt?: string | null;
+    finishedAt?: string | null;
+    masteredAt?: string | null;
+    logs?: {
+        hours?: number;
+        note?: string;
+        skipRecap?: boolean;
+        playedAt?: string | null;
+        createdAt?: string | null;
+    }[];
+};
 
 function gameSlug(name: string) {
     return name
@@ -30,6 +56,17 @@ async function getCurrentUserId() {
     }
 
     return session.user.id;
+}
+
+function dateFromBackup(value: string | null | undefined) {
+    if (!value) return null;
+
+    const date = new Date(value);
+    return Number.isNaN(date.getTime()) ? null : date;
+}
+
+function numberFromBackup(value: number | null | undefined) {
+    return Number.isFinite(value) ? value : null;
 }
 
 export async function getSteamProfileImportPreview(steamId: string) {
@@ -200,4 +237,215 @@ export async function importSteamLibrary(steamId: string, skipImportedLogsRecap 
     revalidatePath("/library/[slug]", "page");
     revalidatePath("/u/[user]", "page");
     return { imported, failed };
+}
+
+export async function exportTgLibrary() {
+    const userId = await getCurrentUserId();
+    const user = await db.user.findUnique({
+        where: {
+            id: userId,
+        },
+        select: {
+            name: true,
+        },
+    });
+
+    const entries = await db.userGameEntry.findMany({
+        where: {
+            userId,
+        },
+        select: {
+            game: {
+                select: {
+                    id: true,
+                    slug: true,
+                },
+            },
+            status: true,
+            rating: true,
+            timePlayed: true,
+            timeMode: true,
+            timeFinished: true,
+            timeMastered: true,
+            notes: true,
+            favorite: true,
+            addedAt: true,
+            startedAt: true,
+            finishedAt: true,
+            masteredAt: true,
+            userGamePlayLogs: {
+                orderBy: {
+                    playedAt: "asc",
+                },
+                select: {
+                    hours: true,
+                    note: true,
+                    skipRecap: true,
+                    playedAt: true,
+                    createdAt: true,
+                },
+            },
+        },
+        orderBy: {
+            addedAt: "asc",
+        },
+    });
+
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, "0");
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const year = now.getFullYear();
+    const name = (user?.name ?? "TrackGames").trim().replace(/[^a-z0-9_-]+/gi, "-").replace(/^-|-$/g, "") || "TrackGames";
+
+    return {
+        filename: `${name}-Library-${day}-${month}-${year}.tg`,
+        data: JSON.stringify({
+            version: 1,
+            exportedAt: now.toISOString(),
+            entries: entries.map((entry) => ({
+                game: entry.game,
+                status: entry.status,
+                rating: entry.rating,
+                timePlayed: entry.timePlayed,
+                timeMode: entry.timeMode,
+                timeFinished: entry.timeFinished,
+                timeMastered: entry.timeMastered,
+                notes: entry.notes,
+                favorite: entry.favorite,
+                addedAt: entry.addedAt.toISOString(),
+                startedAt: entry.startedAt?.toISOString() ?? null,
+                finishedAt: entry.finishedAt?.toISOString() ?? null,
+                masteredAt: entry.masteredAt?.toISOString() ?? null,
+                logs: entry.userGamePlayLogs.map((log) => ({
+                    hours: log.hours,
+                    note: log.note,
+                    skipRecap: log.skipRecap,
+                    playedAt: log.playedAt.toISOString(),
+                    createdAt: log.createdAt.toISOString(),
+                })),
+            })),
+        }),
+    };
+}
+
+export async function importTgLibrary(contents: string) {
+    const userId = await getCurrentUserId();
+    let backup: { version?: number; entries?: TgLibraryEntry[] };
+
+    try {
+        backup = JSON.parse(contents);
+    } catch {
+        throw new Error("Invalid .tg file.");
+    }
+
+    if (backup.version !== 1 || !Array.isArray(backup.entries)) {
+        throw new Error("Unsupported .tg file.");
+    }
+
+    const gameIds = Array.from(new Set(backup.entries.map((entry) => entry.game?.id).filter((id): id is number => Number.isInteger(id))));
+    const slugs = Array.from(new Set(backup.entries.map((entry) => entry.game?.slug).filter((slug): slug is string => Boolean(slug))));
+    const games = await db.game.findMany({
+        where: {
+            OR: [
+                { id: { in: gameIds } },
+                { slug: { in: slugs } },
+            ],
+        },
+        select: {
+            id: true,
+            slug: true,
+        },
+    });
+    const gamesById = new Map(games.map((game) => [game.id, game]));
+    const gamesBySlug = new Map(games.map((game) => [game.slug, game]));
+    let imported = 0;
+    let logs = 0;
+    let skipped = 0;
+
+    for (let index = 0; index < backup.entries.length; index += 50) {
+        await db.$transaction(async (tx) => {
+            for (const item of backup.entries!.slice(index, index + 50)) {
+                const game = item.game?.id ? gamesById.get(item.game.id) : item.game?.slug ? gamesBySlug.get(item.game.slug) : null;
+                const status = Object.values(GameStatus).includes(item.status as GameStatus) ? item.status as GameStatus : null;
+
+                if (!game || !status) {
+                    skipped += 1;
+                    continue;
+                }
+
+                const entry = await tx.userGameEntry.upsert({
+                    where: {
+                        userId_gameId: {
+                            userId,
+                            gameId: game.id,
+                        },
+                    },
+                    update: {
+                        status,
+                        rating: numberFromBackup(item.rating),
+                        timePlayed: numberFromBackup(item.timePlayed),
+                        timeMode: item.timeMode === "manual" ? "manual" : "logs",
+                        timeFinished: numberFromBackup(item.timeFinished),
+                        timeMastered: numberFromBackup(item.timeMastered),
+                        notes: item.notes?.trim() || null,
+                        favorite: Boolean(item.favorite),
+                        addedAt: dateFromBackup(item.addedAt) ?? undefined,
+                        startedAt: dateFromBackup(item.startedAt),
+                        finishedAt: dateFromBackup(item.finishedAt),
+                        masteredAt: dateFromBackup(item.masteredAt),
+                    },
+                    create: {
+                        userId,
+                        gameId: game.id,
+                        status,
+                        rating: numberFromBackup(item.rating),
+                        timePlayed: numberFromBackup(item.timePlayed),
+                        timeMode: item.timeMode === "manual" ? "manual" : "logs",
+                        timeFinished: numberFromBackup(item.timeFinished),
+                        timeMastered: numberFromBackup(item.timeMastered),
+                        notes: item.notes?.trim() || null,
+                        favorite: Boolean(item.favorite),
+                        addedAt: dateFromBackup(item.addedAt) ?? undefined,
+                        startedAt: dateFromBackup(item.startedAt),
+                        finishedAt: dateFromBackup(item.finishedAt),
+                        masteredAt: dateFromBackup(item.masteredAt),
+                    },
+                    select: {
+                        id: true,
+                    },
+                });
+
+                await tx.userGamePlayLog.deleteMany({
+                    where: {
+                        userId,
+                        entryId: entry.id,
+                    },
+                });
+
+                const importedLogs = (item.logs ?? []).filter((log) => Number.isFinite(log.hours) && log.hours! > 0).map((log) => ({
+                    userId,
+                    entryId: entry.id,
+                    gameId: game.id,
+                    hours: log.hours!,
+                    note: log.note?.trim() || "Imported from .tg backup.",
+                    skipRecap: Boolean(log.skipRecap),
+                    playedAt: dateFromBackup(log.playedAt) ?? new Date(),
+                    createdAt: dateFromBackup(log.createdAt) ?? new Date(),
+                }));
+
+                if (importedLogs.length) {
+                    await tx.userGamePlayLog.createMany({
+                        data: importedLogs,
+                    });
+                }
+
+                imported += 1;
+                logs += importedLogs.length;
+            }
+        });
+    }
+
+    revalidatePath("/library/[slug]", "page");
+    revalidatePath("/u/[user]", "page");
+    return { imported, logs, skipped };
 }

@@ -7,7 +7,7 @@
     },
     "name": "Meccha Chameleon",
     "slug": "meccha-chameleon--1",
-    "total_rating": 70.1635819061516
+    "total_rating": 70.16333103289625
   },
   {
     "id": 308535,
@@ -27,7 +27,7 @@
     },
     "name": "007 First Light",
     "slug": "007-first-light",
-    "total_rating": 80.88026914421235
+    "total_rating": 81.05914112867434
   },
   {
     "id": 348330,
@@ -49,15 +49,6 @@
     "slug": "tales-beyond-the-tomb-no-witnesses"
   },
   {
-    "id": 406644,
-    "cover": {
-      "id": 571556,
-      "image_id": "coc90k"
-    },
-    "name": "Poem of the Starherd",
-    "slug": "poem-of-the-starherd"
-  },
-  {
     "id": 361855,
     "cover": {
       "id": 480825,
@@ -66,6 +57,15 @@
     "name": "LEGO Batman: Legacy of the Dark Knight",
     "slug": "lego-batman-legacy-of-the-dark-knight",
     "total_rating": 86.97173275329975
+  },
+  {
+    "id": 406644,
+    "cover": {
+      "id": 571556,
+      "image_id": "coc90k"
+    },
+    "name": "Poem of the Starherd",
+    "slug": "poem-of-the-starherd"
   },
   {
     "id": 320140,
@@ -78,14 +78,14 @@
     "total_rating": 90.02264041609132
   },
   {
-    "id": 358534,
+    "id": 361890,
     "cover": {
-      "id": 541422,
-      "image_id": "coblri"
+      "id": 565449,
+      "image_id": "coc4ax"
     },
-    "name": "The Adventures of Elliot: The Millennium Tales",
-    "slug": "the-adventures-of-elliot-the-millennium-tales",
-    "total_rating": 78.75
+    "name": "World of Tanks: Heat",
+    "slug": "world-of-tanks-heat",
+    "total_rating": 79.36
   },
   {
     "id": 393398,
@@ -98,14 +98,14 @@
     "total_rating": 83.26707790724241
   },
   {
-    "id": 361890,
+    "id": 358534,
     "cover": {
-      "id": 565449,
-      "image_id": "coc4ax"
+      "id": 541422,
+      "image_id": "coblri"
     },
-    "name": "World of Tanks: Heat",
-    "slug": "world-of-tanks-heat",
-    "total_rating": 79.36
+    "name": "The Adventures of Elliot: The Millennium Tales",
+    "slug": "the-adventures-of-elliot-the-millennium-tales",
+    "total_rating": 78.75
   },
   {
     "id": 189781,
@@ -118,16 +118,6 @@
     "total_rating": 86.75983239423262
   },
   {
-    "id": 400095,
-    "cover": {
-      "id": 565207,
-      "image_id": "coc447"
-    },
-    "name": "EA Sports UFC 6",
-    "slug": "ea-sports-ufc-6",
-    "total_rating": 85
-  },
-  {
     "id": 237780,
     "cover": {
       "id": 411162,
@@ -136,6 +126,16 @@
     "name": "Directive 8020",
     "slug": "directive-8020",
     "total_rating": 75.56541542089774
+  },
+  {
+    "id": 400095,
+    "cover": {
+      "id": 565207,
+      "image_id": "coc447"
+    },
+    "name": "EA Sports UFC 6",
+    "slug": "ea-sports-ufc-6",
+    "total_rating": 85
   },
   {
     "id": 331215,
@@ -168,16 +168,6 @@
     "total_rating": 74.79160354901536
   },
   {
-    "id": 213620,
-    "cover": {
-      "id": 468507,
-      "image_id": "coa1i3"
-    },
-    "name": "Luna Abyss",
-    "slug": "luna-abyss",
-    "total_rating": 80.70563810778997
-  },
-  {
     "id": 314543,
     "cover": {
       "id": 500872,
@@ -186,5 +176,15 @@
     "name": "Heroes of Might & Magic: Olden Era",
     "slug": "heroes-of-might-and-magic-olden-era",
     "total_rating": 79.93517265094137
+  },
+  {
+    "id": 322086,
+    "cover": {
+      "id": 444264,
+      "image_id": "co9iso"
+    },
+    "name": "Burgie's Cozy Kitchen",
+    "slug": "burgies-cozy-kitchen",
+    "total_rating": 100
   }
 ]

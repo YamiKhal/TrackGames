@@ -39,6 +39,8 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
     const [selectedLogId, setSelectedLogId] = useState("");
     const [logDate, setLogDate] = useState("");
     const [timeMode, setTimeMode] = useState(timeModeLabel(entry.timeMode));
+    const [entryStatus, setEntryStatus] = useState(entry.status);
+    const [entryFinished, setEntryFinished] = useState(Boolean(entry.finishedAt || entry.timeFinished != null));
     const [rating, setRating] = useState(ratingToFive(entry.rating) ?? 0);
     const [error, setError] = useState("");
     const [pending, startTransition] = useTransition();
@@ -61,8 +63,8 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
         const finished = formData.get("finished") === "on";
         const mastered = formData.get("mastered") === "on";
 
-        if (((finished && !timeFinished) || (mastered && !timeMastered)) && timeMode === "manual" && !timePlayed) {
-            setError("Add time played, finished time, or mastered time before marking a game as finished or mastered.");
+        if (mastered && !timeMastered && timeMode === "manual" && !timePlayed) {
+            setError("Add time played or mastered time before marking a game as mastered.");
             return;
         }
 
@@ -125,6 +127,8 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
         setSelectedLogId("");
         setLogDate("");
         setTimeMode(timeModeLabel(entry.timeMode));
+        setEntryStatus(entry.status);
+        setEntryFinished(Boolean(entry.finishedAt || entry.timeFinished != null));
         setRating(ratingToFive(entry.rating) ?? 0);
         setEditing(true);
     }
@@ -141,6 +145,10 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
                     <Link href={`/game/${game.slug}`} className="hidden md:block">
                         <div className="relative aspect-5/7 bg-bg">
                             {src && <Image src={src} alt={game.name ?? "game cover"} fill sizes="160px" className="object-cover" />}
+                            <span className="absolute left-2 top-2 z-10 hidden max-w-[calc(100%-1rem)] items-center gap-2 rounded bg-bg-secondary/90 px-2 py-1 text-xs font-bold capitalize text-text opacity-0 transition-opacity group-hover:opacity-100 md:flex">
+                                <span className={`size-2 shrink-0 rounded-full ${statusColor(entry.status)}`} aria-hidden="true" />
+                                <span className="truncate">{statusLabel(entry.status)}</span>
+                            </span>
                             <div className="absolute inset-0 flex flex-col justify-end bg-bg/85 p-3 opacity-0 transition-opacity group-hover:opacity-100">
                                 {hasNotes && (
                                     <button
@@ -167,7 +175,7 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
                         <button
                             type="button"
                             onClick={openEditor}
-                            className="absolute right-2 top-2 hidden size-8 cursor-pointer place-items-center rounded bg-bg-secondary/90 text-text-muted opacity-0 transition hover:text-primary group-hover:opacity-100 md:grid"
+                            className="absolute bottom-2 right-2 hidden size-8 cursor-pointer place-items-center rounded bg-bg-secondary/90 text-text-muted opacity-0 transition hover:text-primary group-hover:opacity-100 md:grid"
                             aria-label="Edit library entry"
                         >
                             <Edit3 size={16} aria-hidden="true" />
@@ -319,7 +327,11 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
                             <input type="hidden" name="timeplayed" value={entry.timePlayed ?? ""} />
                             <label className="text-sm font-bold text-text-muted">
                                 Status
-                                <Select name="status" defaultValue={entry.status} className="w-full capitalize">
+                                <Select name="status" value={entryStatus} onChange={(event) => {
+                                    const status = event.target.value as GameStatus;
+                                    setEntryStatus(status);
+                                    if (status === GameStatus.COMPLETED) setEntryFinished(true);
+                                }} className="w-full capitalize">
                                     {Object.values(GameStatus).map((status) => (
                                         <option key={status} value={status}>{statusLabel(status)}</option>
                                     ))}
@@ -328,7 +340,7 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
                             <div className="grid gap-2 text-sm font-bold text-text-muted sm:grid-cols-[minmax(0,1fr)_auto_auto] sm:items-center">
                                 <StarRating rating={rating} size={28} interactive showValue name="rating" onChange={setRating} />
                                 <label className="flex cursor-pointer items-center gap-2 rounded border border-border p-2">
-                                    <Checkbox name="finished" defaultChecked={entry.timeFinished != null} />
+                                    <Checkbox name="finished" checked={entryFinished} onChange={(event) => setEntryFinished(event.target.checked)} />
                                     Finished
                                 </label>
                                 <label className="flex cursor-pointer items-center gap-2 rounded border border-border p-2">
@@ -364,7 +376,7 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
                                 </label>
                                 <div className="grid gap-2 text-sm font-bold text-text-muted sm:grid-cols-3">
                                     <label className="flex cursor-pointer items-center gap-2 rounded border border-border p-2">
-                                        <Checkbox name="finished" defaultChecked={entry.timeFinished != null} disabled={entry.timeFinished != null} />
+                                        <Checkbox name="finished" defaultChecked={Boolean(entry.finishedAt || entry.timeFinished != null)} disabled={Boolean(entry.finishedAt || entry.timeFinished != null)} />
                                         Finished
                                     </label>
                                     <label className="flex cursor-pointer items-center gap-2 rounded border border-border p-2">
@@ -450,7 +462,7 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
                                 <input type="hidden" name="status" value={entry.status} />
                                 <input type="hidden" name="rating" value={ratingToFive(entry.rating) ?? ""} />
                                 <input type="hidden" name="notes" value={entry.notes ?? ""} />
-                                {entry.timeFinished != null && <input type="hidden" name="finished" value="on" />}
+                                {Boolean(entry.finishedAt || entry.timeFinished != null) && <input type="hidden" name="finished" value="on" />}
                                 {entry.timeMastered != null && <input type="hidden" name="mastered" value="on" />}
                                 <div className="flex flex-col gap-2 text-sm font-bold text-text-muted">
                                     <span>
@@ -481,12 +493,12 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
                                         <SuffixedInput name="timeplayed" type="number" min={0} step={0.1} defaultValue={entry.timePlayed ?? "0"} suffix="h" disabled={timeMode !== "manual"} aria-label="Current total time" />
                                         <span className="hidden sm:block" aria-hidden="true" />
                                     </div>
-                                    {entry.timeFinished != null && <div className="grid gap-2 font-bold text-text sm:grid-cols-[8rem_minmax(0,1fr)_minmax(0,1fr)] sm:items-center">
+                                    {Boolean(entry.finishedAt || entry.timeFinished != null) && <div className="grid gap-2 font-bold text-text sm:grid-cols-[8rem_minmax(0,1fr)_minmax(0,1fr)] sm:items-center">
                                         <span className="flex items-center gap-2 text-text-muted font-medium">
                                             <Check size={15} aria-hidden="true" />
                                             Finished
                                         </span>
-                                        <SuffixedInput name="timefinished" type="number" min={0} step={0.1} defaultValue={entry.timeFinished} suffix="h" aria-label="Finished time" />
+                                        <SuffixedInput name="timefinished" type="number" min={0} step={0.1} defaultValue={entry.timeFinished ?? entry.timePlayed ?? 0} suffix="h" aria-label="Finished time" />
                                         <Input name="finishedat" type="date" max={today} defaultValue={finishedAtValue || today} aria-label="Finished date" />
                                     </div>}
                                     {entry.timeMastered != null && <div className="grid gap-2 font-bold text-text sm:grid-cols-[8rem_minmax(0,1fr)_minmax(0,1fr)] sm:items-center">

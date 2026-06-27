@@ -1,5 +1,37 @@
 [
   {
+    "id": 407286,
+    "first_release_date": 1782518400,
+    "name": "Cash Movers",
+    "slug": "cash-movers"
+  },
+  {
+    "id": 407283,
+    "first_release_date": 1782518400,
+    "name": "Dragon of Illusion",
+    "slug": "dragon-of-illusion"
+  },
+  {
+    "id": 406230,
+    "cover": {
+      "id": 574921,
+      "image_id": "cocbm1"
+    },
+    "first_release_date": 1782518400,
+    "name": "V-Dash Dungeon",
+    "slug": "v-dash-dungeon"
+  },
+  {
+    "id": 408294,
+    "cover": {
+      "id": 575098,
+      "image_id": "cocbqy"
+    },
+    "first_release_date": 1782432000,
+    "name": "Balance It!",
+    "slug": "balance-it"
+  },
+  {
     "id": 408193,
     "cover": {
       "id": 574765,
@@ -306,16 +338,6 @@
     "slug": "cure-for-danmaku-synd"
   },
   {
-    "id": 398989,
-    "cover": {
-      "id": 574758,
-      "image_id": "cocbhi"
-    },
-    "first_release_date": 1782432000,
-    "name": "Velato",
-    "slug": "velato"
-  },
-  {
     "id": 398873,
     "cover": {
       "id": 557626,
@@ -434,6 +456,16 @@
     "first_release_date": 1782432000,
     "name": "Wizard 64",
     "slug": "wizard-64"
+  },
+  {
+    "id": 389087,
+    "cover": {
+      "id": 535654,
+      "image_id": "cobhba"
+    },
+    "first_release_date": 1782432000,
+    "name": "Eyes of the Forest",
+    "slug": "eyes-of-the-forest"
   },
   {
     "id": 384550,
@@ -565,6 +597,16 @@
     "first_release_date": 1782432000,
     "name": "Threshold of Awakening",
     "slug": "threshold-of-awakening"
+  },
+  {
+    "id": 408296,
+    "cover": {
+      "id": 575104,
+      "image_id": "cocbr4"
+    },
+    "first_release_date": 1782345600,
+    "name": "Pupillary",
+    "slug": "pupillary"
   },
   {
     "id": 408225,
@@ -933,55 +975,5 @@
     "first_release_date": 1782345600,
     "name": "Exofinity Clicker",
     "slug": "exofinity-clicker"
-  },
-  {
-    "id": 377402,
-    "cover": {
-      "id": 505586,
-      "image_id": "coau42"
-    },
-    "first_release_date": 1782345600,
-    "name": "7 Nights with Vroombi",
-    "slug": "7-nights-with-vroombi--1"
-  },
-  {
-    "id": 370864,
-    "cover": {
-      "id": 574755,
-      "image_id": "cocbhf"
-    },
-    "first_release_date": 1782345600,
-    "name": "Nuclear Epoch",
-    "slug": "nuclear-epoch"
-  },
-  {
-    "id": 369651,
-    "cover": {
-      "id": 515680,
-      "image_id": "cob1wg"
-    },
-    "first_release_date": 1782345600,
-    "name": "Nophenia",
-    "slug": "nophenia"
-  },
-  {
-    "id": 356562,
-    "cover": {
-      "id": 474014,
-      "image_id": "coa5r2"
-    },
-    "first_release_date": 1782345600,
-    "name": "Kiyo: Bunny Tyranny",
-    "slug": "kiyo-bunny-tyranny"
-  },
-  {
-    "id": 349271,
-    "cover": {
-      "id": 465390,
-      "image_id": "co9z3i"
-    },
-    "first_release_date": 1782345600,
-    "name": "Love Confessions on the Adventure",
-    "slug": "love-confessions-on-the-adventure"
   }
 ]

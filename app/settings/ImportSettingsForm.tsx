@@ -2,7 +2,7 @@
 
 import { GhostButton, PrimaryButton } from "@/app/components/ui/Buttons";
 import { Checkbox, Input } from "@/app/components/ui/Inputs";
-import { getSteamProfileImportPreview, importSteamLibrary } from "@/lib/actions/import";
+import { exportTgLibrary, getSteamProfileImportPreview, importSteamLibrary, importTgLibrary } from "@/lib/actions/import";
 import Image from "next/image";
 import { useState, useTransition } from "react";
 
@@ -12,6 +12,8 @@ export default function ImportSettingsForm() {
     const [skipImportedLogsRecap, setSkipImportedLogsRecap] = useState(true);
     const [error, setError] = useState("");
     const [result, setResult] = useState<{ imported: number; failed: string[] } | null>(null);
+    const [tgError, setTgError] = useState("");
+    const [tgResult, setTgResult] = useState<{ imported: number; logs: number; skipped: number } | null>(null);
     const [pending, startTransition] = useTransition();
     const failedUrl = result?.failed.length ? `data:text/plain;charset=utf-8,${encodeURIComponent(result.failed.join("\n"))}` : "";
 
@@ -45,6 +47,45 @@ export default function ImportSettingsForm() {
                 setResult(await importSteamLibrary(profile.steamId, skipImportedLogsRecap));
             } catch {
                 setError("Steam import failed. Check your profile ID and try again.");
+            }
+        });
+    }
+
+    function exportLibrary() {
+        setTgError("");
+        setTgResult(null);
+        startTransition(async () => {
+            try {
+                const backup = await exportTgLibrary();
+                const url = URL.createObjectURL(new Blob([backup.data], { type: "application/json" }));
+                const link = document.createElement("a");
+                link.href = url;
+                link.download = backup.filename;
+                link.click();
+                URL.revokeObjectURL(url);
+            } catch {
+                setTgError("Export failed. Try again in a moment.");
+            }
+        });
+    }
+
+    async function importLibraryBackup(file: File | undefined) {
+        if (!file) return;
+
+        setTgError("");
+        setTgResult(null);
+
+        if (!file.name.toLowerCase().endsWith(".tg")) {
+            setTgError("Choose a .tg file.");
+            return;
+        }
+
+        const contents = await file.text();
+        startTransition(async () => {
+            try {
+                setTgResult(await importTgLibrary(contents));
+            } catch {
+                setTgError("Import failed. Make sure this is a valid .tg backup.");
             }
         });
     }
@@ -114,7 +155,7 @@ export default function ImportSettingsForm() {
                     <div className="mt-5 rounded border border-success/40 bg-bg/80 p-4">
                         <p className="font-bold text-success">Imported {result.imported} games.</p>
                         <p className="mt-1 text-sm text-error">* Failed to import {result.failed.length} games.</p>
-                        <br/>
+                        <br />
                         <h2 className="text-text-muted">Next Steps:</h2>
                         <ul className="text-text-muted text-sm">
                             <li>- Download failed import list from below</li>
@@ -141,6 +182,38 @@ export default function ImportSettingsForm() {
                             </PrimaryButton>
                         </div>
                     </div>
+                )}
+            </section>
+
+
+            <section>
+                <div className="mb-4">
+                    <h3 className="text-lg font-bold">Backup File</h3>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 items-center">
+                    <p className="text-sm text-text-muted">Import a .tg library backup:</p>
+                    <Input
+                        type="file"
+                        accept=".tg"
+                        disabled={pending}
+                        onChange={(event) => {
+                            importLibraryBackup(event.target.files?.[0]);
+                            event.currentTarget.value = "";
+                        }}
+                        className="text-sm h-max w-max"
+                    />
+                    <p className="text-sm text-text-muted">Export a new backup file: </p>
+                    <GhostButton type="button" onClick={exportLibrary} disabled={pending} className="shrink-0 text-sm w-max">
+                        {pending ? "Working..." : "Export .TG"}
+                    </GhostButton>
+                </div>
+
+                {tgError && <p className="mt-4 rounded border border-error/40 bg-error/10 p-3 text-sm font-bold text-error">{tgError}</p>}
+                {tgResult && (
+                    <p className="mt-4 rounded border border-success/40 bg-success/10 p-3 text-sm font-bold text-success">
+                        Imported {tgResult.imported} games and {tgResult.logs} logs. Skipped {tgResult.skipped}.
+                    </p>
                 )}
             </section>
         </div>

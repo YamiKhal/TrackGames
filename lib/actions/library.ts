@@ -85,6 +85,20 @@ export async function setGameLibraryStatus(gameId: number, gameSlug: string, sta
         throw new Error("Invalid game status.");
     }
 
+    const current = await db.userGameEntry.findUnique({
+        where: {
+            userId_gameId: {
+                userId,
+                gameId,
+            },
+        },
+        select: {
+            timePlayed: true,
+            timeFinished: true,
+            finishedAt: true,
+        },
+    });
+
     const entry = await db.userGameEntry.upsert({
         where: {
             userId_gameId: {
@@ -94,11 +108,14 @@ export async function setGameLibraryStatus(gameId: number, gameSlug: string, sta
         },
         update: {
             status,
+            timeFinished: status === GameStatus.COMPLETED ? current?.timeFinished ?? current?.timePlayed ?? null : undefined,
+            finishedAt: status === GameStatus.COMPLETED ? current?.finishedAt ?? new Date() : undefined,
         },
         create: {
             userId,
             gameId,
             status,
+            finishedAt: status === GameStatus.COMPLETED ? new Date() : undefined,
         },
         select: {
             id: true,
@@ -197,8 +214,8 @@ export async function updateUserGameEntry(entryId: string, formData: FormData) {
     const hasFinishedTime = Number.isFinite(finishedTime) && finishedTime != null && finishedTime > 0;
     const hasMasteredTime = Number.isFinite(masteredTime) && masteredTime != null && masteredTime > 0;
 
-    if ((finished && !hasTimePlayed && !hasFinishedTime) || (mastered && !hasTimePlayed && !hasMasteredTime)) {
-        throw new Error("Time played, finished time, or mastered time is required before marking a game as finished or mastered.");
+    if (mastered && !hasTimePlayed && !hasMasteredTime) {
+        throw new Error("Time played or mastered time is required before marking a game as mastered.");
     }
 
     const entry = await db.userGameEntry.update({
