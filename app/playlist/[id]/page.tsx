@@ -13,10 +13,64 @@ import GameListEditButton from "@/app/components/playlist/GameListEditButton";
 import { canViewPrivacy, getUser, profileThemeStyle } from "@/lib/account/user";
 import { shouldHideComments } from "@/lib/account/preferences";
 import CommentSection from "@/app/components/comments/CommentSection";
-import { InteractionTargetType, LikeTargetType } from "@/lib/generated/prisma/enums";
+import { GameListType, InteractionTargetType, LikeTargetType } from "@/lib/generated/prisma/enums";
 import LikeButton from "@/app/components/social/LikeButton";
 import { getPlaylistLikeState } from "@/lib/data/social";
 import db from "@/lib/db";
+import type { Metadata } from "next";
+import { absoluteUrl, metadataDescription, metadataImage, robotsForPrivacy, SITE_NAME } from "@/lib/metadata";
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+    const { id } = await params;
+    const playlist = await db.gameList.findFirst({
+        where: {
+            id,
+            type: GameListType.PLAYLIST,
+        },
+        select: {
+            name: true,
+            description: true,
+            image: true,
+            background: true,
+            privacy: true,
+            user: {
+                select: {
+                    name: true,
+                },
+            },
+        },
+    });
+    const title = playlist?.name ? `${playlist.name} Playlist` : "Playlist not found";
+    const description = metadataDescription(playlist?.description, playlist ? `Browse ${playlist.name}${playlist.user?.name ? ` by ${playlist.user.name}` : ""} on TrackGames.` : "The requested playlist could not be found.");
+    const image = metadataImage(playlist?.image ?? playlist?.background);
+    const url = absoluteUrl(`/playlist/${id}`);
+
+    return {
+        title,
+        description,
+        alternates: {
+            canonical: url,
+        },
+        openGraph: {
+            title: `${title} | ${SITE_NAME}`,
+            description,
+            url,
+            siteName: SITE_NAME,
+            type: "website",
+            images: [{
+                url: image,
+                alt: title,
+            }],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: `${title} | ${SITE_NAME}`,
+            description,
+            images: [image],
+        },
+        robots: robotsForPrivacy(playlist?.privacy),
+    };
+}
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;

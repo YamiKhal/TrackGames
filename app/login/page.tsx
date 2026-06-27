@@ -2,7 +2,39 @@ import { Suspense } from "react";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import LoginClient from "./LoginClient";
+import type { Metadata } from "next";
+import { absoluteUrl, DEFAULT_OG_IMAGE, metadataDescription, SITE_NAME } from "@/lib/metadata";
 
+const description = metadataDescription("Log in or create a TrackGames account to track your game library, playlists, ratings, and profile.");
+
+export const metadata: Metadata = {
+    title: "Log in",
+    description,
+    alternates: {
+        canonical: absoluteUrl("/login"),
+    },
+    openGraph: {
+        title: `Log in | ${SITE_NAME}`,
+        description,
+        url: absoluteUrl("/login"),
+        siteName: SITE_NAME,
+        type: "website",
+        images: [{
+            url: DEFAULT_OG_IMAGE,
+            alt: SITE_NAME,
+        }],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: `Log in | ${SITE_NAME}`,
+        description,
+        images: [DEFAULT_OG_IMAGE],
+    },
+    robots: {
+        index: false,
+        follow: false,
+    },
+};
 
 export default async function Page() {
     const [session] = await Promise.all([auth()]);

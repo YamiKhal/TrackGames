@@ -24,6 +24,50 @@ import { ratingToFive } from "@/lib/util/rating";
 import CommentSection from "@/app/components/comments/CommentSection";
 import { InteractionTargetType } from "@/lib/generated/prisma/enums";
 import { shouldHideComments } from "@/lib/account/preferences";
+import type { Metadata } from "next";
+import { absoluteUrl, metadataDescription, metadataImage, SITE_NAME } from "@/lib/metadata";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+    const { slug } = await params;
+    const game = await getGameBySlug(slug);
+    const title = game?.name ?? "Game not found";
+    const description = metadataDescription(game?.summary, game ? `Track ratings, playtime, playlists, and community activity for ${game.name}.` : "The requested game could not be found.");
+    const image = metadataImage(ImageIdToURL(game?.screenshots?.[0], "1080") ?? ImageIdToURL(game?.cover, "cover_big"));
+    const url = absoluteUrl(`/game/${game?.slug ?? slug}`);
+
+    return {
+        title,
+        description,
+        alternates: {
+            canonical: url,
+        },
+        openGraph: {
+            title: `${title} | ${SITE_NAME}`,
+            description,
+            url,
+            siteName: SITE_NAME,
+            type: "website",
+            images: [{
+                url: image,
+                alt: title,
+            }],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: `${title} | ${SITE_NAME}`,
+            description,
+            images: [image],
+        },
+        robots: game ? undefined : {
+            index: false,
+            follow: false,
+            googleBot: {
+                index: false,
+                follow: false,
+            },
+        },
+    };
+}
 
 function platformIcon(name: string) {
     const lower = name.toLowerCase();

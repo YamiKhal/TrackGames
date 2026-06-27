@@ -17,6 +17,45 @@ import { InteractionTargetType } from "@/lib/generated/prisma/enums";
 import { getProfileSocialState, getUserActivities, getUserBadges } from "@/lib/data/social";
 import BadgeView from "@/app/components/social/BadgeView";
 import ActivityList from "./ActivityList";
+import type { Metadata } from "next";
+import { absoluteUrl, metadataDescription, metadataImage, robotsForPrivacy, SITE_NAME } from "@/lib/metadata";
+
+export async function generateMetadata({ params }: { params: Promise<{ user: string }> }): Promise<Metadata> {
+    const { user } = await params;
+    const profile = await getPublicUser(user);
+    const name = profile?.name ?? user;
+    const title = profile ? `${name}'s Profile` : "Profile not found";
+    const description = metadataDescription(profile?.bio, profile ? `View ${name}'s TrackGames profile, library, playlists, badges, and activity.` : "The requested profile could not be found.");
+    const image = metadataImage(profile?.image ?? profile?.background);
+    const url = absoluteUrl(`/u/${encodeURIComponent(name)}`);
+
+    return {
+        title,
+        description,
+        alternates: {
+            canonical: url,
+        },
+        openGraph: {
+            title: `${title} | ${SITE_NAME}`,
+            description,
+            url,
+            siteName: SITE_NAME,
+            type: "profile",
+            username: profile?.name ?? undefined,
+            images: [{
+                url: image,
+                alt: title,
+            }],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: `${title} | ${SITE_NAME}`,
+            description,
+            images: [image],
+        },
+        robots: robotsForPrivacy(profile?.privacy),
+    };
+}
 
 export default async function Page({ params, searchParams }: { params: Promise<{ user: string }>; searchParams: Promise<{ tab?: string; activityPage?: string; activityFilter?: string }>; }) {
     const { user } = await params;

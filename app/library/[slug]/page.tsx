@@ -11,6 +11,62 @@ import { canViewPrivacy, profileThemeStyle } from "@/lib/account/user";
 import { defaultLibraryFilters } from "@/lib/account/preferences";
 import { getUser } from "@/lib/account/user";
 import db from "@/lib/db";
+import { GameListType } from "@/lib/generated/prisma/enums";
+import type { Metadata } from "next";
+import { absoluteUrl, metadataDescription, metadataImage, robotsForPrivacy, SITE_NAME } from "@/lib/metadata";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+    const { slug } = await params;
+    const library = await db.gameList.findFirst({
+        where: {
+            slug,
+            type: GameListType.LIBRARY,
+        },
+        select: {
+            name: true,
+            description: true,
+            image: true,
+            background: true,
+            privacy: true,
+            user: {
+                select: {
+                    libraryPrivacy: true,
+                },
+            },
+        },
+    });
+    const title = library?.name ?? "Library not found";
+    const description = metadataDescription(library?.description, library ? `Browse ${library.name} on TrackGames.` : "The requested library could not be found.");
+    const image = metadataImage(library?.image ?? library?.background);
+    const privacy = library?.user?.libraryPrivacy ?? library?.privacy;
+    const url = absoluteUrl(`/library/${slug}`);
+
+    return {
+        title,
+        description,
+        alternates: {
+            canonical: url,
+        },
+        openGraph: {
+            title: `${title} | ${SITE_NAME}`,
+            description,
+            url,
+            siteName: SITE_NAME,
+            type: "website",
+            images: [{
+                url: image,
+                alt: title,
+            }],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: `${title} | ${SITE_NAME}`,
+            description,
+            images: [image],
+        },
+        robots: robotsForPrivacy(privacy),
+    };
+}
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
