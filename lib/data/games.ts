@@ -1,7 +1,7 @@
 import db from "../db";
 import { formatRawGame } from "../external/igdb/util";
 import { GameListType, GameStatus } from "../generated/prisma/enums";
-import { Game } from "../types";
+import type { Game } from "../types";
 import { getByIds, getBySlugs } from "./getter";
 
 const gameSelect = {

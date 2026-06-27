@@ -1,6 +1,6 @@
 import db from "../db";
 import { formatRawCollection } from "../external/igdb/util";
-import { Collection } from "../types";
+import type { Collection } from "../types";
 import { getByIds, getBySlugs } from "./getter";
 
 const select = {

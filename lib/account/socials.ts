@@ -1,6 +1,6 @@
 import { SOCIALPLATFORMS } from "../constants";
 import { LinkType } from "../enums";
-import { SocialLink } from "../types";
+import type { SocialLink } from "../types";
 import * as normalize from "../util/normalize";
 
 export function isSocialPlatform(value: string): boolean {

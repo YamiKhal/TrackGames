@@ -1,7 +1,7 @@
 "use server";
 
 import { Unix, UnixElapseMeasure } from "../../util/Unix";
-import { RawGame, PopScoreEntry } from "../../types";
+import type { RawGame, PopScoreEntry } from "../../types";
 import { fetchAPI } from "./IGDBAPI";
 
 

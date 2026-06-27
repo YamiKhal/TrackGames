@@ -13,7 +13,7 @@ import { getUser } from "@/lib/account/user";
 import db from "@/lib/db";
 import { GameListType } from "@/lib/generated/prisma/enums";
 import type { Metadata } from "next";
-import { absoluteUrl, metadataDescription, metadataImage, robotsForPrivacy, SITE_NAME } from "@/lib/metadata";
+import { absoluteUrl, metadataDescription, robotsForPrivacy, SITE_NAME } from "@/lib/metadata";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     });
     const title = library?.name ?? "Library not found";
     const description = metadataDescription(library?.description, library ? `Browse ${library.name} on TrackGames.` : "The requested library could not be found.");
-    const image = metadataImage(library?.image ?? library?.background);
+    const image = absoluteUrl(`/library/${encodeURIComponent(slug)}/opengraph-image`);
     const privacy = library?.user?.libraryPrivacy ?? library?.privacy;
     const url = absoluteUrl(`/library/${slug}`);
 

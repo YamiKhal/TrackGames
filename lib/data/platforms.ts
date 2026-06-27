@@ -1,6 +1,6 @@
 import db from "../db";
 import { formatRawGenre, formatRawPlatform } from "../external/igdb/util";
-import { Platform } from "../types";
+import type { Platform } from "../types";
 import { getByIds, getBySlugs } from "./getter";
 
 const select = {

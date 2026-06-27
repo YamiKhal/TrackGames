@@ -18,15 +18,15 @@ import { getProfileSocialState, getUserActivities, getUserBadges } from "@/lib/d
 import BadgeView from "@/app/components/social/BadgeView";
 import ActivityList from "./ActivityList";
 import type { Metadata } from "next";
-import { absoluteUrl, metadataDescription, metadataImage, robotsForPrivacy, SITE_NAME } from "@/lib/metadata";
+import { absoluteUrl, metadataDescription, robotsForPrivacy, SITE_NAME } from "@/lib/metadata";
 
 export async function generateMetadata({ params }: { params: Promise<{ user: string }> }): Promise<Metadata> {
     const { user } = await params;
     const profile = await getPublicUser(user);
     const name = profile?.name ?? user;
     const title = profile ? `${name}'s Profile` : "Profile not found";
-    const description = metadataDescription(profile?.bio, profile ? `View ${name}'s TrackGames profile, library, playlists, badges, and activity.` : "The requested profile could not be found.");
-    const image = metadataImage(profile?.image ?? profile?.background);
+    const description = metadataDescription(profile?.bio, profile ? `View ${name}'s TrackGames profile, playlists and activity.` : "The requested profile could not be found.");
+    const image = absoluteUrl(`/u/${encodeURIComponent(name)}/opengraph-image`);
     const url = absoluteUrl(`/u/${encodeURIComponent(name)}`);
 
     return {

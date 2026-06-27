@@ -1,6 +1,6 @@
 "use client";
 
-import { Game } from "@/lib/types";
+import type { Game } from "@/lib/types";
 import { ArrowRight, Search, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";

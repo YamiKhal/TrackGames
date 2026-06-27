@@ -1,5 +1,5 @@
 import { GameType } from "../../generated/prisma/enums";
-import { Collection, Company, Franchise, Game, Genre, Keyword, Platform, RawCollection, RawCompany, RawFranchise, RawGame, RawGenre, RawKeyword, RawPlatform } from "../../types";
+import type { Collection, Company, Franchise, Game, Genre, Keyword, Platform, RawCollection, RawCompany, RawFranchise, RawGame, RawGenre, RawKeyword, RawPlatform } from "../../types";
 
 export function ImageIdToURL(id?: string, type: "cover_small" | "cover" | "cover_big" | "screenshot_big" | "1080" | "720" = "cover_big"): string | null {
     if (id != null) {

@@ -1,7 +1,7 @@
 "use client";
 
 import { addGameToPlaylist } from "@/lib/actions/playlists";
-import { Game } from "@/lib/types";
+import type { Game } from "@/lib/types";
 import { Plus, Search, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { PrimaryButton } from "../../components/ui/Buttons";

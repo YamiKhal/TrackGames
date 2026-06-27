@@ -1,7 +1,7 @@
 "use client";
 
 import { deletePlaylist, updateGameListSettings } from "@/lib/actions/playlists";
-import { GameList } from "@/lib/types";
+import type { GameList } from "@/lib/types";
 import { Edit3, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";

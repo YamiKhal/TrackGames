@@ -1,6 +1,6 @@
 import GameCard from "@/app/components/game/GameCard";
 import HorizontalScroller from "@/app/components/layout/HorizontalScroller";
-import { Game, Widget } from "@/lib/types";
+import type { Game, Widget } from "@/lib/types";
 import { MarkdownBlocks } from "../../components/markdown/MarkdownBlocks";
 import { WidgetType } from "@/lib/enums";
 import { parseMarkdownBlocks } from "@/lib/markdown";

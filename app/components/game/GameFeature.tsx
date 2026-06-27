@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { Game } from "@/lib/types";
+import type { Game } from "@/lib/types";
 import { ImageIdToURL } from "@/lib/external/igdb/util";
 import Link from "next/link";
 

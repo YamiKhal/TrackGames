@@ -3,7 +3,7 @@ import GameLibraryButtonPanel from "@/app/components/game/GameLibraryButtonPanel
 import RelatedGamesTabs from "@/app/components/game/RelatedGamesTabs";
 import Container from "@/app/components/layout/Container";
 import MediaGallary from "@/app/components/layout/MediaGallary";
-import { Game } from "@/lib/types";
+import type { Game } from "@/lib/types";
 import { ImageIdToURL } from "@/lib/external/igdb/util";
 import * as normalize from "@/lib/util/normalize";
 import { Monitor, ToggleRight, Gamepad2, GamepadDirectional, TabletSmartphone, Astroid, Play, Library, Apple, Clock, Flag, BadgeCheck, Star } from "lucide-react";
@@ -25,14 +25,14 @@ import CommentSection from "@/app/components/comments/CommentSection";
 import { InteractionTargetType } from "@/lib/generated/prisma/enums";
 import { shouldHideComments } from "@/lib/account/preferences";
 import type { Metadata } from "next";
-import { absoluteUrl, metadataDescription, metadataImage, SITE_NAME } from "@/lib/metadata";
+import { absoluteUrl, metadataDescription, SITE_NAME } from "@/lib/metadata";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
     const game = await getGameBySlug(slug);
     const title = game?.name ?? "Game not found";
     const description = metadataDescription(game?.summary, game ? `Track ratings, playtime, playlists, and community activity for ${game.name}.` : "The requested game could not be found.");
-    const image = metadataImage(ImageIdToURL(game?.screenshots?.[0], "1080") ?? ImageIdToURL(game?.cover, "cover_big"));
+    const image = absoluteUrl(`/game/${encodeURIComponent(game?.slug ?? slug)}/opengraph-image`);
     const url = absoluteUrl(`/game/${game?.slug ?? slug}`);
 
     return {

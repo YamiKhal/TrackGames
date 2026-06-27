@@ -1,6 +1,6 @@
 import { SocialIconLinks } from "@/app/components/user/SocialIconLinks";
 import Container from "@/app/components/layout/Container";
-import { SocialLink } from "@/lib/types";
+import type { SocialLink } from "@/lib/types";
 import { GhostButton, PrimaryButton } from "../ui/Buttons";
 import AvatarPreview from "./AvatarView";
 import FollowButton from "../social/FollowButton";

@@ -1,4 +1,4 @@
-import { Widget } from "../types";
+import type { Widget } from "../types";
 
 export function parseWidgets(value: string | null | undefined): Widget[] {
     if (!value) return [];

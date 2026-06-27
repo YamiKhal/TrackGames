@@ -3,7 +3,7 @@
 import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Eye, EyeOff, Plus, Search, Trash2, X } from "lucide-react";
 import MarkdownWidgetEditor from "./MarkdownWidgetEditor";
 import GameCard from "@/app/components/game/GameCard";
-import { Game, Widget } from "@/lib/types";
+import type { Game, Widget } from "@/lib/types";
 import { WidgetType } from "@/lib/enums";
 import * as normalize from "@/lib/util/normalize";
 import { Input, Select } from "@/app/components/ui/Inputs";

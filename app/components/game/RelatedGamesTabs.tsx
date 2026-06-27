@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Game, RawGame } from "@/lib/types";
+import type { Game, RawGame } from "@/lib/types";
 import * as normalize from "@/lib/util/normalize";
 import GameCard from "./GameCard";
 import HorizontalScroller from "../layout/HorizontalScroller";

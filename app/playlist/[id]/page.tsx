@@ -18,7 +18,7 @@ import LikeButton from "@/app/components/social/LikeButton";
 import { getPlaylistLikeState } from "@/lib/data/social";
 import db from "@/lib/db";
 import type { Metadata } from "next";
-import { absoluteUrl, metadataDescription, metadataImage, robotsForPrivacy, SITE_NAME } from "@/lib/metadata";
+import { absoluteUrl, metadataDescription, robotsForPrivacy, SITE_NAME } from "@/lib/metadata";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
     const { id } = await params;
@@ -30,8 +30,6 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
         select: {
             name: true,
             description: true,
-            image: true,
-            background: true,
             privacy: true,
             user: {
                 select: {
@@ -42,7 +40,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     });
     const title = playlist?.name ? `${playlist.name} Playlist` : "Playlist not found";
     const description = metadataDescription(playlist?.description, playlist ? `Browse ${playlist.name}${playlist.user?.name ? ` by ${playlist.user.name}` : ""} on TrackGames.` : "The requested playlist could not be found.");
-    const image = metadataImage(playlist?.image ?? playlist?.background);
+    const image = absoluteUrl(`/playlist/${encodeURIComponent(id)}/opengraph-image`);
     const url = absoluteUrl(`/playlist/${id}`);
 
     return {

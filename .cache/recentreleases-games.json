@@ -22,6 +22,18 @@
     "slug": "v-dash-dungeon"
   },
   {
+    "id": 408327,
+    "first_release_date": 1782432000,
+    "name": "Count Down",
+    "slug": "count-down--1"
+  },
+  {
+    "id": 408326,
+    "first_release_date": 1782432000,
+    "name": "Decked Out",
+    "slug": "decked-out"
+  },
+  {
     "id": 408294,
     "cover": {
       "id": 575098,
@@ -599,6 +611,12 @@
     "slug": "threshold-of-awakening"
   },
   {
+    "id": 408325,
+    "first_release_date": 1782345600,
+    "name": "Wetline: Fire Break",
+    "slug": "wetline-fire-break"
+  },
+  {
     "id": 408296,
     "cover": {
       "id": 575104,
@@ -667,6 +685,16 @@
     "first_release_date": 1782345600,
     "name": "Chronime Puzzle: Girls",
     "slug": "chronime-puzzle-girls"
+  },
+  {
+    "id": 407501,
+    "cover": {
+      "id": 575149,
+      "image_id": "cocbsd"
+    },
+    "first_release_date": 1782345600,
+    "name": "Eskinita",
+    "slug": "eskinita"
   },
   {
     "id": 407285,
@@ -935,45 +963,5 @@
     "first_release_date": 1782345600,
     "name": "Wheel Balance",
     "slug": "wheel-balance"
-  },
-  {
-    "id": 388584,
-    "cover": {
-      "id": 540784,
-      "image_id": "cobl9s"
-    },
-    "first_release_date": 1782345600,
-    "name": "Tiny Terra Spaces",
-    "slug": "tiny-terra-spaces"
-  },
-  {
-    "id": 387425,
-    "cover": {
-      "id": 541477,
-      "image_id": "coblt1"
-    },
-    "first_release_date": 1782345600,
-    "name": "Villion:Code",
-    "slug": "villion-code"
-  },
-  {
-    "id": 386594,
-    "cover": {
-      "id": 569493,
-      "image_id": "coc7f9"
-    },
-    "first_release_date": 1782345600,
-    "name": "Bobble and the Tri-Crystal",
-    "slug": "bobble-and-the-tri-crystal"
-  },
-  {
-    "id": 383579,
-    "cover": {
-      "id": 535585,
-      "image_id": "cobh9d"
-    },
-    "first_release_date": 1782345600,
-    "name": "Exofinity Clicker",
-    "slug": "exofinity-clicker"
   }
 ]

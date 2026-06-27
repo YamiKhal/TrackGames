@@ -1,5 +1,5 @@
 import { MarkdownAlign } from "@/lib/enums";
-import { MarkdownBlock } from "@/lib/types";
+import type { MarkdownBlock } from "@/lib/types";
 import * as normalize from "@/lib/util/normalize";
 import { isSafeLinkHref, isSafeUrl } from "@/lib/util/safety";
 import { Children, cloneElement, isValidElement, ReactNode } from "react";

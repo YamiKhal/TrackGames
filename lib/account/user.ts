@@ -1,6 +1,6 @@
 import { CSSProperties } from "react";
 import db from "../db";
-import { PublicUser, User } from "../types";
+import type { PublicUser, User } from "../types";
 import { hexColor } from "../util/normalize";
 
 type SessionUserRef = {

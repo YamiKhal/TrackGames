@@ -1,5 +1,5 @@
-import { LinkType, MarkdownAlign, WidgetType } from "./enums";
-import { GameStatus, GameType, UserRole } from "./generated/prisma/enums";
+import type { LinkType, MarkdownAlign, WidgetType } from "./enums";
+import type { GameStatus, GameType, UserRole } from "./generated/prisma/enums";
 
 export type PopScoreEntry = {
     game_id: number;

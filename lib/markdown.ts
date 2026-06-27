@@ -1,5 +1,5 @@
 import { MarkdownAlign } from "./enums";
-import { MarkdownBlock } from "./types";
+import type { MarkdownBlock } from "./types";
 import * as normalize from "./util/normalize";
 import { isSafeLinkHref, isSafeUrl } from "./util/safety";
 

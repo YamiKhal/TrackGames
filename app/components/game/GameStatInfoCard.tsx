@@ -1,4 +1,4 @@
-import { Game } from "@/lib/types";
+import type { Game } from "@/lib/types";
 import GameCard from "./GameCard";
 import { Star } from "lucide-react";
 import { ratingToFive } from "@/lib/util/rating";

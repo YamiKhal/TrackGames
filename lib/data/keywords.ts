@@ -1,6 +1,6 @@
 import db from "../db";
 import { formatRawKeyword } from "../external/igdb/util";
-import { Keyword } from "../types";
+import type { Keyword } from "../types";
 import { getByIds, getBySlugs } from "./getter";
 
 const select = {

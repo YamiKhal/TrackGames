@@ -1,7 +1,7 @@
 import db from "../db";
 import { GameStatus } from "../generated/prisma/enums";
 import type { UserGameEntryGetPayload } from "../generated/prisma/models/UserGameEntry";
-import { Game } from "../types";
+import type { Game } from "../types";
 
 const userGameEntryInclude = {
     game: true,

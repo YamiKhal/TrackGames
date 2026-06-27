@@ -1,5 +1,5 @@
 import { NotificationType } from "../generated/prisma/enums";
-import { User } from "../types";
+import type { User } from "../types";
 import { hexColor } from "../util/normalize";
 import { profileThemeStyle } from "./user";
 
