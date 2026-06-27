@@ -222,6 +222,7 @@ export async function searchGames(query: string, limit = 8): Promise<Game[]> {
             ...game,
             totalRating: game.totalRating ?? undefined,
             releaseDate: game.releaseDate ?? undefined,
+            cover: game.cover ?? undefined,
         });
     }
 
