@@ -1,30 +1,63 @@
 "use client";
 
 import { GameStatus } from "@/lib/generated/prisma/enums";
-import type { UserLibraryEntry } from "@/lib/data/library";
-import { Grid2X2, List } from "lucide-react";
+import type { UserLibraryEntryWithTags } from "@/lib/data/library";
+import { ratingToFive } from "@/lib/util/rating";
+import { Grid2X2, List, SlidersHorizontal } from "lucide-react";
 import type { CSSProperties } from "react";
 import { useMemo, useState } from "react";
 import PaginatedList from "../layout/PaginatedList";
 import { FilterBar } from "../ui/FilterBar";
+import AdvancedLibraryFilterPanel, { emptyAdvancedLibraryFilters } from "./AdvancedLibraryFilterPanel";
 import PlaylistCard from "./PlaylistCard";
 
 function statusLabel(status: string) {
     return status.toLowerCase().replace("_", " ");
 }
 
-export default function LibraryEntriesPanel({ entries, canEdit, themeStyle, defaults }: { entries: UserLibraryEntry[]; canEdit: boolean; themeStyle?: CSSProperties; defaults?: { status: string; sort: string; mode: "grid" | "list" } }) {
+export default function LibraryEntriesPanel({ entries, canEdit, themeStyle, defaults }: { entries: UserLibraryEntryWithTags[]; canEdit: boolean; themeStyle?: CSSProperties; defaults?: { status: string; sort: string; mode: "grid" | "list" } }) {
     const [items, setItems] = useState(entries);
     const [mode, setMode] = useState<"grid" | "list">(defaults?.mode ?? "grid");
     const [status, setStatus] = useState(defaults?.status ?? "all");
     const [sort, setSort] = useState(defaults?.sort ?? "added");
     const [query, setQuery] = useState("");
+    const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
+    const [advancedFilters, setAdvancedFilters] = useState(emptyAdvancedLibraryFilters);
+    const allTags = useMemo(() => Array.from(new Set(items.flatMap((entry) => entry.tags.map((tag) => tag.name)))).sort((a, b) => a.localeCompare(b)), [items]);
+    const advancedFilterCount = advancedFilters.statuses.length + advancedFilters.excludedStatuses.length + advancedFilters.tags.length + advancedFilters.excludedTags.length
+        + (advancedFilters.ratingMin ? 1 : 0) + (advancedFilters.ratingMax ? 1 : 0) + (advancedFilters.hoursMin ? 1 : 0) + (advancedFilters.hoursMax ? 1 : 0)
+        + (advancedFilters.finished !== "any" ? 1 : 0) + (advancedFilters.mastered !== "any" ? 1 : 0);
     const filtered = useMemo(() => {
         const search = query.trim().toLowerCase();
+        const ratingMin = advancedFilters.ratingMin === "" ? null : Number(advancedFilters.ratingMin);
+        const ratingMax = advancedFilters.ratingMax === "" ? null : Number(advancedFilters.ratingMax);
+        const hoursMin = advancedFilters.hoursMin === "" ? null : Number(advancedFilters.hoursMin);
+        const hoursMax = advancedFilters.hoursMax === "" ? null : Number(advancedFilters.hoursMax);
 
         return items.filter((entry) => {
             if (status !== "all" && entry.status !== status) return false;
             if (search && !(entry.game.name ?? "").toLowerCase().includes(search)) return false;
+            if (advancedFilters.statuses.length && !advancedFilters.statuses.includes(entry.status)) return false;
+            if (advancedFilters.excludedStatuses.includes(entry.status)) return false;
+
+            const rating = ratingToFive(entry.rating ?? 0) ?? 0;
+            if (ratingMin != null && Number.isFinite(ratingMin) && rating < ratingMin) return false;
+            if (ratingMax != null && Number.isFinite(ratingMax) && rating > ratingMax) return false;
+
+            const hours = entry.timePlayed ?? 0;
+            if (hoursMin != null && Number.isFinite(hoursMin) && hours < hoursMin) return false;
+            if (hoursMax != null && Number.isFinite(hoursMax) && hours > hoursMax) return false;
+
+            const finished = Boolean(entry.finishedAt || entry.timeFinished != null);
+            const mastered = Boolean(entry.masteredAt || entry.timeMastered != null);
+            if (advancedFilters.finished === "yes" && !finished) return false;
+            if (advancedFilters.finished === "no" && finished) return false;
+            if (advancedFilters.mastered === "yes" && !mastered) return false;
+            if (advancedFilters.mastered === "no" && mastered) return false;
+
+            const entryTags = entry.tags.map((tag) => tag.name);
+            if (advancedFilters.tags.length && !advancedFilters.tags.every((tag) => entryTags.includes(tag))) return false;
+            if (advancedFilters.excludedTags.some((tag) => entryTags.includes(tag))) return false;
             return true;
         }).sort((a, b) => {
             if (sort === "rating") return (b.rating ?? -1) - (a.rating ?? -1);
@@ -34,9 +67,9 @@ export default function LibraryEntriesPanel({ entries, canEdit, themeStyle, defa
             if (sort === "notes") return (b.notes ?? "").localeCompare(a.notes ?? "")
             return Number(b.addedAt ?? 0) - Number(a.addedAt ?? 0);
         });
-    }, [items, query, sort, status]);
+    }, [advancedFilters, items, query, sort, status]);
 
-    function updateEntry(updated: UserLibraryEntry) {
+    function updateEntry(updated: UserLibraryEntryWithTags) {
         setItems((current) => current.map((entry) => entry.id === updated.id ? updated : entry));
     }
 
@@ -76,6 +109,10 @@ export default function LibraryEntriesPanel({ entries, canEdit, themeStyle, defa
                         },
                     ]}
                     actions={<div className="flex flex-row justify-end gap-2">
+                        <button type="button" onClick={() => setShowAdvancedFilters(true)} className={`flex h-9 cursor-pointer items-center gap-2 rounded border px-3 text-sm font-bold ${advancedFilterCount ? "border-primary text-primary" : "border-border text-text-muted"}`} aria-label="Advanced filters">
+                            <SlidersHorizontal size={17} aria-hidden="true" />
+                            Filter{advancedFilterCount ? ` (${advancedFilterCount})` : ""}
+                        </button>
                         <button type="button" onClick={() => setMode("grid")} className={`grid size-9 cursor-pointer place-items-center rounded border ${mode === "grid" ? "border-primary text-primary" : "border-border text-text-muted"}`} aria-label="Grid view">
                             <Grid2X2 size={18} aria-hidden="true" />
                         </button>
@@ -83,6 +120,14 @@ export default function LibraryEntriesPanel({ entries, canEdit, themeStyle, defa
                             <List size={18} aria-hidden="true" />
                         </button>
                     </div>}
+                />
+                <AdvancedLibraryFilterPanel
+                    open={showAdvancedFilters}
+                    onClose={() => setShowAdvancedFilters(false)}
+                    filters={advancedFilters}
+                    onChange={setAdvancedFilters}
+                    tags={allTags}
+                    onReset={() => setAdvancedFilters(emptyAdvancedLibraryFilters)}
                 />
             </div>
             {filtered.length ? (

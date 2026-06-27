@@ -48,6 +48,16 @@ export type Game = Prisma.GameModel
  */
 export type UserGameEntry = Prisma.UserGameEntryModel
 /**
+ * Model UserTag
+ * 
+ */
+export type UserTag = Prisma.UserTagModel
+/**
+ * Model UserGameEntryTag
+ * 
+ */
+export type UserGameEntryTag = Prisma.UserGameEntryTagModel
+/**
  * Model UserGamePlayLog
  * 
  */

@@ -54,7 +54,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
         );
     }
 
-    const playlist = await getPlaylist(id);
+    const playlist = await getPlaylist(id, session?.user?.id);
 
     if (!playlist) {
         redirect("/not-found");

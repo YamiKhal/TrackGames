@@ -1,4 +1,5 @@
 import db from "../db";
+import { getTagsForEntries, type UserLibraryTag } from "./library";
 import { GameListType, LikeTargetType } from "../generated/prisma/enums";
 import type { GameListDefaultArgs, GameListGetPayload } from "../generated/prisma/models/GameList";
 
@@ -24,7 +25,18 @@ const playlistArgs = {
 } satisfies GameListDefaultArgs;
 
 export type Playlist = GameListGetPayload<typeof playlistArgs>;
-export type PlaylistEntry = Playlist["entries"][number];
+type PlaylistLibraryEntry = {
+    id: string;
+    status: string;
+    rating: number | null;
+    timePlayed: number | null;
+    timeFinished: number | null;
+    timeMastered: number | null;
+    finishedAt: Date | null;
+    masteredAt: Date | null;
+    tags: UserLibraryTag[];
+};
+export type PlaylistEntry = Playlist["entries"][number] & { libraryEntry?: PlaylistLibraryEntry | null };
 
 type PlaylistAccess = {
     id: string;
@@ -111,14 +123,49 @@ export async function getPlaylistAccess(id: string): Promise<PlaylistAccess | nu
     });
 }
 
-export async function getPlaylist(id: string) {
-    return await db.gameList.findFirst({
+export async function getPlaylist(id: string, viewerId?: string) {
+    const playlist = await db.gameList.findFirst({
         where: {
             id,
             type: GameListType.PLAYLIST,
         },
         ...playlistArgs,
     });
+
+    if (!playlist || !viewerId || !playlist.entries.length) return playlist;
+
+    const libraryEntries = await db.userGameEntry.findMany({
+        where: {
+            userId: viewerId,
+            gameId: {
+                in: playlist.entries.map((entry) => entry.gameId),
+            },
+        },
+        select: {
+            id: true,
+            gameId: true,
+            status: true,
+            rating: true,
+            timePlayed: true,
+            timeFinished: true,
+            timeMastered: true,
+            finishedAt: true,
+            masteredAt: true,
+        },
+    });
+    const tags = await getTagsForEntries(libraryEntries.map((entry) => entry.id));
+    const entriesByGame = new Map(libraryEntries.map((entry) => [entry.gameId, {
+        ...entry,
+        tags: tags.get(entry.id) ?? [],
+    }]));
+
+    return {
+        ...playlist,
+        entries: playlist.entries.map((entry) => ({
+            ...entry,
+            libraryEntry: entriesByGame.get(entry.gameId) ?? null,
+        })),
+    };
 }
 
 export async function getPlaylistLibraryCount(userId: string | undefined, gameIds: number[]) {

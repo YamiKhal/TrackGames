@@ -57,6 +57,8 @@ export const ModelName = {
   VerificationToken: 'VerificationToken',
   Game: 'Game',
   UserGameEntry: 'UserGameEntry',
+  UserTag: 'UserTag',
+  UserGameEntryTag: 'UserGameEntryTag',
   UserGamePlayLog: 'UserGamePlayLog',
   GameList: 'GameList',
   GameListEntry: 'GameListEntry',
@@ -223,6 +225,26 @@ export const UserGameEntryScalarFieldEnum = {
 } as const
 
 export type UserGameEntryScalarFieldEnum = (typeof UserGameEntryScalarFieldEnum)[keyof typeof UserGameEntryScalarFieldEnum]
+
+
+export const UserTagScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  normalized: 'normalized',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserTagScalarFieldEnum = (typeof UserTagScalarFieldEnum)[keyof typeof UserTagScalarFieldEnum]
+
+
+export const UserGameEntryTagScalarFieldEnum = {
+  entryId: 'entryId',
+  tagId: 'tagId'
+} as const
+
+export type UserGameEntryTagScalarFieldEnum = (typeof UserGameEntryTagScalarFieldEnum)[keyof typeof UserGameEntryTagScalarFieldEnum]
 
 
 export const UserGamePlayLogScalarFieldEnum = {

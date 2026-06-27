@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { auth } from "../auth";
 import db from "../db";
+import { getTagsForEntries } from "../data/library";
 import { ActivityType, GameStatus, InteractionTargetType } from "../generated/prisma/enums";
 import { ratingToHundred } from "../util/rating";
 
@@ -171,6 +172,8 @@ export async function updateUserGameEntry(entryId: string, formData: FormData) {
     const notesValue = String(formData.get("notes") ?? "").trim();
     const finished = formData.get("finished") === "on";
     const mastered = formData.get("mastered") === "on";
+    const updateTags = formData.get("tagsTouched") === "1";
+    const tagNames = Array.from(new Set(formData.getAll("tags").map((tag) => String(tag).trim()).filter(Boolean).map((tag) => tag.slice(0, 40))));
 
     if (!Object.values(GameStatus).includes(status as GameStatus)) {
         throw new Error("Invalid game status.");
@@ -211,41 +214,87 @@ export async function updateUserGameEntry(entryId: string, formData: FormData) {
     const logTime = current.userGamePlayLogs.reduce((total, log) => total + log.hours, 0);
     const timePlayed = timeMode === "logs" ? logTime : manualTime;
     const hasTimePlayed = Number.isFinite(timePlayed) && timePlayed != null && timePlayed > 0;
-    const hasFinishedTime = Number.isFinite(finishedTime) && finishedTime != null && finishedTime > 0;
     const hasMasteredTime = Number.isFinite(masteredTime) && masteredTime != null && masteredTime > 0;
 
     if (mastered && !hasTimePlayed && !hasMasteredTime) {
         throw new Error("Time played or mastered time is required before marking a game as mastered.");
     }
 
-    const entry = await db.userGameEntry.update({
-        where: {
-            id: entryId,
-            userId,
-        },
-        data: {
-            status: status as GameStatus,
-            rating: Number.isFinite(rating) ? rating : null,
-            timeMode,
-            timePlayed: hasTimePlayed ? timePlayed : null,
-            timeFinished: finished ? safeFinishedTime ?? current.timeFinished ?? timePlayed : null,
-            timeMastered: mastered ? safeMasteredTime ?? current.timeMastered ?? timePlayed : null,
-            finishedAt: finished ? finishedAt ?? current.finishedAt ?? new Date() : null,
-            masteredAt: mastered ? masteredAt ?? current.masteredAt ?? new Date() : null,
-            notes: notesValue || null,
-        },
-        include: {
-            game: true,
-            userGamePlayLogs: {
-                orderBy: {
-                    createdAt: "desc",
+    const entry = await db.$transaction(async (tx) => {
+        const updated = await tx.userGameEntry.update({
+            where: {
+                id: entryId,
+                userId,
+            },
+            data: {
+                status: status as GameStatus,
+                rating: Number.isFinite(rating) ? rating : null,
+                timeMode,
+                timePlayed: hasTimePlayed ? timePlayed : null,
+                timeFinished: finished ? safeFinishedTime ?? current.timeFinished ?? timePlayed : null,
+                timeMastered: mastered ? safeMasteredTime ?? current.timeMastered ?? timePlayed : null,
+                finishedAt: finished ? finishedAt ?? current.finishedAt ?? new Date() : null,
+                masteredAt: mastered ? masteredAt ?? current.masteredAt ?? new Date() : null,
+                notes: notesValue || null,
+            },
+            include: {
+                game: true,
+                userGamePlayLogs: {
+                    orderBy: {
+                        createdAt: "desc",
+                    },
                 },
             },
-        },
+        });
+
+        if (updateTags) {
+            await tx.userGameEntryTag.deleteMany({
+                where: {
+                    entryId,
+                },
+            });
+
+            for (const name of tagNames) {
+                const normalized = name.toLowerCase();
+                const tag = await tx.userTag.upsert({
+                    where: {
+                        userId_normalized: {
+                            userId,
+                            normalized,
+                        },
+                    },
+                    update: {
+                        name,
+                    },
+                    create: {
+                        userId,
+                        name,
+                        normalized,
+                    },
+                    select: {
+                        id: true,
+                    },
+                });
+
+                await tx.userGameEntryTag.createMany({
+                    data: [{
+                        entryId,
+                        tagId: tag.id,
+                    }],
+                    skipDuplicates: true,
+                });
+            }
+        }
+
+        return updated;
     });
+    const tags = await getTagsForEntries([entry.id]);
 
     revalidatePath("/library/[slug]", "page");
-    return entry;
+    return {
+        ...entry,
+        tags: tags.get(entry.id) ?? [],
+    };
 }
 
 export async function createUserGamePlayLog(entryId: string, formData: FormData) {
@@ -348,10 +397,14 @@ export async function createUserGamePlayLog(entryId: string, formData: FormData)
 
         return updatedEntry;
     });
+    const tags = await getTagsForEntries([entry.id]);
 
     revalidatePath("/library/[slug]", "page");
     revalidatePath("/u/[user]", "page");
-    return entry;
+    return {
+        ...entry,
+        tags: tags.get(entry.id) ?? [],
+    };
 }
 
 export async function updateUserGamePlayLog(logId: string, formData: FormData) {
@@ -429,10 +482,14 @@ export async function updateUserGamePlayLog(logId: string, formData: FormData) {
             },
         });
     });
+    const tags = await getTagsForEntries([entry.id]);
 
     revalidatePath("/library/[slug]", "page");
     revalidatePath("/u/[user]", "page");
-    return entry;
+    return {
+        ...entry,
+        tags: tags.get(entry.id) ?? [],
+    };
 }
 
 export async function deleteUserGamePlayLog(logId: string) {
@@ -489,8 +546,12 @@ export async function deleteUserGamePlayLog(logId: string) {
             },
         });
     });
+    const tags = await getTagsForEntries([entry.id]);
 
     revalidatePath("/library/[slug]", "page");
     revalidatePath("/u/[user]", "page");
-    return entry;
+    return {
+        ...entry,
+        tags: tags.get(entry.id) ?? [],
+    };
 }

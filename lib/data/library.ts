@@ -13,9 +13,41 @@ const userGameEntryInclude = {
 } as const;
 
 export type UserLibraryEntry = UserGameEntryGetPayload<{ include: typeof userGameEntryInclude }>;
+export type UserLibraryTag = { id: string; name: string };
+export type UserLibraryEntryWithTags = UserLibraryEntry & { tags: UserLibraryTag[] };
 
-export async function getUserGameEntries(userId: string): Promise<UserLibraryEntry[]> {
-    return await db.userGameEntry.findMany({
+export async function getTagsForEntries(entryIds: string[]) {
+    if (!entryIds.length) return new Map<string, UserLibraryTag[]>();
+
+    const rows = await db.userGameEntryTag.findMany({
+        where: {
+            entryId: {
+                in: entryIds,
+            },
+        },
+        select: {
+            entryId: true,
+            tag: {
+                select: {
+                    id: true,
+                    name: true,
+                },
+            },
+        },
+    });
+    const tags = new Map<string, UserLibraryTag[]>();
+
+    for (const row of rows.sort((a, b) =>
+        a.tag.name.toLowerCase().localeCompare(b.tag.name.toLowerCase()) || a.tag.name.localeCompare(b.tag.name)
+    )) {
+        tags.set(row.entryId, [...(tags.get(row.entryId) ?? []), { id: row.tag.id, name: row.tag.name }]);
+    }
+
+    return tags;
+}
+
+export async function getUserGameEntries(userId: string): Promise<UserLibraryEntryWithTags[]> {
+    const entries = await db.userGameEntry.findMany({
         where: {
             userId,
         },
@@ -24,6 +56,12 @@ export async function getUserGameEntries(userId: string): Promise<UserLibraryEnt
             addedAt: "desc",
         },
     });
+    const tags = await getTagsForEntries(entries.map((entry) => entry.id));
+
+    return entries.map((entry) => ({
+        ...entry,
+        tags: tags.get(entry.id) ?? [],
+    }));
 }
 
 export async function getUserGameEntry(userId: string, gameId: number) {

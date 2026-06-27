@@ -3,9 +3,9 @@
 import { createUserGamePlayLog, deleteUserGamePlayLog, removeGameFromLibrary, updateUserGameEntry, updateUserGamePlayLog } from "@/lib/actions/library";
 import { GameStatus } from "@/lib/generated/prisma/enums";
 import { ImageIdToURL } from "@/lib/external/igdb/util";
-import type { UserLibraryEntry } from "@/lib/data/library";
+import type { UserLibraryEntryWithTags } from "@/lib/data/library";
 import { ratingToFive } from "@/lib/util/rating";
-import { Check, CircleHelp, Clock, Crown, Edit3, NotebookText, Trash2, X } from "lucide-react";
+import { Check, CircleHelp, Clock, Crown, Edit3, NotebookText, Plus, Trash2, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
@@ -30,7 +30,7 @@ function statusColor(status: GameStatus) {
     return "bg-text-faint";
 }
 
-export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove, themeStyle }: { entry: UserLibraryEntry; mode: "grid" | "list"; canEdit: boolean; onUpdate: (entry: UserLibraryEntry) => void; onRemove: (entryId: string) => void; themeStyle?: CSSProperties }) {
+export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove, themeStyle }: { entry: UserLibraryEntryWithTags; mode: "grid" | "list"; canEdit: boolean; onUpdate: (entry: UserLibraryEntryWithTags) => void; onRemove: (entryId: string) => void; themeStyle?: CSSProperties }) {
     const [editing, setEditing] = useState(false);
     const [showInfo, setShowInfo] = useState(false);
     const [showNotes, setShowNotes] = useState(false);
@@ -41,6 +41,9 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
     const [timeMode, setTimeMode] = useState(timeModeLabel(entry.timeMode));
     const [entryStatus, setEntryStatus] = useState(entry.status);
     const [entryFinished, setEntryFinished] = useState(Boolean(entry.finishedAt || entry.timeFinished != null));
+    const [tags, setTags] = useState(entry.tags.map((tag) => tag.name));
+    const [addingTag, setAddingTag] = useState(false);
+    const [tagInput, setTagInput] = useState("");
     const [rating, setRating] = useState(ratingToFive(entry.rating) ?? 0);
     const [error, setError] = useState("");
     const [pending, startTransition] = useTransition();
@@ -57,10 +60,8 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
 
     function save(formData: FormData) {
         const timePlayed = String(formData.get("timeplayed") ?? "").trim();
-        const timeFinished = String(formData.get("timefinished") ?? "").trim();
         const timeMastered = String(formData.get("timemastered") ?? "").trim();
         const timeMode = String(formData.get("timemode") ?? "manual");
-        const finished = formData.get("finished") === "on";
         const mastered = formData.get("mastered") === "on";
 
         if (mastered && !timeMastered && timeMode === "manual" && !timePlayed) {
@@ -121,6 +122,15 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
         return mode === "manual" ? "manual" : "logs";
     }
 
+    function addTag() {
+        const name = tagInput.trim().slice(0, 40);
+        if (name && !tags.some((tag) => tag.toLowerCase() === name.toLowerCase())) {
+            setTags((current) => [...current, name]);
+        }
+        setTagInput("");
+        setAddingTag(false);
+    }
+
     function openEditor() {
         setShowInfo(false);
         setActiveTab("entry");
@@ -129,6 +139,9 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
         setTimeMode(timeModeLabel(entry.timeMode));
         setEntryStatus(entry.status);
         setEntryFinished(Boolean(entry.finishedAt || entry.timeFinished != null));
+        setTags(entry.tags.map((tag) => tag.name));
+        setAddingTag(false);
+        setTagInput("");
         setRating(ratingToFive(entry.rating) ?? 0);
         setEditing(true);
     }
@@ -325,6 +338,10 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
                         <form action={save} className={activeTab === "entry" ? "flex min-h-full flex-col gap-3" : "hidden"}>
                             <input type="hidden" name="timemode" value={timeModeLabel(entry.timeMode)} />
                             <input type="hidden" name="timeplayed" value={entry.timePlayed ?? ""} />
+                            <input type="hidden" name="tagsTouched" value="1" />
+                            {tags.map((tag) => (
+                                <input key={tag} type="hidden" name="tags" value={tag} />
+                            ))}
                             <label className="text-sm font-bold text-text-muted">
                                 Status
                                 <Select name="status" value={entryStatus} onChange={(event) => {
@@ -347,6 +364,40 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
                                     <Checkbox name="mastered" defaultChecked={entry.timeMastered != null} />
                                     Mastered
                                 </label>
+                            </div>
+                            <div className="text-sm font-bold text-text-muted">
+                                Tags
+                                <div className="mt-1 flex min-h-10 flex-wrap items-center gap-2">
+                                    {tags.map((tag) => (
+                                        <span key={tag} className="flex max-w-full items-center gap-1 rounded border border-border bg-bg px-2 py-1 text-xs text-text">
+                                            <span className="truncate">{tag}</span>
+                                            <button type="button" onClick={() => setTags((current) => current.filter((item) => item !== tag))} className="grid size-4 shrink-0 cursor-pointer place-items-center rounded text-text-muted hover:text-error" aria-label={`Remove ${tag}`}>
+                                                <X size={12} aria-hidden="true" />
+                                            </button>
+                                        </span>
+                                    ))}
+                                    {addingTag ? (
+                                        <input
+                                            name="tags"
+                                            autoFocus
+                                            value={tagInput}
+                                            onChange={(event) => setTagInput(event.target.value)}
+                                            onBlur={addTag}
+                                            onKeyDown={(event) => {
+                                                if (event.key === "Enter") {
+                                                    event.preventDefault();
+                                                    addTag();
+                                                }
+                                            }}
+                                            className="rounded border border-border bg-bg px-2 py-1 text-xs text-text outline-none"
+                                            maxLength={40}
+                                        />
+                                    ) : (
+                                        <button type="button" onClick={() => setAddingTag(true)} className="grid size-7 cursor-pointer place-items-center rounded border border-border text-text-muted hover:border-primary hover:text-primary" aria-label="Add tag">
+                                            <Plus size={14} aria-hidden="true" />
+                                        </button>
+                                    )}
+                                </div>
                             </div>
                             <label className="text-sm font-bold text-text-muted">
                                 Notes

@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { auth } from "../auth";
+import { getTagsForEntries } from "../data/library";
 import db from "../db";
 import { getOwnedGames, getSteamProfile } from "../external/steam/api";
 import { ActivityType, GameStatus, InteractionTargetType } from "../generated/prisma/enums";
@@ -23,6 +24,7 @@ type TgLibraryEntry = {
     startedAt?: string | null;
     finishedAt?: string | null;
     masteredAt?: string | null;
+    tags?: string[];
     logs?: {
         hours?: number;
         note?: string;
@@ -255,6 +257,7 @@ export async function exportTgLibrary() {
             userId,
         },
         select: {
+            id: true,
             game: {
                 select: {
                     id: true,
@@ -290,6 +293,7 @@ export async function exportTgLibrary() {
             addedAt: "asc",
         },
     });
+    const entryTags = await getTagsForEntries(entries.map((entry) => entry.id));
 
     const now = new Date();
     const day = String(now.getDate()).padStart(2, "0");
@@ -316,6 +320,7 @@ export async function exportTgLibrary() {
                 startedAt: entry.startedAt?.toISOString() ?? null,
                 finishedAt: entry.finishedAt?.toISOString() ?? null,
                 masteredAt: entry.masteredAt?.toISOString() ?? null,
+                tags: (entryTags.get(entry.id) ?? []).map((tag) => tag.name),
                 logs: entry.userGamePlayLogs.map((log) => ({
                     hours: log.hours,
                     note: log.note,
@@ -421,6 +426,43 @@ export async function importTgLibrary(contents: string) {
                         entryId: entry.id,
                     },
                 });
+
+                await tx.userGameEntryTag.deleteMany({
+                    where: {
+                        entryId: entry.id,
+                    },
+                });
+
+                for (const name of Array.from(new Set((item.tags ?? []).map((tag) => tag.trim()).filter(Boolean).map((tag) => tag.slice(0, 40))))) {
+                    const normalized = name.toLowerCase();
+                    const tag = await tx.userTag.upsert({
+                        where: {
+                            userId_normalized: {
+                                userId,
+                                normalized,
+                            },
+                        },
+                        update: {
+                            name,
+                        },
+                        create: {
+                            userId,
+                            name,
+                            normalized,
+                        },
+                        select: {
+                            id: true,
+                        },
+                    });
+
+                    await tx.userGameEntryTag.createMany({
+                        data: [{
+                            entryId: entry.id,
+                            tagId: tag.id,
+                        }],
+                        skipDuplicates: true,
+                    });
+                }
 
                 const importedLogs = (item.logs ?? []).filter((log) => Number.isFinite(log.hours) && log.hours! > 0).map((log) => ({
                     userId,

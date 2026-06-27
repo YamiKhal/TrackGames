@@ -1,12 +1,15 @@
 "use client";
 
 import GameCard from "@/app/components/game/GameCard";
+import AdvancedLibraryFilterPanel, { emptyAdvancedLibraryFilters } from "@/app/components/library/AdvancedLibraryFilterPanel";
 import { FilterBar } from "@/app/components/ui/FilterBar";
 import MenuPanel from "@/app/components/ui/MenuPanel";
 import { Input, Select } from "@/app/components/ui/Inputs";
 import { removeGameFromPlaylist, updatePlaylistEntry } from "@/lib/actions/playlists";
 import type { PlaylistEntry } from "@/lib/data/playlists";
-import { Edit3, Trash2 } from "lucide-react";
+import { GameStatus } from "@/lib/generated/prisma/enums";
+import { ratingToFive } from "@/lib/util/rating";
+import { Edit3, SlidersHorizontal, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState, useTransition, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
@@ -76,20 +79,57 @@ function EntryShell({ listId, entry, canEdit, tiers, children }: { listId: strin
 export default function PlaylistEntriesView({ listId, entries, mode, canEdit, tiers, tierColors }: { listId: string; entries: PlaylistEntry[]; mode: string; canEdit: boolean; tiers: string[]; tierColors: string[] }) {
     const [query, setQuery] = useState("");
     const [sort, setSort] = useState("position");
+    const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
+    const [advancedFilters, setAdvancedFilters] = useState(emptyAdvancedLibraryFilters);
     const ordered = useMemo(() => [...entries].sort((a, b) => (a.position ?? 999999) - (b.position ?? 999999) || Number(a.addedAt ?? 0) - Number(b.addedAt ?? 0)), [entries]);
+    const allTags = useMemo(() => Array.from(new Set(entries.flatMap((entry) => entry.libraryEntry?.tags.map((tag) => tag.name) ?? []))).sort((a, b) => a.localeCompare(b)), [entries]);
+    const advancedFilterCount = advancedFilters.statuses.length + advancedFilters.excludedStatuses.length + advancedFilters.tags.length + advancedFilters.excludedTags.length
+        + (advancedFilters.ratingMin ? 1 : 0) + (advancedFilters.ratingMax ? 1 : 0) + (advancedFilters.hoursMin ? 1 : 0) + (advancedFilters.hoursMax ? 1 : 0)
+        + (advancedFilters.finished !== "any" ? 1 : 0) + (advancedFilters.mastered !== "any" ? 1 : 0);
     const filtered = useMemo(() => {
         const search = query.trim().toLowerCase();
+        const ratingMin = advancedFilters.ratingMin === "" ? null : Number(advancedFilters.ratingMin);
+        const ratingMax = advancedFilters.ratingMax === "" ? null : Number(advancedFilters.ratingMax);
+        const hoursMin = advancedFilters.hoursMin === "" ? null : Number(advancedFilters.hoursMin);
+        const hoursMax = advancedFilters.hoursMax === "" ? null : Number(advancedFilters.hoursMax);
 
         return entries.filter((entry) => {
-            if (!search) return true;
-            return (entry.game.name ?? "").toLowerCase().includes(search);
+            if (search && !(entry.game.name ?? "").toLowerCase().includes(search)) return false;
+
+            if (!advancedFilterCount) return true;
+
+            const libraryEntry = entry.libraryEntry;
+            if (!libraryEntry) return false;
+
+            if (advancedFilters.statuses.length && !advancedFilters.statuses.includes(libraryEntry.status as GameStatus)) return false;
+            if (advancedFilters.excludedStatuses.includes(libraryEntry.status as GameStatus)) return false;
+
+            const rating = ratingToFive(libraryEntry.rating ?? 0) ?? 0;
+            if (ratingMin != null && Number.isFinite(ratingMin) && rating < ratingMin) return false;
+            if (ratingMax != null && Number.isFinite(ratingMax) && rating > ratingMax) return false;
+
+            const hours = libraryEntry.timePlayed ?? 0;
+            if (hoursMin != null && Number.isFinite(hoursMin) && hours < hoursMin) return false;
+            if (hoursMax != null && Number.isFinite(hoursMax) && hours > hoursMax) return false;
+
+            const finished = Boolean(libraryEntry.finishedAt || libraryEntry.timeFinished != null);
+            const mastered = Boolean(libraryEntry.masteredAt || libraryEntry.timeMastered != null);
+            if (advancedFilters.finished === "yes" && !finished) return false;
+            if (advancedFilters.finished === "no" && finished) return false;
+            if (advancedFilters.mastered === "yes" && !mastered) return false;
+            if (advancedFilters.mastered === "no" && mastered) return false;
+
+            const entryTags = libraryEntry.tags.map((tag) => tag.name);
+            if (advancedFilters.tags.length && !advancedFilters.tags.every((tag) => entryTags.includes(tag))) return false;
+            if (advancedFilters.excludedTags.some((tag) => entryTags.includes(tag))) return false;
+            return true;
         }).sort((a, b) => {
             if (sort === "name") return (a.game.name ?? "").localeCompare(b.game.name ?? "");
             if (sort === "release") return Number(b.game.releaseDate ?? 0) - Number(a.game.releaseDate ?? 0);
             if (sort === "added") return Number(b.addedAt ?? 0) - Number(a.addedAt ?? 0);
             return (a.position ?? 0) - (b.position ?? 0);
         });
-    }, [entries, query, sort]);
+    }, [advancedFilterCount, advancedFilters, entries, query, sort]);
 
     if (!entries.length) {
         return <p className="rounded bg-bg p-4 text-text-muted">No games in this playlist yet.</p>;
@@ -154,6 +194,18 @@ export default function PlaylistEntriesView({ listId, entries, mode, canEdit, ti
                         { value: "release", label: "Release date" },
                     ],
                 }]}
+                actions={<button type="button" onClick={() => setShowAdvancedFilters(true)} className={`flex h-9 cursor-pointer items-center gap-2 rounded border px-3 text-sm font-bold ${advancedFilterCount ? "border-primary text-primary" : "border-border text-text-muted"}`} aria-label="Advanced filters">
+                    <SlidersHorizontal size={17} aria-hidden="true" />
+                    Filter{advancedFilterCount ? ` (${advancedFilterCount})` : ""}
+                </button>}
+            />
+            <AdvancedLibraryFilterPanel
+                open={showAdvancedFilters}
+                onClose={() => setShowAdvancedFilters(false)}
+                filters={advancedFilters}
+                onChange={setAdvancedFilters}
+                tags={allTags}
+                onReset={() => setAdvancedFilters(emptyAdvancedLibraryFilters)}
             />
             {filtered.length ? (
                 <div className="grid gap-3 grid-cols-[repeat(auto-fill,6rem)] justify-center items-center md:gap-4 md:grid-cols-[repeat(auto-fill,8rem)]">

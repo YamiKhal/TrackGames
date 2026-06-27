@@ -390,6 +390,8 @@ export const ModelName = {
   VerificationToken: 'VerificationToken',
   Game: 'Game',
   UserGameEntry: 'UserGameEntry',
+  UserTag: 'UserTag',
+  UserGameEntryTag: 'UserGameEntryTag',
   UserGamePlayLog: 'UserGamePlayLog',
   GameList: 'GameList',
   GameListEntry: 'GameListEntry',
@@ -421,7 +423,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "account" | "session" | "verificationToken" | "game" | "userGameEntry" | "userGamePlayLog" | "gameList" | "gameListEntry" | "collection" | "franchise" | "genre" | "platform" | "company" | "keyword" | "activity" | "like" | "comment" | "userFollow" | "badge" | "userBadge" | "notification"
+    modelProps: "user" | "account" | "session" | "verificationToken" | "game" | "userGameEntry" | "userTag" | "userGameEntryTag" | "userGamePlayLog" | "gameList" | "gameListEntry" | "collection" | "franchise" | "genre" | "platform" | "company" | "keyword" | "activity" | "like" | "comment" | "userFollow" | "badge" | "userBadge" | "notification"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -866,6 +868,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.UserGameEntryCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UserGameEntryCountAggregateOutputType> | number
+        }
+      }
+    }
+    UserTag: {
+      payload: Prisma.$UserTagPayload<ExtArgs>
+      fields: Prisma.UserTagFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UserTagFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserTagPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UserTagFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserTagPayload>
+        }
+        findFirst: {
+          args: Prisma.UserTagFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserTagPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UserTagFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserTagPayload>
+        }
+        findMany: {
+          args: Prisma.UserTagFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserTagPayload>[]
+        }
+        create: {
+          args: Prisma.UserTagCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserTagPayload>
+        }
+        createMany: {
+          args: Prisma.UserTagCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UserTagCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserTagPayload>[]
+        }
+        delete: {
+          args: Prisma.UserTagDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserTagPayload>
+        }
+        update: {
+          args: Prisma.UserTagUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserTagPayload>
+        }
+        deleteMany: {
+          args: Prisma.UserTagDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UserTagUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UserTagUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserTagPayload>[]
+        }
+        upsert: {
+          args: Prisma.UserTagUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserTagPayload>
+        }
+        aggregate: {
+          args: Prisma.UserTagAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUserTag>
+        }
+        groupBy: {
+          args: Prisma.UserTagGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserTagGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UserTagCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserTagCountAggregateOutputType> | number
+        }
+      }
+    }
+    UserGameEntryTag: {
+      payload: Prisma.$UserGameEntryTagPayload<ExtArgs>
+      fields: Prisma.UserGameEntryTagFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UserGameEntryTagFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserGameEntryTagPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UserGameEntryTagFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserGameEntryTagPayload>
+        }
+        findFirst: {
+          args: Prisma.UserGameEntryTagFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserGameEntryTagPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UserGameEntryTagFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserGameEntryTagPayload>
+        }
+        findMany: {
+          args: Prisma.UserGameEntryTagFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserGameEntryTagPayload>[]
+        }
+        create: {
+          args: Prisma.UserGameEntryTagCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserGameEntryTagPayload>
+        }
+        createMany: {
+          args: Prisma.UserGameEntryTagCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UserGameEntryTagCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserGameEntryTagPayload>[]
+        }
+        delete: {
+          args: Prisma.UserGameEntryTagDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserGameEntryTagPayload>
+        }
+        update: {
+          args: Prisma.UserGameEntryTagUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserGameEntryTagPayload>
+        }
+        deleteMany: {
+          args: Prisma.UserGameEntryTagDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UserGameEntryTagUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UserGameEntryTagUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserGameEntryTagPayload>[]
+        }
+        upsert: {
+          args: Prisma.UserGameEntryTagUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserGameEntryTagPayload>
+        }
+        aggregate: {
+          args: Prisma.UserGameEntryTagAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUserGameEntryTag>
+        }
+        groupBy: {
+          args: Prisma.UserGameEntryTagGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserGameEntryTagGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UserGameEntryTagCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserGameEntryTagCountAggregateOutputType> | number
         }
       }
     }
@@ -2226,6 +2376,26 @@ export const UserGameEntryScalarFieldEnum = {
 export type UserGameEntryScalarFieldEnum = (typeof UserGameEntryScalarFieldEnum)[keyof typeof UserGameEntryScalarFieldEnum]
 
 
+export const UserTagScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  normalized: 'normalized',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserTagScalarFieldEnum = (typeof UserTagScalarFieldEnum)[keyof typeof UserTagScalarFieldEnum]
+
+
+export const UserGameEntryTagScalarFieldEnum = {
+  entryId: 'entryId',
+  tagId: 'tagId'
+} as const
+
+export type UserGameEntryTagScalarFieldEnum = (typeof UserGameEntryTagScalarFieldEnum)[keyof typeof UserGameEntryTagScalarFieldEnum]
+
+
 export const UserGamePlayLogScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -2760,6 +2930,8 @@ export type GlobalOmitConfig = {
   verificationToken?: Prisma.VerificationTokenOmit
   game?: Prisma.GameOmit
   userGameEntry?: Prisma.UserGameEntryOmit
+  userTag?: Prisma.UserTagOmit
+  userGameEntryTag?: Prisma.UserGameEntryTagOmit
   userGamePlayLog?: Prisma.UserGamePlayLogOmit
   gameList?: Prisma.GameListOmit
   gameListEntry?: Prisma.GameListEntryOmit

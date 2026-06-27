@@ -445,6 +445,7 @@ export type UserWhereInput = {
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   games?: Prisma.UserGameEntryListRelationFilter
+  tags?: Prisma.UserTagListRelationFilter
   gameLists?: Prisma.GameListListRelationFilter
   likes?: Prisma.LikeListRelationFilter
   comments?: Prisma.CommentListRelationFilter
@@ -499,6 +500,7 @@ export type UserOrderByWithRelationInput = {
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   games?: Prisma.UserGameEntryOrderByRelationAggregateInput
+  tags?: Prisma.UserTagOrderByRelationAggregateInput
   gameLists?: Prisma.GameListOrderByRelationAggregateInput
   likes?: Prisma.LikeOrderByRelationAggregateInput
   comments?: Prisma.CommentOrderByRelationAggregateInput
@@ -513,11 +515,11 @@ export type UserOrderByWithRelationInput = {
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  name?: string
   email?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
-  name?: Prisma.StringNullableFilter<"User"> | string | null
   emailVerified?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   passwordHash?: Prisma.StringNullableFilter<"User"> | string | null
   image?: Prisma.StringNullableFilter<"User"> | string | null
@@ -556,6 +558,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   games?: Prisma.UserGameEntryListRelationFilter
+  tags?: Prisma.UserTagListRelationFilter
   gameLists?: Prisma.GameListListRelationFilter
   likes?: Prisma.LikeListRelationFilter
   comments?: Prisma.CommentListRelationFilter
@@ -566,7 +569,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   followers?: Prisma.UserFollowListRelationFilter
   badges?: Prisma.UserBadgeListRelationFilter
   userGamePlayLogs?: Prisma.UserGamePlayLogListRelationFilter
-}, "id" | "email">
+}, "id" | "name" | "email">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -698,6 +701,7 @@ export type UserCreateInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.UserGameEntryCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagCreateNestedManyWithoutUserInput
   gameLists?: Prisma.GameListCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentCreateNestedManyWithoutUserInput
@@ -752,6 +756,7 @@ export type UserUncheckedCreateInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.UserGameEntryUncheckedCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagUncheckedCreateNestedManyWithoutUserInput
   gameLists?: Prisma.GameListUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
@@ -806,6 +811,7 @@ export type UserUpdateInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.UserGameEntryUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUpdateManyWithoutUserNestedInput
   gameLists?: Prisma.GameListUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
@@ -860,6 +866,7 @@ export type UserUncheckedUpdateInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.UserGameEntryUncheckedUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUncheckedUpdateManyWithoutUserNestedInput
   gameLists?: Prisma.GameListUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
@@ -1205,6 +1212,20 @@ export type UserUpdateOneRequiredWithoutGamesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutGamesInput, Prisma.UserUpdateWithoutGamesInput>, Prisma.UserUncheckedUpdateWithoutGamesInput>
 }
 
+export type UserCreateNestedOneWithoutTagsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTagsInput, Prisma.UserUncheckedCreateWithoutTagsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTagsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutTagsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTagsInput, Prisma.UserUncheckedCreateWithoutTagsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTagsInput
+  upsert?: Prisma.UserUpsertWithoutTagsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTagsInput, Prisma.UserUpdateWithoutTagsInput>, Prisma.UserUncheckedUpdateWithoutTagsInput>
+}
+
 export type UserCreateNestedOneWithoutUserGamePlayLogsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutUserGamePlayLogsInput, Prisma.UserUncheckedCreateWithoutUserGamePlayLogsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutUserGamePlayLogsInput
@@ -1388,6 +1409,7 @@ export type UserCreateWithoutAccountsInput = {
   updatedAt?: Date | string
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.UserGameEntryCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagCreateNestedManyWithoutUserInput
   gameLists?: Prisma.GameListCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentCreateNestedManyWithoutUserInput
@@ -1441,6 +1463,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   updatedAt?: Date | string
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.UserGameEntryUncheckedCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagUncheckedCreateNestedManyWithoutUserInput
   gameLists?: Prisma.GameListUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
@@ -1510,6 +1533,7 @@ export type UserUpdateWithoutAccountsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.UserGameEntryUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUpdateManyWithoutUserNestedInput
   gameLists?: Prisma.GameListUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
@@ -1563,6 +1587,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.UserGameEntryUncheckedUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUncheckedUpdateManyWithoutUserNestedInput
   gameLists?: Prisma.GameListUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
@@ -1616,6 +1641,7 @@ export type UserCreateWithoutSessionsInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   games?: Prisma.UserGameEntryCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagCreateNestedManyWithoutUserInput
   gameLists?: Prisma.GameListCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentCreateNestedManyWithoutUserInput
@@ -1669,6 +1695,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.UserGameEntryUncheckedCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagUncheckedCreateNestedManyWithoutUserInput
   gameLists?: Prisma.GameListUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
@@ -1738,6 +1765,7 @@ export type UserUpdateWithoutSessionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   games?: Prisma.UserGameEntryUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUpdateManyWithoutUserNestedInput
   gameLists?: Prisma.GameListUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
@@ -1791,6 +1819,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.UserGameEntryUncheckedUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUncheckedUpdateManyWithoutUserNestedInput
   gameLists?: Prisma.GameListUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
@@ -1844,6 +1873,7 @@ export type UserCreateWithoutGamesInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagCreateNestedManyWithoutUserInput
   gameLists?: Prisma.GameListCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentCreateNestedManyWithoutUserInput
@@ -1897,6 +1927,7 @@ export type UserUncheckedCreateWithoutGamesInput = {
   updatedAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagUncheckedCreateNestedManyWithoutUserInput
   gameLists?: Prisma.GameListUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
@@ -1966,6 +1997,7 @@ export type UserUpdateWithoutGamesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUpdateManyWithoutUserNestedInput
   gameLists?: Prisma.GameListUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
@@ -2019,6 +2051,239 @@ export type UserUncheckedUpdateWithoutGamesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUncheckedUpdateManyWithoutUserNestedInput
+  gameLists?: Prisma.GameListUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  sentNotifications?: Prisma.NotificationUncheckedUpdateManyWithoutActorNestedInput
+  following?: Prisma.UserFollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.UserFollowUncheckedUpdateManyWithoutFollowingNestedInput
+  badges?: Prisma.UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+  userGamePlayLogs?: Prisma.UserGamePlayLogUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutTagsInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  passwordHash?: string | null
+  image?: string | null
+  background?: string | null
+  bio?: string | null
+  profileColor?: string | null
+  accentColor?: string | null
+  privacy?: string
+  libraryPrivacy?: string
+  logsPrivacy?: string
+  activityPrivacy?: string
+  playlistPrivacy?: string
+  contactEmail?: string | null
+  website?: string | null
+  socials?: string | null
+  preferences?: string | null
+  widgets?: string | null
+  commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
+  roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  games?: Prisma.UserGameEntryCreateNestedManyWithoutUserInput
+  gameLists?: Prisma.GameListCreateNestedManyWithoutUserInput
+  likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  sentNotifications?: Prisma.NotificationCreateNestedManyWithoutActorInput
+  following?: Prisma.UserFollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.UserFollowCreateNestedManyWithoutFollowingInput
+  badges?: Prisma.UserBadgeCreateNestedManyWithoutUserInput
+  userGamePlayLogs?: Prisma.UserGamePlayLogCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutTagsInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  passwordHash?: string | null
+  image?: string | null
+  background?: string | null
+  bio?: string | null
+  profileColor?: string | null
+  accentColor?: string | null
+  privacy?: string
+  libraryPrivacy?: string
+  logsPrivacy?: string
+  activityPrivacy?: string
+  playlistPrivacy?: string
+  contactEmail?: string | null
+  website?: string | null
+  socials?: string | null
+  preferences?: string | null
+  widgets?: string | null
+  commentsHidden?: boolean
+  hideCommentsEverywhere?: boolean
+  defaultGameListStatus?: string
+  defaultGameListSort?: string
+  defaultGameListView?: string
+  defaultActivityFilter?: string
+  siteThemeMode?: string
+  siteThemeColor?: string | null
+  siteAccentColor?: string | null
+  notifyCommentReplies?: boolean
+  notifyProfileComments?: boolean
+  notifyLikes?: boolean
+  notifyFollows?: boolean
+  notifyFollowerLists?: boolean
+  notifyBadges?: boolean
+  roles?: Prisma.UserCreaterolesInput | $Enums.UserRole[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  games?: Prisma.UserGameEntryUncheckedCreateNestedManyWithoutUserInput
+  gameLists?: Prisma.GameListUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  sentNotifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutActorInput
+  following?: Prisma.UserFollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.UserFollowUncheckedCreateNestedManyWithoutFollowingInput
+  badges?: Prisma.UserBadgeUncheckedCreateNestedManyWithoutUserInput
+  userGamePlayLogs?: Prisma.UserGamePlayLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutTagsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutTagsInput, Prisma.UserUncheckedCreateWithoutTagsInput>
+}
+
+export type UserUpsertWithoutTagsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutTagsInput, Prisma.UserUncheckedUpdateWithoutTagsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutTagsInput, Prisma.UserUncheckedCreateWithoutTagsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutTagsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutTagsInput, Prisma.UserUncheckedUpdateWithoutTagsInput>
+}
+
+export type UserUpdateWithoutTagsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  privacy?: Prisma.StringFieldUpdateOperationsInput | string
+  libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  games?: Prisma.UserGameEntryUpdateManyWithoutUserNestedInput
+  gameLists?: Prisma.GameListUpdateManyWithoutUserNestedInput
+  likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  sentNotifications?: Prisma.NotificationUpdateManyWithoutActorNestedInput
+  following?: Prisma.UserFollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.UserFollowUpdateManyWithoutFollowingNestedInput
+  badges?: Prisma.UserBadgeUpdateManyWithoutUserNestedInput
+  userGamePlayLogs?: Prisma.UserGamePlayLogUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutTagsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  background?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  privacy?: Prisma.StringFieldUpdateOperationsInput | string
+  libraryPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  logsPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  activityPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  playlistPrivacy?: Prisma.StringFieldUpdateOperationsInput | string
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferences?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  widgets?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  commentsHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideCommentsEverywhere?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  defaultGameListStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListSort?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultGameListView?: Prisma.StringFieldUpdateOperationsInput | string
+  defaultActivityFilter?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeMode?: Prisma.StringFieldUpdateOperationsInput | string
+  siteThemeColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siteAccentColor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notifyCommentReplies?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyProfileComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollows?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyFollowerLists?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notifyBadges?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  roles?: Prisma.UserUpdaterolesInput | $Enums.UserRole[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  games?: Prisma.UserGameEntryUncheckedUpdateManyWithoutUserNestedInput
   gameLists?: Prisma.GameListUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
@@ -2073,6 +2338,7 @@ export type UserCreateWithoutUserGamePlayLogsInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.UserGameEntryCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagCreateNestedManyWithoutUserInput
   gameLists?: Prisma.GameListCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentCreateNestedManyWithoutUserInput
@@ -2126,6 +2392,7 @@ export type UserUncheckedCreateWithoutUserGamePlayLogsInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.UserGameEntryUncheckedCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagUncheckedCreateNestedManyWithoutUserInput
   gameLists?: Prisma.GameListUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
@@ -2195,6 +2462,7 @@ export type UserUpdateWithoutUserGamePlayLogsInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.UserGameEntryUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUpdateManyWithoutUserNestedInput
   gameLists?: Prisma.GameListUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
@@ -2248,6 +2516,7 @@ export type UserUncheckedUpdateWithoutUserGamePlayLogsInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.UserGameEntryUncheckedUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUncheckedUpdateManyWithoutUserNestedInput
   gameLists?: Prisma.GameListUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
@@ -2301,6 +2570,7 @@ export type UserCreateWithoutGameListsInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.UserGameEntryCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
@@ -2354,6 +2624,7 @@ export type UserUncheckedCreateWithoutGameListsInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.UserGameEntryUncheckedCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
@@ -2423,6 +2694,7 @@ export type UserUpdateWithoutGameListsInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.UserGameEntryUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
@@ -2476,6 +2748,7 @@ export type UserUncheckedUpdateWithoutGameListsInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.UserGameEntryUncheckedUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
@@ -2529,6 +2802,7 @@ export type UserCreateWithoutActivitiesInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.UserGameEntryCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagCreateNestedManyWithoutUserInput
   gameLists?: Prisma.GameListCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentCreateNestedManyWithoutUserInput
@@ -2582,6 +2856,7 @@ export type UserUncheckedCreateWithoutActivitiesInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.UserGameEntryUncheckedCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagUncheckedCreateNestedManyWithoutUserInput
   gameLists?: Prisma.GameListUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
@@ -2651,6 +2926,7 @@ export type UserUpdateWithoutActivitiesInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.UserGameEntryUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUpdateManyWithoutUserNestedInput
   gameLists?: Prisma.GameListUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
@@ -2704,6 +2980,7 @@ export type UserUncheckedUpdateWithoutActivitiesInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.UserGameEntryUncheckedUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUncheckedUpdateManyWithoutUserNestedInput
   gameLists?: Prisma.GameListUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
@@ -2757,6 +3034,7 @@ export type UserCreateWithoutLikesInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.UserGameEntryCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagCreateNestedManyWithoutUserInput
   gameLists?: Prisma.GameListCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
@@ -2810,6 +3088,7 @@ export type UserUncheckedCreateWithoutLikesInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.UserGameEntryUncheckedCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagUncheckedCreateNestedManyWithoutUserInput
   gameLists?: Prisma.GameListUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
@@ -2879,6 +3158,7 @@ export type UserUpdateWithoutLikesInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.UserGameEntryUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUpdateManyWithoutUserNestedInput
   gameLists?: Prisma.GameListUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
@@ -2932,6 +3212,7 @@ export type UserUncheckedUpdateWithoutLikesInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.UserGameEntryUncheckedUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUncheckedUpdateManyWithoutUserNestedInput
   gameLists?: Prisma.GameListUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
@@ -2985,6 +3266,7 @@ export type UserCreateWithoutCommentsInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.UserGameEntryCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagCreateNestedManyWithoutUserInput
   gameLists?: Prisma.GameListCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityCreateNestedManyWithoutUserInput
@@ -3038,6 +3320,7 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.UserGameEntryUncheckedCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagUncheckedCreateNestedManyWithoutUserInput
   gameLists?: Prisma.GameListUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutUserInput
@@ -3107,6 +3390,7 @@ export type UserUpdateWithoutCommentsInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.UserGameEntryUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUpdateManyWithoutUserNestedInput
   gameLists?: Prisma.GameListUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutUserNestedInput
@@ -3160,6 +3444,7 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.UserGameEntryUncheckedUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUncheckedUpdateManyWithoutUserNestedInput
   gameLists?: Prisma.GameListUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutUserNestedInput
@@ -3213,6 +3498,7 @@ export type UserCreateWithoutFollowingInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.UserGameEntryCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagCreateNestedManyWithoutUserInput
   gameLists?: Prisma.GameListCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentCreateNestedManyWithoutUserInput
@@ -3266,6 +3552,7 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.UserGameEntryUncheckedCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagUncheckedCreateNestedManyWithoutUserInput
   gameLists?: Prisma.GameListUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
@@ -3324,6 +3611,7 @@ export type UserCreateWithoutFollowersInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.UserGameEntryCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagCreateNestedManyWithoutUserInput
   gameLists?: Prisma.GameListCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentCreateNestedManyWithoutUserInput
@@ -3377,6 +3665,7 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.UserGameEntryUncheckedCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagUncheckedCreateNestedManyWithoutUserInput
   gameLists?: Prisma.GameListUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
@@ -3446,6 +3735,7 @@ export type UserUpdateWithoutFollowingInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.UserGameEntryUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUpdateManyWithoutUserNestedInput
   gameLists?: Prisma.GameListUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
@@ -3499,6 +3789,7 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.UserGameEntryUncheckedUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUncheckedUpdateManyWithoutUserNestedInput
   gameLists?: Prisma.GameListUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
@@ -3563,6 +3854,7 @@ export type UserUpdateWithoutFollowersInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.UserGameEntryUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUpdateManyWithoutUserNestedInput
   gameLists?: Prisma.GameListUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
@@ -3616,6 +3908,7 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.UserGameEntryUncheckedUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUncheckedUpdateManyWithoutUserNestedInput
   gameLists?: Prisma.GameListUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
@@ -3669,6 +3962,7 @@ export type UserCreateWithoutBadgesInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.UserGameEntryCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagCreateNestedManyWithoutUserInput
   gameLists?: Prisma.GameListCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentCreateNestedManyWithoutUserInput
@@ -3722,6 +4016,7 @@ export type UserUncheckedCreateWithoutBadgesInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.UserGameEntryUncheckedCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagUncheckedCreateNestedManyWithoutUserInput
   gameLists?: Prisma.GameListUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
@@ -3791,6 +4086,7 @@ export type UserUpdateWithoutBadgesInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.UserGameEntryUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUpdateManyWithoutUserNestedInput
   gameLists?: Prisma.GameListUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
@@ -3844,6 +4140,7 @@ export type UserUncheckedUpdateWithoutBadgesInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.UserGameEntryUncheckedUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUncheckedUpdateManyWithoutUserNestedInput
   gameLists?: Prisma.GameListUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
@@ -3897,6 +4194,7 @@ export type UserCreateWithoutNotificationsInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.UserGameEntryCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagCreateNestedManyWithoutUserInput
   gameLists?: Prisma.GameListCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentCreateNestedManyWithoutUserInput
@@ -3950,6 +4248,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.UserGameEntryUncheckedCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagUncheckedCreateNestedManyWithoutUserInput
   gameLists?: Prisma.GameListUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
@@ -4008,6 +4307,7 @@ export type UserCreateWithoutSentNotificationsInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   games?: Prisma.UserGameEntryCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagCreateNestedManyWithoutUserInput
   gameLists?: Prisma.GameListCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentCreateNestedManyWithoutUserInput
@@ -4061,6 +4361,7 @@ export type UserUncheckedCreateWithoutSentNotificationsInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   games?: Prisma.UserGameEntryUncheckedCreateNestedManyWithoutUserInput
+  tags?: Prisma.UserTagUncheckedCreateNestedManyWithoutUserInput
   gameLists?: Prisma.GameListUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
@@ -4130,6 +4431,7 @@ export type UserUpdateWithoutNotificationsInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.UserGameEntryUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUpdateManyWithoutUserNestedInput
   gameLists?: Prisma.GameListUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
@@ -4183,6 +4485,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.UserGameEntryUncheckedUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUncheckedUpdateManyWithoutUserNestedInput
   gameLists?: Prisma.GameListUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
@@ -4247,6 +4550,7 @@ export type UserUpdateWithoutSentNotificationsInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   games?: Prisma.UserGameEntryUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUpdateManyWithoutUserNestedInput
   gameLists?: Prisma.GameListUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUpdateManyWithoutUserNestedInput
@@ -4300,6 +4604,7 @@ export type UserUncheckedUpdateWithoutSentNotificationsInput = {
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   games?: Prisma.UserGameEntryUncheckedUpdateManyWithoutUserNestedInput
+  tags?: Prisma.UserTagUncheckedUpdateManyWithoutUserNestedInput
   gameLists?: Prisma.GameListUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
@@ -4320,6 +4625,7 @@ export type UserCountOutputType = {
   accounts: number
   sessions: number
   games: number
+  tags: number
   gameLists: number
   likes: number
   comments: number
@@ -4336,6 +4642,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   games?: boolean | UserCountOutputTypeCountGamesArgs
+  tags?: boolean | UserCountOutputTypeCountTagsArgs
   gameLists?: boolean | UserCountOutputTypeCountGameListsArgs
   likes?: boolean | UserCountOutputTypeCountLikesArgs
   comments?: boolean | UserCountOutputTypeCountCommentsArgs
@@ -4377,6 +4684,13 @@ export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.E
  */
 export type UserCountOutputTypeCountGamesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.UserGameEntryWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountTagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserTagWhereInput
 }
 
 /**
@@ -4492,6 +4806,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   games?: boolean | Prisma.User$gamesArgs<ExtArgs>
+  tags?: boolean | Prisma.User$tagsArgs<ExtArgs>
   gameLists?: boolean | Prisma.User$gameListsArgs<ExtArgs>
   likes?: boolean | Prisma.User$likesArgs<ExtArgs>
   comments?: boolean | Prisma.User$commentsArgs<ExtArgs>
@@ -4633,6 +4948,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   games?: boolean | Prisma.User$gamesArgs<ExtArgs>
+  tags?: boolean | Prisma.User$tagsArgs<ExtArgs>
   gameLists?: boolean | Prisma.User$gameListsArgs<ExtArgs>
   likes?: boolean | Prisma.User$likesArgs<ExtArgs>
   comments?: boolean | Prisma.User$commentsArgs<ExtArgs>
@@ -4654,6 +4970,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     accounts: Prisma.$AccountPayload<ExtArgs>[]
     sessions: Prisma.$SessionPayload<ExtArgs>[]
     games: Prisma.$UserGameEntryPayload<ExtArgs>[]
+    tags: Prisma.$UserTagPayload<ExtArgs>[]
     gameLists: Prisma.$GameListPayload<ExtArgs>[]
     likes: Prisma.$LikePayload<ExtArgs>[]
     comments: Prisma.$CommentPayload<ExtArgs>[]
@@ -5101,6 +5418,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   games<T extends Prisma.User$gamesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$gamesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserGameEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  tags<T extends Prisma.User$tagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   gameLists<T extends Prisma.User$gameListsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$gameListsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GameListPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   likes<T extends Prisma.User$likesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$likesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   comments<T extends Prisma.User$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -5640,6 +5958,30 @@ export type User$gamesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
   take?: number
   skip?: number
   distinct?: Prisma.UserGameEntryScalarFieldEnum | Prisma.UserGameEntryScalarFieldEnum[]
+}
+
+/**
+ * User.tags
+ */
+export type User$tagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserTag
+   */
+  select?: Prisma.UserTagSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserTag
+   */
+  omit?: Prisma.UserTagOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserTagInclude<ExtArgs> | null
+  where?: Prisma.UserTagWhereInput
+  orderBy?: Prisma.UserTagOrderByWithRelationInput | Prisma.UserTagOrderByWithRelationInput[]
+  cursor?: Prisma.UserTagWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserTagScalarFieldEnum | Prisma.UserTagScalarFieldEnum[]
 }
 
 /**
