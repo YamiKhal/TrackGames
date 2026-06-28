@@ -68,7 +68,7 @@ export default function Gallary({ children, mode = "slide", autoRotate = false, 
 					<div className="grid">
 						{items.map((child, itemIndex) => (
 							<div
-								key={child.toLocaleString()}
+								key={itemIndex.toLocaleString()}
 								className={`col-start-1 row-start-1 transition-opacity duration-300 ease-out ${itemIndex === index ? "z-10 opacity-100" : "pointer-events-none z-0 opacity-0"}`}
 							>
 								{child}
@@ -77,8 +77,8 @@ export default function Gallary({ children, mode = "slide", autoRotate = false, 
 					</div>
 				) : (
 					<div className="flex transition-transform duration-300 ease-out" style={{ transform: `translateX(-${index * 100}%)` }}>
-						{items.map((child) => (
-							<div key={child.toLocaleString()} className="w-full flex-none">
+						{items.map((child, itemIndex) => (
+							<div key={itemIndex.toLocaleString()} className="w-full flex-none">
 								{child}
 							</div>
 						))}
@@ -98,7 +98,7 @@ export default function Gallary({ children, mode = "slide", autoRotate = false, 
 			<div className="absolute bottom-0 left-1/2 flex -translate-x-1/2 gap-2">
 				{items.map((_, itemIndex) => (
 					<button
-						key={_.toLocaleString()}
+						key={itemIndex.toLocaleString()}
 						type="button"
 						aria-label={`Show item ${itemIndex + 1}`}
 						onClick={() => {
