@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "eslint",
     "import:api": "tsx scripts/import-api.ts",
-    "import:clear-data": "tsx scripts/clear-import-data.ts"
+    "import:clear-data": "tsx scripts/clear-import-data.ts",
+    "webhooks:register": "tsx scripts/register-webhooks.ts"
   },
   "engines": {
     "node": "22.13.x"
