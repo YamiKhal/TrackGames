@@ -7,8 +7,7 @@ import MenuPanel from "@/app/components/ui/MenuPanel";
 import { Input, Select } from "@/app/components/ui/Inputs";
 import { removeGameFromPlaylist, updatePlaylistEntry } from "@/lib/actions/playlists";
 import type { PlaylistEntry } from "@/lib/data/playlists";
-import { GameStatus } from "@/lib/generated/prisma/enums";
-import { ratingToFive } from "@/lib/util/rating";
+import { advancedLibraryFilterCount, matchesAdvancedLibraryFilters } from "@/lib/util/libraryFilters";
 import { Edit3, SlidersHorizontal, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState, useTransition, type ReactNode } from "react";
@@ -83,15 +82,9 @@ export default function PlaylistEntriesView({ listId, entries, mode, canEdit, ti
     const [advancedFilters, setAdvancedFilters] = useState(emptyAdvancedLibraryFilters);
     const ordered = useMemo(() => [...entries].sort((a, b) => (a.position ?? 999999) - (b.position ?? 999999) || Number(a.addedAt ?? 0) - Number(b.addedAt ?? 0)), [entries]);
     const allTags = useMemo(() => Array.from(new Set(entries.flatMap((entry) => entry.libraryEntry?.tags.map((tag) => tag.name) ?? []))).sort((a, b) => a.localeCompare(b)), [entries]);
-    const advancedFilterCount = advancedFilters.statuses.length + advancedFilters.excludedStatuses.length + advancedFilters.tags.length + advancedFilters.excludedTags.length
-        + (advancedFilters.ratingMin ? 1 : 0) + (advancedFilters.ratingMax ? 1 : 0) + (advancedFilters.hoursMin ? 1 : 0) + (advancedFilters.hoursMax ? 1 : 0)
-        + (advancedFilters.finished !== "any" ? 1 : 0) + (advancedFilters.mastered !== "any" ? 1 : 0);
+    const advancedFilterCount = advancedLibraryFilterCount(advancedFilters);
     const filtered = useMemo(() => {
         const search = query.trim().toLowerCase();
-        const ratingMin = advancedFilters.ratingMin === "" ? null : Number(advancedFilters.ratingMin);
-        const ratingMax = advancedFilters.ratingMax === "" ? null : Number(advancedFilters.ratingMax);
-        const hoursMin = advancedFilters.hoursMin === "" ? null : Number(advancedFilters.hoursMin);
-        const hoursMax = advancedFilters.hoursMax === "" ? null : Number(advancedFilters.hoursMax);
 
         return entries.filter((entry) => {
             if (search && !(entry.game.name ?? "").toLowerCase().includes(search)) return false;
@@ -101,28 +94,7 @@ export default function PlaylistEntriesView({ listId, entries, mode, canEdit, ti
             const libraryEntry = entry.libraryEntry;
             if (!libraryEntry) return false;
 
-            if (advancedFilters.statuses.length && !advancedFilters.statuses.includes(libraryEntry.status as GameStatus)) return false;
-            if (advancedFilters.excludedStatuses.includes(libraryEntry.status as GameStatus)) return false;
-
-            const rating = ratingToFive(libraryEntry.rating ?? 0) ?? 0;
-            if (ratingMin != null && Number.isFinite(ratingMin) && rating < ratingMin) return false;
-            if (ratingMax != null && Number.isFinite(ratingMax) && rating > ratingMax) return false;
-
-            const hours = libraryEntry.timePlayed ?? 0;
-            if (hoursMin != null && Number.isFinite(hoursMin) && hours < hoursMin) return false;
-            if (hoursMax != null && Number.isFinite(hoursMax) && hours > hoursMax) return false;
-
-            const finished = Boolean(libraryEntry.finishedAt || libraryEntry.timeFinished != null);
-            const mastered = Boolean(libraryEntry.masteredAt || libraryEntry.timeMastered != null);
-            if (advancedFilters.finished === "yes" && !finished) return false;
-            if (advancedFilters.finished === "no" && finished) return false;
-            if (advancedFilters.mastered === "yes" && !mastered) return false;
-            if (advancedFilters.mastered === "no" && mastered) return false;
-
-            const entryTags = libraryEntry.tags.map((tag) => tag.name);
-            if (advancedFilters.tags.length && !advancedFilters.tags.every((tag) => entryTags.includes(tag))) return false;
-            if (advancedFilters.excludedTags.some((tag) => entryTags.includes(tag))) return false;
-            return true;
+            return matchesAdvancedLibraryFilters(libraryEntry, advancedFilters);
         }).sort((a, b) => {
             if (sort === "name") return (a.game.name ?? "").localeCompare(b.game.name ?? "");
             if (sort === "release") return Number(b.game.releaseDate ?? 0) - Number(a.game.releaseDate ?? 0);
