@@ -1,45 +1,5 @@
 [
   {
-    "id": 252665,
-    "cover": {
-      "id": 308113,
-      "image_id": "co6lqp"
-    },
-    "first_release_date": 1782604800,
-    "name": "Moonlight Knight",
-    "slug": "moonlight-knight"
-  },
-  {
-    "id": 347369,
-    "cover": {
-      "id": 563204,
-      "image_id": "coc2kk"
-    },
-    "first_release_date": 1782604800,
-    "name": "Welcome, Sharehouse!",
-    "slug": "welcome-sharehouse"
-  },
-  {
-    "id": 374836,
-    "cover": {
-      "id": 567643,
-      "image_id": "coc5zv"
-    },
-    "first_release_date": 1782604800,
-    "name": "Backrooms Anomaly",
-    "slug": "backrooms-anomaly"
-  },
-  {
-    "id": 387500,
-    "cover": {
-      "id": 530815,
-      "image_id": "cobdkv"
-    },
-    "first_release_date": 1782604800,
-    "name": "Integrity",
-    "slug": "integrity--1"
-  },
-  {
     "id": 358009,
     "cover": {
       "id": 475672,
@@ -298,16 +258,6 @@
     "first_release_date": 1782777600,
     "name": "Athanasia",
     "slug": "athanasia"
-  },
-  {
-    "id": 211671,
-    "cover": {
-      "id": 251016,
-      "image_id": "co5doo"
-    },
-    "first_release_date": 1782777600,
-    "name": "Glaciered",
-    "slug": "glaciered"
   },
   {
     "id": 211702,
@@ -998,5 +948,55 @@
     "first_release_date": 1782777600,
     "name": "Broth Bounty",
     "slug": "broth-bounty"
+  },
+  {
+    "id": 350442,
+    "cover": {
+      "id": 547019,
+      "image_id": "cobq2z"
+    },
+    "first_release_date": 1782777600,
+    "name": "Angler's Journey",
+    "slug": "anglers-journey"
+  },
+  {
+    "id": 353880,
+    "cover": {
+      "id": 516107,
+      "image_id": "cob28b"
+    },
+    "first_release_date": 1782777600,
+    "name": "Soulforge: Lost Path",
+    "slug": "soulforge-lost-path"
+  },
+  {
+    "id": 354867,
+    "cover": {
+      "id": 472426,
+      "image_id": "coa4iy"
+    },
+    "first_release_date": 1782777600,
+    "name": "MandarinMastermind",
+    "slug": "mandarinmastermind"
+  },
+  {
+    "id": 357001,
+    "cover": {
+      "id": 474535,
+      "image_id": "coa65j"
+    },
+    "first_release_date": 1782777600,
+    "name": "The Shores of Stellaluna",
+    "slug": "the-shores-of-stellaluna"
+  },
+  {
+    "id": 357037,
+    "cover": {
+      "id": 474568,
+      "image_id": "coa66g"
+    },
+    "first_release_date": 1782777600,
+    "name": "Woodrot",
+    "slug": "woodrot"
   }
 ]

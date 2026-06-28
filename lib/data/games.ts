@@ -42,6 +42,7 @@ const searchSelect = {
     releaseDate: true,
     cover: true,
     gameType: true,
+    versionParent: true,
 };
 
 const fetching = {
@@ -158,7 +159,7 @@ export async function searchGames(query: string, limit = 8): Promise<Game[]> {
 
     if (search.length < 2) return [];
 
-    const resultLimit = Math.max(1, Math.min(limit, 64));
+    const resultLimit = Math.max(1, Math.min(limit, 320));
     const lowerSearch = search.toLowerCase();
     const contains = `%${lowerSearch}%`;
     const startsWith = `${lowerSearch}%`;
@@ -171,7 +172,8 @@ export async function searchGames(query: string, limit = 8): Promise<Game[]> {
                 "totalRating",
                 "releaseDate",
                 "cover",
-                "gameType"
+                "gameType",
+                "versionParent"
             FROM "Game"
             WHERE lower("name") LIKE ${contains}
             ORDER BY
@@ -180,6 +182,7 @@ export async function searchGames(query: string, limit = 8): Promise<Game[]> {
                     WHEN lower("name") LIKE ${startsWith} THEN 1
                     ELSE 2
                 END,
+                CASE WHEN "versionParent" IS NULL THEN 0 ELSE 1 END,
                 CASE "gameType"
                     WHEN 'MAINGAME' THEN 0
                     WHEN 'DLC' THEN 1
@@ -208,6 +211,7 @@ export async function searchGames(query: string, limit = 8): Promise<Game[]> {
         },
         select: searchSelect,
         orderBy: [
+            { versionParent: { sort: "asc", nulls: "first" } },
             { totalRating: "desc" },
             { name: "asc" },
         ],
@@ -231,10 +235,13 @@ export async function searchGames(query: string, limit = 8): Promise<Game[]> {
         const bName = b.name?.toLowerCase() ?? "";
         const aType = a.gameType === "MAINGAME" ? 0 : a.gameType === "DLC" ? 1 : 2;
         const bType = b.gameType === "MAINGAME" ? 0 : b.gameType === "DLC" ? 1 : 2;
+        const aEdition = a.versionParent == null ? 0 : 1;
+        const bEdition = b.versionParent == null ? 0 : 1;
         const aMatch = aName === lowerSearch ? 0 : aName.startsWith(lowerSearch) ? 1 : aName.includes(lowerSearch) ? 2 : 3;
         const bMatch = bName === lowerSearch ? 0 : bName.startsWith(lowerSearch) ? 1 : bName.includes(lowerSearch) ? 2 : 3;
 
         return aMatch - bMatch
+            || aEdition - bEdition
             || aType - bType
             || (b.totalRating ?? 0) - (a.totalRating ?? 0)
             || aName.localeCompare(bName);
