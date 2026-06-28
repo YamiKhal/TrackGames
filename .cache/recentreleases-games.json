@@ -518,6 +518,16 @@
     "slug": "eternal-hatred"
   },
   {
+    "id": 397488,
+    "cover": {
+      "id": 554697,
+      "image_id": "cobw09"
+    },
+    "first_release_date": 1782432000,
+    "name": "Blood Gauntlet",
+    "slug": "blood-gauntlet"
+  },
+  {
     "id": 395740,
     "cover": {
       "id": 552674,
@@ -536,6 +546,16 @@
     "first_release_date": 1782432000,
     "name": "IronWood",
     "slug": "ironwood"
+  },
+  {
+    "id": 394113,
+    "cover": {
+      "id": 550248,
+      "image_id": "cobsko"
+    },
+    "first_release_date": 1782432000,
+    "name": "Operation Obliteration 2",
+    "slug": "operation-obliteration-2"
   },
   {
     "id": 393978,
@@ -578,6 +598,26 @@
     "slug": "magalumina"
   },
   {
+    "id": 392200,
+    "cover": {
+      "id": 545608,
+      "image_id": "cobozs"
+    },
+    "first_release_date": 1782432000,
+    "name": "Scarlet Backrooms",
+    "slug": "scarlet-backrooms"
+  },
+  {
+    "id": 392180,
+    "cover": {
+      "id": 544677,
+      "image_id": "cobo9x"
+    },
+    "first_release_date": 1782432000,
+    "name": "Codex Combat",
+    "slug": "codex-combat"
+  },
+  {
     "id": 392134,
     "cover": {
       "id": 541693,
@@ -598,6 +638,16 @@
     "slug": "clovers-quadrants"
   },
   {
+    "id": 392093,
+    "cover": {
+      "id": 544703,
+      "image_id": "coboan"
+    },
+    "first_release_date": 1782432000,
+    "name": "Shadow of Ancients",
+    "slug": "shadow-of-ancients"
+  },
+  {
     "id": 390197,
     "cover": {
       "id": 538581,
@@ -616,6 +666,16 @@
     "first_release_date": 1782432000,
     "name": "Wizard 64",
     "slug": "wizard-64"
+  },
+  {
+    "id": 389695,
+    "cover": {
+      "id": 537781,
+      "image_id": "cobiyd"
+    },
+    "first_release_date": 1782432000,
+    "name": "The Anomaly Unit",
+    "slug": "the-anomaly-unit"
   },
   {
     "id": 389087,
@@ -646,6 +706,16 @@
     "first_release_date": 1782432000,
     "name": "As:9-nine- Arteisia",
     "slug": "as-9-nine-arteisia"
+  },
+  {
+    "id": 379367,
+    "cover": {
+      "id": 518043,
+      "image_id": "cob3q3"
+    },
+    "first_release_date": 1782432000,
+    "name": "Geckos & Deckos",
+    "slug": "geckos-and-deckos"
   },
   {
     "id": 374183,
@@ -706,6 +776,16 @@
     "first_release_date": 1782432000,
     "name": "Bittersweet Blossoms",
     "slug": "bittersweet-blossoms"
+  },
+  {
+    "id": 345511,
+    "cover": {
+      "id": 460512,
+      "image_id": "co9vc0"
+    },
+    "first_release_date": 1782432000,
+    "name": "Wild West Supermarket Simulator",
+    "slug": "wild-west-supermarket-simulator"
   },
   {
     "id": 344704,
@@ -899,85 +979,5 @@
     "first_release_date": 1782345600,
     "name": "Left Fore Dead: Zombie Battle Golf",
     "slug": "left-fore-dead-zombie-battle-golf"
-  },
-  {
-    "id": 406325,
-    "cover": {
-      "id": 571069,
-      "image_id": "coc8n1"
-    },
-    "first_release_date": 1782345600,
-    "name": "Invisible Ascent",
-    "slug": "invisible-ascent"
-  },
-  {
-    "id": 406324,
-    "cover": {
-      "id": 572599,
-      "image_id": "coc9tj"
-    },
-    "first_release_date": 1782345600,
-    "name": "Deliver Together",
-    "slug": "deliver-together"
-  },
-  {
-    "id": 406309,
-    "cover": {
-      "id": 571221,
-      "image_id": "coc8r9"
-    },
-    "first_release_date": 1782345600,
-    "name": "Necromancer Delivery Service",
-    "slug": "necromancer-delivery-service"
-  },
-  {
-    "id": 406304,
-    "cover": {
-      "id": 574007,
-      "image_id": "cocawn"
-    },
-    "first_release_date": 1782345600,
-    "name": "Storm Clan",
-    "slug": "storm-clan"
-  },
-  {
-    "id": 406067,
-    "cover": {
-      "id": 570649,
-      "image_id": "coc8bd"
-    },
-    "first_release_date": 1782345600,
-    "name": "Escape game R00m14",
-    "slug": "escape-game-r00m14"
-  },
-  {
-    "id": 406063,
-    "cover": {
-      "id": 570645,
-      "image_id": "coc8b9"
-    },
-    "first_release_date": 1782345600,
-    "name": "Love Island: Forbidden Boys Temptation",
-    "slug": "love-island-forbidden-boys-temptation"
-  },
-  {
-    "id": 406054,
-    "cover": {
-      "id": 570635,
-      "image_id": "coc8az"
-    },
-    "first_release_date": 1782345600,
-    "name": "Murder on the Disorient Express",
-    "slug": "murder-on-the-disorient-express"
-  },
-  {
-    "id": 406018,
-    "cover": {
-      "id": 570565,
-      "image_id": "coc891"
-    },
-    "first_release_date": 1782345600,
-    "name": "The Life You Missed",
-    "slug": "the-life-you-missed"
   }
 ]

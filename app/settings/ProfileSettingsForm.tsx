@@ -12,7 +12,7 @@ import { ChevronDown, ChevronUp, Trash2 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { ColorField, MediaModal } from "./SettingsShared";
 
-function SocialPlatformLabel({ platform, kind }: { platform: string; kind: LinkType }) {
+function SocialPlatformLabel({ platform, kind }: Readonly<{ platform: string; kind: LinkType }>) {
     const platformConfig = getSocialPlatform(platform, kind);
 
     if (!platformConfig) return <>{platform}</>;
@@ -27,7 +27,11 @@ function SocialPlatformLabel({ platform, kind }: { platform: string; kind: LinkT
     );
 }
 
-export default function ProfileSettingsForm({ profile }: { profile: User; }) {
+function filterSocials(items: SocialLink[], social: SocialLink) {
+    return items.filter((item) => item.id !== social.id)
+}
+
+export default function ProfileSettingsForm({ profile }: Readonly<{ profile: User; }>) {
     const [name, setName] = useState(profile.name ?? "");
     const [bio, setBio] = useState(profile.bio ?? "");
     const [image, setImage] = useState(profile.image ?? "");
@@ -133,7 +137,7 @@ export default function ProfileSettingsForm({ profile }: { profile: User; }) {
                                         <ChevronDown size={18} />
                                     </button>
                                     <button type="button" onClick={() => {
-                                        setSocials((items) => items.filter((item) => item.id !== social.id));
+                                        setSocials((items) => filterSocials(items, social));
                                     }} className="cursor-pointer rounded p-2 text-text-muted hover:text-error" aria-label="Remove social link">
                                         <Trash2 size={18} />
                                     </button>

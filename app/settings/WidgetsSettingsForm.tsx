@@ -8,67 +8,88 @@ import { Plus } from "lucide-react";
 import { useMemo, useState } from "react";
 import { WidgetEditor } from "./WidgetEditors";
 
-export default function WidgetsSettingsForm({ profile }: { profile: User; }) {
-    const [widgets, setWidgets] = useState(() => parseWidgets(profile.widgets));
-    const widgetPayload = useMemo(() => serializeWidgets(widgets), [widgets]);
+function getWidgetTitle(type: WidgetType): string {
+	switch (type) {
+		case WidgetType.GAMELIST:
+			return "Game list";
+		case WidgetType.STATS:
+			return "Stats";
+		default:
+			return "Markdown";
+	}
+}
 
-    function updateWidget(id: string, patch: Partial<Widget>) {
-        setWidgets((items) => items.map((item) => item.id === id ? { ...item, ...patch } : item));
-    }
+function widgetFilter(items: Widget[], widget: Widget) {
+	return items.filter((item) => item.id !== widget.id);
+}
 
-    function moveWidget(id: string, direction: -1 | 1) {
-        setWidgets((items) => {
-            const index = items.findIndex((item) => item.id === id);
-            const targetIndex = index + direction;
+export default function WidgetsSettingsForm({ profile }: Readonly<{ profile: User }>) {
+	const [widgets, setWidgets] = useState(() => parseWidgets(profile.widgets));
+	const widgetPayload = useMemo(() => serializeWidgets(widgets), [widgets]);
 
-            if (index < 0 || targetIndex < 0 || targetIndex >= items.length) return items;
+	function updateWidget(id: string, patch: Partial<Widget>) {
+		setWidgets((items) => items.map((item) => (item.id === id ? { ...item, ...patch } : item)));
+	}
 
-            const next = [...items];
-            [next[index], next[targetIndex]] = [next[targetIndex], next[index]];
-            return next;
-        });
+	function moveWidget(id: string, direction: -1 | 1) {
+		setWidgets((items) => {
+			const index = items.findIndex((item) => item.id === id);
+			const targetIndex = index + direction;
 
-    }
+			if (index < 0 || targetIndex < 0 || targetIndex >= items.length) return items;
 
-    return (
-        <div className="flex flex-col">
-            <input type="hidden" name="widgets" value={widgetPayload} />
-            <div className="flex flex-wrap gap-2">
-                {([WidgetType.GAMELIST, WidgetType.MARKDOWN, WidgetType.STATS]).map((type) => (
-                    <GhostButton key={type} type="button" onClick={() => {
-                        setWidgets((items) => [...items, {
-                            id: `${Date.now()}-${type}`,
-                            type,
-                            title: type === WidgetType.GAMELIST ? "Game list" : "",
-                            visible: true,
-                            content: "",
-                            stats: type === WidgetType.STATS ? ["played", "completed", "backlog"] : [],
-                            games: [],
-                        }]);
+			const next = [...items];
+			[next[index], next[targetIndex]] = [next[targetIndex], next[index]];
+			return next;
+		});
+	}
 
-                    }}>
-                        <Plus size={16} />
-                        {type === WidgetType.GAMELIST ? "Game list" : type === WidgetType.STATS ? "Stats" : "Markdown"}
-                    </GhostButton>
-                ))}
-            </div>
-            {widgets.length === 0 ? (
-                <p className="text-sm text-text-muted">No widgets configured.</p>
-            ) : widgets.map((widget, index) => (
-                <WidgetEditor
-                    key={widget.id}
-                    widget={widget}
-                    index={index}
-                    total={widgets.length}
-                    onChange={(patch) => updateWidget(widget.id, patch)}
-                    onRemove={() => {
-                        setWidgets((items) => items.filter((item) => item.id !== widget.id));
-
-                    }}
-                    onMoveUp={() => moveWidget(widget.id, -1)}
-                    onMoveDown={() => moveWidget(widget.id, 1)}
-                />
-            ))}
-        </div>
-    );
+	return (
+		<div className="flex flex-col">
+			<input type="hidden" name="widgets" value={widgetPayload} />
+			<div className="flex flex-wrap gap-2">
+				{[WidgetType.GAMELIST, WidgetType.MARKDOWN, WidgetType.STATS].map((type) => (
+					<GhostButton
+						key={type}
+						type="button"
+						onClick={() => {
+							setWidgets((items) => [
+								...items,
+								{
+									id: `${Date.now()}-${type}`,
+									type,
+									title: type === WidgetType.GAMELIST ? "Game list" : "",
+									visible: true,
+									content: "",
+									stats: type === WidgetType.STATS ? ["played", "completed", "backlog"] : [],
+									games: [],
+								},
+							]);
+						}}
+					>
+						<Plus size={16} />
+						{getWidgetTitle(type)}
+					</GhostButton>
+				))}
+			</div>
+			{widgets.length === 0 ? (
+				<p className="text-sm text-text-muted">No widgets configured.</p>
+			) : (
+				widgets.map((widget, index) => (
+					<WidgetEditor
+						key={widget.id}
+						widget={widget}
+						index={index}
+						total={widgets.length}
+						onChange={(patch) => updateWidget(widget.id, patch)}
+						onRemove={() => {
+							setWidgets((items) => widgetFilter(items, widget));
+						}}
+						onMoveUp={() => moveWidget(widget.id, -1)}
+						onMoveDown={() => moveWidget(widget.id, 1)}
+					/>
+				))
+			)}
+		</div>
+	);
 }

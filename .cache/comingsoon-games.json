@@ -30,16 +30,6 @@
     "slug": "mono--3"
   },
   {
-    "id": 397488,
-    "cover": {
-      "id": 554697,
-      "image_id": "cobw09"
-    },
-    "first_release_date": 1782691200,
-    "name": "Blood Gauntlet",
-    "slug": "blood-gauntlet"
-  },
-  {
     "id": 405796,
     "cover": {
       "id": 570211,
@@ -998,5 +988,15 @@
     "first_release_date": 1782777600,
     "name": "The Shores of Stellaluna",
     "slug": "the-shores-of-stellaluna"
+  },
+  {
+    "id": 357741,
+    "cover": {
+      "id": 551664,
+      "image_id": "cobto0"
+    },
+    "first_release_date": 1782777600,
+    "name": "Schizophrenia: R.E.M. Protocol",
+    "slug": "schizophrenia-rem-protocol"
   }
 ]

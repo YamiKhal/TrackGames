@@ -9,295 +9,340 @@ import { login, loginProvider, signup } from "@/lib/actions/auth";
 import MenuPanel from "../components/ui/MenuPanel";
 
 const providers = [
-    { name: "Google", icon: GoogleIcon, slug: "google" },
-    { name: "GitHub", icon: GithubIcon, slug: "github" },
-    { name: "Twitch", icon: TwitchIcon, slug: "twitch" },
-    { name: "Discord", icon: DiscordIcon, slug: "discord" },
+	{ name: "Google", icon: GoogleIcon, slug: "google" },
+	{ name: "GitHub", icon: GithubIcon, slug: "github" },
+	{ name: "Twitch", icon: TwitchIcon, slug: "twitch" },
+	{ name: "Discord", icon: DiscordIcon, slug: "discord" },
 ];
 
 const authErrorMessages: Record<string, string> = {
-    AccessDenied: "Access denied. Please try another sign-in method.",
-    AccountNotLinked: "An account with this email already exists. Sign in first, then link this provider.",
-    CallbackRouteError: "Sign in failed. Please try again.",
-    CredentialsSignin: "Invalid email or password.",
-    OAuthAccountNotLinked: "An account with this email already exists. Sign in first, then link this provider.",
-    OAuthCallbackError: "The provider sign-in failed. Please try again.",
-    OAuthSignInError: "The provider sign-in failed. Please try again.",
-    OAuthUsernameRequired: "Use 1-32 letters, numbers, underscores, or hyphens.",
-    OAuthUsernameTaken: "That username is already in use.",
+	AccessDenied: "Access denied. Please try another sign-in method.",
+	AccountNotLinked: "An account with this email already exists. Sign in first, then link this provider.",
+	CallbackRouteError: "Sign in failed. Please try again.",
+	CredentialsSignin: "Invalid email or password.",
+	OAuthAccountNotLinked: "An account with this email already exists. Sign in first, then link this provider.",
+	OAuthCallbackError: "The provider sign-in failed. Please try again.",
+	OAuthSignInError: "The provider sign-in failed. Please try again.",
+	OAuthUsernameRequired: "Use 1-32 letters, numbers, underscores, or hyphens.",
+	OAuthUsernameTaken: "That username is already in use.",
 };
 
 export default function LoginClient() {
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const [mode, setMode] = useState<"login" | "register">("login");
-    const [showPassword, setShowPassword] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
-    const [fieldErrors, setFieldErrors] = useState<{ name?: string; email?: string; password?: string; passwordConfirm?: string }>({});
-    const [name, setName] = useState("");
-    const [password, setPassword] = useState("");
-    const [providerSignup, setProviderSignup] = useState<(typeof providers)[number] | null>(null);
-    const [providerUsername, setProviderUsername] = useState("");
-    const [providerUsernameError, setProviderUsernameError] = useState("");
-    const isRegister = mode === "register";
-    const passwordMessage = isRegister && password.length > 0 && password.length < 8 ? "Password must be at least 8 characters." : fieldErrors.password;
+	const router = useRouter();
+	const searchParams = useSearchParams();
+	const [mode, setMode] = useState<"login" | "register">("login");
+	const [showPassword, setShowPassword] = useState(false);
+	const [errorMessage, setErrorMessage] = useState("");
+	const [fieldErrors, setFieldErrors] = useState<{ name?: string; email?: string; password?: string; passwordConfirm?: string }>({});
+	const [name, setName] = useState("");
+	const [password, setPassword] = useState("");
+	const [providerSignup, setProviderSignup] = useState<(typeof providers)[number] | null>(null);
+	const [providerUsername, setProviderUsername] = useState("");
+	const [providerUsernameError, setProviderUsernameError] = useState("");
+	const isRegister = mode === "register";
+	const passwordMessage =
+		isRegister && password.length > 0 && password.length < 8 ? "Password must be at least 8 characters." : fieldErrors.password;
 
-    useEffect(() => {
-        setMode(searchParams.get("mode") === "register" ? "register" : "login");
-        const authError = searchParams.get("error");
+	useEffect(() => {
+		setMode(searchParams.get("mode") === "register" ? "register" : "login");
+		const authError = searchParams.get("error");
 
-        if (authError) {
-            setErrorMessage(authErrorMessages[authError] ?? "Sign in failed. Please try again.");
-        }
-    }, [searchParams]);
+		if (authError) {
+			setErrorMessage(authErrorMessages[authError] ?? "Sign in failed. Please try again.");
+		}
+	}, [searchParams]);
 
-    function switchTo(nextMode: "login" | "register") {
-        setErrorMessage("");
-        setFieldErrors({});
-        setPassword("");
-        setProviderSignup(null);
-        setProviderUsername("");
-        setProviderUsernameError("");
-        setMode(nextMode);
-        router.replace(`/login?mode=${nextMode}`);
-    }
+	function switchTo(nextMode: "login" | "register") {
+		setErrorMessage("");
+		setFieldErrors({});
+		setPassword("");
+		setProviderSignup(null);
+		setProviderUsername("");
+		setProviderUsernameError("");
+		setMode(nextMode);
+		router.replace(`/login?mode=${nextMode}`);
+	}
 
-    async function handleSubmit(formData: FormData) {
-        const response = isRegister ? await signup(formData) : await login(formData);
+	async function handleSubmit(formData: FormData) {
+		const response = isRegister ? await signup(formData) : await login(formData);
 
-        if (response?.error) {
-            setErrorMessage(response.error);
-            setFieldErrors(response.fieldErrors ?? {});
-            return;
-        }
+		if (response?.error) {
+			setErrorMessage(response.error);
+			setFieldErrors(response.fieldErrors ?? {});
+			return;
+		}
 
-        setErrorMessage("");
-        setFieldErrors({});
-    }
+		setErrorMessage("");
+		setFieldErrors({});
+	}
 
-    async function handleProvider(provider: (typeof providers)[number]) {
-        if (isRegister) {
-            setErrorMessage("");
-            setFieldErrors({});
-            setProviderSignup(provider);
-            setProviderUsername("");
-            setProviderUsernameError("");
-            return;
-        }
+	async function handleProvider(provider: (typeof providers)[number]) {
+		if (isRegister) {
+			setErrorMessage("");
+			setFieldErrors({});
+			setProviderSignup(provider);
+			setProviderUsername("");
+			setProviderUsernameError("");
+			return;
+		}
 
-        const formData = new FormData();
-        formData.set("mode", mode);
+		const formData = new FormData();
+		formData.set("mode", mode);
 
-        const response = await loginProvider(provider.slug, formData);
+		const response = await loginProvider(provider.slug, formData);
 
-        if (response?.error) {
-            setErrorMessage(response.error);
-            setFieldErrors(response.fieldErrors ?? {});
-            return;
-        }
+		if (response?.error) {
+			setErrorMessage(response.error);
+			setFieldErrors(response.fieldErrors ?? {});
+			return;
+		}
 
-        setErrorMessage("");
-        setFieldErrors({});
-    }
+		setErrorMessage("");
+		setFieldErrors({});
+	}
 
-    async function handleProviderSignup(formData: FormData) {
-        if (!providerSignup) return;
+	async function handleProviderSignup(formData: FormData) {
+		if (!providerSignup) return;
 
-        formData.set("mode", "register");
-        const response = await loginProvider(providerSignup.slug, formData);
+		formData.set("mode", "register");
+		const response = await loginProvider(providerSignup.slug, formData);
 
-        if (response?.error) {
-            setProviderUsernameError(response.fieldErrors?.name ?? response.error);
-            return;
-        }
+		if (response?.error) {
+			setProviderUsernameError(response.fieldErrors?.name ?? response.error);
+			return;
+		}
 
-        setProviderUsernameError("");
-    }
+		setProviderUsernameError("");
+	}
 
-    return (
-        <div className="w-full max-w-md rounded bg-bg-secondary p-5 sm:p-6">
-            <div className="mb-4">
-                <h1 className="text-2xl font-bold text-text text-center pb-5 sm:text-3xl">
-                    {isRegister ? "Join" : "Login"}
-                </h1>
-            </div>
-            {errorMessage &&
-                <div className="p-5 mb-2 bg-error/20 border-2 border-error/50 text-error rounded-md">
-                    <p className="text-sm">
-                        {errorMessage}
-                    </p>
-                </div>
-            }
-            <form
-                action={handleSubmit}
-                key={mode} className="animate-auth-mode-in flex flex-col gap-4">
-                {isRegister && (
-                    <label className="flex flex-col gap-2 text-sm font-bold text-text-muted">
-                        Username
-                        <span className="relative">
-                            <User className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-faint" size={18} aria-hidden="true" />
-                            <input
-                                id="name"
-                                name="name"
-                                type="text"
-                                autoComplete="username"
-                                placeholder="Your display name"
-                                maxLength={32}
-                                pattern="[A-Za-z0-9_-]+"
-                                value={name}
-                                onChange={(event) => setName(event.target.value)}
-                                aria-invalid={Boolean(fieldErrors.name)}
-                                aria-describedby={fieldErrors.name ? "name-error" : undefined}
-                                className="h-10 w-full rounded border border-border bg-surface px-10 text-text outline-none transition-colors placeholder:text-text-faint focus:border-primary"
-                            />
-                        </span>
-                        {fieldErrors.name && <span id="name-error" className="text-xs font-bold text-error">{fieldErrors.name}</span>}
-                    </label>
-                )}
+	return (
+		<div className="w-full max-w-md rounded bg-bg-secondary p-5 sm:p-6">
+			<div className="mb-4">
+				<h1 className="text-2xl font-bold text-text text-center pb-5 sm:text-3xl">{isRegister ? "Join" : "Login"}</h1>
+			</div>
+			{errorMessage && (
+				<div className="p-5 mb-2 bg-error/20 border-2 border-error/50 text-error rounded-md">
+					<p className="text-sm">{errorMessage}</p>
+				</div>
+			)}
+			<form action={handleSubmit} key={mode} className="animate-auth-mode-in flex flex-col gap-4">
+				{isRegister && (
+					<label className="flex flex-col gap-2 text-sm font-bold text-text-muted">
+						<span>Username</span>
+						<span className="relative">
+							<User
+								className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-faint"
+								size={18}
+								aria-hidden="true"
+							/>
+							<input
+								id="name"
+								name="name"
+								type="text"
+								autoComplete="username"
+								placeholder="Your display name"
+								maxLength={32}
+								pattern="[A-Za-z0-9_-]+"
+								value={name}
+								onChange={(event) => setName(event.target.value)}
+								aria-invalid={Boolean(fieldErrors.name)}
+								aria-describedby={fieldErrors.name ?? undefined}
+								className="h-10 w-full rounded border border-border bg-surface px-10 text-text outline-none transition-colors placeholder:text-text-faint focus:border-primary"
+							/>
+						</span>
+						{fieldErrors.name && (
+							<span id="name-error" className="text-xs font-bold text-error">
+								{fieldErrors.name}
+							</span>
+						)}
+					</label>
+				)}
 
-                <label className="flex flex-col gap-2 text-sm font-bold text-text-muted">
-                    Email
-                    <span className="relative">
-                        <Mail className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-faint" size={18} aria-hidden="true" />
-                        <input
-                            id="email"
-                            name="email"
-                            type="email"
-                            autoComplete="email"
-                            placeholder="Email address"
-                            aria-invalid={Boolean(fieldErrors.email)}
-                            aria-describedby={fieldErrors.email ? "email-error" : undefined}
-                            className="h-10 w-full rounded border border-border bg-surface px-10 text-text outline-none transition-colors placeholder:text-text-faint focus:border-primary"
-                        />
-                    </span>
-                    {fieldErrors.email && <span id="email-error" className="text-xs font-bold text-error">{fieldErrors.email}</span>}
-                </label>
+				<label className="flex flex-col gap-2 text-sm font-bold text-text-muted">
+					<span>Email</span>
+					<span className="relative">
+						<Mail
+							className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-faint"
+							size={18}
+							aria-hidden="true"
+						/>
+						<input
+							id="email"
+							name="email"
+							type="email"
+							autoComplete="email"
+							placeholder="Email address"
+							aria-invalid={Boolean(fieldErrors.email)}
+							aria-describedby={fieldErrors.email ?? undefined}
+							className="h-10 w-full rounded border border-border bg-surface px-10 text-text outline-none transition-colors placeholder:text-text-faint focus:border-primary"
+						/>
+					</span>
+					{fieldErrors.email && (
+						<span id="email-error" className="text-xs font-bold text-error">
+							{fieldErrors.email}
+						</span>
+					)}
+				</label>
 
-                <label className="flex flex-col gap-2 text-sm font-bold text-text-muted">
-                    Password
-                    <span className="relative">
-                        <Lock className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-faint" size={18} aria-hidden="true" />
-                        <input
-                            id="password"
-                            name="password"
-                            type={showPassword ? "text" : "password"}
-                            autoComplete={isRegister ? "new-password" : "current-password"}
-                            placeholder={isRegister ? "Create a password" : "Password"}
-                            value={password}
-                            onChange={(event) => setPassword(event.target.value)}
-                            aria-invalid={Boolean(passwordMessage)}
-                            aria-describedby={passwordMessage ? "password-error" : undefined}
-                            className="h-10 w-full rounded border border-border bg-surface px-10 pr-12 text-text outline-none transition-colors placeholder:text-text-faint focus:border-primary"
-                        />
-                        <button
-                            type="button"
-                            onClick={() => setShowPassword((value) => !value)}
-                            className="cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 rounded p-1 text-text-faint transition-colors hover:text-primary"
-                            aria-label={showPassword ? "Hide password" : "Show password"}
-                        >
-                            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                        </button>
-                    </span>
-                    {passwordMessage && <span id="password-error" className="text-xs font-bold text-error">{passwordMessage}</span>}
-                </label>
+				<label className="flex flex-col gap-2 text-sm font-bold text-text-muted">
+					<span>Password</span>
+					<span className="relative">
+						<Lock
+							className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-faint"
+							size={18}
+							aria-hidden="true"
+						/>
+						<input
+							id="password"
+							name="password"
+							type={showPassword ? "text" : "password"}
+							autoComplete={isRegister ? "new-password" : "current-password"}
+							placeholder="Password"
+							value={password}
+							onChange={(event) => setPassword(event.target.value)}
+							aria-invalid={Boolean(passwordMessage)}
+							aria-describedby={passwordMessage ?? undefined}
+							className="h-10 w-full rounded border border-border bg-surface px-10 pr-12 text-text outline-none transition-colors placeholder:text-text-faint focus:border-primary"
+						/>
+						<button
+							type="button"
+							onClick={() => setShowPassword((value) => !value)}
+							className="cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 rounded p-1 text-text-faint transition-colors hover:text-primary"
+							aria-label="Toggle password"
+						>
+							{showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+						</button>
+					</span>
+					{passwordMessage && (
+						<span id="password-error" className="text-xs font-bold text-error">
+							{passwordMessage}
+						</span>
+					)}
+				</label>
 
-                {isRegister && (
-                    <label className="flex flex-col gap-2 text-sm font-bold text-text-muted">
-                        Confirm password
-                        <span className="relative">
-                            <Lock className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-faint" size={18} aria-hidden="true" />
-                            <input
-                                id="passwordConfirm"
-                                name="passwordConfirm"
-                                type={showPassword ? "text" : "password"}
-                                autoComplete="new-password"
-                                placeholder="Repeat your password"
-                                aria-invalid={Boolean(fieldErrors.passwordConfirm)}
-                                aria-describedby={fieldErrors.passwordConfirm ? "passwordConfirm-error" : undefined}
-                                className="h-10 w-full rounded border border-border bg-surface px-10 text-text outline-none transition-colors placeholder:text-text-faint focus:border-primary"
-                            />
-                        </span>
-                        {fieldErrors.passwordConfirm && <span id="passwordConfirm-error" className="text-xs font-bold text-error">{fieldErrors.passwordConfirm}</span>}
-                    </label>
-                )}
+				{isRegister && (
+					<label className="flex flex-col gap-2 text-sm font-bold text-text-muted">
+						<span>Confirm password</span>
+						<span className="relative">
+							<Lock
+								className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-faint"
+								size={18}
+								aria-hidden="true"
+							/>
+							<input
+								id="passwordConfirm"
+								name="passwordConfirm"
+								type={showPassword ? "text" : "password"}
+								autoComplete="new-password"
+								placeholder="Repeat your password"
+								aria-invalid={Boolean(fieldErrors.passwordConfirm)}
+								aria-describedby={fieldErrors.passwordConfirm ?? undefined}
+								className="h-10 w-full rounded border border-border bg-surface px-10 text-text outline-none transition-colors placeholder:text-text-faint focus:border-primary"
+							/>
+						</span>
+						{fieldErrors.passwordConfirm && (
+							<span id="passwordConfirm-error" className="text-xs font-bold text-error">
+								{fieldErrors.passwordConfirm}
+							</span>
+						)}
+					</label>
+				)}
 
-                {!isRegister && (
-                    <a href="#" className="cursor-pointer w-fit text-sm font-bold text-primary transition-colors hover:text-primary-hover">
-                        Forgot password?
-                    </a>
-                )}
+				{!isRegister && (
+					<a href="#" className="cursor-pointer w-fit text-sm font-bold text-primary transition-colors hover:text-primary-hover">
+						Forgot password?
+					</a>
+				)}
 
-                <button
-                    type="submit"
-                    className="cursor-pointer mt-1 h-10 rounded bg-primary px-6 text-sm font-bold text-text transition-colors hover:bg-primary-hover"
-                >
-                    {isRegister ? "Create account" : "Log in"}
-                </button>
-            </form>
+				<button
+					type="submit"
+					className="cursor-pointer mt-1 h-10 rounded bg-primary px-6 text-sm font-bold text-text transition-colors hover:bg-primary-hover"
+				>
+					{isRegister ? "Create account" : "Log in"}
+				</button>
+			</form>
 
-            <div className="my-4 flex items-center gap-3 text-xs font-bold uppercase tracking-normal text-text-faint">
-                <span className="h-px flex-1 bg-border" />
-                <span>{isRegister ? "Or register with" : "Or use"}</span>
-                <span className="h-px flex-1 bg-border" />
-            </div>
+			<div className="my-4 flex items-center gap-3 text-xs font-bold uppercase tracking-normal text-text-faint">
+				<span className="h-px flex-1 bg-border" />
+				<span>{isRegister ? "Or register with" : "Or use"}</span>
+				<span className="h-px flex-1 bg-border" />
+			</div>
 
-            <div className="grid grid-cols-2 gap-2 sm:gap-3">
-                {providers.map((provider) => {
-                    const Icon = provider.icon;
+			<div className="grid grid-cols-2 gap-2 sm:gap-3">
+				{providers.map((provider) => {
+					const Icon = provider.icon;
 
-                    return (
-                        <GhostButton key={provider.slug} type="button" onClick={() => handleProvider(provider)}>
-                            <Icon size={16} aria-hidden="true" />
-                            <span>{provider.name}</span>
-                        </GhostButton>
-                    );
-                })}
-            </div>
+					return (
+						<GhostButton key={provider.slug} type="button" onClick={() => handleProvider(provider)}>
+							<Icon size={16} aria-hidden="true" />
+							<span>{provider.name}</span>
+						</GhostButton>
+					);
+				})}
+			</div>
 
-            <p className="mt-4 text-center text-sm text-text-muted">
-                {isRegister ? "Already have an account?" : "Need an account?"}{" "}
-                <button
-                    type="button"
-                    onClick={() => switchTo(isRegister ? "login" : "register")}
-                    className="cursor-pointer font-bold text-primary transition-colors hover:text-primary-hover"
-                >
-                    {isRegister ? "Log in" : "Register"}
-                </button>
-            </p>
+			<p className="mt-4 text-center text-sm text-text-muted">
+				{isRegister ? "Already have an account?" : "Need an account?"}{" "}
+				<button
+					type="button"
+					onClick={() => switchTo(isRegister ? "login" : "register")}
+					className="cursor-pointer font-bold text-primary transition-colors hover:text-primary-hover"
+				>
+					{isRegister ? "Log in" : "Register"}
+				</button>
+			</p>
 
-            <MenuPanel open={Boolean(providerSignup)} onClose={() => setProviderSignup(null)} title={providerSignup ? `Register with ${providerSignup.name}` : ""} width="24rem">
-                <form action={handleProviderSignup}>
-                    <label className="flex flex-col gap-2 text-sm font-bold text-text-muted">
-                        Username
-                        <span className="relative">
-                            <User className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-faint" size={18} aria-hidden="true" />
-                            <input
-                                name="name"
-                                type="text"
-                                autoComplete="username"
-                                placeholder="profile-name"
-                                maxLength={32}
-                                pattern="[A-Za-z0-9_-]+"
-                                value={providerUsername}
-                                onChange={(event) => {
-                                    setProviderUsername(event.target.value);
-                                    setProviderUsernameError("");
-                                }}
-                                aria-invalid={Boolean(providerUsernameError)}
-                                aria-describedby={providerUsernameError ? "provider-username-error" : undefined}
-                                className="h-10 w-full rounded border border-border bg-surface px-10 text-text outline-none transition-colors placeholder:text-text-faint focus:border-primary"
-                            />
-                        </span>
-                        {providerUsernameError && <span id="provider-username-error" className="text-xs font-bold text-error">{providerUsernameError}</span>}
-                    </label>
-                    <div className="mt-5 flex justify-end gap-2">
-                        <GhostButton type="button" onClick={() => setProviderSignup(null)} className="px-4 py-2">Cancel</GhostButton>
-                        <button type="submit" className="cursor-pointer rounded bg-primary px-4 py-2 text-sm font-bold text-text transition-colors hover:bg-primary-hover">
-                            Continue with {providerSignup?.name ?? "provider"}
-                        </button>
-                    </div>
-                </form>
-            </MenuPanel>
-        </div>
-    )
+			<MenuPanel
+				open={Boolean(providerSignup)}
+				onClose={() => setProviderSignup(null)}
+				title={providerSignup ? `Register with ${providerSignup.name}` : ""}
+				width="24rem"
+			>
+				<form action={handleProviderSignup}>
+					<label className="flex flex-col gap-2 text-sm font-bold text-text-muted">
+						<span>Username</span>
+						<span className="relative">
+							<User
+								className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-faint"
+								size={18}
+								aria-hidden="true"
+							/>
+							<input
+								name="name"
+								type="text"
+								autoComplete="username"
+								placeholder="profile-name"
+								maxLength={32}
+								pattern="[A-Za-z0-9_-]+"
+								value={providerUsername}
+								onChange={(event) => {
+									setProviderUsername(event.target.value);
+									setProviderUsernameError("");
+								}}
+								aria-invalid={Boolean(providerUsernameError)}
+								aria-describedby={providerUsernameError ? "provider-username-error" : undefined}
+								className="h-10 w-full rounded border border-border bg-surface px-10 text-text outline-none transition-colors placeholder:text-text-faint focus:border-primary"
+							/>
+						</span>
+						{providerUsernameError && (
+							<span id="provider-username-error" className="text-xs font-bold text-error">
+								{providerUsernameError}
+							</span>
+						)}
+					</label>
+					<div className="mt-5 flex justify-end gap-2">
+						<GhostButton type="button" onClick={() => setProviderSignup(null)} className="px-4 py-2">
+							Cancel
+						</GhostButton>
+						<button
+							type="submit"
+							className="cursor-pointer rounded bg-primary px-4 py-2 text-sm font-bold text-text transition-colors hover:bg-primary-hover"
+						>
+							Continue with {providerSignup?.name ?? "provider"}
+						</button>
+					</div>
+				</form>
+			</MenuPanel>
+		</div>
+	);
 }
