@@ -3,7 +3,6 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { resolveStillImage } from "@/lib/util/image";
 import { hexColor } from "@/lib/util/normalize";
-import Image from "next/image";
 
 type OpenGraphImageProps = {
 	title: string;
@@ -44,7 +43,7 @@ export async function createOpenGraphImage({
 	const titleSize = title.length > 42 ? "54px" : "64px";
 	const brand = (
 		<div style={{ display: "flex", alignSelf: "flex-start", alignItems: "center", gap: "18px" }}>
-			<Image src={iconSrc} width="72" height="72" alt="" style={{ width: "72px", height: "72px", borderRadius: "18px" }} />
+			<img src={iconSrc} width="72" height="72" alt="" style={{ width: "72px", height: "72px", borderRadius: "18px" }} />
 			<div style={{ display: "flex", fontSize: "46px", lineHeight: 1, fontWeight: 800 }}>
 				<div style={{ color: "#F4F0FF" }}>Track</div>
 				<div style={{ color: "#9A7BFF" }}>Games</div>
@@ -52,7 +51,7 @@ export async function createOpenGraphImage({
 		</div>
 	);
 	const dissolveBackground = (
-		<div style={{ position: "absolute", left: 0, top: 0, width: "1200px", height: "630px", display: "flex", zIndex: 0 }}>
+		<div style={{ position: "absolute", left: 0, top: 0, width: "1200px", height: "630px", display: "flex" }}>
 			<div style={{ position: "absolute", right: 0, top: 0, width: "260px", height: "100%", background: dissolveColor }} />
 			<div
 				style={{
@@ -114,7 +113,7 @@ export async function createOpenGraphImage({
 				}}
 			>
 				{imageSrc && (
-					<Image
+					<img
 						src={imageSrc}
 						width="1200"
 						height="630"
@@ -145,7 +144,7 @@ export async function createOpenGraphImage({
 							boxShadow: "0 18px 30px rgba(0,0,0,0.36)",
 						}}
 					>
-						<Image
+						<img
 							src={coverSrc}
 							width="170"
 							height="238"
@@ -170,7 +169,7 @@ export async function createOpenGraphImage({
 						opacity: 0.5,
 					}}
 				>
-					<Image src={iconSrc} width="58" height="58" alt="" style={{ width: "58px", height: "58px", borderRadius: "14px" }} />
+					<img src={iconSrc} width="58" height="58" alt="" style={{ width: "58px", height: "58px", borderRadius: "14px" }} />
 				</div>
 				<div
 					style={{
@@ -246,11 +245,10 @@ export async function createOpenGraphImage({
 						border: "10px solid #232633",
 						background: "#14151a",
 						overflow: "hidden",
-						zIndex: 1,
 					}}
 				>
 					{imageSrc ? (
-						<Image
+						<img
 							src={imageSrc}
 							width="330"
 							height="330"
@@ -277,7 +275,6 @@ export async function createOpenGraphImage({
 				<div
 					style={{
 						position: "relative",
-						zIndex: 1,
 						display: "flex",
 						flexDirection: "column",
 						justifyContent: "space-between",
@@ -312,7 +309,7 @@ export async function createOpenGraphImage({
 				}}
 			>
 				{imageSrc && (
-					<Image
+					<img
 						src={imageSrc}
 						width="1200"
 						height="630"
@@ -324,7 +321,6 @@ export async function createOpenGraphImage({
 							height: "100%",
 							objectFit: "cover",
 							opacity: 0.18,
-							zIndex: 1,
 						}}
 					/>
 				)}
@@ -339,7 +335,6 @@ export async function createOpenGraphImage({
 						alignItems: "center",
 						justifyContent: "center",
 						borderRadius: "4px",
-						zIndex: 2,
 					}}
 				>
 					<div style={{ position: "relative", width: "210px", height: "168px", display: "flex" }}>
@@ -445,7 +440,6 @@ export async function createOpenGraphImage({
 				<div
 					style={{
 						position: "relative",
-						zIndex: 3,
 						display: "flex",
 						flexDirection: "column",
 						justifyContent: "space-between",
@@ -487,14 +481,13 @@ export async function createOpenGraphImage({
 					}}
 				/>
 				<div style={{ position: "absolute", right: "74px", top: "82px", display: "flex", width: "486px", height: "376px" }}>
-					{[0, 1, 2, 3].map((index) => (
+					{[3, 2, 1, 0].map((index) => (
 						<div
 							key={index}
 							style={{
 								position: "absolute",
 								left: `${index * 74}px`,
 								top: `${index * 10}px`,
-								zIndex: 40 - index * 10,
 								width: "206px",
 								height: "288px",
 								display: "flex",
@@ -506,7 +499,7 @@ export async function createOpenGraphImage({
 							}}
 						>
 							{playlistImages[index] ? (
-								<Image
+								<img
 									src={playlistImages[index]}
 									width="206"
 									height="288"

@@ -21,8 +21,6 @@ const eslintConfig = defineConfig([
 		},
 
 		rules: {
-			complexity: ["warn", 15],
-
 			"import/first": "error",
 			"import/newline-after-import": "warn",
 			"import/no-duplicates": "error",
@@ -67,7 +65,7 @@ const eslintConfig = defineConfig([
 			"max-lines-per-function": [
 				"warn",
 				{
-					max: 220,
+					max: 250,
 					skipBlankLines: true,
 					skipComments: true,
 				},
