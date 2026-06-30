@@ -44,42 +44,36 @@ export default function PrivacyPage() {
 					<section className="flex flex-col gap-3">
 						<h2 className="text-xl font-bold">What TrackGames Stores</h2>
 						<p className="text-text-muted">
-							TrackGames stores the account details and game library information needed to run the service, such as your
-							username, email address, profile settings, saved games, ratings, playlists, comments, follows, notifications,
-							and linked sign-in providers.
+							TrackGames stores the account details and game library information needed to run the service, such as your username, email address, profile settings,
+							saved games, ratings, playlists, comments, follows, notifications, and linked sign-in providers.
 						</p>
 					</section>
 
 					<section className="flex flex-col gap-3">
 						<h2 className="text-xl font-bold">Cookies And Local Storage</h2>
 						<p className="text-text-muted">
-							TrackGames uses essential authentication cookies so you can sign in and keep using your account. During OAuth
-							registration, TrackGames may also set a short-lived username cookie so the sign-in flow can finish. These
-							cookies are required for account features and are not used for advertising.
+							TrackGames uses essential authentication cookies so you can sign in and keep using your account. During OAuth registration, TrackGames may also set a
+							short-lived username cookie so the sign-in flow can finish. These cookies are required for account features and are not used for advertising.
 						</p>
 						<p className="text-text-muted">
-							TrackGames also stores your theme preference in local storage. This keeps the interface in your chosen light or
-							dark mode on future visits.
+							TrackGames also stores your theme preference in local storage. This keeps the interface in your chosen light or dark mode on future visits.
 						</p>
-						<p className="text-text-muted">
-							TrackGames does not currently use analytics cookies, advertising cookies, or tracking pixels.
-						</p>
+						<p className="text-text-muted">TrackGames does not currently use analytics cookies, advertising cookies, or tracking pixels.</p>
 					</section>
 
 					<section className="flex flex-col gap-3">
 						<h2 className="text-xl font-bold">Third-Party Content</h2>
 						<p className="text-text-muted">
-							Game data and imagery are provided by IGDB. Some game pages may show YouTube videos using YouTube&apos;s
-							privacy-enhanced embed host. Third-party services may still receive basic request information when their content
-							is loaded.
+							Game data and imagery are provided by IGDB. Some game pages may show YouTube videos using YouTube&apos;s privacy-enhanced embed host. Third-party
+							services may still receive basic request information when their content is loaded.
 						</p>
 					</section>
 
 					<section className="flex flex-col gap-3">
 						<h2 className="text-xl font-bold">Your Choices</h2>
 						<p className="text-text-muted">
-							You can sign out to end your active session, adjust your profile and privacy settings from the settings page,
-							and remove browser storage through your browser controls.
+							You can sign out to end your active session, adjust your profile and privacy settings from the settings page, and remove browser storage through your
+							browser controls.
 						</p>
 					</section>
 				</div>

@@ -1,5 +1,15 @@
 const TYPE_NODES = new Set(["TSTypeAliasDeclaration", "TSInterfaceDeclaration", "TSEnumDeclaration"]);
 
+const ORDER = {
+	imports: 0,
+	types: 1,
+	constants: 2,
+	components: 3,
+	hooks: 4,
+	helpers: 5,
+	other: 99,
+};
+
 function isImport(node) {
 	return node.type === "ImportDeclaration";
 }
@@ -49,16 +59,6 @@ function getSection(node) {
 
 	return "other";
 }
-
-const ORDER = {
-	imports: 0,
-	types: 1,
-	constants: 2,
-	components: 3,
-	hooks: 4,
-	helpers: 5,
-	other: 99,
-};
 
 function getNodeRangeWithLeadingComments(sourceCode, node) {
 	const comments = sourceCode.getCommentsBefore(node);

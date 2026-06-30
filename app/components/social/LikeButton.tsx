@@ -10,19 +10,19 @@ type LikeButtonProps = Readonly<{
 	targetType: LikeTargetType;
 	targetId: string;
 	initialLikes: number;
-	initiallyLiked: boolean;
-	loggedIn: boolean;
+	hasLikedState: boolean;
+	isLoggedIn: boolean;
 }>;
 
-export default function LikeButton({ targetType, targetId, initialLikes, initiallyLiked, loggedIn }: LikeButtonProps) {
+export default function LikeButton({ targetType, targetId, initialLikes, hasLikedState, isLoggedIn }: LikeButtonProps) {
 	const [likes, setLikes] = useState(initialLikes);
-	const [liked, setLiked] = useState(initiallyLiked);
+	const [liked, setLiked] = useState(hasLikedState);
 	const [error, setError] = useState<string | null>(null);
 	const [pending, startTransition] = useTransition();
 	const router = useRouter();
 
 	function toggle() {
-		if (!loggedIn) {
+		if (!isLoggedIn) {
 			router.push("/login");
 			return;
 		}

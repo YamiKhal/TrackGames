@@ -109,19 +109,11 @@ export default function AccountSettingsForm({ profile }: Readonly<{ profile: Use
 									<span>{provider.label}</span>
 								</div>
 								{linked ? (
-									<GhostButton
-										type="submit"
-										formAction={unlinkProvider.bind(null, provider.slug)}
-										className="px-3 py-1 text-sm"
-									>
+									<GhostButton type="submit" formAction={unlinkProvider.bind(null, provider.slug)} className="px-3 py-1 text-sm">
 										Unlink
 									</GhostButton>
 								) : (
-									<GhostButton
-										type="submit"
-										formAction={linkProvider.bind(null, provider.slug)}
-										className="px-3 py-1 text-sm"
-									>
+									<GhostButton type="submit" formAction={linkProvider.bind(null, provider.slug)} className="px-3 py-1 text-sm">
 										Link
 									</GhostButton>
 								)}
@@ -129,38 +121,22 @@ export default function AccountSettingsForm({ profile }: Readonly<{ profile: Use
 						);
 					})}
 				</div>
-				<p className="ml-1.5 mt-2 text-[0.7rem] text-text-muted">
-					Sign in first, then link providers here to connect them to this account.
-				</p>
+				<p className="mt-2 ml-1.5 text-[0.7rem] text-text-muted">Sign in first, then link providers here to connect them to this account.</p>
 			</div>
 
 			<p className="ml-1.5 text-[0.7rem] text-text-muted">Joined {profile.createdAt}</p>
 
 			<div className="rounded border border-error/40 bg-error/10 p-4">
 				<h3>Danger zone</h3>
-				<p className="mt-1 text-sm text-text-muted">
-					These actions permanently remove account data. Each action requires confirmation before it runs.
-				</p>
+				<p className="mt-1 text-sm text-text-muted">These actions permanently remove account data. Each action requires confirmation before it runs.</p>
 				<div className="mt-4 grid gap-2 md:grid-cols-3">
-					<GhostButton
-						type="button"
-						onClick={() => setConfirming("library")}
-						className="border-error px-3 py-2 text-error hover:border-error hover:text-error"
-					>
+					<GhostButton type="button" onClick={() => setConfirming("library")} className="border-error px-3 py-2 text-error hover:border-error hover:text-error">
 						Clear library
 					</GhostButton>
-					<GhostButton
-						type="button"
-						onClick={() => setConfirming("data")}
-						className="border-error px-3 py-2 text-error hover:border-error hover:text-error"
-					>
+					<GhostButton type="button" onClick={() => setConfirming("data")} className="border-error px-3 py-2 text-error hover:border-error hover:text-error">
 						Clear all data
 					</GhostButton>
-					<GhostButton
-						type="button"
-						onClick={() => setConfirming("account")}
-						className="border-error px-3 py-2 text-error hover:border-error hover:text-error"
-					>
+					<GhostButton type="button" onClick={() => setConfirming("account")} className="border-error px-3 py-2 text-error hover:border-error hover:text-error">
 						Delete account
 					</GhostButton>
 				</div>

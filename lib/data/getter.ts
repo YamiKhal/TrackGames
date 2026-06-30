@@ -1,13 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { PrismaClient } from "@prisma/client/extension";
-import { fetchAPI } from "../external/igdb/IGDBAPI";
+import { fetchAPI } from "../external/igdb/igdb-api";
 
-export async function getFallback<T>(
-	select: object,
-	database: PrismaClient,
-	fetching: { endpoint: string; body: string },
-	formatter: (data: any) => T,
-): Promise<T[]> {
+export async function getFallback<T>(select: object, database: PrismaClient, fetching: { endpoint: string; body: string }, formatter: (data: any) => T): Promise<T[]> {
 	const fallbackData = await fetchAPI<any[]>(fetching.endpoint, fetching.body);
 
 	const saved = await Promise.all(
@@ -26,13 +21,7 @@ export async function getFallback<T>(
 	return saved as T[];
 }
 
-export async function getByIds<T>(
-	ids: number[],
-	select: object,
-	database: PrismaClient,
-	fetching: { endpoint: string; body: string },
-	formatter: (data: any) => T,
-): Promise<T[]> {
+export async function getByIds<T>(ids: number[], select: object, database: PrismaClient, fetching: { endpoint: string; body: string }, formatter: (data: any) => T): Promise<T[]> {
 	if (!ids.length) return [];
 
 	const uniqueIds = Array.from(new Set(ids));

@@ -18,9 +18,7 @@ export async function getOwnedGames(steamId: string) {
 }
 
 export async function getSteamProfile(steamId: string) {
-	const response = await fetch(
-		`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=${process.env.STEAM_API_KEY}&steamids=${steamId}`,
-	);
+	const response = await fetch(`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=${process.env.STEAM_API_KEY}&steamids=${steamId}`);
 
 	if (!response.ok) {
 		throw new Error("Failed to fetch Steam profile");

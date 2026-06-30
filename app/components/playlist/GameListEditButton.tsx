@@ -12,10 +12,7 @@ import MenuPanel from "../ui/MenuPanel";
 export default function GameListEditButton({
 	list,
 }: Readonly<{
-	list: Pick<
-		GameList,
-		"id" | "type" | "name" | "description" | "image" | "background" | "color" | "accentColor" | "privacy" | "commentsHidden"
-	>;
+	list: Pick<GameList, "id" | "type" | "name" | "description" | "image" | "background" | "color" | "accentColor" | "privacy" | "commentsHidden">;
 }>) {
 	const [open, setOpen] = useState(false);
 	const [pending, startTransition] = useTransition();
@@ -45,7 +42,7 @@ export default function GameListEditButton({
 			<GhostButton type="button" onClick={() => setOpen(true)}>
 				<Edit3 size={16} />
 			</GhostButton>
-			<MenuPanel open={open} onClose={() => setOpen(false)} title="Edit list" panelClassName="max-w-lg bg-bg" portal>
+			<MenuPanel open={open} onClose={() => setOpen(false)} title="Edit list" panelClassName="max-w-lg bg-bg" hasPortal>
 				<form action={save} className="flex flex-col gap-3">
 					<label className="text-sm font-bold text-text-muted">
 						Name
@@ -60,17 +57,12 @@ export default function GameListEditButton({
 						<Input name="background" type="url" placeholder="https://..." defaultValue={list.background ?? ""} />
 					</label>
 					<div className="grid gap-3 md:grid-cols-2">
-						<label className="text-sm font-bold text-text-muted flex flex-row gap-2 items-center">
+						<label className="flex flex-row items-center gap-2 text-sm font-bold text-text-muted">
 							<Input name="color" type="color" defaultValue={list.color ?? "#7b5cdb"} className="max-h-10 max-w-10" />
 							Theme
 						</label>
-						<label className="text-sm font-bold text-text-muted flex flex-row gap-2 items-center">
-							<Input
-								name="accentColor"
-								type="color"
-								defaultValue={list.accentColor ?? "#b8842f"}
-								className="max-h-10 max-w-10"
-							/>
+						<label className="flex flex-row items-center gap-2 text-sm font-bold text-text-muted">
+							<Input name="accentColor" type="color" defaultValue={list.accentColor ?? "#b8842f"} className="max-h-10 max-w-10" />
 							Accent
 						</label>
 					</div>

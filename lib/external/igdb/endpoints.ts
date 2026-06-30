@@ -1,4 +1,4 @@
-import { fetchAPI } from "./IGDBAPI";
+import { fetchAPI } from "./igdb-api";
 import type { Company } from "../../types";
 
 export async function fetchCompanyById(id: number): Promise<Company | null> {

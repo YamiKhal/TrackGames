@@ -137,13 +137,13 @@ export default function HorizontalScroller({ children, className = "", selectedI
 	const canGoRight = hasSelectedMode ? selectedIndex < Children.count(children) - 1 : canScrollRight;
 
 	return (
-		<div className={`relative w-full min-w-0 max-w-full no-scrollbar ${className}`}>
+		<div className={`relative no-scrollbar w-full max-w-full min-w-0 ${className}`}>
 			{canGoLeft && (
 				<button
 					type="button"
 					aria-label={onSelectedIndexChange ? "Show previous media" : "Scroll left"}
 					onClick={() => select("left")}
-					className="absolute left-0 top-1/2 z-10 grid size-10 md:h-full -translate-y-1/2 place-items-center cursor-pointer border-border md:bg-bg-secondary/60 rounded hover:bg-bg-secondary/80 hover:border outline-none hover:text-primary transition-colors"
+					className="absolute top-1/2 left-0 z-10 grid size-10 -translate-y-1/2 cursor-pointer place-items-center rounded border-border transition-colors outline-none hover:border hover:bg-bg-secondary/80 hover:text-primary md:h-full md:bg-bg-secondary/60"
 				>
 					<ChevronLeft size={20} strokeWidth={2} />
 				</button>
@@ -151,7 +151,7 @@ export default function HorizontalScroller({ children, className = "", selectedI
 
 			<div
 				ref={containerRef}
-				className="no-scrollbar flex w-full min-w-0 items-start cursor-grab snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth active:cursor-grabbing"
+				className="no-scrollbar flex w-full min-w-0 cursor-grab snap-x snap-mandatory items-start gap-4 overflow-x-auto scroll-smooth active:cursor-grabbing"
 				onPointerDown={handlePointerDown}
 				onPointerMove={handlePointerMove}
 				onPointerUp={handlePointerUp}
@@ -182,7 +182,7 @@ export default function HorizontalScroller({ children, className = "", selectedI
 					type="button"
 					aria-label={onSelectedIndexChange ? "Show next media" : "Scroll right"}
 					onClick={() => select("right")}
-					className="absolute right-0 top-1/2 z-10 grid size-10 md:h-full -translate-y-1/2 place-items-center cursor-pointer border-border md:bg-bg-secondary/60 rounded hover:bg-bg-secondary/80 hover:border outline-none hover:text-primary transition-colors"
+					className="absolute top-1/2 right-0 z-10 grid size-10 -translate-y-1/2 cursor-pointer place-items-center rounded border-border transition-colors outline-none hover:border hover:bg-bg-secondary/80 hover:text-primary md:h-full md:bg-bg-secondary/60"
 				>
 					<ChevronRight size={20} strokeWidth={2} />
 				</button>

@@ -2,31 +2,17 @@ import GameCard from "@/app/components/game/GameCard";
 import GameLibraryButtonPanel from "@/app/components/game/GameLibraryButtonPanel";
 import RelatedGamesTabs from "@/app/components/game/RelatedGamesTabs";
 import Container from "@/app/components/layout/Container";
-import MediaGallary from "@/app/components/layout/MediaGallary";
+import MediaGallary from "@/app/components/layout/MediaGallery";
 import type { Collection, Franchise, Game } from "@/lib/types";
 import { ImageIdToURL } from "@/lib/external/igdb/util";
 import * as normalize from "@/lib/util/normalize";
-import {
-	Monitor,
-	ToggleRight,
-	Gamepad2,
-	GamepadDirectional,
-	TabletSmartphone,
-	Astroid,
-	Play,
-	Library,
-	Apple,
-	Clock,
-	Flag,
-	BadgeCheck,
-	Star,
-} from "lucide-react";
+import { Monitor, ToggleRight, Gamepad2, GamepadDirectional, TabletSmartphone, Astroid, Play, Library, Apple, Clock, Flag, BadgeCheck, Star } from "lucide-react";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getGame, getGameBySlug, getGameStats } from "@/lib/data/games";
 import { getCompany } from "@/lib/data/companies";
 import { getFranchise } from "@/lib/data/franchises";
-import { getCollection } from "@/lib/data/colllections";
+import { getCollection } from "@/lib/data/collections";
 import { getGenre } from "@/lib/data/genre";
 import { getPlatform } from "@/lib/data/platforms";
 import { getUserPlaylists } from "@/lib/data/playlists";
@@ -47,8 +33,7 @@ function platformIcon(name: string) {
 	if (lower.includes("playstation")) return <GamepadDirectional size={16} />;
 	if (lower.includes("xbox")) return <Gamepad2 size={16} />;
 	if (lower.includes("nintendo")) return <ToggleRight size={16} />;
-	if (lower.includes("pc") || lower.includes("windows") || lower.includes("steam") || lower.includes("epic") || lower.includes("gog"))
-		return <Monitor size={16} />;
+	if (lower.includes("pc") || lower.includes("windows") || lower.includes("steam") || lower.includes("epic") || lower.includes("gog")) return <Monitor size={16} />;
 	if (lower.includes("mac")) return <Apple size={16} />;
 	if (lower.includes("ios") || lower.includes("android") || lower.includes("mobile")) return <TabletSmartphone size={16} />;
 }
@@ -85,10 +70,7 @@ async function fetchSubData(session: Session | null, game: Game, developerIds: n
 }
 
 async function fetchGroupedData(franchises: Franchise[], collections: Collection[]) {
-	return await Promise.all([
-		franchises.length ? getGame(franchises[0].games) : [],
-		collections.length ? getGame(collections[0].games) : [],
-	]);
+	return await Promise.all([franchises.length ? getGame(franchises[0].games) : [], collections.length ? getGame(collections[0].games) : []]);
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -150,8 +132,12 @@ export default async function Page({ params }: Readonly<{ params: Promise<{ slug
 	const developerIds = game.developers ? game.developers.map((id) => id) : [];
 	const publisherIds = game.publishers ? game.publishers.filter((id) => !developerIds.includes(id)) : [];
 
-	const [owned, viewer, gameStats, franchises, collections, developers, publishers, similarGames, genres, platforms, userPlaylists] =
-		await fetchSubData(session, game, developerIds, publisherIds);
+	const [owned, viewer, gameStats, franchises, collections, developers, publishers, similarGames, genres, platforms, userPlaylists] = await fetchSubData(
+		session,
+		game,
+		developerIds,
+		publisherIds,
+	);
 	const [franchiseGames, collectionsGames]: [Game[], Game[]] = await fetchGroupedData(franchises, collections);
 
 	if (game.screenshots && game.screenshots.length > 0) {
@@ -172,16 +158,11 @@ export default async function Page({ params }: Readonly<{ params: Promise<{ slug
 	const ratingDistributionTotal = gameStats.ratingDistribution.reduce((total, rating) => total + rating.count, 0);
 	function renderAverageRatingWidget() {
 		return (
-			<section
-				className="rounded"
-				aria-label={averageRating === null ? "Average rating unavailable" : `Average rating ${averageRating.toFixed(1)} out of 100`}
-			>
+			<section className="rounded" aria-label={averageRating === null ? "Average rating unavailable" : `Average rating ${averageRating.toFixed(1)} out of 100`}>
 				<div className="flex flex-row items-center gap-5 lg:flex-col lg:items-stretch">
-					<div className="flex shrink-0 flex-col items-center justify-center rounded bg-bg-secondary pb-5 pt-5 pr-6 pl-6 md:order-1">
+					<div className="flex shrink-0 flex-col items-center justify-center rounded bg-bg-secondary pt-5 pr-6 pb-5 pl-6 md:order-1">
 						<h2 className="text-sm text-text-muted">Avg. Rating</h2>
-						<p className="text-2xl font-bold text-text">
-							{averageRating === null ? "N/A" : ratingToFive(Number(averageRating.toFixed(1)))?.toFixed(2)}
-						</p>
+						<p className="text-2xl font-bold text-text">{averageRating === null ? "N/A" : ratingToFive(Number(averageRating.toFixed(1)))?.toFixed(2)}</p>
 					</div>
 					<div className="min-w-0 flex-1">
 						<div className="flex h-18 min-w-36 items-end gap-1">
@@ -238,24 +219,24 @@ export default async function Page({ params }: Readonly<{ params: Promise<{ slug
 				) : (
 					<div className="pointer-events-none absolute inset-0 bg-bg-secondary" />
 				)}
-				<div className="pointer-events-none absolute inset-x-0 bottom-0 h-full bg-linear-to-t from-bg via-bg/95 via-50% md:via-30% to-transparent" />
+				<div className="pointer-events-none absolute inset-x-0 bottom-0 h-full bg-linear-to-t from-bg via-bg/95 via-50% to-transparent md:via-30%" />
 
-				<Container className="relative z-1 flex min-h-136 justify-center gap-10 items-end pb-8 pt-20 flex-row md:min-h-152 md:justify-start">
-					<div className="flex flex-col items-center md:items-end md:flex-row min-h-max min-w-0 max-w-full gap-3 md:gap-6 text-text">
+				<Container className="relative z-1 flex min-h-136 flex-row items-end justify-center gap-10 pt-20 pb-8 md:min-h-152 md:justify-start">
+					<div className="flex min-h-max max-w-full min-w-0 flex-col items-center gap-3 text-text md:flex-row md:items-end md:gap-6">
 						<div className="hidden md:flex">
 							<GameCard game={game} size={210} preload />
 						</div>
 						<div className="flex md:hidden">
 							<GameCard game={game} size={180} preload />
 						</div>
-						<div className="flex min-w-0 flex-col items-left justify-between gap-4">
+						<div className="items-left flex min-w-0 flex-col justify-between gap-4">
 							<div className="order-2 min-w-0 pb-2 text-left md:order-1 md:pb-0">
-								<h1 className="max-w-full wrap-break-word text-2xl md:text-4xl font-bold">{game.name}</h1>
+								<h1 className="max-w-full text-2xl font-bold wrap-break-word md:text-4xl">{game.name}</h1>
 								{developers.length > 0 && (
-									<p className="mt-2 max-w-full truncate font-body text-md md:text-lg text-text-muted wrap-break-word text-wrap">
+									<p className="text-md mt-2 max-w-full truncate font-body text-wrap wrap-break-word text-text-muted md:text-lg">
 										Developer:{" "}
 										{developers.map((dev, index) => (
-											<span key={dev.id ?? index} className="font-bold wrap-break-word text-wrap">
+											<span key={dev.id ?? index} className="font-bold text-wrap wrap-break-word">
 												{dev.name}
 												{index < developers.length - 1 && <span>, </span>}
 											</span>
@@ -263,10 +244,10 @@ export default async function Page({ params }: Readonly<{ params: Promise<{ slug
 									</p>
 								)}
 								{publishers.length > 0 && (
-									<p className="max-w-full truncate font-body text-sm md:text-md text-text-muted wrap-break-word text-wrap">
+									<p className="md:text-md max-w-full truncate font-body text-sm text-wrap wrap-break-word text-text-muted">
 										Publisher:{" "}
 										{publishers.map((pub, index) => (
-											<span key={pub.id ?? index} className="font-bold wrap-break-word text-wrap">
+											<span key={pub.id ?? index} className="font-bold text-wrap wrap-break-word">
 												{pub.name}
 												{index < publishers.length - 1 && <span>, </span>}
 											</span>
@@ -279,7 +260,7 @@ export default async function Page({ params }: Readonly<{ params: Promise<{ slug
 									<GameLibraryButtonPanel
 										gameId={game.id}
 										gameSlug={game.slug}
-										loggedIn={Boolean(session?.user)}
+										isLoggedIn={Boolean(session?.user)}
 										entry={owned}
 										playlists={userPlaylistControls}
 										logsHref={logsHref}
@@ -293,40 +274,31 @@ export default async function Page({ params }: Readonly<{ params: Promise<{ slug
 			</section>
 
 			{/* INFO */}
-			<section className="w-full mt-5">
+			<section className="mt-5 w-full">
 				<Container className="flex flex-col justify-between gap-10 lg:flex-row">
 					{/* LEFT COLUMN */}
 					<div className="min-w-0 flex-1">
 						{/* GENRES/PLATFORMS */}
-						<section className="flex min-w-0 flex-col md:flex-row gap-10">
-							<div className="grid w-full min-w-0 grid-cols-1 md:grid-cols-[auto_minmax(0,1fr)] items-start gap-x-10 gap-y-2 md:gap-y-5 md:border-b pb-5 md:pb-1.5 border-border">
-								<p className="font-body text-md border-b border-border p-1 text-start md:p-0 md:bg-bg md:border-none">
-									Genres
-								</p>
-								<div className="font-body text-md flex min-w-0 flex-row flex-wrap gap-x-2 gap-y-1">
+						<section className="flex min-w-0 flex-col gap-10 md:flex-row">
+							<div className="grid w-full min-w-0 grid-cols-1 items-start gap-x-10 gap-y-2 border-border pb-5 md:grid-cols-[auto_minmax(0,1fr)] md:gap-y-5 md:border-b md:pb-1.5">
+								<p className="text-md border-b border-border p-1 text-start font-body md:border-none md:bg-bg md:p-0">Genres</p>
+								<div className="text-md flex min-w-0 flex-row flex-wrap gap-x-2 gap-y-1 font-body">
 									{genres.length
 										? genres.map((genre, index) => (
 												<span key={genre.id ?? genre.name} className="flex min-w-0 flex-row items-center gap-1">
-													<span className="wrap-break-words hover:text-primary cursor-pointer transition-colors text-sm md:text-md">
-														{genre.name}
-													</span>
+													<span className="wrap-break-words md:text-md cursor-pointer text-sm transition-colors hover:text-primary">{genre.name}</span>
 													<p className="select-none">{index < game.genres!.length - 1 ? " • " : ""}</p>
 												</span>
 											))
 										: "N/A"}
 								</div>
 
-								<p className="font-body text-md border-b border-border p-1 text-start md:p-0 md:bg-bg md:border-none">
-									Platforms
-								</p>
-								<div className="font-body text-md flex min-w-0 flex-row flex-wrap gap-x-2 gap-y-1">
+								<p className="text-md border-b border-border p-1 text-start font-body md:border-none md:bg-bg md:p-0">Platforms</p>
+								<div className="text-md flex min-w-0 flex-row flex-wrap gap-x-2 gap-y-1 font-body">
 									{platforms?.length
 										? platforms.map((platform, index) => (
-												<span
-													key={platform.id ?? platform.name}
-													className="flex min-w-0 flex-row items-center gap-1"
-												>
-													<span className="flex min-w-0 items-center gap-2 wrap-break-words hover:text-primary cursor-pointer transition-colors text-sm md:text-md">
+												<span key={platform.id ?? platform.name} className="flex min-w-0 flex-row items-center gap-1">
+													<span className="wrap-break-words md:text-md flex min-w-0 cursor-pointer items-center gap-2 text-sm transition-colors hover:text-primary">
 														{platformIcon(platform.name)}
 														{platform.name}
 													</span>
@@ -339,94 +311,90 @@ export default async function Page({ params }: Readonly<{ params: Promise<{ slug
 						</section>
 
 						{/* MEDIA */}
-						<section className="flex flex-col mt-4">
+						<section className="mt-4 flex flex-col">
 							<div className="w-full min-w-0 overflow-hidden">
 								<MediaGallary media={media} />
 							</div>
 						</section>
 
 						{/* SUMMARY */}
-						<section className="flex flex-col mt-4 pb-4">
+						<section className="mt-4 flex flex-col pb-4">
 							<div className="mb-5 flex min-w-0 flex-row flex-wrap items-center justify-between gap-2">
-								<h2 className="text-xl md:text-2xl font-bold text-text">Summary</h2>
+								<h2 className="text-xl font-bold text-text md:text-2xl">Summary</h2>
 								<span className="min-w-8 flex-1 border-t border-border" aria-hidden="true" />
-								<p className="text-text-muted text-md font-body">
+								<p className="text-md font-body text-text-muted">
 									More info on{" "}
 									<Link
 										href={`https://www.igdb.com/games/${game.slug}`}
 										target="_blank"
 										rel="noopener noreferrer"
-										className="hover:text-primary-hover text-primary cursor-pointer transition-colors"
+										className="cursor-pointer text-primary transition-colors hover:text-primary-hover"
 									>
 										IGDB
 									</Link>
 								</p>
 							</div>
-							<p className="min-w-0 text-md text-text-muted font-body">{game.summary}</p>
+							<p className="text-md min-w-0 font-body text-text-muted">{game.summary}</p>
 						</section>
 					</div>
 
 					{/* RIGHT COLUMN */}
-					<div className="flex min-w-0 max-w-full shrink-0 flex-col gap-5 lg:w-80">
+					<div className="flex max-w-full min-w-0 shrink-0 flex-col gap-5 lg:w-80">
 						<div className="hidden lg:block">{renderAverageRatingWidget()}</div>
 
 						{/* RELEASE DATE */}
-						<section className="bg-bg-secondary p-4 rounded flex min-w-0 flex-row gap-2 items-start justify-start">
-							<h2 className="text-md text-text ml-5 shrink-0">Released</h2>
-							<p className="ml-auto min-w-0 pr-5 text-right text-md font-bold text-text-muted">
-								{game.releaseDate
-									? game.releaseDate.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })
-									: "N/A"}
+						<section className="flex min-w-0 flex-row items-start justify-start gap-2 rounded bg-bg-secondary p-4">
+							<h2 className="text-md ml-5 shrink-0 text-text">Released</h2>
+							<p className="text-md ml-auto min-w-0 pr-5 text-right font-bold text-text-muted">
+								{game.releaseDate ? game.releaseDate.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" }) : "N/A"}
 							</p>
 						</section>
 
 						{/* LIBRARY STATS */}
-						<section className="bg-bg-secondary p-4 rounded flex flex-col gap-2 items-start justify-start min-w-50">
-							<div className="border-b border-border pb-2 pr-5 w-full">
+						<section className="flex min-w-50 flex-col items-start justify-start gap-2 rounded bg-bg-secondary p-4">
+							<div className="w-full border-b border-border pr-5 pb-2">
 								<div className="ml-5 flex min-w-0 flex-row items-center gap-2">
-									<Play className="bg-bg/60 text-secondary p-2 rounded-2xl" size={30} />
-									<p className="min-w-0 truncate text-md text-text-muted">Plays</p>
-									<p className="ml-auto shrink-0 text-md text-text">{formatCompactNumber(gameStats.plays)}</p>
+									<Play className="rounded-2xl bg-bg/60 p-2 text-secondary" size={30} />
+									<p className="text-md min-w-0 truncate text-text-muted">Plays</p>
+									<p className="text-md ml-auto shrink-0 text-text">{formatCompactNumber(gameStats.plays)}</p>
 								</div>
 							</div>
-							<div className="border-b border-border pb-2 pr-5 w-full">
+							<div className="w-full border-b border-border pr-5 pb-2">
 								<div className="ml-5 flex min-w-0 flex-row items-center gap-2">
-									<Library className="bg-bg/60 text-secondary p-2 rounded-2xl" size={30} />
-									<p className="min-w-0 truncate text-md text-text-muted">Backlog</p>
-									<p className="ml-auto shrink-0 text-md text-text">{formatCompactNumber(gameStats.backlog)}</p>
+									<Library className="rounded-2xl bg-bg/60 p-2 text-secondary" size={30} />
+									<p className="text-md min-w-0 truncate text-text-muted">Backlog</p>
+									<p className="text-md ml-auto shrink-0 text-text">{formatCompactNumber(gameStats.backlog)}</p>
 								</div>
 							</div>
 							<div className="w-full">
-								<div className="ml-5 flex min-w-0 flex-row items-center pr-5 gap-2">
-									<Astroid className="bg-bg/60 text-secondary p-2 rounded-2xl" size={30} />
-									<p className="min-w-0 truncate text-md text-text-muted">Wishlists</p>
-									<p className="ml-auto shrink-0 text-md text-text">{formatCompactNumber(gameStats.wishlisted)}</p>
+								<div className="ml-5 flex min-w-0 flex-row items-center gap-2 pr-5">
+									<Astroid className="rounded-2xl bg-bg/60 p-2 text-secondary" size={30} />
+									<p className="text-md min-w-0 truncate text-text-muted">Wishlists</p>
+									<p className="text-md ml-auto shrink-0 text-text">{formatCompactNumber(gameStats.wishlisted)}</p>
 								</div>
 							</div>
 						</section>
 
 						{/* PLAYLIST STATS */}
-						<section className="bg-bg-secondary p-4 rounded flex min-w-0 flex-row gap-2 items-start justify-start">
-							<h2 className="text-md text-text-muted ml-5 shrink-0">This entry is in</h2>
-							<p className="ml-auto min-w-0 pr-5 text-right text-md font-bold text-text">
-								{formatCompactNumber(gameStats.publicPlaylistEntries)} playlists
-							</p>
+						<section className="flex min-w-0 flex-row items-start justify-start gap-2 rounded bg-bg-secondary p-4">
+							<h2 className="text-md ml-5 shrink-0 text-text-muted">This entry is in</h2>
+							<p className="text-md ml-auto min-w-0 pr-5 text-right font-bold text-text">{formatCompactNumber(gameStats.publicPlaylistEntries)} playlists</p>
 						</section>
 
 						{/* TIME SPENT */}
 						<section className="grid min-w-0 grid-cols-3 gap-3">
-							<div className="relative min-w-0 rounded bg-primary/10 border-2 border-primary/30 p-4 pt-7 text-center">
-								<Clock className="absolute right-3 top-3 text-primary" size={18} />
+							<div className="relative min-w-0 rounded border-2 border-primary/30 bg-primary/10 p-4 pt-7 text-center">
+								<Clock className="absolute top-3 right-3 text-primary" size={18} />
 								<p className="truncate text-xl font-bold text-text">{formatHours(gameStats.averagePlaytime)}</p>
 								<p className="mt-1 truncate font-body text-xs text-text-muted">Avg Time</p>
 							</div>
-							<div className="relative min-w-0 rounded bg-primary/10 border-2 border-primary/30 p-4 pt-7 text-center">
-								<Flag className="absolute right-3 top-3 text-primary" size={18} />
+							<div className="relative min-w-0 rounded border-2 border-primary/30 bg-primary/10 p-4 pt-7 text-center">
+								<Flag className="absolute top-3 right-3 text-primary" size={18} />
 								<p className="truncate text-xl font-bold text-text">{formatHours(gameStats.averageCompletionTime)}</p>
 								<p className="mt-1 truncate font-body text-xs text-text-muted">To Finish</p>
 							</div>
-							<div className="relative min-w-0 rounded bg-primary/10 border-2 border-primary/30 p-4 pt-7 text-center">
-								<BadgeCheck className="absolute right-3 top-3 text-primary" size={18} />
+							<div className="relative min-w-0 rounded border-2 border-primary/30 bg-primary/10 p-4 pt-7 text-center">
+								<BadgeCheck className="absolute top-3 right-3 text-primary" size={18} />
 								<p className="truncate text-xl font-bold text-text">{formatHours(gameStats.averageMasteryTime)}</p>
 								<p className="mt-1 truncate font-body text-xs text-text-muted">To Master</p>
 							</div>
@@ -436,14 +404,10 @@ export default async function Page({ params }: Readonly<{ params: Promise<{ slug
 			</section>
 
 			{/* RELATED GAMES */}
-			<section className="w-full mt-20 mb-10">
+			<section className="mt-20 mb-10 w-full">
 				<Container>
-					<RelatedGamesTabs franchiesGames={franchiseGames} seriesGames={collectionsGames} similarGames={similarGames} />
-					<div className="mt-10">
-						{!shouldHideComments(viewer) && (
-							<CommentSection targetType={InteractionTargetType.GAME} targetId={game.id!.toString()} />
-						)}
-					</div>
+					<RelatedGamesTabs franchiseGames={franchiseGames} seriesGames={collectionsGames} similarGames={similarGames} />
+					<div className="mt-10">{!shouldHideComments(viewer) && <CommentSection targetType={InteractionTargetType.GAME} targetId={game.id!.toString()} />}</div>
 				</Container>
 			</section>
 		</div>

@@ -70,7 +70,7 @@ export default function SettingsTabs({ tabs, activeTab }: Readonly<{ tabs: Setti
 							onAnimationEnd={() => {
 								if (!open) setRendered(false);
 							}}
-							className={`fixed bottom-0 left-0 top-0 flex w-[min(20rem,calc(100vw-2rem))] flex-col border-r border-border bg-bg p-3 shadow-main ${open ? "animate-menu-drawer-left-in" : "animate-menu-drawer-left-out"}`}
+							className={`fixed top-0 bottom-0 left-0 flex w-[min(20rem,calc(100vw-2rem))] flex-col border-r border-border bg-bg p-3 shadow-main ${open ? "animate-menu-drawer-left-in" : "animate-menu-drawer-left-out"}`}
 						>
 							<div className="mb-2 flex flex-row items-center border-b border-border pb-5">
 								<button
@@ -93,7 +93,7 @@ export default function SettingsTabs({ tabs, activeTab }: Readonly<{ tabs: Setti
 											key={tab.id}
 											href={`/settings?tab=${tab.id}`}
 											onClick={() => setOpen(false)}
-											className={`border-l-2 px-4 py-3 text-left transition-colors flex flex-row gap-5 ${
+											className={`flex flex-row gap-5 border-l-2 px-4 py-3 text-left transition-colors ${
 												selected
 													? "border-primary bg-linear-to-r from-primary/25 to-transparent bg-no-repeat text-text"
 													: "border-transparent text-text-muted hover:bg-bg-secondary/60 hover:text-text"

@@ -6,8 +6,8 @@ import { useState } from "react";
 type StarRatingProps = Readonly<{
 	rating?: number | null;
 	size?: number;
-	interactive?: boolean;
-	showValue?: boolean;
+	isInteractive?: boolean;
+	shouldShowValue?: boolean;
 	name?: string;
 	onChange?: (value: number) => void;
 }>;
@@ -20,31 +20,24 @@ function pick(element: HTMLButtonElement, clientX: number, star: number) {
 	return star + (point < 0.625 ? 0.5 : 1);
 }
 
-export default function StarRating({ rating, size = 12, interactive = false, showValue = false, name, onChange }: StarRatingProps) {
+export default function StarRating({ rating, size = 12, isInteractive = false, shouldShowValue = false, name, onChange }: StarRatingProps) {
 	const [hover, setHover] = useState<number | null>(null);
 	const value = rating ?? 0;
-	const shown = interactive ? (hover ?? value) : value;
+	const shown = isInteractive ? (hover ?? value) : value;
 
 	return (
 		<div className="flex items-center gap-3">
 			{name && <input type="hidden" name={name} value={value} />}
-			<div
-				className="flex items-center gap-0.5"
-				onPointerLeave={() => setHover(null)}
-				aria-label={rating === null ? "No rating" : `Rating ${rating} out of 5`}
-			>
+			<div className="flex items-center gap-0.5" onPointerLeave={() => setHover(null)} aria-label={rating === null ? "No rating" : `Rating ${rating} out of 5`}>
 				{Array.from({ length: 5 }, (_, index) => {
 					const fill = Math.round(Math.min(1, Math.max(0, shown - index)) * 100);
 					const style = { width: size, height: size };
 
-					if (!interactive) {
+					if (!isInteractive) {
 						return (
 							<span key={index} className="relative text-text-faint" style={style}>
 								<Star size={size} strokeWidth={0.75} aria-hidden="true" />
-								<span
-									className="pointer-events-none absolute inset-0 overflow-hidden text-primary"
-									style={{ width: `${fill}%` }}
-								>
+								<span className="pointer-events-none absolute inset-0 overflow-hidden text-primary" style={{ width: `${fill}%` }}>
 									<Star size={size} strokeWidth={0.75} className="fill-primary" aria-hidden="true" />
 								</span>
 							</span>
@@ -60,22 +53,19 @@ export default function StarRating({ rating, size = 12, interactive = false, sho
 								const next = pick(event.currentTarget, event.clientX, index);
 								onChange?.(value === next ? 0 : next);
 							}}
-							className="relative cursor-pointer text-text-faint transition hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+							className="relative cursor-pointer text-text-faint transition hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
 							style={style}
 							aria-label={`${index + 1} star rating`}
 						>
 							<Star size={size} strokeWidth={0.75} aria-hidden="true" />
-							<span
-								className="pointer-events-none absolute inset-0 overflow-hidden text-primary"
-								style={{ width: `${fill}%` }}
-							>
+							<span className="pointer-events-none absolute inset-0 overflow-hidden text-primary" style={{ width: `${fill}%` }}>
 								<Star size={size} strokeWidth={0.75} className="fill-primary" aria-hidden="true" />
 							</span>
 						</button>
 					);
 				})}
 			</div>
-			{showValue && <span className="text-sm font-bold text-text-muted">{value ? value.toFixed(1) : "No rating"}</span>}
+			{shouldShowValue && <span className="text-sm font-bold text-text-muted">{value ? value.toFixed(1) : "No rating"}</span>}
 		</div>
 	);
 }

@@ -41,8 +41,7 @@ export default function LoginClient() {
 	const [providerUsername, setProviderUsername] = useState("");
 	const [providerUsernameError, setProviderUsernameError] = useState("");
 	const isRegister = mode === "register";
-	const passwordMessage =
-		isRegister && password.length > 0 && password.length < 8 ? "Password must be at least 8 characters." : fieldErrors.password;
+	const passwordMessage = isRegister && password.length > 0 && password.length < 8 ? "Password must be at least 8 characters." : fieldErrors.password;
 
 	useEffect(() => {
 		const defer = deferEffect(() => {
@@ -125,10 +124,10 @@ export default function LoginClient() {
 	return (
 		<div className="w-full max-w-md rounded bg-bg-secondary p-5 sm:p-6">
 			<div className="mb-4">
-				<h1 className="text-2xl font-bold text-text text-center pb-5 sm:text-3xl">{isRegister ? "Join" : "Login"}</h1>
+				<h1 className="pb-5 text-center text-2xl font-bold text-text sm:text-3xl">{isRegister ? "Join" : "Login"}</h1>
 			</div>
 			{errorMessage && (
-				<div className="p-5 mb-2 bg-error/20 border-2 border-error/50 text-error rounded-md">
+				<div className="mb-2 rounded-md border-2 border-error/50 bg-error/20 p-5 text-error">
 					<p className="text-sm">{errorMessage}</p>
 				</div>
 			)}
@@ -137,11 +136,7 @@ export default function LoginClient() {
 					<label className="flex flex-col gap-2 text-sm font-bold text-text-muted">
 						<span>Username</span>
 						<span className="relative">
-							<User
-								className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-faint"
-								size={18}
-								aria-hidden="true"
-							/>
+							<User className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-text-faint" size={18} aria-hidden="true" />
 							<input
 								id="name"
 								name="name"
@@ -154,7 +149,7 @@ export default function LoginClient() {
 								onChange={(event) => setName(event.target.value)}
 								aria-invalid={Boolean(fieldErrors.name)}
 								aria-describedby={fieldErrors.name ?? undefined}
-								className="h-10 w-full rounded border border-border bg-surface px-10 text-text outline-none transition-colors placeholder:text-text-faint focus:border-primary"
+								className="h-10 w-full rounded border border-border bg-surface px-10 text-text transition-colors outline-none placeholder:text-text-faint focus:border-primary"
 							/>
 						</span>
 						{fieldErrors.name && (
@@ -168,11 +163,7 @@ export default function LoginClient() {
 				<label className="flex flex-col gap-2 text-sm font-bold text-text-muted">
 					<span>Email</span>
 					<span className="relative">
-						<Mail
-							className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-faint"
-							size={18}
-							aria-hidden="true"
-						/>
+						<Mail className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-text-faint" size={18} aria-hidden="true" />
 						<input
 							id="email"
 							name="email"
@@ -181,7 +172,7 @@ export default function LoginClient() {
 							placeholder="Email address"
 							aria-invalid={Boolean(fieldErrors.email)}
 							aria-describedby={fieldErrors.email ?? undefined}
-							className="h-10 w-full rounded border border-border bg-surface px-10 text-text outline-none transition-colors placeholder:text-text-faint focus:border-primary"
+							className="h-10 w-full rounded border border-border bg-surface px-10 text-text transition-colors outline-none placeholder:text-text-faint focus:border-primary"
 						/>
 					</span>
 					{fieldErrors.email && (
@@ -194,11 +185,7 @@ export default function LoginClient() {
 				<label className="flex flex-col gap-2 text-sm font-bold text-text-muted">
 					<span>Password</span>
 					<span className="relative">
-						<Lock
-							className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-faint"
-							size={18}
-							aria-hidden="true"
-						/>
+						<Lock className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-text-faint" size={18} aria-hidden="true" />
 						<input
 							id="password"
 							name="password"
@@ -209,12 +196,12 @@ export default function LoginClient() {
 							onChange={(event) => setPassword(event.target.value)}
 							aria-invalid={Boolean(passwordMessage)}
 							aria-describedby={passwordMessage ?? undefined}
-							className="h-10 w-full rounded border border-border bg-surface px-10 pr-12 text-text outline-none transition-colors placeholder:text-text-faint focus:border-primary"
+							className="h-10 w-full rounded border border-border bg-surface px-10 pr-12 text-text transition-colors outline-none placeholder:text-text-faint focus:border-primary"
 						/>
 						<button
 							type="button"
 							onClick={() => setShowPassword((value) => !value)}
-							className="cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 rounded p-1 text-text-faint transition-colors hover:text-primary"
+							className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer rounded p-1 text-text-faint transition-colors hover:text-primary"
 							aria-label="Toggle password"
 						>
 							{showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -231,11 +218,7 @@ export default function LoginClient() {
 					<label className="flex flex-col gap-2 text-sm font-bold text-text-muted">
 						<span>Confirm password</span>
 						<span className="relative">
-							<Lock
-								className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-faint"
-								size={18}
-								aria-hidden="true"
-							/>
+							<Lock className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-text-faint" size={18} aria-hidden="true" />
 							<input
 								id="passwordConfirm"
 								name="passwordConfirm"
@@ -244,7 +227,7 @@ export default function LoginClient() {
 								placeholder="Repeat your password"
 								aria-invalid={Boolean(fieldErrors.passwordConfirm)}
 								aria-describedby={fieldErrors.passwordConfirm ?? undefined}
-								className="h-10 w-full rounded border border-border bg-surface px-10 text-text outline-none transition-colors placeholder:text-text-faint focus:border-primary"
+								className="h-10 w-full rounded border border-border bg-surface px-10 text-text transition-colors outline-none placeholder:text-text-faint focus:border-primary"
 							/>
 						</span>
 						{fieldErrors.passwordConfirm && (
@@ -256,23 +239,17 @@ export default function LoginClient() {
 				)}
 
 				{!isRegister && (
-					<a
-						href="/login"
-						className="cursor-pointer w-fit text-sm font-bold text-primary transition-colors hover:text-primary-hover"
-					>
+					<a href="/login" className="w-fit cursor-pointer text-sm font-bold text-primary transition-colors hover:text-primary-hover">
 						Forgot password?
 					</a>
 				)}
 
-				<button
-					type="submit"
-					className="cursor-pointer mt-1 h-10 rounded bg-primary px-6 text-sm font-bold text-text transition-colors hover:bg-primary-hover"
-				>
+				<button type="submit" className="mt-1 h-10 cursor-pointer rounded bg-primary px-6 text-sm font-bold text-text transition-colors hover:bg-primary-hover">
 					{isRegister ? "Create account" : "Log in"}
 				</button>
 			</form>
 
-			<div className="my-4 flex items-center gap-3 text-xs font-bold uppercase tracking-normal text-text-faint">
+			<div className="my-4 flex items-center gap-3 text-xs font-bold tracking-normal text-text-faint uppercase">
 				<span className="h-px flex-1 bg-border" />
 				<span>{isRegister ? "Or register with" : "Or use"}</span>
 				<span className="h-px flex-1 bg-border" />
@@ -302,21 +279,12 @@ export default function LoginClient() {
 				</button>
 			</p>
 
-			<MenuPanel
-				open={Boolean(providerSignup)}
-				onClose={() => setProviderSignup(null)}
-				title={providerSignup ? `Register with ${providerSignup.name}` : ""}
-				width="24rem"
-			>
+			<MenuPanel open={Boolean(providerSignup)} onClose={() => setProviderSignup(null)} title={providerSignup ? `Register with ${providerSignup.name}` : ""} width="24rem">
 				<form action={handleProviderSignup}>
 					<label className="flex flex-col gap-2 text-sm font-bold text-text-muted">
 						<span>Username</span>
 						<span className="relative">
-							<User
-								className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-faint"
-								size={18}
-								aria-hidden="true"
-							/>
+							<User className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-text-faint" size={18} aria-hidden="true" />
 							<input
 								name="name"
 								type="text"
@@ -331,7 +299,7 @@ export default function LoginClient() {
 								}}
 								aria-invalid={Boolean(providerUsernameError)}
 								aria-describedby={providerUsernameError ? "provider-username-error" : undefined}
-								className="h-10 w-full rounded border border-border bg-surface px-10 text-text outline-none transition-colors placeholder:text-text-faint focus:border-primary"
+								className="h-10 w-full rounded border border-border bg-surface px-10 text-text transition-colors outline-none placeholder:text-text-faint focus:border-primary"
 							/>
 						</span>
 						{providerUsernameError && (
@@ -344,10 +312,7 @@ export default function LoginClient() {
 						<GhostButton type="button" onClick={() => setProviderSignup(null)} className="px-4 py-2">
 							Cancel
 						</GhostButton>
-						<button
-							type="submit"
-							className="cursor-pointer rounded bg-primary px-4 py-2 text-sm font-bold text-text transition-colors hover:bg-primary-hover"
-						>
+						<button type="submit" className="cursor-pointer rounded bg-primary px-4 py-2 text-sm font-bold text-text transition-colors hover:bg-primary-hover">
 							Continue with {providerSignup?.name ?? "provider"}
 						</button>
 					</div>

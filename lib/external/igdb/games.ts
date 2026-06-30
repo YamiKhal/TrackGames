@@ -2,7 +2,7 @@
 
 import { Unix, UnixElapseMeasure } from "../../util/Unix";
 import type { RawGame, PopScoreEntry } from "../../types";
-import { fetchAPI } from "./IGDBAPI";
+import { fetchAPI } from "./igdb-api";
 
 export async function fetchDisplayGames(fields: string | null = null, body: string = ""): Promise<RawGame[]> {
 	fields = fields ? ", " + fields : "";

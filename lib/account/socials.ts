@@ -54,7 +54,5 @@ export function parseSocials(value: string | null | undefined): SocialLink[] {
 }
 
 export function serializeSocials(socialLinks: SocialLink[]) {
-	return JSON.stringify(
-		socialLinks.map(({ platform, kind, value }) => ({ platform, kind, value: value.trim() })).filter((item) => item.value),
-	);
+	return JSON.stringify(socialLinks.map(({ platform, kind, value }) => ({ platform, kind, value: value.trim() })).filter((item) => item.value));
 }

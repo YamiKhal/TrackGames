@@ -22,10 +22,10 @@ export const Input = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputE
 	return <input ref={ref} {...props} className={join(`${base} w-full`, className)} />;
 });
 
-export const SuffixedInput = forwardRef<
-	HTMLInputElement,
-	InputHTMLAttributes<HTMLInputElement> & { suffix: ReactNode; inputClassName?: string }
->(function SuffixedInput({ className, inputClassName, suffix, disabled, ...props }, ref) {
+export const SuffixedInput = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement> & { suffix: ReactNode; inputClassName?: string }>(function SuffixedInput(
+	{ className, inputClassName, suffix, disabled, ...props },
+	ref,
+) {
 	return (
 		<span
 			className={join(
@@ -33,21 +33,13 @@ export const SuffixedInput = forwardRef<
 				className,
 			)}
 		>
-			<input
-				ref={ref}
-				{...props}
-				disabled={disabled}
-				className={join("min-w-0 flex-1 bg-transparent px-3 py-1 outline-none disabled:cursor-not-allowed", inputClassName)}
-			/>
+			<input ref={ref} {...props} disabled={disabled} className={join("min-w-0 flex-1 bg-transparent px-3 py-1 outline-none disabled:cursor-not-allowed", inputClassName)} />
 			<span className="flex shrink-0 items-center border-l border-border bg-bg px-3 py-1 text-text-muted select-none">{suffix}</span>
 		</span>
 	);
 });
 
-export const Textarea = forwardRef<HTMLTextAreaElement, TextareaHTMLAttributes<HTMLTextAreaElement>>(function Textarea(
-	{ className, ...props },
-	ref,
-) {
+export const Textarea = forwardRef<HTMLTextAreaElement, TextareaHTMLAttributes<HTMLTextAreaElement>>(function Textarea({ className, ...props }, ref) {
 	return <textarea ref={ref} {...props} className={join(`${base} w-full`, className)} />;
 });
 
@@ -55,17 +47,14 @@ export const Select = forwardRef<HTMLSelectElement, SelectHTMLAttributes<HTMLSel
 	return <select ref={ref} {...props} className={join(base, className)} />;
 });
 
-export const Checkbox = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement>>(function Checkbox(
-	{ className, type, ...props },
-	ref,
-) {
+export const Checkbox = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement>>(function Checkbox({ className, type, ...props }, ref) {
 	return (
 		<input
 			ref={ref}
 			{...props}
 			type={type ?? "checkbox"}
 			className={join(
-				"size-4 shrink-0 cursor-pointer appearance-none rounded border border-border bg-bg transition checked:border-primary checked:bg-primary hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed disabled:opacity-50",
+				"size-4 shrink-0 cursor-pointer appearance-none rounded border border-border bg-bg transition checked:border-primary checked:bg-primary hover:border-primary focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
 				className,
 			)}
 		/>

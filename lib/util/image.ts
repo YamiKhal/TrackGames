@@ -256,13 +256,7 @@ function gifFrameIndices(width: number, height: number, interlaced: boolean, dec
 	return indices;
 }
 
-function gifFrameToCanvas(
-	screenWidth: number,
-	screenHeight: number,
-	frame: GifImageDescriptor,
-	indices: number[],
-	transparentIndex: number | null,
-) {
+function gifFrameToCanvas(screenWidth: number, screenHeight: number, frame: GifImageDescriptor, indices: number[], transparentIndex: number | null) {
 	const canvas = new Uint8Array(screenWidth * screenHeight * 4);
 
 	for (let index = 0; index < indices.length; index++) {

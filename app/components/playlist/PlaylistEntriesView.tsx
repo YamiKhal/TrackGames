@@ -61,7 +61,7 @@ function EntryShell({ listId, entry, canEdit, tiers, children }: EntryShellProps
 				<button
 					type="button"
 					onClick={() => setEditing(true)}
-					className="absolute right-1 top-1 grid size-8 cursor-pointer place-items-center rounded bg-bg-secondary/90 text-text-muted opacity-0 transition-opacity hover:text-primary group-hover:opacity-100"
+					className="absolute top-1 right-1 grid size-8 cursor-pointer place-items-center rounded bg-bg-secondary/90 text-text-muted opacity-0 transition-opacity group-hover:opacity-100 hover:text-primary"
 					aria-label="Edit playlist entry"
 					title="Edit playlist entry"
 				>
@@ -114,16 +114,9 @@ export default function PlaylistEntriesView({ listId, entries, mode, canEdit, ti
 	const [sort, setSort] = useState("position");
 	const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
 	const [advancedFilters, setAdvancedFilters] = useState(emptyAdvancedLibraryFilters);
-	const ordered = useMemo(
-		() =>
-			[...entries].sort((a, b) => (a.position ?? 999999) - (b.position ?? 999999) || Number(a.addedAt ?? 0) - Number(b.addedAt ?? 0)),
-		[entries],
-	);
+	const ordered = useMemo(() => [...entries].sort((a, b) => (a.position ?? 999999) - (b.position ?? 999999) || Number(a.addedAt ?? 0) - Number(b.addedAt ?? 0)), [entries]);
 	const allTags = useMemo(
-		() =>
-			Array.from(new Set(entries.flatMap((entry) => entry.libraryEntry?.tags.map((tag) => tag.name) ?? []))).sort((a, b) =>
-				a.localeCompare(b),
-			),
+		() => Array.from(new Set(entries.flatMap((entry) => entry.libraryEntry?.tags.map((tag) => tag.name) ?? []))).sort((a, b) => a.localeCompare(b)),
 		[entries],
 	);
 	const filterCount = advancedFilterCount(advancedFilters);
@@ -166,9 +159,7 @@ export default function PlaylistEntriesView({ listId, entries, mode, canEdit, ti
 							<GameCard game={entry.game} size={56} />
 							<div className="min-w-0 pr-10">
 								<p className="truncate font-bold">{entry.game.name}</p>
-								<p className="text-sm text-text-muted">
-									{entry.game.releaseDate ? new Date(entry.game.releaseDate).getFullYear() : "Unknown release"}
-								</p>
+								<p className="text-sm text-text-muted">{entry.game.releaseDate ? new Date(entry.game.releaseDate).getFullYear() : "Unknown release"}</p>
 							</div>
 						</Link>
 					</EntryShell>
@@ -184,10 +175,7 @@ export default function PlaylistEntriesView({ listId, entries, mode, canEdit, ti
 					const tierEntries = ordered.filter((entry) => (entry.tier ?? tiers[0] ?? "A") === tier);
 
 					return (
-						<div
-							key={tier}
-							className="grid grid-cols-[4rem_minmax(0,1fr)] overflow-hidden border-border bg-bg not-last:border-b"
-						>
+						<div key={tier} className="grid grid-cols-[4rem_minmax(0,1fr)] overflow-hidden border-border bg-bg not-last:border-b">
 							<div
 								className="flex items-center justify-center text-2xl font-bold"
 								style={{ backgroundColor: tierColors[index] ?? "var(--primary)", color: "var(--text)" }}
@@ -197,7 +185,7 @@ export default function PlaylistEntriesView({ listId, entries, mode, canEdit, ti
 							<div className="grid min-h-38 grid-cols-[repeat(auto-fill,7rem)] p-3">
 								{tierEntries.map((entry) => (
 									<EntryShell key={entry.id} listId={listId} entry={entry} canEdit={canEdit} tiers={tiers}>
-										<GameCard game={entry.game} size={96} hover="name" slugged={true} />
+										<GameCard game={entry.game} size={96} hover="name" hasLink={true} />
 									</EntryShell>
 								))}
 							</div>
@@ -247,14 +235,14 @@ export default function PlaylistEntriesView({ listId, entries, mode, canEdit, ti
 				onReset={() => setAdvancedFilters(emptyAdvancedLibraryFilters)}
 			/>
 			{filtered.length ? (
-				<div className="w-full grid gap-2 grid-cols-[repeat(auto-fill,5rem)] justify-center items-center md:gap-4 md:grid-cols-[repeat(auto-fill,8rem)]">
+				<div className="grid w-full grid-cols-[repeat(auto-fill,5rem)] items-center justify-center gap-2 md:grid-cols-[repeat(auto-fill,8rem)] md:gap-4">
 					{filtered.map((entry) => (
 						<EntryShell key={entry.id} listId={listId} entry={entry} canEdit={canEdit} tiers={tiers}>
 							<div className="hidden md:flex">
-								<GameCard game={entry.game} size={130} hover="name" slugged={true} />
+								<GameCard game={entry.game} size={130} hover="name" hasLink={true} />
 							</div>
 							<div className="flex md:hidden">
-								<GameCard game={entry.game} size={80} hover="name" slugged={true} />
+								<GameCard game={entry.game} size={80} hover="name" hasLink={true} />
 							</div>
 						</EntryShell>
 					))}

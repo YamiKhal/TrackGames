@@ -96,12 +96,8 @@ export async function getProfileSocialState(profileId: string, viewerId?: string
 	]);
 
 	return {
-		following: following.flatMap((follow) =>
-			follow.following.name ? [{ name: follow.following.name, image: follow.following.image }] : [],
-		),
-		followers: followers.flatMap((follow) =>
-			follow.follower.name ? [{ name: follow.follower.name, image: follow.follower.image }] : [],
-		),
+		following: following.flatMap((follow) => (follow.following.name ? [{ name: follow.following.name, image: follow.following.image }] : [])),
+		followers: followers.flatMap((follow) => (follow.follower.name ? [{ name: follow.follower.name, image: follow.follower.image }] : [])),
 		followingCount,
 		followerCount,
 		isFollowing: Boolean(viewerFollow),
@@ -113,12 +109,7 @@ export async function getUserActivities(userId: string, page: number, filter = "
 	const typeGroups: Record<string, ActivityType[]> = {
 		logs: [ActivityType.LOGGED_GAME_PLAY],
 		games: [ActivityType.ADDED_GAME_TO_LIBRARY, ActivityType.RATED_GAME],
-		playlists: [
-			ActivityType.CREATED_PLAYLIST,
-			ActivityType.ADDED_GAME_TO_PLAYLIST,
-			ActivityType.LIKED_GAME_LIST,
-			ActivityType.COMMENTED_ON_GAME_LIST,
-		],
+		playlists: [ActivityType.CREATED_PLAYLIST, ActivityType.ADDED_GAME_TO_PLAYLIST, ActivityType.LIKED_GAME_LIST, ActivityType.COMMENTED_ON_GAME_LIST],
 		comments: [
 			ActivityType.COMMENTED_ON_GAME_LIST,
 			ActivityType.COMMENTED_ON_PROFILE,
@@ -170,9 +161,7 @@ export async function getUserActivities(userId: string, page: number, filter = "
 	}));
 	const listIds = targets.flatMap((target) => (target.type === InteractionTargetType.GAME_LIST && target.id ? [target.id] : []));
 	const userIds = targets.flatMap((target) => (target.type === InteractionTargetType.USER_PROFILE && target.id ? [target.id] : []));
-	const gameIds = targets
-		.flatMap((target) => (target.type === InteractionTargetType.GAME && target.id ? [Number(target.id)] : []))
-		.filter(Number.isInteger);
+	const gameIds = targets.flatMap((target) => (target.type === InteractionTargetType.GAME && target.id ? [Number(target.id)] : [])).filter(Number.isInteger);
 	const [lists, users, games] = await Promise.all([
 		listIds.length
 			? db.gameList.findMany({
@@ -312,9 +301,7 @@ export async function getUserNotifications(userId: string) {
 		notification.targetType === InteractionTargetType.USER_PROFILE && notification.targetId ? [notification.targetId] : [],
 	);
 	const gameIds = notifications
-		.flatMap((notification) =>
-			notification.targetType === InteractionTargetType.GAME && notification.targetId ? [Number(notification.targetId)] : [],
-		)
+		.flatMap((notification) => (notification.targetType === InteractionTargetType.GAME && notification.targetId ? [Number(notification.targetId)] : []))
 		.filter(Number.isInteger);
 	const [profiles, games] = await Promise.all([
 		profileIds.length
@@ -348,10 +335,7 @@ export async function getUserNotifications(userId: string) {
 	return notifications.map((notification) => {
 		const profile = profiles.find((item) => item.id === notification.targetId);
 		const game = games.find((item) => item.id === Number(notification.targetId));
-		const commentAnchor =
-			notification.type === NotificationType.COMMENT_REPLY ||
-			notification.type === NotificationType.COMMENTED_ON_PROFILE ||
-			notification.commentId;
+		const commentAnchor = notification.type === NotificationType.COMMENT_REPLY || notification.type === NotificationType.COMMENTED_ON_PROFILE || notification.commentId;
 
 		let targetHref = "#";
 

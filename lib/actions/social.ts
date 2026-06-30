@@ -89,12 +89,7 @@ async function ensureCanInteractWithProfile(targetId: string, viewerId: string, 
 	}
 }
 
-async function ensureCanInteractWithTarget(
-	targetType: InteractionTargetType,
-	targetId: string,
-	viewerId: string,
-	mode: "comment" | "view",
-) {
+async function ensureCanInteractWithTarget(targetType: InteractionTargetType, targetId: string, viewerId: string, mode: "comment" | "view") {
 	if (!Object.values(InteractionTargetType).includes(targetType)) {
 		throw new Error("Invalid target.");
 	}
@@ -272,13 +267,8 @@ export async function toggleLike(targetType: LikeTargetType, targetId: string) {
 	}
 
 	const likedComment =
-		targetType === LikeTargetType.COMMENT
-			? await db.comment.findUnique({ where: { id: targetId }, select: { userId: true, targetType: true, targetId: true } })
-			: null;
-	const likedList =
-		targetType === LikeTargetType.GAME_LIST
-			? await db.gameList.findUnique({ where: { id: targetId }, select: { userId: true } })
-			: null;
+		targetType === LikeTargetType.COMMENT ? await db.comment.findUnique({ where: { id: targetId }, select: { userId: true, targetType: true, targetId: true } }) : null;
+	const likedList = targetType === LikeTargetType.GAME_LIST ? await db.gameList.findUnique({ where: { id: targetId }, select: { userId: true } }) : null;
 
 	if (targetType === LikeTargetType.COMMENT) {
 		if (!likedComment) {

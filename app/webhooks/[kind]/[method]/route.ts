@@ -17,8 +17,7 @@ function configFor(kind: string) {
 }
 
 function isAuthorized(request: Request, expectedSecret: string) {
-	const secret =
-		request.headers.get("x-secret") ?? request.headers.get("x-igdb-secret") ?? new URL(request.url).searchParams.get("secret");
+	const secret = request.headers.get("x-secret") ?? request.headers.get("x-igdb-secret") ?? new URL(request.url).searchParams.get("secret");
 
 	return secret === expectedSecret;
 }

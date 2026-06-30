@@ -30,7 +30,7 @@ type EntryState = {
 type GameLibraryButtonPanelProps = Readonly<{
 	gameId: number;
 	gameSlug: string;
-	loggedIn: boolean;
+	isLoggedIn: boolean;
 	entry: EntryState;
 	playlists: UserPlaylist[];
 	logsHref?: string;
@@ -112,7 +112,7 @@ function addGameEntryToPlaylists(current: UserPlaylist[], listId: string, entryI
 	return next;
 }
 
-export default function GameLibraryButtonPanel({ gameId, gameSlug, loggedIn, entry, playlists, logsHref }: GameLibraryButtonPanelProps) {
+export default function GameLibraryButtonPanel({ gameId, gameSlug, isLoggedIn, entry, playlists, logsHref }: GameLibraryButtonPanelProps) {
 	const [currentEntry, setCurrentEntry] = useState(entry);
 	const [rating, setRating] = useState(ratingToFive(entry?.rating) ?? 0);
 	const [userPlaylists, setUserPlaylists] = useState(playlists);
@@ -124,7 +124,7 @@ export default function GameLibraryButtonPanel({ gameId, gameSlug, loggedIn, ent
 	const currentStatus = statusOptions.find((option) => option.status === currentEntry?.status);
 	const CurrentStatusIcon = currentStatus?.icon ?? Library;
 
-	if (!loggedIn) {
+	if (!isLoggedIn) {
 		return (
 			<div className="flex flex-row">
 				<PrimaryButton href="/login">Log in to add</PrimaryButton>
@@ -163,15 +163,13 @@ export default function GameLibraryButtonPanel({ gameId, gameSlug, loggedIn, ent
 		});
 	}
 
-	const inLibrary = isInLibrary
-		? "border-primary bg-primary text-text-inverse"
-		: "border-text-faint text-text-muted hover:border-primary hover:text-primary";
+	const inLibrary = isInLibrary ? "border-primary bg-primary text-text-inverse" : "border-text-faint text-text-muted hover:border-primary hover:text-primary";
 
 	return (
 		<div className="flex flex-col gap-3 md:grid md:max-w-xl md:grid-cols-[auto_auto_auto_auto_auto] md:items-start md:gap-x-4 md:gap-y-4">
 			<div className="flex w-full flex-row flex-wrap items-center justify-center gap-3 md:col-span-full md:justify-start">
 				<div className="flex flex-row items-center justify-center p-1 md:w-fit md:justify-start">
-					<StarRating rating={rating} size={32} interactive onChange={saveRating} />
+					<StarRating rating={rating} size={32} isInteractive onChange={saveRating} />
 				</div>
 			</div>
 			<div className="mb-5 flex flex-row flex-wrap justify-center gap-x-5 gap-y-3 md:contents">
@@ -240,7 +238,7 @@ export default function GameLibraryButtonPanel({ gameId, gameSlug, loggedIn, ent
 						})
 					}
 				/>
-				<MenuPanel open={managingStatus} onClose={() => setManagingStatus(false)} title="Library status" width="26rem" portal>
+				<MenuPanel open={managingStatus} onClose={() => setManagingStatus(false)} title="Library status" width="26rem" hasPortal>
 					<div className="flex flex-col gap-3">
 						<div className="flex flex-col gap-2">
 							{statusOptions.map((option) => {
@@ -283,31 +281,20 @@ export default function GameLibraryButtonPanel({ gameId, gameSlug, loggedIn, ent
 						Logs
 					</GhostButton>
 				)}
-				<GhostButton
-					type="button"
-					disabled={pending}
-					onClick={() => setManagingLists(true)}
-					className="h-12 px-5 disabled:cursor-wait disabled:opacity-60"
-				>
+				<GhostButton type="button" disabled={pending} onClick={() => setManagingLists(true)} className="h-12 px-5 disabled:cursor-wait disabled:opacity-60">
 					<ListPlus size={18} />
 					Manage lists
 				</GhostButton>
 			</div>
-			<MenuPanel open={managingLists} onClose={() => setManagingLists(false)} title="Manage lists" width="30rem" portal>
+			<MenuPanel open={managingLists} onClose={() => setManagingLists(false)} title="Manage lists" width="30rem" hasPortal>
 				<div className="flex flex-col gap-2">
 					{userPlaylists.length ? (
 						userPlaylists.map((playlist) => {
 							const existing = playlist.entries.find((entry) => entry.gameId === gameId);
 
 							return (
-								<div
-									key={playlist.id}
-									className="flex min-w-0 items-center gap-3 rounded border border-border bg-bg-secondary p-3"
-								>
-									<Link
-										href={`/playlist/${playlist.id}`}
-										className="min-w-0 flex-1 truncate font-bold text-text hover:text-primary"
-									>
+								<div key={playlist.id} className="flex min-w-0 items-center gap-3 rounded border border-border bg-bg-secondary p-3">
+									<Link href={`/playlist/${playlist.id}`} className="min-w-0 flex-1 truncate font-bold text-text hover:text-primary">
 										{playlist.name}
 									</Link>
 									<button

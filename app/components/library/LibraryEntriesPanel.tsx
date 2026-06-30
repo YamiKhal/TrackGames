@@ -30,10 +30,7 @@ export default function LibraryEntriesPanel({ entries, canEdit, themeStyle, defa
 	const [query, setQuery] = useState("");
 	const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
 	const [advancedFilters, setAdvancedFilters] = useState(emptyAdvancedLibraryFilters);
-	const allTags = useMemo(
-		() => Array.from(new Set(items.flatMap((entry) => entry.tags.map((tag) => tag.name)))).sort((a, b) => a.localeCompare(b)),
-		[items],
-	);
+	const allTags = useMemo(() => Array.from(new Set(items.flatMap((entry) => entry.tags.map((tag) => tag.name)))).sort((a, b) => a.localeCompare(b)), [items]);
 	const filterCount = advancedFilterCount(advancedFilters);
 	const filtered = useMemo(() => {
 		const search = query.trim().toLowerCase();
@@ -74,10 +71,7 @@ export default function LibraryEntriesPanel({ entries, canEdit, themeStyle, defa
 							label: "Filter by status",
 							value: status,
 							onChange: setStatus,
-							options: [
-								{ value: "all", label: "All statuses" },
-								...Object.values(GameStatus).map((value) => ({ value, label: statusLabel(value) })),
-							],
+							options: [{ value: "all", label: "All statuses" }, ...Object.values(GameStatus).map((value) => ({ value, label: statusLabel(value) }))],
 						},
 						{
 							type: "select",
@@ -138,20 +132,12 @@ export default function LibraryEntriesPanel({ entries, canEdit, themeStyle, defa
 					pageSize={mode === "grid" ? 32 : 12}
 					className={
 						mode === "grid"
-							? "w-full grid gap-2 grid-cols-[repeat(auto-fill,5rem)] justify-center items-center md:gap-4 md:grid-cols-[repeat(auto-fill,8rem)]"
+							? "grid w-full grid-cols-[repeat(auto-fill,5rem)] items-center justify-center gap-2 md:grid-cols-[repeat(auto-fill,8rem)] md:gap-4"
 							: "flex w-full flex-col gap-3"
 					}
 				>
 					{filtered.map((entry) => (
-						<PlaylistCard
-							key={entry.id}
-							entry={entry}
-							mode={mode}
-							canEdit={canEdit}
-							onUpdate={updateEntry}
-							onRemove={removeEntry}
-							themeStyle={themeStyle}
-						/>
+						<PlaylistCard key={entry.id} entry={entry} mode={mode} canEdit={canEdit} onUpdate={updateEntry} onRemove={removeEntry} themeStyle={themeStyle} />
 					))}
 				</PaginatedList>
 			) : (

@@ -54,12 +54,7 @@ export default function PreferencesSettingsForm({ profile }: Readonly<{ profile:
 				<h3>Site theme</h3>
 				<div className="mt-1 grid gap-4 md:grid-cols-3">
 					<Field label="Source">
-						<Select
-							name="siteThemeMode"
-							value={themeMode}
-							onChange={(event) => setThemeMode(event.target.value)}
-							className="w-full"
-						>
+						<Select name="siteThemeMode" value={themeMode} onChange={(event) => setThemeMode(event.target.value)} className="w-full">
 							<option value="default">Default colors</option>
 							<option value="profile">Use profile colors</option>
 							<option value="custom">Custom colors</option>
@@ -67,22 +62,12 @@ export default function PreferencesSettingsForm({ profile }: Readonly<{ profile:
 					</Field>
 					{themeMode === "custom" && (
 						<>
-							<label className="text-sm font-bold text-text-muted flex flex-row gap-2 items-center">
-								<Input
-									name="siteThemeColor"
-									type="color"
-									defaultValue={profile.siteThemeColor ?? "#7b5cdb"}
-									className="max-h-10 max-w-10"
-								/>
+							<label className="flex flex-row items-center gap-2 text-sm font-bold text-text-muted">
+								<Input name="siteThemeColor" type="color" defaultValue={profile.siteThemeColor ?? "#7b5cdb"} className="max-h-10 max-w-10" />
 								Theme
 							</label>
-							<label className="text-sm font-bold text-text-muted flex flex-row gap-2 items-center">
-								<Input
-									name="siteAccentColor"
-									type="color"
-									defaultValue={profile.siteAccentColor ?? "#b8842f"}
-									className="max-h-10 max-w-10"
-								/>
+							<label className="flex flex-row items-center gap-2 text-sm font-bold text-text-muted">
+								<Input name="siteAccentColor" type="color" defaultValue={profile.siteAccentColor ?? "#b8842f"} className="max-h-10 max-w-10" />
 								Accent
 							</label>
 						</>

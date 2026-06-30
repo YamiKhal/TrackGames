@@ -113,10 +113,7 @@ function getPlayerPerspective(slug: string): PlayerPerspective {
 	}
 }
 
-export function ImageIdToURL(
-	id?: string,
-	type: "cover_small" | "cover" | "cover_big" | "screenshot_big" | "1080" | "720" = "cover_big",
-): string | null {
+export function ImageIdToURL(id?: string, type: "cover_small" | "cover" | "cover_big" | "screenshot_big" | "1080" | "720" = "cover_big"): string | null {
 	if (id != null) {
 		switch (type) {
 			case "cover_small":

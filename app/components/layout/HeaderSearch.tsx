@@ -86,7 +86,7 @@ function SearchBox({ autoFocus = false, onPick }: Readonly<{ autoFocus?: boolean
 
 	return (
 		<div ref={boxRef} className="relative w-full">
-			<Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-faint" size={18} aria-hidden="true" />
+			<Search className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-text-faint" size={18} aria-hidden="true" />
 			<input
 				ref={inputRef}
 				value={query}
@@ -106,7 +106,7 @@ function SearchBox({ autoFocus = false, onPick }: Readonly<{ autoFocus?: boolean
 					if (query.trim().length >= 2) setOpen(true);
 				}}
 				placeholder="Search games"
-				className="h-11 w-full rounded border border-border bg-bg-secondary px-10 text-sm text-text outline-none transition-colors placeholder:text-text-faint focus:border-primary"
+				className="h-11 w-full rounded border border-border bg-bg-secondary px-10 text-sm text-text transition-colors outline-none placeholder:text-text-faint focus:border-primary"
 			/>
 			{query && (
 				<button
@@ -116,7 +116,7 @@ function SearchBox({ autoFocus = false, onPick }: Readonly<{ autoFocus?: boolean
 						setResults([]);
 						setOpen(false);
 					}}
-					className="absolute right-2 top-1/2 grid size-7 -translate-y-1/2 cursor-pointer place-items-center rounded text-text-faint transition-colors hover:text-primary"
+					className="absolute top-1/2 right-2 grid size-7 -translate-y-1/2 cursor-pointer place-items-center rounded text-text-faint transition-colors hover:text-primary"
 					aria-label="Clear search"
 				>
 					<X size={16} aria-hidden="true" />
@@ -124,7 +124,7 @@ function SearchBox({ autoFocus = false, onPick }: Readonly<{ autoFocus?: boolean
 			)}
 
 			{open && search.length >= 2 && (
-				<div className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded border border-border bg-bg-secondary shadow-main">
+				<div className="absolute top-full right-0 left-0 z-50 mt-2 overflow-hidden rounded border border-border bg-bg-secondary shadow-main">
 					<Link
 						href={searchHref}
 						prefetch={false}
@@ -151,9 +151,7 @@ function SearchBox({ autoFocus = false, onPick }: Readonly<{ autoFocus?: boolean
 								className="block min-w-0 border-b border-border px-3 py-2 transition-colors last:border-b-0 hover:bg-surface"
 							>
 								<p className="truncate text-sm font-bold text-text">{game.name}</p>
-								<p className="text-xs text-text-muted">
-									{game.releaseDate ? new Date(game.releaseDate).getFullYear() : "Unknown release"}
-								</p>
+								<p className="text-xs text-text-muted">{game.releaseDate ? new Date(game.releaseDate).getFullYear() : "Unknown release"}</p>
 							</Link>
 						))}
 				</div>
@@ -173,15 +171,13 @@ export default function HeaderSearch() {
 			<button
 				type="button"
 				onClick={() => setOpen(true)}
-				className="grid size-11 cursor-pointer place-items-center text-text-muted transition-colors hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:hidden"
+				className="grid size-11 cursor-pointer place-items-center text-text-muted transition-colors hover:border-primary hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none md:hidden"
 				aria-label="Search games"
 			>
 				<Search size={20} aria-hidden="true" />
 			</button>
 			<HighLevelIsland className="md:hidden">
-				<div
-					className={`pointer-events-auto fixed inset-0 bg-overlay transition-opacity ${open ? "opacity-100" : "pointer-events-none opacity-0"}`}
-				>
+				<div className={`pointer-events-auto fixed inset-0 bg-overlay transition-opacity ${open ? "opacity-100" : "pointer-events-none opacity-0"}`}>
 					<div
 						className={`fixed inset-y-0 right-0 w-full bg-bg p-4 shadow-main transition-transform duration-200 ease-out ${open ? "translate-x-0" : "translate-x-full"}`}
 					>

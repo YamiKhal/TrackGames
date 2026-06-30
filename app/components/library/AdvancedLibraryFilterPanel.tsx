@@ -57,10 +57,7 @@ export default function AdvancedLibraryFilterPanel({ open, onClose, filters, onC
 	const dialogRef = useRef<HTMLDialogElement>(null);
 	const pickerRef = useRef<HTMLDivElement>(null);
 	const search = filterSearch.trim().toLowerCase();
-	const statusOptions = useMemo(
-		() => Object.values(GameStatus).filter((status) => statusLabel(status).includes(search) || status.toLowerCase().includes(search)),
-		[search],
-	);
+	const statusOptions = useMemo(() => Object.values(GameStatus).filter((status) => statusLabel(status).includes(search) || status.toLowerCase().includes(search)), [search]);
 	const tagOptions = useMemo(() => tags.filter((tag) => tag.toLowerCase().includes(search)), [search, tags]);
 
 	useEffect(() => {
@@ -97,14 +94,8 @@ export default function AdvancedLibraryFilterPanel({ open, onClose, filters, onC
 	function addStatus(status: GameStatus, mode: "include" | "exclude") {
 		onChange({
 			...filters,
-			statuses:
-				mode === "include"
-					? Array.from(new Set([...filters.statuses, status]))
-					: filters.statuses.filter((item) => item !== status),
-			excludedStatuses:
-				mode === "exclude"
-					? Array.from(new Set([...filters.excludedStatuses, status]))
-					: filters.excludedStatuses.filter((item) => item !== status),
+			statuses: mode === "include" ? Array.from(new Set([...filters.statuses, status])) : filters.statuses.filter((item) => item !== status),
+			excludedStatuses: mode === "exclude" ? Array.from(new Set([...filters.excludedStatuses, status])) : filters.excludedStatuses.filter((item) => item !== status),
 		});
 		setPickerOpen(false);
 	}
@@ -166,11 +157,7 @@ export default function AdvancedLibraryFilterPanel({ open, onClose, filters, onC
 					<section>
 						<h4 className="mb-2 font-bold text-text">Statuses and tags</h4>
 						<div ref={pickerRef} className="relative">
-							<Search
-								size={16}
-								className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-faint"
-								aria-hidden="true"
-							/>
+							<Search size={16} className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-text-faint" aria-hidden="true" />
 							<Input
 								value={filterSearch}
 								onChange={(event) => {
@@ -186,18 +173,15 @@ export default function AdvancedLibraryFilterPanel({ open, onClose, filters, onC
 							{pickerOpen && (
 								<div
 									id="advanced-filter-picker"
-									className="absolute left-0 right-0 top-full z-10 mt-2 max-h-72 overflow-y-auto rounded border border-border bg-bg-secondary p-2 shadow-main"
+									className="absolute top-full right-0 left-0 z-10 mt-2 max-h-72 overflow-y-auto rounded border border-border bg-bg-secondary p-2 shadow-main"
 								>
 									{statusOptions.length > 0 && (
 										<div className="mb-2">
-											<p className="px-2 pb-1 text-xs font-bold uppercase text-text-faint">Statuses</p>
+											<p className="px-2 pb-1 text-xs font-bold text-text-faint uppercase">Statuses</p>
 											<div className="grid gap-1">
 												{statusOptions.map((status) => (
-													<div
-														key={status}
-														className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-2 rounded px-2 py-1.5 hover:bg-bg"
-													>
-														<span className="truncate capitalize text-text-muted">{statusLabel(status)}</span>
+													<div key={status} className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-2 rounded px-2 py-1.5 hover:bg-bg">
+														<span className="truncate text-text-muted capitalize">{statusLabel(status)}</span>
 														<button
 															type="button"
 															onClick={() => addStatus(status, "include")}
@@ -219,13 +203,10 @@ export default function AdvancedLibraryFilterPanel({ open, onClose, filters, onC
 									)}
 									{tagOptions.length > 0 && (
 										<div>
-											<p className="px-2 pb-1 text-xs font-bold uppercase text-text-faint">Tags</p>
+											<p className="px-2 pb-1 text-xs font-bold text-text-faint uppercase">Tags</p>
 											<div className="grid gap-1">
 												{tagOptions.map((tag) => (
-													<div
-														key={tag}
-														className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-2 rounded px-2 py-1.5 hover:bg-bg"
-													>
+													<div key={tag} className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-2 rounded px-2 py-1.5 hover:bg-bg">
 														<span className="truncate text-text-muted">{tag}</span>
 														<button
 															type="button"
@@ -247,9 +228,7 @@ export default function AdvancedLibraryFilterPanel({ open, onClose, filters, onC
 										</div>
 									)}
 									{!statusOptions.length && !tagOptions.length && (
-										<p className="p-2 text-sm text-text-muted">
-											{tags.length ? "No matching statuses or tags." : "No tags yet."}
-										</p>
+										<p className="p-2 text-sm text-text-muted">{tags.length ? "No matching statuses or tags." : "No tags yet."}</p>
 									)}
 								</div>
 							)}
@@ -265,10 +244,8 @@ export default function AdvancedLibraryFilterPanel({ open, onClose, filters, onC
 										<button
 											key={status}
 											type="button"
-											onClick={() =>
-												onChange({ ...filters, statuses: filters.statuses.filter((item) => item !== status) })
-											}
-											className="flex max-w-full items-center gap-1 rounded border border-primary/60 bg-primary/10 px-2 py-1 text-xs font-bold capitalize text-primary"
+											onClick={() => onChange({ ...filters, statuses: filters.statuses.filter((item) => item !== status) })}
+											className="flex max-w-full items-center gap-1 rounded border border-primary/60 bg-primary/10 px-2 py-1 text-xs font-bold text-primary capitalize"
 										>
 											<span className="truncate">{statusLabel(status)}</span>
 											<X size={13} aria-hidden="true" />
@@ -304,7 +281,7 @@ export default function AdvancedLibraryFilterPanel({ open, onClose, filters, onC
 													excludedStatuses: filters.excludedStatuses.filter((item) => item !== status),
 												})
 											}
-											className="flex max-w-full items-center gap-1 rounded border border-error/60 bg-error/10 px-2 py-1 text-xs font-bold capitalize text-error"
+											className="flex max-w-full items-center gap-1 rounded border border-error/60 bg-error/10 px-2 py-1 text-xs font-bold text-error capitalize"
 										>
 											<span className="truncate">{statusLabel(status)}</span>
 											<X size={13} aria-hidden="true" />
@@ -375,9 +352,7 @@ export default function AdvancedLibraryFilterPanel({ open, onClose, filters, onC
 							Finished
 							<Select
 								value={filters.finished}
-								onChange={(event) =>
-									onChange({ ...filters, finished: event.target.value as AdvancedLibraryFilters["finished"] })
-								}
+								onChange={(event) => onChange({ ...filters, finished: event.target.value as AdvancedLibraryFilters["finished"] })}
 								className="w-full"
 							>
 								<option value="any">Any</option>
@@ -389,9 +364,7 @@ export default function AdvancedLibraryFilterPanel({ open, onClose, filters, onC
 							Mastered
 							<Select
 								value={filters.mastered}
-								onChange={(event) =>
-									onChange({ ...filters, mastered: event.target.value as AdvancedLibraryFilters["mastered"] })
-								}
+								onChange={(event) => onChange({ ...filters, mastered: event.target.value as AdvancedLibraryFilters["mastered"] })}
 								className="w-full"
 							>
 								<option value="any">Any</option>

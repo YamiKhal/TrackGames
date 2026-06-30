@@ -17,11 +17,11 @@ type GameCardProps = Readonly<{
 	size?: number | "full";
 	effect?: "ripple";
 	hover?: "name";
-	slugged?: boolean;
+	hasLink?: boolean;
 	preload?: boolean;
 }>;
 
-export default function GameCard({ game, size = 140, effect, hover, slugged = false, preload = false }: GameCardProps) {
+export default function GameCard({ game, size = 140, effect, hover, hasLink = false, preload = false }: GameCardProps) {
 	const cardRef = useRef<HTMLDivElement>(null);
 	const isFullSize = size === "full";
 	const height = isFullSize ? "100%" : Math.round(size * 1.4);
@@ -48,18 +48,16 @@ export default function GameCard({ game, size = 140, effect, hover, slugged = fa
 	const card = (
 		<div
 			ref={cardRef}
-			className="relative overflow-hidden rounded-md border border-border bg-bg shadow-sm shrink-0"
+			className="relative shrink-0 overflow-hidden rounded-md border border-border bg-bg shadow-sm"
 			style={{ width: isFullSize ? "100%" : size, height }}
 			onPointerDown={createRipple}
 		>
 			<Image src={src} alt={game.slug ?? "game cover"} fill sizes={imageSizes} preload={preload} className={imageClass} />
-			{hover === "name" ? (
-				<p className="bg-bg/80 h-full flex items-center justify-center text-md font-bold text-center select-none">{game.name}</p>
-			) : null}
+			{hover === "name" ? <p className="text-md flex h-full items-center justify-center bg-bg/80 text-center font-bold select-none">{game.name}</p> : null}
 		</div>
 	);
 
-	if (slugged && game.slug) {
+	if (hasLink && game.slug) {
 		return (
 			<Link href={`/game/${game.slug}`} className="block cursor-pointer">
 				{card}

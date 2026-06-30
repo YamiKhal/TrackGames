@@ -47,10 +47,4 @@ export const AUTHPROVIDERS = [
 	{ slug: "discord", label: "Discord", icon: DiscordIcon },
 ];
 
-export const ALLOWEDHOSTS = new Set([
-	"i.imgur.com",
-	"images.unsplash.com",
-	"media.discordapp.net",
-	"cdn.discordapp.com",
-	"cdn.pixabay.com",
-]);
+export const ALLOWEDHOSTS = new Set(["i.imgur.com", "images.unsplash.com", "media.discordapp.net", "cdn.discordapp.com", "cdn.pixabay.com"]);

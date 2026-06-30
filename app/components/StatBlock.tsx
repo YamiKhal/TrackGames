@@ -9,13 +9,13 @@ function formatNumber(num: number): string {
 
 export default function StatBlock({ color, title, value }: StatBlockProps) {
 	return (
-		<div className="z-1 w-fit min-w-24 justify-self-start bg-bg-secondary/80 rounded-md text-text">
-			<div className="px-3 py-2 flex flex-col items-start">
+		<div className="z-1 w-fit min-w-24 justify-self-start rounded-md bg-bg-secondary/80 text-text">
+			<div className="flex flex-col items-start px-3 py-2">
 				<div className="flex items-center gap-2">
-					<span className="size-2.5 shrink-0 block" style={{ background: color }}></span>
-					<h3 className="text-xs font-bold leading-none">{title}</h3>
+					<span className="block size-2.5 shrink-0" style={{ background: color }}></span>
+					<h3 className="text-xs leading-none font-bold">{title}</h3>
 				</div>
-				<p className="text-lg font-semibold leading-tight mt-1">{formatNumber(value)}</p>
+				<p className="mt-1 text-lg leading-tight font-semibold">{formatNumber(value)}</p>
 			</div>
 		</div>
 	);

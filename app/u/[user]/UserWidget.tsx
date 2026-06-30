@@ -9,19 +9,19 @@ import { getUserGameStats } from "@/lib/data/library";
 
 function GameList({ widget, games }: Readonly<{ widget: Widget; games: Game[] }>) {
 	return (
-		<div className="p-5 w-full bg-bg rounded">
+		<div className="w-full rounded bg-bg p-5">
 			{widget.games ? (
 				<div>
-					<p className="font-bold text-xl mb-3 border-b border-border pb-3">{widget.title}</p>
-					<HorizontalScroller className="overflow-clip gap-1 md:gap-5 max-w-full p-2 md:p-6">
+					<p className="mb-3 border-b border-border pb-3 text-xl font-bold">{widget.title}</p>
+					<HorizontalScroller className="max-w-full gap-1 overflow-clip p-2 md:gap-5 md:p-6">
 						{games.length > 0 ? (
 							games.map((game) => (
 								<div key={game.id}>
 									<div className="flex md:hidden">
-										<GameCard game={game} size={100} effect="ripple" slugged={true} />
+										<GameCard game={game} size={100} effect="ripple" hasLink={true} />
 									</div>
 									<div className="hidden md:flex">
-										<GameCard game={game} size={160} effect="ripple" hover="name" slugged={true} />
+										<GameCard game={game} size={160} effect="ripple" hover="name" hasLink={true} />
 									</div>
 								</div>
 							))
@@ -31,9 +31,7 @@ function GameList({ widget, games }: Readonly<{ widget: Widget; games: Game[] }>
 					</HorizontalScroller>
 				</div>
 			) : (
-				<p className="font-bold p-5 bg-error/30 border-2 border-error/50 rounded text-center">
-					Data Not Found - Favorites widget failed
-				</p>
+				<p className="rounded border-2 border-error/50 bg-error/30 p-5 text-center font-bold">Data Not Found - Favorites widget failed</p>
 			)}
 		</div>
 	);
@@ -41,9 +39,9 @@ function GameList({ widget, games }: Readonly<{ widget: Widget; games: Game[] }>
 
 function StatsBlock({ label, value }: Readonly<{ label: string; value: string }>) {
 	return (
-		<div className="bg-primary/10 p-10 border-2 border-primary/40 flex flex-col gap-2 justify-center items-center text-center font-bold text-2xl rounded-md w-full h-16 md:h-32">
-			<p className="flex-1 flex items-center">{value}</p>
-			<p className="text-sm h-6">{label}</p>
+		<div className="flex h-16 w-full flex-col items-center justify-center gap-2 rounded-md border-2 border-primary/40 bg-primary/10 p-10 text-center text-2xl font-bold md:h-32">
+			<p className="flex flex-1 items-center">{value}</p>
+			<p className="h-6 text-sm">{label}</p>
 		</div>
 	);
 }
@@ -52,7 +50,7 @@ function Stats({ widget, stats }: Readonly<{ widget: Widget; stats: Awaited<Retu
 	return (
 		<div>
 			{widget.stats ? (
-				<div className="grid grid-cols-2 items-center bg-bg md:flex md:flex-row md:justify-between gap-2">
+				<div className="grid grid-cols-2 items-center gap-2 bg-bg md:flex md:flex-row md:justify-between">
 					{widget.stats.map((stat, index) => {
 						const name = stat === "reviews" ? "dropped" : stat;
 						let label = stat;
@@ -87,19 +85,11 @@ function Stats({ widget, stats }: Readonly<{ widget: Widget; stats: Awaited<Retu
 							value = stats.total;
 						}
 
-						return (
-							<StatsBlock
-								key={`${stat}-${index}`}
-								label={label}
-								value={value?.toLocaleString("en", { maximumFractionDigits: 1 }) ?? "0"}
-							/>
-						);
+						return <StatsBlock key={`${stat}-${index}`} label={label} value={value?.toLocaleString("en", { maximumFractionDigits: 1 }) ?? "0"} />;
 					})}
 				</div>
 			) : (
-				<p className="font-bold p-5 bg-error/30 border-2 border-error/50 rounded text-center">
-					Data Not Found - Stats widget failed
-				</p>
+				<p className="rounded border-2 border-error/50 bg-error/30 p-5 text-center font-bold">Data Not Found - Stats widget failed</p>
 			)}
 		</div>
 	);
@@ -109,15 +99,13 @@ function Markdown({ widget }: Readonly<{ widget: Widget }>) {
 	const blocks = widget.type === WidgetType.MARKDOWN && widget.content ? parseMarkdownBlocks(widget.content) : [];
 
 	return (
-		<div className="p-5 w-full bg-bg rounded overflow-hidden wrap-break-word">
+		<div className="w-full overflow-hidden rounded bg-bg p-5 wrap-break-word">
 			{blocks.length > 0 ? (
 				<div className="space-y-4 text-sm leading-6 text-text md:text-base">
 					<MarkdownBlocks blocks={blocks} />
 				</div>
 			) : (
-				<p className="font-bold p-5 bg-error/30 border-2 border-error/50 rounded text-center">
-					Data Not Found - Markdown widget failed
-				</p>
+				<p className="rounded border-2 border-error/50 bg-error/30 p-5 text-center font-bold">Data Not Found - Markdown widget failed</p>
 			)}
 		</div>
 	);

@@ -240,13 +240,7 @@ export async function searchGames(query: string, limit = 8): Promise<Game[]> {
 			const bNMatch = bName.startsWith(lowerSearch) ? 1 : bNIncludesMatch;
 			const bMatch = bName === lowerSearch ? 0 : bNMatch;
 
-			return (
-				aMatch - bMatch ||
-				aEdition - bEdition ||
-				aType - bType ||
-				(b.totalRating ?? 0) - (a.totalRating ?? 0) ||
-				aName.localeCompare(bName)
-			);
+			return aMatch - bMatch || aEdition - bEdition || aType - bType || (b.totalRating ?? 0) - (a.totalRating ?? 0) || aName.localeCompare(bName);
 		})
 		.slice(0, resultLimit);
 

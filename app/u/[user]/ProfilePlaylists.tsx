@@ -1,6 +1,6 @@
 "use client";
 
-import GamePlaylistDisplay from "@/app/components/game/GamePlaylistDispaly";
+import GamePlaylistDisplay from "@/app/components/game/GamePlaylistDisplay";
 import MenuPanel from "@/app/components/ui/MenuPanel";
 import { createPlaylist } from "@/lib/actions/playlists";
 import type { Playlist } from "@/lib/data/playlists";
@@ -33,14 +33,12 @@ export default function ProfilePlaylists({ playlists, canCreate }: Readonly<{ pl
 						<span className="mt-2 text-sm font-bold">Create playlist</span>
 					</button>
 				)}
-				{!playlists.length && !canCreate && (
-					<p className="rounded border border-border bg-bg p-4 text-sm text-text-muted">No playlists yet.</p>
-				)}
+				{!playlists.length && !canCreate && <p className="rounded border border-border bg-bg p-4 text-sm text-text-muted">No playlists yet.</p>}
 			</div>
 
 			<MenuPanel open={open} onClose={() => setOpen(false)} title="Create playlist" panelClassName="max-w-lg bg-bg">
 				<form action={createPlaylist} className="flex flex-col gap-3">
-					<label className="text-sm font-bold text-text-muted w-full">
+					<label className="w-full text-sm font-bold text-text-muted">
 						Name
 						<Input name="name" required maxLength={80} />
 					</label>

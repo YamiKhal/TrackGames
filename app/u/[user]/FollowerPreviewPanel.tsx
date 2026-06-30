@@ -26,26 +26,12 @@ export default function FollowerPreviewPanel({ title, count, profiles }: Followe
 				{visible.length > 0 ? (
 					<>
 						{visible.map((profile) => (
-							<Link
-								href={`/u/${profile.name}`}
-								key={profile.name}
-								title={profile.name}
-								className="flex items-center justify-center"
-							>
-								<AvatarView
-									image={profile.image}
-									size={10}
-									mdSize={10}
-									iconSize={20}
-									alt={`${profile.name} profile image`}
-									className="border border-border"
-								/>
+							<Link href={`/u/${profile.name}`} key={profile.name} title={profile.name} className="flex items-center justify-center">
+								<AvatarView image={profile.image} size={10} mdSize={10} iconSize={20} alt={`${profile.name} profile image`} className="border border-border" />
 							</Link>
 						))}
 						{overflow > 0 && (
-							<div className="grid size-10 place-items-center rounded-full border border-border bg-bg text-xs font-bold text-text-muted">
-								+{overflow}
-							</div>
+							<div className="grid size-10 place-items-center rounded-full border border-border bg-bg text-xs font-bold text-text-muted">+{overflow}</div>
 						)}
 					</>
 				) : (

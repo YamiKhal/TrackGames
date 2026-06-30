@@ -17,17 +17,7 @@ type BackgroundViewProps = Readonly<{
 	poster?: string;
 }>;
 
-export default function BackgroundView({
-	src = null,
-	size,
-	mdSize = size,
-	alt = "",
-	priority,
-	className = "",
-	fit = "cover",
-	aspectRatio = "2 / 1",
-	poster,
-}: BackgroundViewProps) {
+export default function BackgroundView({ src = null, size, mdSize = size, alt = "", priority, className = "", fit = "cover", aspectRatio = "2 / 1", poster }: BackgroundViewProps) {
 	const videoRef = useRef<HTMLVideoElement | null>(null);
 	const [videoReady, setVideoReady] = useState(false);
 	const desktopSize = mdSize ?? size;

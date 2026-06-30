@@ -30,10 +30,7 @@ export async function generateMetadata({ params }: { params: Promise<{ user: str
 	const profile = await getPublicUser(user);
 	const name = profile?.name ?? user;
 	const title = profile ? `${name}'s Profile` : "Profile not found";
-	const description = metadataDescription(
-		profile?.bio,
-		profile ? `View ${name}'s TrackGames profile, playlists and activity.` : "The requested profile could not be found.",
-	);
+	const description = metadataDescription(profile?.bio, profile ? `View ${name}'s TrackGames profile, playlists and activity.` : "The requested profile could not be found.");
 	const image = absoluteUrl(`/u/${encodeURIComponent(name)}/opengraph-image`);
 	const url = absoluteUrl(`/u/${encodeURIComponent(name)}`);
 
@@ -94,9 +91,7 @@ export default async function Page({ params, searchParams }: UserPageProps) {
 	const safeActivityFilter = selectedActivityFilter === "logs" && !canViewLogs ? "all" : selectedActivityFilter;
 	const [playlists, activity] = await Promise.all([
 		activeTab === "playlists" && canViewLibrary ? getUserPlaylists(profile.id) : [],
-		activeTab === "activity" && canViewActivity
-			? getUserActivities(profile.id, Number(activityPage), safeActivityFilter, canViewLogs)
-			: null,
+		activeTab === "activity" && canViewActivity ? getUserActivities(profile.id, Number(activityPage), safeActivityFilter, canViewLogs) : null,
 	]);
 
 	return (
@@ -105,7 +100,7 @@ export default async function Page({ params, searchParams }: UserPageProps) {
 			<Container>
 				{/* BANNER PROFILE */}
 				<ProfileHeader
-					owned={isOwnProfile}
+					isOwned={isOwnProfile}
 					profileImage={profile.image}
 					displayName={profile.name ?? "Unknown"}
 					socials={socials}
@@ -113,11 +108,11 @@ export default async function Page({ params, searchParams }: UserPageProps) {
 					roles={profile.roles}
 					followUserId={profile.id}
 					isFollowing={socialState.isFollowing}
-					loggedIn={Boolean(session?.user?.id)}
+					isLoggedIn={Boolean(session?.user?.id)}
 				/>
 
 				{/* INFO SETION */}
-				<section className="relative z-10 pt-5 pb-10 bg-bg/95">
+				<section className="relative z-10 bg-bg/95 pt-5 pb-10">
 					<Container className="flex flex-col-reverse gap-5 lg:flex-row lg:items-start">
 						{/* LEFT SIDE */}
 						<aside className="flex w-full flex-col gap-5 lg:w-60 lg:shrink-0">
@@ -126,8 +121,8 @@ export default async function Page({ params, searchParams }: UserPageProps) {
 
 							{/* BADGES */}
 							<div className="w-full rounded bg-bg-secondary/80 p-4">
-								<h2 className="mb-3 text-sm border-b border-border pb-2">Badges</h2>
-								<div className="grid w-full grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 rounded p-2">
+								<h2 className="mb-3 border-b border-border pb-2 text-sm">Badges</h2>
+								<div className="grid w-full grid-cols-2 gap-2 rounded p-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5">
 									{badges.length ? (
 										badges.map((userBadge) => <BadgeView key={userBadge.id} badge={userBadge.badge} />)
 									) : (
@@ -140,7 +135,7 @@ export default async function Page({ params, searchParams }: UserPageProps) {
 						<div className="min-w-0 flex-1">
 							<ProfileSwitcherPanel user={displayName} defaultTab={activeTab}>
 								{activeTab === "profile" && canViewProfile && (
-									<div className="flex flex-col md:gap-2 w-full justify-center">
+									<div className="flex w-full flex-col justify-center md:gap-2">
 										{profileWidgets?.map((widget) => (
 											<UserWidget key={widget.id} widget={widget} userId={profile.id} />
 										))}
@@ -150,9 +145,7 @@ export default async function Page({ params, searchParams }: UserPageProps) {
 									</div>
 								)}
 								{activeTab === "profile" && !canViewProfile && (
-									<p className="rounded border border-border bg-bg p-4 text-sm text-text-muted">
-										This profile is private.
-									</p>
+									<p className="rounded border border-border bg-bg p-4 text-sm text-text-muted">This profile is private.</p>
 								)}
 								{activeTab === "activity" && canViewActivity && (
 									<ActivityList
@@ -167,13 +160,9 @@ export default async function Page({ params, searchParams }: UserPageProps) {
 								{activeTab === "activity" && !canViewActivity && (
 									<p className="rounded border border-border bg-bg p-4 text-sm text-text-muted">Activity is private.</p>
 								)}
-								{activeTab === "playlists" && canViewLibrary && (
-									<ProfilePlaylists playlists={playlists} canCreate={isOwnProfile} />
-								)}
+								{activeTab === "playlists" && canViewLibrary && <ProfilePlaylists playlists={playlists} canCreate={isOwnProfile} />}
 								{activeTab === "playlists" && !canViewLibrary && (
-									<p className="rounded border border-border bg-bg p-4 text-sm text-text-muted">
-										Library and playlists are private.
-									</p>
+									<p className="rounded border border-border bg-bg p-4 text-sm text-text-muted">Library and playlists are private.</p>
 								)}
 							</ProfileSwitcherPanel>
 						</div>

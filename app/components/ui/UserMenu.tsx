@@ -108,25 +108,15 @@ export function UserMenu({ user, notifications }: UserMenuProps) {
 				ref={buttonRef}
 				type="button"
 				onClick={() => setIsOpen((open) => !open)}
-				className="relative grid size-11 cursor-pointer place-items-center text-text-muted transition-colors hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:size-10 md:border-0 md:bg-transparent"
+				className="relative grid size-11 cursor-pointer place-items-center text-text-muted transition-colors hover:border-primary hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none md:size-10 md:border-0 md:bg-transparent"
 				aria-label="Manage user menu"
 				aria-expanded={isOpen}
 				aria-controls="user-menu"
 			>
-				<AvatarPreview
-					image={user.image}
-					size={7}
-					priority
-					alt={`${user.name ?? "user"} profile image`}
-					className="hidden md:flex"
-				/>
-				{isOpen ? (
-					<ArrowRight size={18} className="md:hidden" aria-hidden="true" />
-				) : (
-					<Menu size={18} className="md:hidden" aria-hidden="true" />
-				)}
+				<AvatarPreview image={user.image} size={7} priority alt={`${user.name ?? "user"} profile image`} className="hidden md:flex" />
+				{isOpen ? <ArrowRight size={18} className="md:hidden" aria-hidden="true" /> : <Menu size={18} className="md:hidden" aria-hidden="true" />}
 				{unread && (
-					<span className="absolute right-0 left-8 top-0 grid size-5 place-items-center rounded-full bg-error text-text">
+					<span className="absolute top-0 right-0 left-8 grid size-5 place-items-center rounded-full bg-error text-text">
 						<Bell size={12} aria-hidden="true" />
 					</span>
 				)}
@@ -136,9 +126,9 @@ export function UserMenu({ user, notifications }: UserMenuProps) {
 				open={isOpen}
 				onClose={closeMenu}
 				variant="anchored"
-				portal={isSmallScreen}
+				hasPortal={isSmallScreen}
 				role="menu"
-				showClose={false}
+				shouldShowClose={false}
 				anchorRef={buttonRef}
 				className={isSmallScreen ? `fixed inset-0 bg-overlay transition-opacity ${openStyle}` : undefined}
 				panelClassName={
@@ -149,12 +139,12 @@ export function UserMenu({ user, notifications }: UserMenuProps) {
 			>
 				{view === "notifications" ? (
 					<>
-						<div className="flex items-center gap-2 border-b border-border justify-between p-3 md:p-2 md:pb-3">
+						<div className="flex items-center justify-between gap-2 border-b border-border p-3 md:p-2 md:pb-3">
 							<h2 className="font-bold text-text">Notifications</h2>
 							<button
 								type="button"
 								onClick={() => setView("menu")}
-								className="grid size-9 cursor-pointer place-items-center rounded text-text-muted transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+								className="grid size-9 cursor-pointer place-items-center rounded text-text-muted transition-colors hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
 								aria-label="Back to user menu"
 							>
 								<ArrowRight size={18} aria-hidden="true" />
@@ -175,7 +165,7 @@ export function UserMenu({ user, notifications }: UserMenuProps) {
 							<button
 								type="button"
 								onClick={closeMenu}
-								className="grid size-9 cursor-pointer place-items-center text-text-muted transition-colors hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+								className="grid size-9 cursor-pointer place-items-center text-text-muted transition-colors hover:border-primary hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
 								aria-label="Close user menu"
 							>
 								<ArrowRight size={18} aria-hidden="true" />
@@ -188,26 +178,26 @@ export function UserMenu({ user, notifications }: UserMenuProps) {
 								type="button"
 								disabled={pending}
 								onClick={openNotifications}
-								className="relative flex h-10 cursor-pointer items-center justify-center gap-2 rounded border border-border bg-bg font-bold text-text-muted transition-colors hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+								className="relative flex h-10 cursor-pointer items-center justify-center gap-2 rounded border border-border bg-bg font-bold text-text-muted transition-colors hover:border-primary hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
 								aria-label="Show notifications"
 							>
 								<Bell size={18} aria-hidden="true" />
-								{unread && <span className="absolute right-2 top-2 size-2 rounded-full bg-error" />}
+								{unread && <span className="absolute top-2 right-2 size-2 rounded-full bg-error" />}
 							</button>
 						</div>
 
 						<div className="flex flex-1 flex-col p-3 md:p-0">
-							<div className="p-1 bg-surface text-md text-text font-bold rounded text-center pl-3 pr-3 mb-2 flex-row justify-between items-center hidden sm:flex">
+							<div className="text-md mb-2 hidden flex-row items-center justify-between rounded bg-surface p-1 pr-3 pl-3 text-center font-bold text-text sm:flex">
 								<p>{user.name ?? "Signed in"}</p>
 								<button
 									type="button"
 									disabled={pending}
 									onClick={openNotifications}
-									className="relative grid size-7 cursor-pointer place-items-center rounded text-text-muted transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-wait"
+									className="relative grid size-7 cursor-pointer place-items-center rounded text-text-muted transition-colors hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none disabled:cursor-wait"
 									aria-label="Show notifications"
 								>
 									<Bell size={17} aria-hidden="true" />
-									{unread && <span className="absolute right-1 top-1 size-2 rounded-full bg-error" />}
+									{unread && <span className="absolute top-1 right-1 size-2 rounded-full bg-error" />}
 								</button>
 							</div>
 							<Link

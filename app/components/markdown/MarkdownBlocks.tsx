@@ -16,7 +16,7 @@ type MarkdownImageProps = Readonly<{
 	fit?: string;
 	position?: string;
 	rounded?: boolean;
-	fillCell?: boolean;
+	shouldFillCell?: boolean;
 	align?: MarkdownAlign;
 }>;
 
@@ -26,39 +26,20 @@ type MarkdownVideoProps = Readonly<{
 	width?: number;
 	height?: number;
 	rounded?: boolean;
-	fillCell?: boolean;
+	shouldFillCell?: boolean;
 	align?: MarkdownAlign;
 }>;
 
 type MarkdownGroupProps = Readonly<{
 	block: Extract<MarkdownBlock, { type: "group" }>;
-	compact: boolean;
-	fillMedia: boolean;
+	shouldCompact: boolean;
+	shouldFillMedia: boolean;
 	parentAlign: MarkdownAlign;
 }>;
 
 type MarkdownContentProps = Readonly<{ block: Extract<MarkdownBlock, { type: "markdown" }>; parentAlign: MarkdownAlign }>;
 
-type MarkdownComponentName =
-	| "h1"
-	| "h2"
-	| "h3"
-	| "p"
-	| "strong"
-	| "em"
-	| "del"
-	| "ul"
-	| "ol"
-	| "li"
-	| "blockquote"
-	| "hr"
-	| "table"
-	| "th"
-	| "td"
-	| "code"
-	| "pre"
-	| "a"
-	| "img";
+type MarkdownComponentName = "h1" | "h2" | "h3" | "p" | "strong" | "em" | "del" | "ul" | "ol" | "li" | "blockquote" | "hr" | "table" | "th" | "td" | "code" | "pre" | "a" | "img";
 
 type MarkdownComponentProps = {
 	children?: ReactNode;
@@ -70,8 +51,8 @@ type MarkdownComponentProps = {
 
 type MarkdownBlocksProps = Readonly<{
 	blocks: MarkdownBlock[];
-	compact?: boolean;
-	fillMedia?: boolean;
+	shouldCompact?: boolean;
+	shouldFillMedia?: boolean;
 	align?: MarkdownAlign;
 }>;
 
@@ -123,17 +104,7 @@ const markdownComponents: Components = {
 	img: (props) => renderMarkdownComponent("img", props),
 };
 
-function MarkdownImage({
-	src,
-	alt,
-	width,
-	height,
-	fit,
-	position,
-	rounded,
-	fillCell = false,
-	align = MarkdownAlign.START,
-}: MarkdownImageProps) {
+function MarkdownImage({ src, alt, width, height, fit, position, rounded, shouldFillCell = false, align = MarkdownAlign.START }: MarkdownImageProps) {
 	const widthPx = width ? `${width}px` : undefined;
 
 	return (
@@ -146,16 +117,16 @@ function MarkdownImage({
 			referrerPolicy="no-referrer"
 			className={mediaClassName({ rounded, align })}
 			style={{
-				width: fillCell ? "100%" : widthPx,
+				width: shouldFillCell ? "100%" : widthPx,
 				height: height ? `${height}px` : undefined,
-				objectFit: (fit as React.CSSProperties["objectFit"]) ?? (fillCell ? "cover" : undefined),
+				objectFit: (fit as React.CSSProperties["objectFit"]) ?? (shouldFillCell ? "cover" : undefined),
 				objectPosition: position,
 			}}
 		/>
 	);
 }
 
-function MarkdownVideo({ src, poster, width, height, rounded, fillCell = false, align = MarkdownAlign.START }: MarkdownVideoProps) {
+function MarkdownVideo({ src, poster, width, height, rounded, shouldFillCell = false, align = MarkdownAlign.START }: MarkdownVideoProps) {
 	const widthPx = width ? `${width}px` : undefined;
 	const heightPx = height ? `${height}px` : undefined;
 
@@ -168,7 +139,7 @@ function MarkdownVideo({ src, poster, width, height, rounded, fillCell = false, 
 			playsInline
 			suppressHydrationWarning
 			className={mediaClassName({ rounded, align })}
-			style={{ width: fillCell ? "100%" : widthPx, height: heightPx }}
+			style={{ width: shouldFillCell ? "100%" : widthPx, height: heightPx }}
 		>
 			<track kind="captions" />
 		</video>
@@ -186,18 +157,18 @@ function MarkdownGrid({ block }: Readonly<{ block: Extract<MarkdownBlock, { type
 		>
 			{block.cells.map((cell, index) => (
 				<div key={index.toLocaleString()} className="min-w-0 overflow-hidden">
-					<MarkdownBlocks blocks={cell} compact fillMedia align={MarkdownAlign.START} />
+					<MarkdownBlocks blocks={cell} shouldCompact shouldFillMedia align={MarkdownAlign.START} />
 				</div>
 			))}
 		</div>
 	);
 }
 
-function MarkdownGroup({ block, compact, fillMedia, parentAlign }: MarkdownGroupProps) {
+function MarkdownGroup({ block, shouldCompact, shouldFillMedia, parentAlign }: MarkdownGroupProps) {
 	const align = block.align ?? parentAlign;
 	const content = (
 		<div className={block.href ? "max-w-full" : "w-full"}>
-			<MarkdownBlocks blocks={block.children} compact={compact} fillMedia={fillMedia} align={align} />
+			<MarkdownBlocks blocks={block.children} shouldCompact={shouldCompact} shouldFillMedia={shouldFillMedia} align={align} />
 		</div>
 	);
 	const className = groupClassName(align, Boolean(block.href));
@@ -223,12 +194,7 @@ function MarkdownContent({ block, parentAlign }: MarkdownContentProps) {
 
 	return (
 		<div className={alignClassName(align)} style={{ color: block.color }}>
-			<ReactMarkdown
-				remarkPlugins={[remarkGfm]}
-				rehypePlugins={[rehypeSanitize]}
-				allowedElements={allowedTags}
-				components={markdownComponents}
-			>
+			<ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSanitize]} allowedElements={allowedTags} components={markdownComponents}>
 				{block.content}
 			</ReactMarkdown>
 		</div>
@@ -326,11 +292,11 @@ function mediaClassName({ rounded, align }: { rounded?: boolean; align: Markdown
 function renderMarkdownComponent(name: MarkdownComponentName, { children, href, src, alt }: MarkdownComponentProps) {
 	switch (name) {
 		case "h1":
-			return <h1 className="mb-3 text-2xl font-bold leading-tight">{renderColoredText(children)}</h1>;
+			return <h1 className="mb-3 text-2xl leading-tight font-bold">{renderColoredText(children)}</h1>;
 		case "h2":
-			return <h2 className="mb-2 text-xl font-bold leading-tight">{renderColoredText(children)}</h2>;
+			return <h2 className="mb-2 text-xl leading-tight font-bold">{renderColoredText(children)}</h2>;
 		case "h3":
-			return <h3 className="mb-2 text-lg font-bold leading-tight">{renderColoredText(children)}</h3>;
+			return <h3 className="mb-2 text-lg leading-tight font-bold">{renderColoredText(children)}</h3>;
 		case "p":
 			return <p className="whitespace-pre-line">{renderColoredText(children)}</p>;
 		case "strong":
@@ -380,14 +346,14 @@ function renderMarkdownComponent(name: MarkdownComponentName, { children, href, 
 	}
 }
 
-export function MarkdownBlocks({ blocks, compact = false, fillMedia = false, align = MarkdownAlign.START }: MarkdownBlocksProps) {
+export function MarkdownBlocks({ blocks, shouldCompact = false, shouldFillMedia = false, align = MarkdownAlign.START }: MarkdownBlocksProps) {
 	return (
-		<div className={compact ? "space-y-0" : "space-y-4"}>
+		<div className={shouldCompact ? "space-y-0" : "space-y-4"}>
 			{blocks.map((block, index) => {
 				if (block.type === "image") {
 					return (
 						<MarkdownImage
-							key={block.src}
+							key={index.toLocaleString()}
 							src={block.src}
 							alt={block.alt}
 							width={block.width}
@@ -395,7 +361,7 @@ export function MarkdownBlocks({ blocks, compact = false, fillMedia = false, ali
 							fit={block.fit}
 							position={block.position}
 							rounded={block.rounded}
-							fillCell={fillMedia}
+							shouldFillCell={shouldFillMedia}
 							align={block.align ?? align}
 						/>
 					);
@@ -404,27 +370,27 @@ export function MarkdownBlocks({ blocks, compact = false, fillMedia = false, ali
 				if (block.type === "video") {
 					return (
 						<MarkdownVideo
-							key={block.src}
+							key={index.toLocaleString()}
 							src={block.src}
 							poster={block.poster}
 							width={block.width}
 							height={block.height}
 							rounded={block.rounded}
-							fillCell={fillMedia}
+							shouldFillCell={shouldFillMedia}
 							align={block.align ?? align}
 						/>
 					);
 				}
 
 				if (block.type === "grid") {
-					return <MarkdownGrid key={block.type} block={block} />;
+					return <MarkdownGrid key={index.toLocaleString()} block={block} />;
 				}
 
 				if (block.type === "group") {
-					return <MarkdownGroup key={block.type} block={block} compact={compact} fillMedia={fillMedia} parentAlign={align} />;
+					return <MarkdownGroup key={index.toLocaleString()} block={block} shouldCompact={shouldCompact} shouldFillMedia={shouldFillMedia} parentAlign={align} />;
 				}
 
-				return <MarkdownContent key={block.type} block={block} parentAlign={align} />;
+				return <MarkdownContent key={index.toLocaleString()} block={block} parentAlign={align} />;
 			})}
 		</div>
 	);

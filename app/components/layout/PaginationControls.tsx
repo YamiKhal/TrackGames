@@ -22,20 +22,12 @@ export default function PaginationControls({ page, pageCount, href, onPageChange
 
 	function renderPageButton(value: number, label: string, children: ReactNode, disabled?: boolean) {
 		const className = `grid size-9 place-items-center rounded border text-sm font-bold transition-colors ${
-			safePage === value
-				? "border-primary bg-primary text-text"
-				: "border-border text-text-muted hover:border-primary hover:text-primary"
+			safePage === value ? "border-primary bg-primary text-text" : "border-border text-text-muted hover:border-primary hover:text-primary"
 		} ${disabled ? "pointer-events-none opacity-50" : ""}`;
 
 		if (href) {
 			return (
-				<Link
-					href={href(value)}
-					className={className}
-					aria-label={label}
-					aria-current={safePage === value ? "page" : undefined}
-					aria-disabled={disabled}
-				>
+				<Link href={href(value)} className={className} aria-label={label} aria-current={safePage === value ? "page" : undefined} aria-disabled={disabled}>
 					{children}
 				</Link>
 			);
@@ -67,13 +59,7 @@ export default function PaginationControls({ page, pageCount, href, onPageChange
 		}
 
 		return (
-			<button
-				type="button"
-				onClick={() => goToPage(value)}
-				disabled={disabled}
-				className={`${className} cursor-pointer disabled:cursor-default`}
-				aria-label={label}
-			>
+			<button type="button" onClick={() => goToPage(value)} disabled={disabled} className={`${className} cursor-pointer disabled:cursor-default`} aria-label={label}>
 				{children}
 			</button>
 		);
@@ -102,7 +88,7 @@ export default function PaginationControls({ page, pageCount, href, onPageChange
 										event.currentTarget.value = "";
 									}
 								}}
-								className="h-9 w-14 rounded border border-border bg-bg-secondary px-2 text-center text-sm text-text outline-none transition-colors focus:border-primary"
+								className="h-9 w-14 rounded border border-border bg-bg-secondary px-2 text-center text-sm text-text transition-colors outline-none focus:border-primary"
 								aria-label="Jump to page"
 							/>
 						)}

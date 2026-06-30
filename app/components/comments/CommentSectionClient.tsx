@@ -81,7 +81,7 @@ function CommentForm({ action, placeholder = "Write a comment" }: CommentFormPro
 			/>
 			<div className="flex items-center justify-between border-t border-border px-3 py-2">
 				<span className="text-xs text-text-faint">{content.length}/2000</span>
-				<PrimaryButton type="submit" disabled={pending || !content.trim()} className="gap-2 px-2 md:px-4 py-2 text-sm md:text-md">
+				<PrimaryButton type="submit" disabled={pending || !content.trim()} className="md:text-md gap-2 px-2 py-2 text-sm md:px-4">
 					<Send size={14} />
 					{pending ? "Posting..." : "Post"}
 				</PrimaryButton>
@@ -140,7 +140,7 @@ function CommentItem({ comment, comments, targetType, targetId, currentUserId }:
 						<span className="text-xs text-text-faint">{new Date(comment.createdAt).toLocaleDateString()}</span>
 						{targetType === InteractionTargetType.GAME && <StarRating rating={ratingToFive(comment.userRating)} size={13} />}
 					</div>
-					<p className="mt-2 whitespace-pre-wrap text-sm text-text-muted">{comment.content}</p>
+					<p className="mt-2 text-sm whitespace-pre-wrap text-text-muted">{comment.content}</p>
 				</div>
 				<div className="mt-1 flex items-center gap-2 text-xs text-text-faint">
 					{currentUserId && (
@@ -155,22 +155,13 @@ function CommentItem({ comment, comments, targetType, targetId, currentUserId }:
 						</button>
 					)}
 					{currentUserId && (
-						<button
-							type="button"
-							onClick={() => setReplying(!replying)}
-							className="flex cursor-pointer items-center gap-1 rounded px-2 py-1 hover:text-primary"
-						>
+						<button type="button" onClick={() => setReplying(!replying)} className="flex cursor-pointer items-center gap-1 rounded px-2 py-1 hover:text-primary">
 							<MessageCircle size={14} />
 							Reply
 						</button>
 					)}
 					{currentUserId === comment.userId && (
-						<button
-							type="button"
-							onClick={remove}
-							disabled={pending}
-							className="flex cursor-pointer items-center gap-1 rounded px-2 py-1 hover:text-error"
-						>
+						<button type="button" onClick={remove} disabled={pending} className="flex cursor-pointer items-center gap-1 rounded px-2 py-1 hover:text-error">
 							<Trash2 size={14} />
 							Delete
 						</button>
@@ -185,14 +176,7 @@ function CommentItem({ comment, comments, targetType, targetId, currentUserId }:
 				{replies.length > 0 && (
 					<div className="mt-3 flex flex-col gap-3 border-l border-border pl-3">
 						{replies.map((reply) => (
-							<CommentItem
-								key={reply.id}
-								comment={reply}
-								comments={comments}
-								targetType={targetType}
-								targetId={targetId}
-								currentUserId={currentUserId}
-							/>
+							<CommentItem key={reply.id} comment={reply} comments={comments} targetType={targetType} targetId={targetId} currentUserId={currentUserId} />
 						))}
 					</div>
 				)}
@@ -206,7 +190,7 @@ export default function CommentSectionClient({ targetType, targetId, comments, c
 	const addTopLevel = addComment.bind(null, targetType, targetId, null);
 
 	return (
-		<section id="comments" className="flex flex-col gap-4 rounded bg-bg p-4 scroll-mt-24">
+		<section id="comments" className="flex scroll-mt-24 flex-col gap-4 rounded bg-bg p-4">
 			<div className="flex items-center justify-between gap-3 border-b border-border pb-2">
 				<h2 className="text-sm font-bold">Comments</h2>
 				<span className="text-xs text-text-faint">{comments.length}</span>
@@ -224,14 +208,7 @@ export default function CommentSectionClient({ targetType, targetId, comments, c
 			<div className="flex flex-col gap-4">
 				{topLevelComments.length ? (
 					topLevelComments.map((comment) => (
-						<CommentItem
-							key={comment.id}
-							comment={comment}
-							comments={comments}
-							targetType={targetType}
-							targetId={targetId}
-							currentUserId={currentUserId}
-						/>
+						<CommentItem key={comment.id} comment={comment} comments={comments} targetType={targetType} targetId={targetId} currentUserId={currentUserId} />
 					))
 				) : (
 					<p className="text-sm text-text-muted">No comments yet.</p>

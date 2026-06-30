@@ -1,12 +1,6 @@
 "use client";
 
-import {
-	createUserGamePlayLog,
-	deleteUserGamePlayLog,
-	removeGameFromLibrary,
-	updateUserGameEntry,
-	updateUserGamePlayLog,
-} from "@/lib/actions/library";
+import { createUserGamePlayLog, deleteUserGamePlayLog, removeGameFromLibrary, updateUserGameEntry, updateUserGamePlayLog } from "@/lib/actions/library";
 import type { UserLibraryEntryWithTags } from "@/lib/data/library";
 import { ImageIdToURL } from "@/lib/external/igdb/util";
 import { formDataString } from "@/lib/util/formData";
@@ -42,9 +36,9 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
 	const [logDate, setLogDate] = useState("");
 	const [timeMode, setTimeMode] = useState(timeModeLabel(entry.timeMode));
 	const [entryStatus, setEntryStatus] = useState(entry.status);
-	const [entryFinished, setEntryFinished] = useState(Boolean(entry.finishedAt || entry.timeFinished != null));
+	const [isFinished, setEntryFinished] = useState(Boolean(entry.finishedAt || entry.timeFinished != null));
 	const [tags, setTags] = useState(entry.tags.map((tag) => tag.name));
-	const [addingTag, setAddingTag] = useState(false);
+	const [isAddingTag, setAddingTag] = useState(false);
 	const [tagInput, setTagInput] = useState("");
 	const [rating, setRating] = useState(ratingToFive(entry.rating) ?? 0);
 	const [error, setError] = useState("");
@@ -155,14 +149,7 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
 				onOpenEditor={openEditor}
 			/>
 
-			<MenuPanel
-				open={showInfo}
-				onClose={() => setShowInfo(false)}
-				title={game.name}
-				closeLabel="Close game info"
-				panelClassName="md:hidden"
-				style={themeStyle}
-			>
+			<MenuPanel open={showInfo} onClose={() => setShowInfo(false)} title={game.name} closeLabel="Close game info" panelClassName="md:hidden" style={themeStyle}>
 				<div className="flex gap-4">
 					<Link href={`/game/${game.slug}`} className="relative h-32 w-22 shrink-0 overflow-hidden rounded bg-bg">
 						{src && <Image src={src} alt={game.name ?? "game cover"} fill sizes="88px" className="object-cover" />}
@@ -173,12 +160,10 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
 							{statusLabel(entry.status)}
 						</p>
 						<p className="flex flex-row items-center gap-2">
-							<span className="font-bold text-text">Rating:</span>{" "}
-							<StarRating rating={ratingToFive(entry.rating ?? 0) ?? 0} size={15} />
+							<span className="font-bold text-text">Rating:</span> <StarRating rating={ratingToFive(entry.rating ?? 0) ?? 0} size={15} />
 						</p>
 						<p>
-							<span className="font-bold text-text">Time:</span>{" "}
-							{entry.timePlayed === null ? "No time" : `${entry.timePlayed}h`}
+							<span className="font-bold text-text">Time:</span> {entry.timePlayed === null ? "No time" : `${entry.timePlayed}h`}
 						</p>
 						{hasNotes && (
 							<button
@@ -206,20 +191,14 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
 				</div>
 			</MenuPanel>
 
-			<MenuPanel
-				open={showNotes}
-				onClose={() => setShowNotes(false)}
-				title={`Notes for: ${game.name}`}
-				closeLabel="Close notes"
-				style={themeStyle}
-			>
-				<p className="whitespace-pre-wrap text-sm text-text-muted">{entry.notes}</p>
+			<MenuPanel open={showNotes} onClose={() => setShowNotes(false)} title={`Notes for: ${game.name}`} closeLabel="Close notes" style={themeStyle}>
+				<p className="text-sm whitespace-pre-wrap text-text-muted">{entry.notes}</p>
 			</MenuPanel>
 
 			<MenuPanel
 				open={editing}
 				onClose={() => setEditing(false)}
-				showClose={false}
+				shouldShowClose={false}
 				width="42rem"
 				panelClassName="flex h-[min(42rem,calc(100dvh-1rem))] w-[calc(100vw-1rem)] flex-col gap-4 overflow-hidden bg-bg p-4 md:h-[min(36rem,calc(100vh-2rem))] md:w-[min(var(--menu-panel-width,42rem),calc(100vw-2rem))] md:flex-row md:p-5"
 				style={themeStyle}
@@ -267,11 +246,11 @@ export default function PlaylistCard({ entry, mode, canEdit, onUpdate, onRemove,
 						setTimeMode={setTimeMode}
 						entryStatus={entryStatus}
 						setEntryStatus={setEntryStatus}
-						entryFinished={entryFinished}
+						isFinished={isFinished}
 						setEntryFinished={setEntryFinished}
 						tags={tags}
 						setTags={setTags}
-						addingTag={addingTag}
+						isAddingTag={isAddingTag}
 						setAddingTag={setAddingTag}
 						tagInput={tagInput}
 						setTagInput={setTagInput}

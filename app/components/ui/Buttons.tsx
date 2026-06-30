@@ -14,10 +14,8 @@ type FloatedSquareButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const classes: Record<NonNullable<ButtonProps["variant"]>, string> = {
-	primary:
-		"flex items-center gap-5 justify-center bg-primary text-text px-6 py-2 rounded cursor-pointer font-bold transition-colors hover:bg-primary-hover",
-	secondary:
-		"flex items-center gap-5 justify-center bg-secondary text-text-inverse px-6 py-2 rounded cursor-pointer font-bold transition-colors hover:bg-secondary-hover",
+	primary: "flex items-center gap-5 justify-center bg-primary text-text px-6 py-2 rounded cursor-pointer font-bold transition-colors hover:bg-primary-hover",
+	secondary: "flex items-center gap-5 justify-center bg-secondary text-text-inverse px-6 py-2 rounded cursor-pointer font-bold transition-colors hover:bg-secondary-hover",
 	ghost: "flex items-center gap-5 justify-center bg-primary/0 border-text-faint border text-text-muted px-6 py-2 rounded cursor-pointer font-bold hover:border-primary hover:text-primary transition-colors",
 };
 
@@ -50,10 +48,7 @@ export function FloatedSquareButton({ children, className, label, labelClassName
 		<div className="relative grid size-12 place-items-center text-xs font-bold">
 			<button
 				{...props}
-				className={joinClass(
-					"grid size-12 cursor-pointer place-items-center rounded border transition disabled:cursor-wait disabled:opacity-60",
-					className,
-				)}
+				className={joinClass("grid size-12 cursor-pointer place-items-center rounded border transition disabled:cursor-wait disabled:opacity-60", className)}
 			>
 				{children}
 			</button>

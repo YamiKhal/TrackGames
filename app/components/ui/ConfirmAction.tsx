@@ -19,17 +19,7 @@ type ConfirmActionProps = Readonly<{
 	onConfirm: () => void;
 }>;
 
-export default function ConfirmAction({
-	open,
-	title,
-	message,
-	confirmLabel,
-	pending,
-	requireText,
-	requireLabel,
-	onClose,
-	onConfirm,
-}: ConfirmActionProps) {
+export default function ConfirmAction({ open, title, message, confirmLabel, pending, requireText, requireLabel, onClose, onConfirm }: ConfirmActionProps) {
 	const [step, setStep] = useState(1);
 	const [text, setText] = useState("");
 	const needsText = Boolean(requireText);
@@ -45,7 +35,7 @@ export default function ConfirmAction({
 	}, [open]);
 
 	return (
-		<MenuPanel open={open} onClose={onClose} title={title} width="28rem" portal>
+		<MenuPanel open={open} onClose={onClose} title={title} width="28rem" hasPortal>
 			<div className="flex flex-col gap-4">
 				<p className="text-sm text-text-muted">{message}</p>
 				{needsText && step === 2 && (

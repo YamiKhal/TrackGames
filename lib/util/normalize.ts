@@ -70,12 +70,7 @@ export function byKeys<T extends object>(items: readonly T[], matches: Partial<T
 }
 
 /** Resolves an external value to the canonical value stored in a known list. */
-export function value<T extends Record<K, KeyValue>, K extends keyof T, F extends T[K]>(
-	input: unknown,
-	items: readonly T[],
-	key: K,
-	fallback: F,
-) {
+export function value<T extends Record<K, KeyValue>, K extends keyof T, F extends T[K]>(input: unknown, items: readonly T[], key: K, fallback: F) {
 	return byKey(items, key, input)?.[key] ?? fallback;
 }
 

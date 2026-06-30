@@ -28,12 +28,7 @@ function Entries({
 	viewer: User | null;
 }) {
 	return entries.length ? (
-		<LibraryEntriesPanel
-			entries={entries}
-			canEdit={isOwnLibrary}
-			themeStyle={themeStyle}
-			defaults={viewer ? defaultLibraryFilters(viewer) : undefined}
-		/>
+		<LibraryEntriesPanel entries={entries} canEdit={isOwnLibrary} themeStyle={themeStyle} defaults={viewer ? defaultLibraryFilters(viewer) : undefined} />
 	) : (
 		<p>No games found.</p>
 	);
@@ -60,10 +55,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 		},
 	});
 	const title = library?.name ?? "Library not found";
-	const description = metadataDescription(
-		library?.description,
-		library ? `Browse ${library.name} on TrackGames.` : "The requested library could not be found.",
-	);
+	const description = metadataDescription(library?.description, library ? `Browse ${library.name} on TrackGames.` : "The requested library could not be found.");
 	const image = absoluteUrl(`/library/${encodeURIComponent(slug)}/opengraph-image`);
 	const privacy = library?.user?.libraryPrivacy ?? library?.privacy;
 	const url = absoluteUrl(`/library/${slug}`);
@@ -124,18 +116,18 @@ export default async function Page({ params }: Readonly<{ params: Promise<{ slug
 	const themeStyle = profileThemeStyle(library.color, library.accentColor);
 
 	return (
-		<main className="relative z-0 flex-1 mb-40" style={themeStyle}>
+		<main className="relative z-0 mb-40 flex-1" style={themeStyle}>
 			<BackgroundView src={background} />
 			<Container>
 				{/* HEADER */}
-				<section className="relative z-10 w-full bg-bg/95 border-b border-border">
+				<section className="relative z-10 w-full border-b border-border bg-bg/95">
 					<Container className="relative z-1 flex flex-row items-end justify-start gap-10 pt-5">
-						<div className="flex min-w-0 flex-1 flex-col justify-end mb-4 gap-3 md:flex-row md:items-end md:justify-between md:gap-5">
+						<div className="mb-4 flex min-w-0 flex-1 flex-col justify-end gap-3 md:flex-row md:items-end md:justify-between md:gap-5">
 							<div>
-								<h1 className="text-3xl text-center md:text-start">{library.name}</h1>
-								<p className="text-md text-text-muted text-center md:text-start">{library.description}</p>
+								<h1 className="text-center text-3xl md:text-start">{library.name}</h1>
+								<p className="text-md text-center text-text-muted md:text-start">{library.description}</p>
 							</div>
-							<div className="flex shrink-0 flex-row flex-wrap justify-center md:justify-emd gap-3 md:gap-5">
+							<div className="md:justify-emd flex shrink-0 flex-row flex-wrap justify-center gap-3 md:gap-5">
 								{isOwnLibrary && <GameListEditButton list={library} />}
 								<GhostButton href={`/u/${slug}`}>Profile</GhostButton>
 							</div>
@@ -143,7 +135,7 @@ export default async function Page({ params }: Readonly<{ params: Promise<{ slug
 					</Container>
 				</section>
 
-				<section className="relative z-10 pt-5 pb-10 bg-bg/95">
+				<section className="relative z-10 bg-bg/95 pt-5 pb-10">
 					<Container className="flex flex-col-reverse gap-5 lg:flex-row lg:items-start">
 						{canViewLibrary ? (
 							<Entries entries={userEntries} isOwnLibrary themeStyle={themeStyle} viewer={viewer} />

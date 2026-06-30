@@ -29,14 +29,7 @@ export function ColorField({ name, value, onChange, placeholder, label }: ColorF
 						className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
 					/>
 				</label>
-				<Input
-					name={name}
-					value={value}
-					onChange={(event) => onChange(event.target.value)}
-					type="text"
-					placeholder={placeholder}
-					className="w-auto"
-				/>
+				<Input name={name} value={value} onChange={(event) => onChange(event.target.value)} type="text" placeholder={placeholder} className="w-auto" />
 			</div>
 			<p className="ml-10 text-[0.7rem] text-text-muted">{label}</p>
 		</div>

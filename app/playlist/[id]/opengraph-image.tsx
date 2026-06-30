@@ -47,15 +47,11 @@ export default async function Image({ params }: { params: Promise<{ id: string }
 	});
 	const isPublic = playlist?.privacy === "public";
 	const publicTitle = isPublic ? playlist.name : "Private playlist";
-	const publicDesc = isPublic
-		? `Browse ${playlist.name} by ${playlist.user.name ?? "Unknown"} on TrackGames.`
-		: "This TrackGames playlist is private.";
+	const publicDesc = isPublic ? `Browse ${playlist.name} by ${playlist.user.name ?? "Unknown"} on TrackGames.` : "This TrackGames playlist is private.";
 	const title = playlist ? publicTitle : "Playlist not found";
 	const description = playlist ? publicDesc : "The requested playlist could not be found.";
 	const playlistImages = isPublic
-		? playlist.entries
-				.map((entry) => ImageIdToURL(entry.game.cover ?? undefined, "cover_big")?.replace(/\.webp$/, ".jpg"))
-				.filter((image): image is string => Boolean(image))
+		? playlist.entries.map((entry) => ImageIdToURL(entry.game.cover ?? undefined, "cover_big")?.replace(/\.webp$/, ".jpg")).filter((image): image is string => Boolean(image))
 		: [];
 
 	return createOpenGraphImage({

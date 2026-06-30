@@ -44,6 +44,7 @@ const eslintConfig = defineConfig([
 
 			"yamikhal/file-structure": "warn",
 			"yamikhal/section-spacing": "warn",
+			"yamikhal/boolean-prop-naming": "warn",
 		},
 	},
 	{
@@ -70,6 +71,8 @@ const eslintConfig = defineConfig([
 					skipComments: true,
 				},
 			],
+
+			"yamikhal/readonly-component-props": "warn",
 		},
 	},
 ]);

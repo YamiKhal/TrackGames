@@ -2,20 +2,7 @@
 
 import { GhostButton } from "@/app/components/ui/Buttons";
 import { MarkdownBlocks } from "@/app/components/markdown/MarkdownBlocks";
-import {
-	AlignCenter,
-	AlignLeft,
-	AlignRight,
-	Bold,
-	Eye,
-	Image as ImageIcon,
-	Italic,
-	Link,
-	Palette,
-	Strikethrough,
-	Table,
-	Video,
-} from "lucide-react";
+import { AlignCenter, AlignLeft, AlignRight, Bold, Eye, Image as ImageIcon, Italic, Link, Palette, Strikethrough, Table, Video } from "lucide-react";
 import { useRef, useState } from "react";
 import { parseMarkdownBlocks } from "@/lib/markdown";
 import { Input, Textarea } from "@/app/components/ui/Inputs";
@@ -91,9 +78,7 @@ export default function MarkdownWidgetEditor({ value, onChange }: MarkdownWidget
 	function insertVideo() {
 		if (!videoSrc.trim()) return;
 
-		insertBlock(
-			`::video src="${quoteAttribute(videoSrc.trim())}" align=center width=${mediaWidth || 520} height=${mediaHeight || 292} rounded=true`,
-		);
+		insertBlock(`::video src="${quoteAttribute(videoSrc.trim())}" align=center width=${mediaWidth || 520} height=${mediaHeight || 292} rounded=true`);
 		setVideoSrc("");
 		setMediaModal(null);
 	}
@@ -103,40 +88,16 @@ export default function MarkdownWidgetEditor({ value, onChange }: MarkdownWidget
 	return (
 		<div className="mt-3 flex flex-col gap-3">
 			<div className="flex flex-wrap gap-2">
-				<GhostButton
-					type="button"
-					onClick={() => wrapSelection("**")}
-					className="px-3 py-2"
-					title="Bold selected text"
-					aria-label="Bold selected text"
-				>
+				<GhostButton type="button" onClick={() => wrapSelection("**")} className="px-3 py-2" title="Bold selected text" aria-label="Bold selected text">
 					<Bold size={16} />
 				</GhostButton>
-				<GhostButton
-					type="button"
-					onClick={() => wrapSelection("*")}
-					className="px-3 py-2"
-					title="Italic selected text"
-					aria-label="Italic selected text"
-				>
+				<GhostButton type="button" onClick={() => wrapSelection("*")} className="px-3 py-2" title="Italic selected text" aria-label="Italic selected text">
 					<Italic size={16} />
 				</GhostButton>
-				<GhostButton
-					type="button"
-					onClick={() => wrapSelection("~~")}
-					className="px-3 py-2"
-					title="Strikethrough selected text"
-					aria-label="Strikethrough selected text"
-				>
+				<GhostButton type="button" onClick={() => wrapSelection("~~")} className="px-3 py-2" title="Strikethrough selected text" aria-label="Strikethrough selected text">
 					<Strikethrough size={16} />
 				</GhostButton>
-				<GhostButton
-					type="button"
-					onClick={() => wrapSelection("[", "](https://example.com)", "link text")}
-					className="px-3 py-2"
-					title="Add link"
-					aria-label="Add link"
-				>
+				<GhostButton type="button" onClick={() => wrapSelection("[", "](https://example.com)", "link text")} className="px-3 py-2" title="Add link" aria-label="Add link">
 					<Link size={16} />
 				</GhostButton>
 				<GhostButton
@@ -157,31 +118,13 @@ export default function MarkdownWidgetEditor({ value, onChange }: MarkdownWidget
 				>
 					<Table size={16} />
 				</GhostButton>
-				<GhostButton
-					type="button"
-					onClick={() => wrapBlock("start")}
-					className="px-3 py-2"
-					title="Align block to start"
-					aria-label="Align block to start"
-				>
+				<GhostButton type="button" onClick={() => wrapBlock("start")} className="px-3 py-2" title="Align block to start" aria-label="Align block to start">
 					<AlignLeft size={16} />
 				</GhostButton>
-				<GhostButton
-					type="button"
-					onClick={() => wrapBlock("center")}
-					className="px-3 py-2"
-					title="Center block"
-					aria-label="Center block"
-				>
+				<GhostButton type="button" onClick={() => wrapBlock("center")} className="px-3 py-2" title="Center block" aria-label="Center block">
 					<AlignCenter size={16} />
 				</GhostButton>
-				<GhostButton
-					type="button"
-					onClick={() => wrapBlock("end")}
-					className="px-3 py-2"
-					title="Align block to end"
-					aria-label="Align block to end"
-				>
+				<GhostButton type="button" onClick={() => wrapBlock("end")} className="px-3 py-2" title="Align block to end" aria-label="Align block to end">
 					<AlignRight size={16} />
 				</GhostButton>
 				<GhostButton
@@ -241,41 +184,19 @@ export default function MarkdownWidgetEditor({ value, onChange }: MarkdownWidget
 				</div>
 			)}
 
-			<MenuPanel
-				open={Boolean(mediaModal)}
-				onClose={() => setMediaModal(null)}
-				title={lastMediaModal === "image" ? "Insert image" : "Insert video"}
-			>
+			<MenuPanel open={Boolean(mediaModal)} onClose={() => setMediaModal(null)} title={lastMediaModal === "image" ? "Insert image" : "Insert video"}>
 				<div className="flex flex-col gap-2">
 					{lastMediaModal === "image" ? (
 						<>
-							<Input
-								value={imageSrc}
-								onChange={(event) => setImageSrc(event.target.value)}
-								placeholder="https://images.unsplash.com/..."
-							/>
+							<Input value={imageSrc} onChange={(event) => setImageSrc(event.target.value)} placeholder="https://images.unsplash.com/..." />
 							<Input value={mediaAlt} onChange={(event) => setMediaAlt(event.target.value)} placeholder="Alt text" />
 						</>
 					) : (
-						<Input
-							value={videoSrc}
-							onChange={(event) => setVideoSrc(event.target.value)}
-							placeholder="https://cdn.pixabay.com/video.mp4"
-						/>
+						<Input value={videoSrc} onChange={(event) => setVideoSrc(event.target.value)} placeholder="https://cdn.pixabay.com/video.mp4" />
 					)}
 					<div className="grid grid-cols-2 gap-2">
-						<Input
-							value={mediaWidth}
-							onChange={(event) => setMediaWidth(event.target.value)}
-							placeholder="Width"
-							inputMode="numeric"
-						/>
-						<Input
-							value={mediaHeight}
-							onChange={(event) => setMediaHeight(event.target.value)}
-							placeholder="Height"
-							inputMode="numeric"
-						/>
+						<Input value={mediaWidth} onChange={(event) => setMediaWidth(event.target.value)} placeholder="Width" inputMode="numeric" />
+						<Input value={mediaHeight} onChange={(event) => setMediaHeight(event.target.value)} placeholder="Height" inputMode="numeric" />
 					</div>
 				</div>
 				<div className="mt-5 flex justify-end gap-2">

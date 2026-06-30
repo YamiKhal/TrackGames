@@ -34,11 +34,7 @@ export default function TierLabelsForm({ playlistId, tiers, colors }: TierLabels
 
 	return (
 		<form action={action} className="rounded bg-bg p-4">
-			<button
-				type="button"
-				onClick={() => setOpen(!open)}
-				className="flex w-full cursor-pointer items-center justify-between gap-2 text-sm font-bold"
-			>
+			<button type="button" onClick={() => setOpen(!open)} className="flex w-full cursor-pointer items-center justify-between gap-2 text-sm font-bold">
 				Tier labels
 				{open ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
 			</button>

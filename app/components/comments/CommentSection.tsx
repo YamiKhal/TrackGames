@@ -7,7 +7,5 @@ export default async function CommentSection({ targetType, targetId }: Readonly<
 	const session = await auth();
 	const comments = await getComments(targetType, targetId, session?.user?.id);
 
-	return (
-		<CommentSectionClient targetType={targetType} targetId={targetId} comments={comments} currentUserId={session?.user?.id ?? null} />
-	);
+	return <CommentSectionClient targetType={targetType} targetId={targetId} comments={comments} currentUserId={session?.user?.id ?? null} />;
 }

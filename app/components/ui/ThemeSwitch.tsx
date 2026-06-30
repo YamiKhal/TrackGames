@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 type ThemeSwitchProps = Readonly<{
 	className?: string;
-	showLabel?: boolean;
+	shouldShowLabel?: boolean;
 	variant?: "plain" | "button";
 }>;
 
@@ -58,12 +58,7 @@ export default function ThemeSwitch({ className = "", variant = "plain" }: Theme
 			: "grid size-10 cursor-pointer place-items-center text-text-muted transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary";
 
 	return (
-		<button
-			type="button"
-			onClick={toggleTheme}
-			className={`${classes} ${className}`}
-			aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}
-		>
+		<button type="button" onClick={toggleTheme} className={`${classes} ${className}`} aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}>
 			<Icon size={24} aria-hidden="true" />
 		</button>
 	);

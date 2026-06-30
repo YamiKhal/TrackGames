@@ -5,9 +5,7 @@ import LoginClient from "./LoginClient";
 import type { Metadata } from "next";
 import { absoluteUrl, DEFAULT_OG_IMAGE, metadataDescription, SITE_NAME } from "@/lib/metadata";
 
-const description = metadataDescription(
-	"Log in or create a TrackGames account to track your game library, playlists, ratings, and profile.",
-);
+const description = metadataDescription("Log in or create a TrackGames account to track your game library, playlists, ratings, and profile.");
 
 export const metadata: Metadata = {
 	title: "Log in",

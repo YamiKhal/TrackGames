@@ -56,12 +56,7 @@ function commentTargetAfter(targetType: InteractionTargetType | null) {
 	return ".";
 }
 
-function activityMessage(activity: {
-	type: ActivityType;
-	targetType: InteractionTargetType | null;
-	targetName: string | null;
-	targetHref: string | null;
-}) {
+function activityMessage(activity: { type: ActivityType; targetType: InteractionTargetType | null; targetName: string | null; targetHref: string | null }) {
 	const name = activity.targetName;
 
 	switch (activity.type) {
@@ -78,25 +73,17 @@ function activityMessage(activity: {
 		case ActivityType.LIKED_GAME_LIST:
 			return { before: "Liked the playlist", name, after: "." };
 		case ActivityType.COMMENTED_ON_GAME_LIST:
-			return name
-				? { before: "Commented on the playlist", name, after: "." }
-				: { before: "Commented on a playlist", name: null, after: "." };
+			return name ? { before: "Commented on the playlist", name, after: "." } : { before: "Commented on a playlist", name: null, after: "." };
 		case ActivityType.COMMENTED_ON_PROFILE:
-			return name
-				? { before: "Commented on", name, after: "'s profile." }
-				: { before: "Commented on a profile", name: null, after: "." };
+			return name ? { before: "Commented on", name, after: "'s profile." } : { before: "Commented on a profile", name: null, after: "." };
 		case ActivityType.COMMENTED_ON_GAME:
 			return name ? { before: "Commented on", name, after: "." } : { before: "Commented on a game", name: null, after: "." };
 		case ActivityType.FOLLOWED_USER:
 			return { before: "Followed", name, after: "." };
 		case ActivityType.LIKED_COMMENT:
-			return name
-				? { before: "Liked a comment on", name, after: commentTargetAfter(activity.targetType) }
-				: { before: "Liked a comment", name: null, after: "." };
+			return name ? { before: "Liked a comment on", name, after: commentTargetAfter(activity.targetType) } : { before: "Liked a comment", name: null, after: "." };
 		case ActivityType.REPLIED_TO_COMMENT:
-			return name
-				? { before: "Replied to a comment on", name, after: commentTargetAfter(activity.targetType) }
-				: { before: "Replied to a comment", name: null, after: "." };
+			return name ? { before: "Replied to a comment on", name, after: commentTargetAfter(activity.targetType) } : { before: "Replied to a comment", name: null, after: "." };
 		case ActivityType.EARNED_BADGE:
 			return { before: "Earned a badge", name: null, after: "." };
 		default:
@@ -145,11 +132,7 @@ export default function ActivityList({ user, activities, page, totalPages, filte
 
 			{totalPages > 1 && (
 				<div className="mt-2 flex justify-center">
-					<PaginationControls
-						page={page}
-						pageCount={totalPages}
-						href={(nextPage) => `/u/${user}?tab=activity&activityFilter=${filter}&activityPage=${nextPage}`}
-					/>
+					<PaginationControls page={page} pageCount={totalPages} href={(nextPage) => `/u/${user}?tab=activity&activityFilter=${filter}&activityPage=${nextPage}`} />
 				</div>
 			)}
 		</div>

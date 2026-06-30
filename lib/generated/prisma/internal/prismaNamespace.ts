@@ -3228,7 +3228,7 @@ export type PrismaAction =
   | 'groupBy'
 
 /**
- * `PrismaClient` proxy available in interactive transactions.
+ * `PrismaClient` proxy available in isInteractive transactions.
  */
 export type TransactionClient = Omit<DefaultPrismaClient, runtime.ITXClientDenyList>
 

@@ -102,12 +102,7 @@ export default function ImportSettingsForm() {
 						<div className="flex flex-row justify-between">
 							<p className="font-bold">Steam profile ID</p>
 
-							<a
-								href="https://steamdb.info/calculator/"
-								target="_blank"
-								rel="noreferrer"
-								className="text-sm text-primary hover:text-primary-hover"
-							>
+							<a href="https://steamdb.info/calculator/" target="_blank" rel="noreferrer" className="text-sm text-primary hover:text-primary-hover">
 								Get your profile ID
 							</a>
 						</div>
@@ -127,7 +122,7 @@ export default function ImportSettingsForm() {
 						<div className="flex flex-col gap-4">
 							<div className="flex flex-row items-start gap-4">
 								{profile.avatar && (
-									<div className="relative h-24 w-24 shrink-0 rounded overflow-hidden">
+									<div className="relative h-24 w-24 shrink-0 overflow-hidden rounded">
 										<Image src={profile.avatar} alt="Steam Image" fill sizes="100px" className="object-cover" />
 									</div>
 								)}
@@ -140,23 +135,15 @@ export default function ImportSettingsForm() {
 										<span>?</span>
 									</p>
 									<p className="mt-1 text-sm text-text-muted">
-										Importing a Steam library will add matched games and only create logs for new playtime since your
-										current total.
+										Importing a Steam library will add matched games and only create logs for new playtime since your current total.
 									</p>
 								</div>
 							</div>
 							<label className="flex cursor-pointer items-start gap-3 rounded border border-border bg-bg/60 p-3 text-sm text-text-muted">
-								<Checkbox
-									checked={skipImportedLogsRecap}
-									onChange={(event) => setSkipImportedLogsRecap(event.target.checked)}
-									className="mt-0.5"
-								/>
+								<Checkbox checked={skipImportedLogsRecap} onChange={(event) => setSkipImportedLogsRecap(event.target.checked)} className="mt-0.5" />
 								<span>
 									<span className="block font-bold text-text">Skip imported logs in recaps</span>
-									<span>
-										Imported logs still appear in your history and count toward game time. They will only be left out of
-										recap features.
-									</span>
+									<span>Imported logs still appear in your history and count toward game time. They will only be left out of recap features.</span>
 								</span>
 							</label>
 							<PrimaryButton type="button" onClick={importLibrary} disabled={pending} className="mt-4 w-fit">
@@ -172,7 +159,7 @@ export default function ImportSettingsForm() {
 						<p className="mt-1 text-sm text-error">* Failed to import {result.failed.length} games.</p>
 						<br />
 						<h2 className="text-text-muted">Next Steps:</h2>
-						<ul className="text-text-muted text-sm">
+						<ul className="text-sm text-text-muted">
 							<li>- Download failed import list from below</li>
 							<li>- Review game titles and attempt searching for them in the site</li>
 							<li>- Add them to library and adjust their game time</li>
@@ -208,7 +195,7 @@ export default function ImportSettingsForm() {
 					<h3 className="text-lg font-bold">Backup File</h3>
 				</div>
 
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-2 items-center">
+				<div className="grid grid-cols-1 items-center gap-2 md:grid-cols-2">
 					<p className="text-sm text-text-muted">Import a .tg library backup:</p>
 					<Input
 						type="file"
@@ -218,10 +205,10 @@ export default function ImportSettingsForm() {
 							importLibraryBackup(event.target.files?.[0]);
 							event.currentTarget.value = "";
 						}}
-						className="text-sm h-max w-max"
+						className="h-max w-max text-sm"
 					/>
 					<p className="text-sm text-text-muted">Export a new backup file: </p>
-					<GhostButton type="button" onClick={exportLibrary} disabled={pending} className="shrink-0 text-sm w-max">
+					<GhostButton type="button" onClick={exportLibrary} disabled={pending} className="w-max shrink-0 text-sm">
 						{pending ? "Working..." : "Export .TG"}
 					</GhostButton>
 				</div>

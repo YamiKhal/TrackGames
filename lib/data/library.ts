@@ -37,9 +37,7 @@ export async function getTagsForEntries(entryIds: string[]) {
 	});
 	const tags = new Map<string, UserLibraryTag[]>();
 
-	for (const row of rows.toSorted(
-		(a, b) => a.tag.name.toLowerCase().localeCompare(b.tag.name.toLowerCase()) || a.tag.name.localeCompare(b.tag.name),
-	)) {
+	for (const row of rows.toSorted((a, b) => a.tag.name.toLowerCase().localeCompare(b.tag.name.toLowerCase()) || a.tag.name.localeCompare(b.tag.name))) {
 		tags.set(row.entryId, [...(tags.get(row.entryId) ?? []), { id: row.tag.id, name: row.tag.name }]);
 	}
 
@@ -96,8 +94,7 @@ export async function getUserGameStats(userId: string) {
 	return {
 		total: entries.length,
 		played: entries.filter((entry) => entry.status !== GameStatus.BACKLOG).length,
-		completed: entries.filter((entry) => entry.status === GameStatus.COMPLETED || entry.finishedAt || entry.timeFinished != null)
-			.length,
+		completed: entries.filter((entry) => entry.status === GameStatus.COMPLETED || entry.finishedAt || entry.timeFinished != null).length,
 		backlog: entries.filter((entry) => entry.status === GameStatus.BACKLOG).length,
 		wishlist: entries.filter((entry) => entry.status === GameStatus.WISHLIST).length,
 		wishlisted: entries.filter((entry) => entry.status === GameStatus.WISHLIST).length,

@@ -20,26 +20,18 @@ export default function GamePlaylistDisplay({ game, games, rank, title, by, href
 	const itemsList = game ? [game, game, game, game] : [];
 	const items = games?.length ? games : itemsList;
 	const card = (
-		<div className="w-full max-w-82 flex flex-col">
-			<div className="relative w-full aspect-80/49 [--stack-offset:18.75%] [--stack-width:calc(100%-var(--stack-offset)*3)]">
+		<div className="flex w-full max-w-82 flex-col">
+			<div className="relative aspect-80/49 w-full [--stack-offset:18.75%] [--stack-width:calc(100%-var(--stack-offset)*3)]">
 				{[0, 1, 2, 3].map((index) => (
-					<div
-						key={index}
-						className="absolute top-0 h-full w-(--stack-width)"
-						style={{ left: `calc(var(--stack-offset)*${index})`, zIndex: 40 - index * 10 }}
-					>
-						{items[index] ? (
-							<GameCard game={items[index]} size="full" />
-						) : (
-							<div className="h-full w-full rounded-md border border-border bg-bg-secondary" />
-						)}
+					<div key={index} className="absolute top-0 h-full w-(--stack-width)" style={{ left: `calc(var(--stack-offset)*${index})`, zIndex: 40 - index * 10 }}>
+						{items[index] ? <GameCard game={items[index]} size="full" /> : <div className="h-full w-full rounded-md border border-border bg-bg-secondary" />}
 					</div>
 				))}
 			</div>
 			<h1 className="text-text-muted">
 				{rank && <span className="text-secondary">#{rank}</span>} {title ?? game?.name ?? "Featured game"}
 			</h1>
-			{by && <p className="text-text-faint text-sm">By {by}</p>}
+			{by && <p className="text-sm text-text-faint">By {by}</p>}
 		</div>
 	);
 

@@ -41,9 +41,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 	const title = playlist?.name ? `${playlist.name} Playlist` : "Playlist not found";
 	const description = metadataDescription(
 		playlist?.description,
-		playlist
-			? `Browse ${playlist.name} by ${playlist.user.name ?? "Unknown"} on TrackGames.`
-			: "The requested playlist could not be found.",
+		playlist ? `Browse ${playlist.name} by ${playlist.user.name ?? "Unknown"} on TrackGames.` : "The requested playlist could not be found.",
 	);
 	const image = absoluteUrl(`/playlist/${encodeURIComponent(id)}/opengraph-image`);
 	const url = absoluteUrl(`/playlist/${id}`);
@@ -125,10 +123,7 @@ export default async function Page({ params }: Readonly<{ params: Promise<{ id: 
 	const canEdit = session?.user?.id === playlist.userId;
 	const viewer = await getUser(session?.user);
 	const gameIds = playlist.entries.map((entry) => entry.gameId);
-	const [ownedCount, likeState] = await Promise.all([
-		getPlaylistLibraryCount(session?.user?.id, gameIds),
-		getPlaylistLikeState(playlist.id, session?.user?.id),
-	]);
+	const [ownedCount, likeState] = await Promise.all([getPlaylistLibraryCount(session?.user?.id, gameIds), getPlaylistLikeState(playlist.id, session?.user?.id)]);
 	const ownedPercent = playlist.entries.length ? Math.round((ownedCount / playlist.entries.length) * 100) : 0;
 	const modeAction = updatePlaylistDisplayMode.bind(null, playlist.id);
 	const tiers = playlist.tierLabels.length ? playlist.tierLabels : ["S", "A", "B", "C", "D"];
@@ -143,22 +138,18 @@ export default async function Page({ params }: Readonly<{ params: Promise<{ id: 
 						<div className="mb-4 flex min-w-0 flex-1 flex-col justify-end gap-3 md:flex-row md:items-end md:justify-between md:gap-5">
 							<div>
 								<div className="flex flex-col gap-2 md:flex-row md:items-end">
-									<h1 className="text-3xl text-center md:text-start">{playlist.name}</h1>
-									<p className="text-sm text-text-faint text-center md:text-start">
-										By {playlist.user?.name ?? "Unknown"}
-									</p>
+									<h1 className="text-center text-3xl md:text-start">{playlist.name}</h1>
+									<p className="text-center text-sm text-text-faint md:text-start">By {playlist.user?.name ?? "Unknown"}</p>
 								</div>
-								<p className="text-md text-text-muted text-center md:text-start">
-									{playlist.description || "No description."}
-								</p>
+								<p className="text-md text-center text-text-muted md:text-start">{playlist.description || "No description."}</p>
 							</div>
-							<div className="flex shrink-0 flex-row flex-wrap justify-center md:justify-emd gap-3 md:gap-5">
+							<div className="md:justify-emd flex shrink-0 flex-row flex-wrap justify-center gap-3 md:gap-5">
 								<LikeButton
 									targetType={LikeTargetType.GAME_LIST}
 									targetId={playlist.id}
 									initialLikes={likeState.likes}
-									initiallyLiked={likeState.liked}
-									loggedIn={Boolean(session?.user?.id)}
+									hasLikedState={likeState.liked}
+									isLoggedIn={Boolean(session?.user?.id)}
 								/>
 								{canEdit && <GameListEditButton list={playlist} />}
 								{playlist.user?.name && <GhostButton href={`/u/${playlist.user.name}`}>View Profile</GhostButton>}
@@ -169,7 +160,7 @@ export default async function Page({ params }: Readonly<{ params: Promise<{ id: 
 
 				<section className="relative z-10 bg-bg/95 py-5">
 					<Container className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
-						<div className="flex min-w-0 flex-col gap-5 order-2 md:order-1">
+						<div className="order-2 flex min-w-0 flex-col gap-5 md:order-1">
 							<PlaylistEntriesView
 								listId={playlist.id}
 								entries={playlist.entries}
@@ -178,12 +169,10 @@ export default async function Page({ params }: Readonly<{ params: Promise<{ id: 
 								tiers={tiers}
 								tierColors={tierColors}
 							/>
-							{!playlist.commentsHidden && !shouldHideComments(viewer) && (
-								<CommentSection targetType={InteractionTargetType.GAME_LIST} targetId={playlist.id} />
-							)}
+							{!playlist.commentsHidden && !shouldHideComments(viewer) && <CommentSection targetType={InteractionTargetType.GAME_LIST} targetId={playlist.id} />}
 						</div>
 
-						<aside className="flex flex-col gap-4 md:border-l border-border order-1 md:order-2">
+						<aside className="order-1 flex flex-col gap-4 border-border md:order-2 md:border-l">
 							<div className="rounded bg-bg p-4">
 								<h2 className="border-b border-border pb-2 text-sm font-bold">Games tracked</h2>
 								<div className="mt-4 flex flex-col items-center">
@@ -202,12 +191,7 @@ export default async function Page({ params }: Readonly<{ params: Promise<{ id: 
 							</div>
 							{canEdit && (
 								<>
-									<AddPlaylistGameForm
-										playlistId={playlist.id}
-										mode={playlist.displayMode}
-										tiers={tiers}
-										existingGameIds={gameIds}
-									/>
+									<AddPlaylistGameForm playlistId={playlist.id} mode={playlist.displayMode} tiers={tiers} existingGameIds={gameIds} />
 									<form action={modeAction} className="rounded bg-bg p-4 text-sm font-bold">
 										<h2 className="border-b border-border pb-2 text-sm font-bold">Change display</h2>
 										<div className="mt-2 flex gap-2 text-text-muted">
@@ -221,9 +205,7 @@ export default async function Page({ params }: Readonly<{ params: Promise<{ id: 
 											</GhostButton>
 										</div>
 									</form>
-									{playlist.displayMode === "TIER" && (
-										<TierLabelsForm playlistId={playlist.id} tiers={tiers} colors={tierColors} />
-									)}
+									{playlist.displayMode === "TIER" && <TierLabelsForm playlistId={playlist.id} tiers={tiers} colors={tierColors} />}
 								</>
 							)}
 						</aside>

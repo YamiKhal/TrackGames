@@ -26,19 +26,7 @@ export const metadata: Metadata = {
 	creator: SITE_NAME,
 	publisher: SITE_NAME,
 	category: "games",
-	keywords: [
-		"game library",
-		"game tracker",
-		"video games",
-		"playlists",
-		"backlog",
-		"ratings",
-		"gaming profile",
-		"track games",
-		"trending games",
-		"game journal",
-		"game logs",
-	],
+	keywords: ["game library", "game tracker", "video games", "playlists", "backlog", "ratings", "gaming profile", "track games", "trending games", "game journal", "game logs"],
 	referrer: "origin-when-cross-origin",
 	manifest: absoluteUrl("/site.webmanifest"),
 	alternates: {
@@ -84,7 +72,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" className={`dark ${inter.variable} ${spaceGrotesk.variable} h-full antialiased`}>
-			<body className="min-h-full flex flex-col">
+			<body className="flex min-h-full flex-col">
 				<Header />
 				{children}
 				<Footer />

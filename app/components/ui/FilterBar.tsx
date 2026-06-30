@@ -58,16 +58,8 @@ export function FilterBar({ filters, actions, className }: FilterBarProps) {
 					if (filter.type === "search") {
 						return (
 							<div key={filter.placeholder} className="relative min-w-0 md:min-w-64">
-								<Search
-									className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-faint"
-									size={17}
-								/>
-								<Input
-									value={filter.value}
-									onChange={(event) => filter.onChange(event.target.value)}
-									placeholder={filter.placeholder}
-									className="pl-9"
-								/>
+								<Search className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-text-faint" size={17} />
+								<Input value={filter.value} onChange={(event) => filter.onChange(event.target.value)} placeholder={filter.placeholder} className="pl-9" />
 							</div>
 						);
 					}

@@ -119,13 +119,7 @@ export default async function SettingsPage({ searchParams }: SearchPageProps) {
 			<ProfileBackground src={background} />
 
 			<Container>
-				<ProfileHeader
-					isSettings={true}
-					profileImage={profile.image}
-					displayName={profile.name ?? "Player"}
-					socials={socials}
-					bio={bio}
-				/>
+				<ProfileHeader isSettings={true} profileImage={profile.image} displayName={profile.name ?? "Player"} socials={socials} bio={bio} />
 
 				<section className="relative z-10 bg-bg/95 py-5">
 					<Container className="grid gap-5 lg:grid-cols-[15rem_minmax(0,1fr)] lg:items-start">
@@ -141,11 +135,11 @@ export default async function SettingsPage({ searchParams }: SearchPageProps) {
 										<Link
 											key={tab.id}
 											href={`/settings?tab=${tab.id}`}
-											className={`flex min-w-56 items-start gap-3 p-5 border-b border-border text-left transition-colors lg:min-w-0 ${selected ? "bg-surface text-text" : "text-text-muted hover:bg-surface hover:text-text"}`}
+											className={`flex min-w-56 items-start gap-3 border-b border-border p-5 text-left transition-colors lg:min-w-0 ${selected ? "bg-surface text-text" : "text-text-muted hover:bg-surface hover:text-text"}`}
 										>
 											<Icon size={18} aria-hidden="true" className="mt-0.5 shrink-0" />
 											<span className="min-w-0">
-												<span className="block text-md font-bold">{tab.label}</span>
+												<span className="text-md block font-bold">{tab.label}</span>
 											</span>
 										</Link>
 									);
@@ -155,14 +149,10 @@ export default async function SettingsPage({ searchParams }: SearchPageProps) {
 
 						<div className="min-w-0">
 							{params.saved === "1" && (
-								<div className="mb-4 rounded border border-success/40 bg-success/10 px-4 py-3 text-sm font-bold text-success">
-									Settings saved.
-								</div>
+								<div className="mb-4 rounded border border-success/40 bg-success/10 px-4 py-3 text-sm font-bold text-success">Settings saved.</div>
 							)}
 							{params.error && (
-								<div className="mb-4 rounded border border-error/40 bg-error/10 px-4 py-3 text-sm font-bold text-error">
-									{settingsErrorMessage(params.error)}
-								</div>
+								<div className="mb-4 rounded border border-error/40 bg-error/10 px-4 py-3 text-sm font-bold text-error">{settingsErrorMessage(params.error)}</div>
 							)}
 
 							<SectionShell title={active.label}>

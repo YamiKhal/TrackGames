@@ -7,12 +7,12 @@ import GameCard from "./GameCard";
 import HorizontalScroller from "../layout/HorizontalScroller";
 import SubTabs from "../layout/SubTabs";
 
-type RelatedGamesTabsProps = Readonly<{ franchiesGames: Game[]; seriesGames: Game[]; similarGames: Game[] }>;
+type RelatedGamesTabsProps = Readonly<{ franchiseGames: Game[]; seriesGames: Game[]; similarGames: Game[] }>;
 
-export default function RelatedGamesTabs({ franchiesGames, seriesGames, similarGames }: RelatedGamesTabsProps) {
+export default function RelatedGamesTabs({ franchiseGames, seriesGames, similarGames }: RelatedGamesTabsProps) {
 	const tabs = [
 		{ id: "series" as const, label: "Series", games: seriesGames },
-		{ id: "franchies" as const, label: "Franchise", games: franchiesGames },
+		{ id: "franchies" as const, label: "Franchise", games: franchiseGames },
 		{ id: "similar" as const, label: "Similar Games", games: similarGames },
 	].filter((tab) => tab.games.length > 0);
 
@@ -24,10 +24,10 @@ export default function RelatedGamesTabs({ franchiesGames, seriesGames, similarG
 	}
 
 	return (
-		<SubTabs tabs={tabs} active={activeTab} setter={setActiveTab} viewAll={activeTab !== "similar"} compact>
-			<HorizontalScroller className="rounded-md overflow-clip gap-5 mt-4 max-w-full">
+		<SubTabs tabs={tabs} active={activeTab} setter={setActiveTab} hasViewAll={activeTab !== "similar"} shouldCompact>
+			<HorizontalScroller className="mt-4 max-w-full gap-5 overflow-clip rounded-md">
 				{activeGames.map((game) => (
-					<GameCard key={game.id} game={game} size={160} effect="ripple" hover="name" slugged={true} />
+					<GameCard key={game.id} game={game} size={160} effect="ripple" hover="name" hasLink={true} />
 				))}
 			</HorizontalScroller>
 		</SubTabs>

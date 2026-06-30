@@ -26,11 +26,11 @@ type PlaylistCardEditorTabsProps = Readonly<{
 	setTimeMode: (mode: string) => void;
 	entryStatus: GameStatus;
 	setEntryStatus: (status: GameStatus) => void;
-	entryFinished: boolean;
+	isFinished: boolean;
 	setEntryFinished: (finished: boolean) => void;
 	tags: string[];
 	setTags: Dispatch<SetStateAction<string[]>>;
-	addingTag: boolean;
+	isAddingTag: boolean;
 	setAddingTag: (adding: boolean) => void;
 	tagInput: string;
 	setTagInput: (value: string) => void;
@@ -72,11 +72,11 @@ export default function PlaylistCardEditorTabs({
 	setTimeMode,
 	entryStatus,
 	setEntryStatus,
-	entryFinished,
+	isFinished,
 	setEntryFinished,
 	tags,
 	setTags,
-	addingTag,
+	isAddingTag,
 	setAddingTag,
 	tagInput,
 	setTagInput,
@@ -108,7 +108,7 @@ export default function PlaylistCardEditorTabs({
 							key={tab.id}
 							type="button"
 							onClick={() => setActiveTab(tab.id as EditorTab)}
-							className={`min-w-0 rounded px-2 py-2 text-xs font-bold transition ${activeTab === tab.id ? "bg-primary text-text-inverse" : "text-text-muted bg-bg-secondary/50 border border-border hover:bg-bg-secondary hover:text-text"}`}
+							className={`min-w-0 rounded px-2 py-2 text-xs font-bold transition ${activeTab === tab.id ? "bg-primary text-text-inverse" : "border border-border bg-bg-secondary/50 text-text-muted hover:bg-bg-secondary hover:text-text"}`}
 							aria-pressed={activeTab === tab.id}
 						>
 							<span className="block truncate">{tab.label}</span>
@@ -157,13 +157,9 @@ export default function PlaylistCardEditorTabs({
 						</Select>
 					</label>
 					<div className="grid gap-2 text-sm font-bold text-text-muted sm:grid-cols-[minmax(0,1fr)_auto_auto] sm:items-center">
-						<StarRating rating={rating} size={28} interactive showValue name="rating" onChange={setRating} />
+						<StarRating rating={rating} size={28} isInteractive shouldShowValue name="rating" onChange={setRating} />
 						<label className="flex cursor-pointer items-center gap-2 rounded border border-border p-2">
-							<Checkbox
-								name="finished"
-								checked={entryFinished}
-								onChange={(event) => setEntryFinished(event.target.checked)}
-							/>
+							<Checkbox name="finished" checked={isFinished} onChange={(event) => setEntryFinished(event.target.checked)} />
 							Finished
 						</label>
 						<label className="flex cursor-pointer items-center gap-2 rounded border border-border p-2">
@@ -175,10 +171,7 @@ export default function PlaylistCardEditorTabs({
 						Tags
 						<div className="mt-1 flex min-h-10 flex-wrap items-center gap-2">
 							{tags.map((tag) => (
-								<span
-									key={tag}
-									className="flex max-w-full items-center gap-1 rounded border border-border bg-bg px-2 py-1 text-xs text-text"
-								>
+								<span key={tag} className="flex max-w-full items-center gap-1 rounded border border-border bg-bg px-2 py-1 text-xs text-text">
 									<span className="truncate">{tag}</span>
 									<button
 										type="button"
@@ -190,7 +183,7 @@ export default function PlaylistCardEditorTabs({
 									</button>
 								</span>
 							))}
-							{addingTag ? (
+							{isAddingTag ? (
 								<input
 									name="tags"
 									autoFocus
@@ -223,13 +216,13 @@ export default function PlaylistCardEditorTabs({
 						<Textarea name="notes" rows={3} defaultValue={entry.notes ?? ""} />
 					</label>
 					<div className="mt-auto grid grid-cols-3 gap-2 pt-2 md:flex md:justify-end">
-						<GhostButton type="button" className="text-sm md:text-md" onClick={() => setActiveTab("log")}>
+						<GhostButton type="button" className="md:text-md text-sm" onClick={() => setActiveTab("log")}>
 							Create Log
 						</GhostButton>
-						<GhostButton type="button" className="text-sm md:text-md" onClick={onClose}>
+						<GhostButton type="button" className="md:text-md text-sm" onClick={onClose}>
 							Cancel
 						</GhostButton>
-						<PrimaryButton type="submit" className="text-sm md:text-md" disabled={pending}>
+						<PrimaryButton type="submit" className="md:text-md text-sm" disabled={pending}>
 							{pending ? "Saving..." : "Save"}
 						</PrimaryButton>
 					</div>
@@ -260,11 +253,7 @@ export default function PlaylistCardEditorTabs({
 								Finished
 							</label>
 							<label className="flex cursor-pointer items-center gap-2 rounded border border-border p-2">
-								<Checkbox
-									name="mastered"
-									defaultChecked={entry.timeMastered != null}
-									disabled={entry.timeMastered != null}
-								/>
+								<Checkbox name="mastered" defaultChecked={entry.timeMastered != null} disabled={entry.timeMastered != null} />
 								Mastered
 							</label>
 							<label className="flex cursor-pointer items-center gap-2 rounded border border-border p-2">
@@ -294,13 +283,7 @@ export default function PlaylistCardEditorTabs({
 						<div className="flex max-h-112 flex-col gap-2 overflow-y-auto pr-1">
 							<label className="text-sm font-bold text-text-muted">
 								Filter
-								<Input
-									name="logdate"
-									type="date"
-									max={today}
-									value={logDate}
-									onChange={(event) => setLogDate(event.target.value)}
-								/>
+								<Input name="logdate" type="date" max={today} value={logDate} onChange={(event) => setLogDate(event.target.value)} />
 							</label>
 							{logDate && (
 								<GhostButton type="button" onClick={() => setLogDate("")} className="justify-center py-2">
@@ -323,9 +306,7 @@ export default function PlaylistCardEditorTabs({
 									</button>
 								))
 							) : (
-								<p className="bg-bg/60 p-3 text-sm text-text-muted">
-									{logs.length ? "No logs on this date." : "No logs yet."}
-								</p>
+								<p className="bg-bg/60 p-3 text-sm text-text-muted">{logs.length ? "No logs on this date." : "No logs yet."}</p>
 							)}
 						</div>
 						{selectedLog ? (
@@ -333,23 +314,11 @@ export default function PlaylistCardEditorTabs({
 								<div className="grid gap-3 sm:grid-cols-2">
 									<label className="text-sm font-bold text-text-muted">
 										Date played
-										<Input
-											name="playedat"
-											type="date"
-											max={today}
-											defaultValue={new Date(selectedLog.playedAt).toISOString().slice(0, 10)}
-										/>
+										<Input name="playedat" type="date" max={today} defaultValue={new Date(selectedLog.playedAt).toISOString().slice(0, 10)} />
 									</label>
 									<label className="text-sm font-bold text-text-muted">
 										Hours played
-										<SuffixedInput
-											name="hours"
-											type="number"
-											min={0.1}
-											step={0.1}
-											defaultValue={selectedLog.hours}
-											suffix="h"
-										/>
+										<SuffixedInput name="hours" type="number" min={0.1} step={0.1} defaultValue={selectedLog.hours} suffix="h" />
 									</label>
 								</div>
 								<label className="text-sm font-bold text-text-muted">
@@ -389,17 +358,10 @@ export default function PlaylistCardEditorTabs({
 						<div className="flex flex-col gap-2 text-sm font-bold text-text-muted">
 							<span>
 								<p>Time source</p>
-								<p className="text-xs text-text-muted font-light">The method used to calculate your total game time</p>
+								<p className="text-xs font-light text-text-muted">The method used to calculate your total game time</p>
 							</span>
 							<label className="flex cursor-pointer items-center gap-3 bg-bg/60">
-								<input
-									name="timemode"
-									type="radio"
-									value="logs"
-									checked={timeMode === "logs"}
-									onChange={() => setTimeMode("logs")}
-									className="peer sr-only"
-								/>
+								<input name="timemode" type="radio" value="logs" checked={timeMode === "logs"} onChange={() => setTimeMode("logs")} className="peer sr-only" />
 								<span className="size-4 rounded-full border border-border peer-checked:border-primary peer-checked:bg-primary" />
 								<span className="block text-text">Calculate total from play logs</span>
 							</label>
@@ -418,7 +380,7 @@ export default function PlaylistCardEditorTabs({
 						</div>
 						<div className="grid gap-2 rounded bg-bg/60 p-3 text-sm text-text-muted">
 							<div className="grid gap-2 font-bold text-text sm:grid-cols-[8rem_minmax(0,1fr)_minmax(0,1fr)] sm:items-center">
-								<span className="flex items-center gap-2 text-text-muted font-medium">
+								<span className="flex items-center gap-2 font-medium text-text-muted">
 									<Clock size={15} aria-hidden="true" />
 									Current total
 								</span>
@@ -436,7 +398,7 @@ export default function PlaylistCardEditorTabs({
 							</div>
 							{Boolean(entry.finishedAt || entry.timeFinished != null) && (
 								<div className="grid gap-2 font-bold text-text sm:grid-cols-[8rem_minmax(0,1fr)_minmax(0,1fr)] sm:items-center">
-									<span className="flex items-center gap-2 text-text-muted font-medium">
+									<span className="flex items-center gap-2 font-medium text-text-muted">
 										<Check size={15} aria-hidden="true" />
 										Finished
 									</span>
@@ -449,37 +411,17 @@ export default function PlaylistCardEditorTabs({
 										suffix="h"
 										aria-label="Finished time"
 									/>
-									<Input
-										name="finishedat"
-										type="date"
-										max={today}
-										defaultValue={finishedAtValue || today}
-										aria-label="Finished date"
-									/>
+									<Input name="finishedat" type="date" max={today} defaultValue={finishedAtValue || today} aria-label="Finished date" />
 								</div>
 							)}
 							{entry.timeMastered != null && (
 								<div className="grid gap-2 font-bold text-text sm:grid-cols-[8rem_minmax(0,1fr)_minmax(0,1fr)] sm:items-center">
-									<span className="flex items-center gap-2 text-text-muted font-medium">
+									<span className="flex items-center gap-2 font-medium text-text-muted">
 										<Crown size={15} aria-hidden="true" />
 										Mastered
 									</span>
-									<SuffixedInput
-										name="timemastered"
-										type="number"
-										min={0}
-										step={0.1}
-										defaultValue={entry.timeMastered}
-										suffix="h"
-										aria-label="Mastered time"
-									/>
-									<Input
-										name="masteredat"
-										type="date"
-										max={today}
-										defaultValue={masteredAtValue || today}
-										aria-label="Mastered date"
-									/>
+									<SuffixedInput name="timemastered" type="number" min={0} step={0.1} defaultValue={entry.timeMastered} suffix="h" aria-label="Mastered time" />
+									<Input name="masteredat" type="date" max={today} defaultValue={masteredAtValue || today} aria-label="Mastered date" />
 								</div>
 							)}
 						</div>

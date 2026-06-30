@@ -31,7 +31,5 @@ export function parseWidgets(value: string | null | undefined): Widget[] {
 }
 
 export function serializeWidgets(widgets: Widget[]) {
-	return JSON.stringify(
-		widgets.map(({ type, title, visible, content, stats, games }) => ({ type, title, visible, content, stats, games })),
-	);
+	return JSON.stringify(widgets.map(({ type, title, visible, content, stats, games }) => ({ type, title, visible, content, stats, games })));
 }

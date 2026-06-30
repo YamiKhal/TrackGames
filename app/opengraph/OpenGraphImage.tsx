@@ -113,15 +113,7 @@ export async function createOpenGraphImage({
 					fontFamily: "Inter, Manrope, Arial, sans-serif",
 				}}
 			>
-				{imageSrc && (
-					<img
-						src={imageSrc}
-						width="1200"
-						height="630"
-						alt=""
-						style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
-					/>
-				)}
+				{imageSrc && <img src={imageSrc} width="1200" height="630" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />}
 				<div
 					style={{
 						position: "absolute",
@@ -421,9 +413,7 @@ export async function createOpenGraphImage({
 						}}
 					>
 						<div style={{ display: "flex", color: "#D6A85C", fontSize: "26px", fontWeight: 900 }}>Games</div>
-						<div style={{ display: "flex", marginTop: "6px", color: "#D8D3E6", fontSize: "24px", lineHeight: 1.25 }}>
-							{libraryGameCount}
-						</div>
+						<div style={{ display: "flex", marginTop: "6px", color: "#D8D3E6", fontSize: "24px", lineHeight: 1.25 }}>{libraryGameCount}</div>
 					</div>
 				)}
 				<div
@@ -488,13 +478,7 @@ export async function createOpenGraphImage({
 							}}
 						>
 							{playlistImages[index] ? (
-								<img
-									src={playlistImages[index]}
-									width="206"
-									height="288"
-									alt=""
-									style={{ width: "100%", height: "100%", objectFit: "cover" }}
-								/>
+								<img src={playlistImages[index]} width="206" height="288" alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
 							) : (
 								<div
 									style={{
@@ -583,9 +567,7 @@ export async function createOpenGraphImage({
 			>
 				{brand}
 				<div style={{ display: "flex", flexDirection: "column", gap: "20px", maxWidth: "840px", paddingLeft: "90px" }}>
-					<div style={{ fontSize: titleSize, lineHeight: 1.03, fontWeight: 800, letterSpacing: "0", color: "#F4F0FF" }}>
-						{title}
-					</div>
+					<div style={{ fontSize: titleSize, lineHeight: 1.03, fontWeight: 800, letterSpacing: "0", color: "#F4F0FF" }}>{title}</div>
 					<div style={{ fontSize: "27px", lineHeight: 1.38, color: "#D8D3E6", maxWidth: "760px" }}>{description}</div>
 				</div>
 			</div>

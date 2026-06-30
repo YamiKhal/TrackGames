@@ -59,9 +59,7 @@ const colorSchema = z
 		ctx.addIssue({ code: "custom", message: "Colors must use #RRGGBB format." });
 		return z.NEVER;
 	});
-const checkboxSchema = z
-	.union([z.literal("true"), z.literal("on"), z.literal("false")])
-	.transform((value) => value === "true" || value === "on");
+const checkboxSchema = z.union([z.literal("true"), z.literal("on"), z.literal("false")]).transform((value) => value === "true" || value === "on");
 
 const socialLinksSchema = z
 	.string()
@@ -164,10 +162,10 @@ async function getCurrentUserId() {
 
 	const user = await db.user.findFirst({
 		where: {
-			OR: [
-				session.user.email ? { email: session.user.email } : undefined,
-				session.user.name ? { name: session.user.name } : undefined,
-			].filter(Boolean) as { email?: string; name?: string }[],
+			OR: [session.user.email ? { email: session.user.email } : undefined, session.user.name ? { name: session.user.name } : undefined].filter(Boolean) as {
+				email?: string;
+				name?: string;
+			}[],
 		},
 		select: { id: true },
 	});
@@ -249,12 +247,7 @@ async function pickAccountUpdateData(userId: string, values: z.infer<typeof sett
 			redirect("/settings?tab=account&edit=1&error=email-required");
 		}
 
-		if (
-			!values.newPassword ||
-			values.newPassword.length < 8 ||
-			values.newPassword.length > 128 ||
-			values.newPassword !== values.passwordConfirm
-		) {
+		if (!values.newPassword || values.newPassword.length < 8 || values.newPassword.length > 128 || values.newPassword !== values.passwordConfirm) {
 			redirect("/settings?tab=account&edit=1&error=invalid-password");
 		}
 

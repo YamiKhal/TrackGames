@@ -41,14 +41,12 @@ export default function PlaylistCardPreview({ entry, mode, canEdit, onOpenInfo, 
 		return (
 			<div className="group relative min-w-0 overflow-hidden rounded border border-border bg-bg-secondary">
 				<button type="button" onClick={onOpenInfo} className="block w-full cursor-pointer md:hidden">
-					<div className="relative aspect-5/7 bg-bg">
-						{src && <Image src={src} alt={game.name ?? "game cover"} fill sizes="160px" className="object-cover" />}
-					</div>
+					<div className="relative aspect-5/7 bg-bg">{src && <Image src={src} alt={game.name ?? "game cover"} fill sizes="160px" className="object-cover" />}</div>
 				</button>
 				<Link href={`/game/${game.slug}`} className="hidden md:block">
 					<div className="relative aspect-5/7 bg-bg">
 						{src && <Image src={src} alt={game.name ?? "game cover"} fill sizes="160px" className="object-cover" />}
-						<span className="absolute left-2 top-2 z-10 hidden max-w-[calc(100%-1rem)] items-center gap-2 rounded bg-bg-secondary/90 px-2 py-1 text-xs font-bold capitalize text-text opacity-0 transition-opacity group-hover:opacity-100 md:flex">
+						<span className="absolute top-2 left-2 z-10 hidden max-w-[calc(100%-1rem)] items-center gap-2 rounded bg-bg-secondary/90 px-2 py-1 text-xs font-bold text-text capitalize opacity-0 transition-opacity group-hover:opacity-100 md:flex">
 							<span className={`size-2 shrink-0 rounded-full ${statusColor(entry.status)}`} aria-hidden="true" />
 							<span className="truncate">{statusLabel(entry.status)}</span>
 						</span>
@@ -78,7 +76,7 @@ export default function PlaylistCardPreview({ entry, mode, canEdit, onOpenInfo, 
 					<button
 						type="button"
 						onClick={onOpenEditor}
-						className="absolute bottom-2 right-2 hidden size-8 cursor-pointer place-items-center rounded bg-bg-secondary/90 text-text-muted opacity-0 transition hover:text-primary group-hover:opacity-100 md:grid"
+						className="absolute right-2 bottom-2 hidden size-8 cursor-pointer place-items-center rounded bg-bg-secondary/90 text-text-muted opacity-0 transition group-hover:opacity-100 hover:text-primary md:grid"
 						aria-label="Edit library entry"
 					>
 						<Edit3 size={16} aria-hidden="true" />
@@ -103,12 +101,8 @@ export default function PlaylistCardPreview({ entry, mode, canEdit, onOpenInfo, 
 					<span className="hidden min-w-18 justify-end md:flex">
 						<StarRating rating={ratingToFive(entry.rating ?? 0)} />
 					</span>
-					<span className="justify-self-end font-bold text-text md:hidden">
-						{(ratingToFive(entry.rating ?? 0) ?? 0).toFixed(1)}/5
-					</span>
-					<span className="justify-self-end text-right md:hidden">
-						{entry.timePlayed === null ? "No time" : `${entry.timePlayed}h`}
-					</span>
+					<span className="justify-self-end font-bold text-text md:hidden">{(ratingToFive(entry.rating ?? 0) ?? 0).toFixed(1)}/5</span>
+					<span className="justify-self-end text-right md:hidden">{entry.timePlayed === null ? "No time" : `${entry.timePlayed}h`}</span>
 					<span className="grid size-7 place-items-center justify-self-end md:size-8">
 						{hasNotes && (
 							<button
@@ -121,9 +115,7 @@ export default function PlaylistCardPreview({ entry, mode, canEdit, onOpenInfo, 
 							</button>
 						)}
 					</span>
-					<span className="hidden min-w-16 text-right md:block">
-						{entry.timePlayed === null ? "No time" : `${entry.timePlayed}h`}
-					</span>
+					<span className="hidden min-w-16 text-right md:block">{entry.timePlayed === null ? "No time" : `${entry.timePlayed}h`}</span>
 				</div>
 			</div>
 			{canEdit && (

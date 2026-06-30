@@ -31,9 +31,7 @@ function getErrorObject(error: PrismaClientKnownRequestError) {
 	const target = Array.isArray(error.meta?.target) ? error.meta.target : [];
 	return {
 		error: "Please fix the highlighted fields.",
-		fieldErrors: target.includes("name")
-			? { name: "That username is already in use." }
-			: { email: "An account already exists for this email." },
+		fieldErrors: target.includes("name") ? { name: "That username is already in use." } : { email: "An account already exists for this email." },
 	};
 }
 

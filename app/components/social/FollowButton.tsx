@@ -6,17 +6,17 @@ import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { PrimaryButton, GhostButton } from "../ui/Buttons";
 
-type FollowButtonProps = Readonly<{ userId: string; initiallyFollowing: boolean; loggedIn: boolean }>;
+type FollowButtonProps = Readonly<{ userId: string; hasFollowedState: boolean; isLoggedIn: boolean }>;
 
-export default function FollowButton({ userId, initiallyFollowing, loggedIn }: FollowButtonProps) {
-	const [following, setFollowing] = useState(initiallyFollowing);
+export default function FollowButton({ userId, hasFollowedState, isLoggedIn }: FollowButtonProps) {
+	const [following, setFollowing] = useState(hasFollowedState);
 	const [error, setError] = useState<string | null>(null);
 	const [pending, startTransition] = useTransition();
 	const router = useRouter();
 	const Button = following ? GhostButton : PrimaryButton;
 
 	function toggle() {
-		if (!loggedIn) {
+		if (!isLoggedIn) {
 			router.push("/login");
 			return;
 		}

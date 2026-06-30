@@ -1,10 +1,7 @@
 import db from "../db";
 import { ActivityType, InteractionTargetType, NotificationType } from "../generated/prisma/enums";
 
-export async function awardBadge(
-	userId: string,
-	badge: { slug: string; name: string; description?: string; icon?: string; color?: string },
-) {
+export async function awardBadge(userId: string, badge: { slug: string; name: string; description?: string; icon?: string; color?: string }) {
 	const savedBadge = await db.badge.upsert({
 		where: {
 			slug: badge.slug,

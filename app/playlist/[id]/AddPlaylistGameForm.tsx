@@ -56,11 +56,11 @@ export default function AddPlaylistGameForm({ playlistId, mode, tiers, existingG
 
 	return (
 		<form action={action} className="rounded bg-bg p-4">
-			<h2 className="border-b border-border pb-2 mb-2 text-sm font-bold">Add games</h2>
+			<h2 className="mb-2 border-b border-border pb-2 text-sm font-bold">Add games</h2>
 			<input type="hidden" name="gameId" value={game?.id ?? ""} />
 			<div className="flex flex-col gap-3">
 				<div className="relative">
-					<Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-faint" size={17} />
+					<Search className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-text-faint" size={17} />
 					<Input
 						value={game?.name ?? query}
 						onChange={(event) => {
@@ -68,7 +68,7 @@ export default function AddPlaylistGameForm({ playlistId, mode, tiers, existingG
 							setQuery(event.target.value);
 						}}
 						placeholder="Search games"
-						className="pl-9 pr-9"
+						className="pr-9 pl-9"
 					/>
 					{(query || game) && (
 						<button
@@ -78,7 +78,7 @@ export default function AddPlaylistGameForm({ playlistId, mode, tiers, existingG
 								setResults([]);
 								setGame(null);
 							}}
-							className="absolute right-2 top-1/2 grid size-7 -translate-y-1/2 cursor-pointer place-items-center rounded text-text-faint hover:text-primary"
+							className="absolute top-1/2 right-2 grid size-7 -translate-y-1/2 cursor-pointer place-items-center rounded text-text-faint hover:text-primary"
 							aria-label="Clear game"
 						>
 							<X size={16} />

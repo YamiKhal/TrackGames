@@ -21,9 +21,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
 		label: "Game",
 		description: metadataDescription(
 			game?.summary,
-			game
-				? `Track ratings, playtime, playlists, and community activity for ${game.name}.`
-				: "The requested game could not be found.",
+			game ? `Track ratings, playtime, playlists, and community activity for ${game.name}.` : "The requested game could not be found.",
 		),
 		image: image?.replace(/\.webp$/, ".jpg"),
 		coverImage: coverImage?.replace(/\.webp$/, ".jpg"),

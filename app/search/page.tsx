@@ -67,16 +67,14 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 					)}
 				</header>
 
-				{query.length >= 2 && games.length === 0 ? (
-					<p className="rounded border border-border bg-bg-secondary p-4 text-sm text-text-muted">No games found.</p>
-				) : null}
+				{query.length >= 2 && games.length === 0 ? <p className="rounded border border-border bg-bg-secondary p-4 text-sm text-text-muted">No games found.</p> : null}
 
 				{games.length > 0 ? (
 					<>
 						<div className="grid grid-cols-2 justify-items-center gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8">
 							{games.map((game) => (
 								<div key={game.id} className="min-w-0">
-									<GameCard game={game} size={140} effect="ripple" hover="name" slugged={true} />
+									<GameCard game={game} size={140} effect="ripple" hover="name" hasLink={true} />
 								</div>
 							))}
 						</div>

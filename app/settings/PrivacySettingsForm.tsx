@@ -13,48 +13,28 @@ export default function PrivacySettingsForm({ profile }: Readonly<{ profile: Use
 	return (
 		<div className="grid gap-4 md:grid-cols-2">
 			<Field label="Profile visibility">
-				<Select
-					name="privacy"
-					value={profilePrivacy}
-					onChange={(event) => setProfilePrivacy(event.target.value)}
-					className="w-full"
-				>
+				<Select name="privacy" value={profilePrivacy} onChange={(event) => setProfilePrivacy(event.target.value)} className="w-full">
 					<option value="public">Public</option>
 					<option value="followers">Followers only</option>
 					<option value="private">Private</option>
 				</Select>
 			</Field>
 			<Field label="Library visibility">
-				<Select
-					name="libraryPrivacy"
-					value={libraryPrivacy}
-					onChange={(event) => setLibraryPrivacy(event.target.value)}
-					className="w-full"
-				>
+				<Select name="libraryPrivacy" value={libraryPrivacy} onChange={(event) => setLibraryPrivacy(event.target.value)} className="w-full">
 					<option value="public">Public</option>
 					<option value="followers">Followers only</option>
 					<option value="private">Private</option>
 				</Select>
 			</Field>
 			<Field label="Playlist default visibility">
-				<Select
-					name="playlistPrivacy"
-					value={playlistPrivacy}
-					onChange={(event) => setPlaylistPrivacy(event.target.value)}
-					className="w-full"
-				>
+				<Select name="playlistPrivacy" value={playlistPrivacy} onChange={(event) => setPlaylistPrivacy(event.target.value)} className="w-full">
 					<option value="public">Public</option>
 					<option value="followers">Followers only</option>
 					<option value="private">Private</option>
 				</Select>
 			</Field>
 			<Field label="Activity visibility">
-				<Select
-					name="activityPrivacy"
-					value={activityPrivacy}
-					onChange={(event) => setActivityPrivacy(event.target.value)}
-					className="w-full"
-				>
+				<Select name="activityPrivacy" value={activityPrivacy} onChange={(event) => setActivityPrivacy(event.target.value)} className="w-full">
 					<option value="public">Public</option>
 					<option value="followers">Followers only</option>
 					<option value="private">Private</option>

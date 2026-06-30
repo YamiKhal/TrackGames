@@ -15,8 +15,8 @@ type MenuPanelProps = Readonly<{
 	panelClassName?: string;
 	className?: string;
 	closeLabel?: string;
-	portal?: boolean;
-	showClose?: boolean;
+	hasPortal?: boolean;
+	shouldShowClose?: boolean;
 	role?: string;
 	id?: string;
 	anchorRef?: RefObject<HTMLElement | null>;
@@ -38,8 +38,8 @@ export default function MenuPanel({
 	panelClassName,
 	className,
 	closeLabel = "Close",
-	portal = false,
-	showClose = true,
+	hasPortal = false,
+	shouldShowClose = true,
 	role = "dialog",
 	id,
 	anchorRef,
@@ -49,7 +49,7 @@ export default function MenuPanel({
 	const [rendered, setRendered] = useState(open);
 	const panelRef = useRef<HTMLDivElement>(null);
 	const panelStyle = variant === "modal" && width ? ({ ...style, "--menu-panel-width": width } as CSSProperties) : style;
-	const shouldPortal = portal || variant === "modal";
+	const shouldPortal = hasPortal || variant === "modal";
 
 	useEffect(() => {
 		if (!open) return;
@@ -66,11 +66,7 @@ export default function MenuPanel({
 		}
 
 		function closeOnOutsideClick(event: PointerEvent) {
-			if (
-				variant === "anchored" &&
-				!panelRef.current?.contains(event.target as Node) &&
-				!anchorRef?.current?.contains(event.target as Node)
-			) {
+			if (variant === "anchored" && !panelRef.current?.contains(event.target as Node) && !anchorRef?.current?.contains(event.target as Node)) {
 				onClose();
 			}
 		}
@@ -99,14 +95,14 @@ export default function MenuPanel({
 			className={join(
 				variant === "modal"
 					? "pointer-events-auto max-h-[calc(100vh-2rem)] w-[min(var(--menu-panel-width,32rem),calc(100vw-2rem))] max-w-none overflow-y-auto rounded bg-bg p-5 shadow-main"
-					: "pointer-events-auto absolute right-0 top-full z-50 mt-3 w-80 rounded border border-border bg-bg p-2 text-sm shadow-main",
+					: "pointer-events-auto absolute top-full right-0 z-50 mt-3 w-80 rounded border border-border bg-bg p-2 text-sm shadow-main",
 				`${open ? "animate-menu-panel-in" : "animate-menu-panel-out"} ${panelClassName ?? ""}`,
 			)}
 		>
-			{(title || showClose) && (
+			{(title || shouldShowClose) && (
 				<div className="mb-4 flex shrink-0 items-center justify-between gap-3">
-					{title && <h3 className="min-w-0 truncate text-lg text-text font-bold">{title}</h3>}
-					{showClose && (
+					{title && <h3 className="min-w-0 truncate text-lg font-bold text-text">{title}</h3>}
+					{shouldShowClose && (
 						<button
 							type="button"
 							onClick={onClose}
@@ -144,7 +140,7 @@ export default function MenuPanel({
 		content = (
 			<dialog
 				open
-				className={join("fixed inset-0 m-0 h-dvh max-h-none w-dvw max-w-none border-0 pointer-events-auto", className)}
+				className={join("pointer-events-auto fixed inset-0 m-0 h-dvh max-h-none w-dvw max-w-none border-0", className)}
 				onPointerDown={(event) => {
 					if (event.target === event.currentTarget) onClose();
 				}}

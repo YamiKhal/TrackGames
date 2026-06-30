@@ -1,4 +1,4 @@
-import CachedResource from "./CachedResource";
+import CachedResource from "./cachedResource";
 import {
 	calculateTrendingGames,
 	calculateYearlyHitGames,
@@ -45,7 +45,7 @@ export const comingSoon = new CachedResource({
 	fetcher: calculateComingSoon,
 });
 
-export const recentreleases = new CachedResource({
+export const recentReleases = new CachedResource({
 	name: "recentreleases-games",
 	ttlMs: 1000 * 60 * 60,
 	fallback: [],
@@ -71,13 +71,4 @@ export const topPlaylists = new CachedResource({
 	fetcher: getTopPlaylists,
 });
 
-export const cachedResources = [
-	trendingGames,
-	yearlyGames,
-	hiddenGames,
-	mostAnticipated,
-	comingSoon,
-	recentreleases,
-	siteStats,
-	topPlaylists,
-];
+export const cachedResources = [trendingGames, yearlyGames, hiddenGames, mostAnticipated, comingSoon, recentReleases, siteStats, topPlaylists];

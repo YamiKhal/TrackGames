@@ -3,9 +3,7 @@ import type { User } from "../types";
 import { hexColor } from "../util/normalize";
 import { profileThemeStyle } from "./user";
 
-export function viewerThemeStyle(
-	user: Pick<User, "profileColor" | "accentColor" | "siteThemeMode" | "siteThemeColor" | "siteAccentColor">,
-) {
+export function viewerThemeStyle(user: Pick<User, "profileColor" | "accentColor" | "siteThemeMode" | "siteThemeColor" | "siteAccentColor">) {
 	if (user.siteThemeMode === "custom") {
 		return profileThemeStyle(hexColor(user.siteThemeColor, "#7b5cdb"), hexColor(user.siteAccentColor, "#b8842f"));
 	}
@@ -22,10 +20,7 @@ export function shouldHideComments(user?: Pick<User, "hideCommentsEverywhere"> |
 }
 
 export function notificationAllowed(
-	user: Pick<
-		User,
-		"notifyCommentReplies" | "notifyProfileComments" | "notifyLikes" | "notifyFollows" | "notifyFollowerLists" | "notifyBadges"
-	>,
+	user: Pick<User, "notifyCommentReplies" | "notifyProfileComments" | "notifyLikes" | "notifyFollows" | "notifyFollowerLists" | "notifyBadges">,
 	type: NotificationType,
 ) {
 	if (type === NotificationType.COMMENT_REPLY) return user.notifyCommentReplies;

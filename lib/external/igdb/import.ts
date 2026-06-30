@@ -9,17 +9,7 @@ import {
 	formatRawPlatform,
 	formatRawTheme,
 } from "@/lib/external/igdb/util";
-import type {
-	RawCollection,
-	RawCompany,
-	RawFranchise,
-	RawGame,
-	RawGenre,
-	RawKeyword,
-	RawMultiplayerMode,
-	RawPlatform,
-	RawTheme,
-} from "@/lib/types";
+import type { RawCollection, RawCompany, RawFranchise, RawGame, RawGenre, RawKeyword, RawMultiplayerMode, RawPlatform, RawTheme } from "@/lib/types";
 
 function isSlugUniqueError(error: unknown) {
 	if (typeof error !== "object" || error === null || !("code" in error) || error.code !== "P2002") {
@@ -31,20 +21,14 @@ function isSlugUniqueError(error: unknown) {
 	}
 
 	return (
-		"meta" in error &&
-		typeof error.meta === "object" &&
-		error.meta !== null &&
-		"target" in error.meta &&
-		Array.isArray(error.meta.target) &&
-		error.meta.target.includes("slug")
+		"meta" in error && typeof error.meta === "object" && error.meta !== null && "target" in error.meta && Array.isArray(error.meta.target) && error.meta.target.includes("slug")
 	);
 }
 
 export const IGDB_BASE_URL = "https://api.igdb.com/v4";
 
 export type DbClient = typeof import("@/lib/db").default;
-export type ImportKind =
-	"collections" | "franchises" | "genres" | "platforms" | "companies" | "keywords" | "themes" | "multiplayerModes" | "games";
+export type ImportKind = "collections" | "franchises" | "genres" | "platforms" | "companies" | "keywords" | "themes" | "multiplayerModes" | "games";
 export type ImportConfig<Raw, Formatted> = {
 	kind: ImportKind;
 	endpoint: string;
