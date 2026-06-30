@@ -1,4 +1,4 @@
-import RequestQueue from "../../cache/requestQueue";
+import RequestQueue from "@/lib/cache/requestQueue";
 import { getAccessToken } from "../../token";
 
 const queue = new RequestQueue(3, 1100);
