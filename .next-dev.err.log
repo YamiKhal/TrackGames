@@ -1,9 +1,0 @@
-⚠ Port 3000 is in use by process 24516, using available port 3001 instead.
-⨯ Another next dev server is already running.
-
-- Local:        http://localhost:3000
-- PID:          24516
-- Dir:          D:\Development\Web\TrackGames
-- Log:          .next\dev\logs\next-development.log
-
-Run taskkill /PID 24516 /F to stop it.
