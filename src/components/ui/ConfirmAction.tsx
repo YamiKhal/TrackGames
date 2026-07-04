@@ -36,7 +36,7 @@ export default function ConfirmAction({ open, title, message, confirmLabel, pend
 	}, [open]);
 
 	return (
-		<MenuPanel open={open} onClose={onClose} title={title} width="28rem" hasPortal>
+		<MenuPanel open={open} onClose={onClose} title={title} width="28rem">
 			<div className="flex flex-col gap-4">
 				<p className="text-sm text-text-muted">{message}</p>
 				{needsText && step === 2 && (

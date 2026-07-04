@@ -50,7 +50,7 @@ export default function GameListEditButton({
 			<GhostButton type="button" onClick={() => setOpen(true)}>
 				<Edit3 size={16} />
 			</GhostButton>
-			<MenuPanel open={open} onClose={() => setOpen(false)} title="Edit list" panelClassName="max-w-lg bg-bg" hasPortal>
+			<MenuPanel open={open} onClose={() => setOpen(false)} title="Edit list" panelClassName="max-w-lg bg-bg">
 				<form action={save} className="flex flex-col gap-3">
 					<label className="text-sm font-bold text-text-muted">
 						Name

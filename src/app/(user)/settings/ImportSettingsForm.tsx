@@ -108,7 +108,7 @@ export default function ImportSettingsForm() {
 						<div className="flex flex-row justify-between">
 							<p className="font-bold">Steam profile ID</p>
 
-							<a href="https://steamdb.info/calculator/" target="_blank" rel="noreferrer" className="text-sm text-primary hover:text-primary-hover">
+							<a href="https://steamdb.info/calculator/" target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:text-primary-hover">
 								Get your profile ID
 							</a>
 						</div>
@@ -135,7 +135,7 @@ export default function ImportSettingsForm() {
 								<div>
 									<p className="font-bold text-text">
 										Import games from profile{" "}
-										<a href={profile.profileurl} target="_blank" className="bg-bg p-1 text-secondary">
+										<a href={profile.profileurl} target="_blank" rel="noopener noreferrer" className="bg-bg p-1 text-secondary">
 											{profile.personaname}
 										</a>
 										<span>?</span>

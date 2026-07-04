@@ -11,10 +11,7 @@ export const inter = Inter({
 	variable: "--font-inter",
 });
 
-export const spaceGrotesk = Manrope({
-	subsets: ["latin"],
-	variable: "--font-manrope",
-});
+const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope" });
 
 export const metadata: Metadata = {
 	title: {
@@ -72,7 +69,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en" className={`dark ${inter.variable} ${spaceGrotesk.variable} h-full antialiased`}>
+		<html lang="en" className={`dark ${inter.variable} ${manrope.variable} h-full antialiased`}>
 			<body className="flex h-full min-h-96 flex-col" suppressHydrationWarning>
 				<Header />
 				{children}

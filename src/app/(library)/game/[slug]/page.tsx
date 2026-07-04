@@ -96,7 +96,7 @@ export default async function Page({ params }: Readonly<{ params: Promise<{ slug
 			{/* GAME TITLE / CONTROLS */}
 			<section className="relative min-h-136 w-full md:min-h-152">
 				{backdrop ? (
-					<Image src={backdrop} alt="image backdrop image" fill preload sizes="100vw" className="pointer-events-none object-cover object-top" />
+					<Image src={backdrop} alt="image backdrop image" fill priority sizes="100vw" className="pointer-events-none object-cover object-top" />
 				) : (
 					<div className="pointer-events-none absolute inset-0 bg-bg-secondary" />
 				)}
@@ -105,10 +105,10 @@ export default async function Page({ params }: Readonly<{ params: Promise<{ slug
 				<Container className="relative z-1 flex min-h-136 flex-row items-end justify-center gap-10 pt-20 pb-8 md:min-h-152 md:justify-start">
 					<div className="flex min-h-max max-w-full min-w-0 flex-col items-center gap-3 text-text md:flex-row md:items-end md:gap-6">
 						<div className="hidden md:flex">
-							<GameCard game={game} size={210} preload />
+							<GameCard game={game} size={210} priority />
 						</div>
 						<div className="flex md:hidden">
-							<GameCard game={game} size={180} preload />
+							<GameCard game={game} size={180} priority />
 						</div>
 						<div className="items-left flex min-w-0 flex-col justify-between gap-4">
 							<div className="order-2 min-w-0 pb-2 text-left md:order-1 md:pb-0">

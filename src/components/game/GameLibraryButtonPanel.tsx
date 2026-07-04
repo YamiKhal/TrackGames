@@ -2,8 +2,8 @@
 
 import { useState, useTransition } from "react";
 import { Bookmark, CheckCircle2, CirclePause, Heart, Library, ListPlus, NotebookText, Trophy, XCircle } from "lucide-react";
-import ManageListsPanel from "@/components/game/ManageListsPanel";
 import StarRating from "@/components/game/StarRating";
+import ManageListsPanel from "@/components/library/ManageListsPanel";
 import { FloatedSquareButton, GhostButton, PrimaryButton } from "@/components/ui/Buttons";
 import ConfirmAction from "@/components/ui/ConfirmAction";
 import MenuPanel from "@/components/ui/MenuPanel";
@@ -120,6 +120,7 @@ export default function GameLibraryButtonPanel({ gameId, gameSlug, isLoggedIn, e
 	const [confirming, setConfirming] = useState(false);
 	const [managingStatus, setManagingStatus] = useState(false);
 	const [managingLists, setManagingLists] = useState(false);
+	const [error, setError] = useState("");
 	const [pending, startTransition] = useTransition();
 	const isInLibrary = Boolean(currentEntry);
 	const currentStatus = statusOptions.find((option) => option.status === currentEntry?.status);
@@ -134,9 +135,13 @@ export default function GameLibraryButtonPanel({ gameId, gameSlug, isLoggedIn, e
 	}
 
 	function setStatus(status: GameStatus) {
+		setError("");
 		startTransition(async () => {
 			const result = await setGameLibraryStatus(gameId, gameSlug, status);
-			if ("error" in result) return;
+			if ("error" in result) {
+				setError(result.error);
+				return;
+			}
 
 			setCurrentEntry(result);
 			setManagingStatus(false);
@@ -144,17 +149,30 @@ export default function GameLibraryButtonPanel({ gameId, gameSlug, isLoggedIn, e
 	}
 
 	function saveRating(value: number) {
+		setError("");
+		const previousRating = rating;
 		setRating(value);
 		startTransition(async () => {
-			const result = await updateGameQuickRating(gameId, gameSlug, value);
-			setCurrentEntry(result);
+			try {
+				const result = await updateGameQuickRating(gameId, gameSlug, value);
+				setCurrentEntry(result);
+			} catch {
+				setRating(previousRating);
+				setError("Could not save rating. Try again.");
+			}
 		});
 	}
 
 	function togglePlaylist(listId: string, entryId?: string) {
+		setError("");
 		startTransition(async () => {
 			if (entryId) {
-				await removeGameFromPlaylist(listId, entryId);
+				const result = await removeGameFromPlaylist(listId, entryId);
+				if (result && "error" in result) {
+					setError(result.error);
+					return;
+				}
+
 				setUserPlaylists((current) => removeGameEntryFromPlaylists(current, listId, entryId));
 				return;
 			}
@@ -162,7 +180,11 @@ export default function GameLibraryButtonPanel({ gameId, gameSlug, isLoggedIn, e
 			const formData = new FormData();
 			formData.set("gameId", String(gameId));
 			const entry = await addGameToPlaylist(listId, formData);
-			if ("error" in entry) return;
+			if ("error" in entry) {
+				setError(entry.error);
+				return;
+			}
+
 			setUserPlaylists((current) => addGameEntryToPlaylists(current, listId, entry.id, gameId));
 		});
 	}
@@ -176,6 +198,9 @@ export default function GameLibraryButtonPanel({ gameId, gameSlug, isLoggedIn, e
 					<StarRating rating={rating} size={32} isInteractive onChange={saveRating} />
 				</div>
 			</div>
+			{error && (
+				<p className="rounded border border-error/40 bg-error/10 p-3 text-sm font-bold text-error md:col-span-full">{error}</p>
+			)}
 			<div className="mb-5 flex flex-row flex-wrap justify-center gap-x-5 gap-y-3 md:contents">
 				<FloatedSquareButton
 					type="button"
@@ -188,8 +213,13 @@ export default function GameLibraryButtonPanel({ gameId, gameSlug, isLoggedIn, e
 						isInLibrary
 							? setManagingStatus(true)
 							: startTransition(async () => {
-									const result = await addGameToLibrary(gameId, gameSlug);
-									setCurrentEntry(result);
+									setError("");
+									try {
+										const result = await addGameToLibrary(gameId, gameSlug);
+										setCurrentEntry(result);
+									} catch {
+										setError("Could not add game to library. Try again.");
+									}
 								})
 					}
 					className={currentStatus ? currentStatus.activeClassName : inLibrary}
@@ -235,14 +265,19 @@ export default function GameLibraryButtonPanel({ gameId, gameSlug, isLoggedIn, e
 					onClose={() => setConfirming(false)}
 					onConfirm={() =>
 						startTransition(async () => {
-							const result = await removeGameFromLibrary(gameId, gameSlug);
-							setCurrentEntry(result.inLibrary ? currentEntry : null);
-							if (!result.inLibrary) setRating(0);
-							setConfirming(false);
+							setError("");
+							try {
+								const result = await removeGameFromLibrary(gameId, gameSlug);
+								setCurrentEntry(result.inLibrary ? currentEntry : null);
+								if (!result.inLibrary) setRating(0);
+								setConfirming(false);
+							} catch {
+								setError("Could not remove game from library. Try again.");
+							}
 						})
 					}
 				/>
-				<MenuPanel open={managingStatus} onClose={() => setManagingStatus(false)} title="Library status" width="26rem" hasPortal>
+				<MenuPanel open={managingStatus} onClose={() => setManagingStatus(false)} title="Library status" width="26rem">
 					<div className="flex flex-col gap-3">
 						<div className="flex flex-col gap-2">
 							{statusOptions.map((option) => {

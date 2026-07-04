@@ -22,14 +22,14 @@ type GameCardProps = Readonly<{
 	effect?: "ripple";
 	hover?: "name";
 	hasHref?: boolean;
-	preload?: boolean;
+	priority?: boolean;
 }>;
 
 /**
  * Used to display game data in the form of a card.
  * @param hasLink is required to be set to true if the card needs to href to its target game page.
  */
-export function GameCard({ game, size = 140, effect, hover, hasHref = false, preload = false }: GameCardProps) {
+export function GameCard({ game, size = 140, effect, hover, hasHref = false, priority = false }: GameCardProps) {
 	const cardRef = useRef<HTMLDivElement>(null);
 	const isFullSize = size === "full";
 	const height = isFullSize ? "100%" : Math.round(size * 1.4);
@@ -56,7 +56,7 @@ export function GameCard({ game, size = 140, effect, hover, hasHref = false, pre
 			style={{ width: isFullSize ? "100%" : size, height }}
 			onPointerDown={createRipple}
 		>
-			<Image src={src} alt={game.slug ?? "game cover"} fill sizes={imageSizes} preload={preload} className={imageClass} />
+			<Image src={src} alt={game.slug ?? "game cover"} fill sizes={imageSizes} priority={priority} className={imageClass} />
 			{hover === "name" ? <p className="text-md flex h-full items-center justify-center bg-bg/80 text-center font-bold select-none">{game.name}</p> : null}
 		</div>
 	);
@@ -74,6 +74,16 @@ export function GameCard({ game, size = 140, effect, hover, hasHref = false, pre
 
 export function StatInfoCard({ game }: Readonly<{ game: Game }>) {
 	const releaseDate = game.releaseDate ? game.releaseDate.toISOString().slice(0, 10) : null;
+	let metaLine: React.ReactNode = null;
+	if (releaseDate) {
+		metaLine = <span>{releaseDate}</span>;
+	} else if (game.totalRating != null) {
+		metaLine = (
+			<span className="flex flex-row items-center gap-1">
+				Avg. {ratingToFive(Math.floor(game.totalRating))?.toFixed(2)} <Star size={14} />
+			</span>
+		);
+	}
 
 	return (
 		<div className="flex w-full max-w-full min-w-0 justify-center overflow-hidden sm:flex-row sm:justify-start sm:gap-5">
@@ -82,13 +92,7 @@ export function StatInfoCard({ game }: Readonly<{ game: Game }>) {
 					<GameCard game={game} size={120} effect="ripple" hasHref={true} />
 					<div className="absolute inset-x-0 bottom-0 overflow-hidden bg-bg/85 p-2 text-pretty">
 						<p className="flex min-w-0 flex-row items-center justify-center gap-2 truncate text-center font-body text-sm font-bold text-text-muted">
-							{releaseDate ? (
-								<span>{releaseDate}</span>
-							) : (
-								<span className="flex flex-row items-center gap-1">
-									Avg. {ratingToFive(Math.floor(game.totalRating!))?.toFixed(2)} <Star size={14} />
-								</span>
-							)}
+							{metaLine}
 						</p>
 					</div>
 				</div>
@@ -103,13 +107,7 @@ export function StatInfoCard({ game }: Readonly<{ game: Game }>) {
 					</p>
 				</Link>
 				<p className="flex min-w-0 flex-row items-center gap-2 truncate text-center font-body text-sm font-bold text-text-muted">
-					{releaseDate ? (
-						<span>{releaseDate}</span>
-					) : (
-						<span className="flex flex-row items-center gap-1">
-							Avg. {ratingToFive(Math.floor(game.totalRating!))?.toFixed(2)} <Star size={14} />
-						</span>
-					)}
+					{metaLine}
 				</p>
 			</div>
 		</div>

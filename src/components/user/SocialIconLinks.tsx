@@ -58,7 +58,7 @@ export default function SocialIconLinks({ socials }: Readonly<{ socials: SocialL
 						key={key}
 						href={social.value}
 						target="_blank"
-						rel="noreferrer"
+						rel="noopener noreferrer"
 						className="flex h-7 w-7 items-center justify-center rounded text-text-muted transition-colors hover:text-primary"
 						aria-label={platform.label}
 						title={`Open ${platform.label}`}

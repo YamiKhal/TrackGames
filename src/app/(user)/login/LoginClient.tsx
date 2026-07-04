@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Eye, EyeOff, Lock, Mail, User } from "lucide-react";
 import { DiscordIcon, GithubIcon, GoogleIcon, TwitchIcon } from "@/components/SVG";
-import { GhostButton } from "@/components/ui/Buttons";
+import { GhostButton, IconButton, PrimaryButton } from "@/components/ui/Buttons";
+import { Input } from "@/components/ui/Inputs";
 import MenuPanel from "@/components/ui/MenuPanel";
 import { login, loginProvider, signup } from "@/lib/actions/auth";
 import { deferHook } from "@/lib/util/client/func";
@@ -137,7 +138,7 @@ export default function LoginClient() {
 						<span>Username</span>
 						<span className="relative">
 							<User className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-text-faint" size={18} aria-hidden="true" />
-							<input
+							<Input
 								id="name"
 								name="name"
 								type="text"
@@ -149,7 +150,7 @@ export default function LoginClient() {
 								onChange={(event) => setName(event.target.value)}
 								aria-invalid={Boolean(fieldErrors.name)}
 								aria-describedby={fieldErrors.name ?? undefined}
-								className="h-10 w-full rounded border border-border bg-surface px-10 text-text transition-colors outline-none placeholder:text-text-faint focus:border-primary"
+								className="mt-0 h-10 bg-surface pl-10 focus:border-primary"
 							/>
 						</span>
 						{fieldErrors.name && (
@@ -164,15 +165,15 @@ export default function LoginClient() {
 					<span>Email</span>
 					<span className="relative">
 						<Mail className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-text-faint" size={18} aria-hidden="true" />
-						<input
+						<Input
 							id="email"
 							name="email"
 							type="email"
 							autoComplete="email"
 							placeholder="Email address"
 							aria-invalid={Boolean(fieldErrors.email)}
-							aria-describedby={fieldErrors.email ?? undefined}
-							className="h-10 w-full rounded border border-border bg-surface px-10 text-text transition-colors outline-none placeholder:text-text-faint focus:border-primary"
+							aria-describedby={fieldErrors.name ? "name-error" : undefined}
+							className="mt-0 h-10 bg-surface pl-10 focus:border-primary"
 						/>
 					</span>
 					{fieldErrors.email && (
@@ -186,7 +187,7 @@ export default function LoginClient() {
 					<span>Password</span>
 					<span className="relative">
 						<Lock className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-text-faint" size={18} aria-hidden="true" />
-						<input
+						<Input
 							id="password"
 							name="password"
 							type={showPassword ? "text" : "password"}
@@ -195,17 +196,16 @@ export default function LoginClient() {
 							value={password}
 							onChange={(event) => setPassword(event.target.value)}
 							aria-invalid={Boolean(passwordMessage)}
-							aria-describedby={passwordMessage ?? undefined}
-							className="h-10 w-full rounded border border-border bg-surface px-10 pr-12 text-text transition-colors outline-none placeholder:text-text-faint focus:border-primary"
+							aria-describedby={passwordMessage ? "name-error" : undefined}
+							className="mt-0 h-10 bg-surface pr-12 pl-10 focus:border-primary"
 						/>
-						<button
-							type="button"
+						<IconButton
 							onClick={() => setShowPassword((value) => !value)}
-							className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer rounded p-1 text-text-faint transition-colors hover:text-primary"
-							aria-label="Toggle password"
-						>
-							{showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-						</button>
+							pressed={showPassword}
+							label="Toggle password"
+							icon={showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+							className="absolute top-1/2 right-2 -translate-y-1/2"
+						/>
 					</span>
 					{passwordMessage && (
 						<span id="password-error" className="text-xs font-bold text-error">
@@ -219,15 +219,15 @@ export default function LoginClient() {
 						<span>Confirm password</span>
 						<span className="relative">
 							<Lock className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-text-faint" size={18} aria-hidden="true" />
-							<input
+							<Input
 								id="passwordConfirm"
 								name="passwordConfirm"
 								type={showPassword ? "text" : "password"}
 								autoComplete="new-password"
 								placeholder="Repeat your password"
 								aria-invalid={Boolean(fieldErrors.passwordConfirm)}
-								aria-describedby={fieldErrors.passwordConfirm ?? undefined}
-								className="h-10 w-full rounded border border-border bg-surface px-10 text-text transition-colors outline-none placeholder:text-text-faint focus:border-primary"
+								aria-describedby={fieldErrors.passwordConfirm ? "name-error" : undefined}
+								className="mt-0 h-10 bg-surface pl-10 focus:border-primary"
 							/>
 						</span>
 						{fieldErrors.passwordConfirm && (
@@ -244,9 +244,9 @@ export default function LoginClient() {
 					</a>
 				)}
 
-				<button type="submit" className="mt-1 h-10 cursor-pointer rounded bg-primary px-6 text-sm font-bold text-text transition-colors hover:bg-primary-hover">
+				<PrimaryButton type="submit" className="mt-1 h-10 text-sm">
 					{isRegister ? "Create account" : "Log in"}
-				</button>
+				</PrimaryButton>
 			</form>
 
 			<div className="my-4 flex items-center gap-3 text-xs font-bold tracking-normal text-text-faint uppercase">
@@ -285,7 +285,7 @@ export default function LoginClient() {
 						<span>Username</span>
 						<span className="relative">
 							<User className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-text-faint" size={18} aria-hidden="true" />
-							<input
+							<Input
 								name="name"
 								type="text"
 								autoComplete="username"
@@ -299,7 +299,7 @@ export default function LoginClient() {
 								}}
 								aria-invalid={Boolean(providerUsernameError)}
 								aria-describedby={providerUsernameError ? "provider-username-error" : undefined}
-								className="h-10 w-full rounded border border-border bg-surface px-10 text-text transition-colors outline-none placeholder:text-text-faint focus:border-primary"
+								className="mt-0 h-10 bg-surface pl-10 focus:border-primary"
 							/>
 						</span>
 						{providerUsernameError && (
@@ -312,9 +312,9 @@ export default function LoginClient() {
 						<GhostButton type="button" onClick={() => setProviderSignup(null)} className="px-4 py-2">
 							Cancel
 						</GhostButton>
-						<button type="submit" className="cursor-pointer rounded bg-primary px-4 py-2 text-sm font-bold text-text transition-colors hover:bg-primary-hover">
+						<PrimaryButton type="submit" className="text-sm">
 							Continue with {providerSignup?.name ?? "provider"}
-						</button>
+						</PrimaryButton>
 					</div>
 				</form>
 			</MenuPanel>

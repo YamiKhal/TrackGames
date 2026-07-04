@@ -15,6 +15,12 @@ type FloatedSquareButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 	labelClassName?: string;
 };
 
+type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+	icon: ReactNode;
+	label: string;
+	pressed?: boolean;
+};
+
 const classes: Record<NonNullable<ButtonProps["variant"]>, string> = {
 	primary: "flex items-center gap-5 justify-center bg-primary text-text px-6 py-2 rounded cursor-pointer font-bold transition-colors hover:bg-primary-hover",
 	secondary: "flex items-center gap-5 justify-center bg-secondary text-text-inverse px-6 py-2 rounded cursor-pointer font-bold transition-colors hover:bg-secondary-hover",
@@ -51,6 +57,24 @@ export function AdvancedFilterButton({ onClick, filterCount }: { onClick: () => 
 			<SlidersHorizontal size={17} aria-hidden="true" />
 			Filter{filterCount ? ` (${filterCount})` : ""}
 		</GhostButton>
+	);
+}
+
+export function IconButton({ icon, label, pressed, className, ...props }: IconButtonProps) {
+	return (
+		<button
+			type="button"
+			{...props}
+			aria-label={label}
+			aria-pressed={pressed}
+			className={joinClass(
+				"grid size-7 cursor-pointer place-items-center rounded text-text-faint transition-colors hover:text-primary disabled:cursor-not-allowed disabled:opacity-50",
+				pressed && "text-primary",
+				className,
+			)}
+		>
+			{icon}
+		</button>
 	);
 }
 

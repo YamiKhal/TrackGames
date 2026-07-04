@@ -3,15 +3,6 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-	/* ===== Fonts ===== */
-	--font-body: var(--font-inter);
-	--font-heading: var(--font-space-grotesk);
-	--font-weight-body: 400;
-	--font-weight-button: 500;
-	--font-weight-heading: 600;
-	--font-weight-stats: 600;
-	--font-weight-logo: 700;
-
 	/* ===== Backgrounds ===== */
 	--bg: #e9e4dd;
 	--bg-secondary: #f1f1f1;

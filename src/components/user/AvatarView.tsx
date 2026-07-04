@@ -30,7 +30,7 @@ export default function AvatarPreview({ image, size = 24, mdSize = size * 1.5, i
 			style={style}
 		>
 			{image ? (
-				<Image src={image} alt={alt} fill preload={priority} sizes={`${imageSize}px`} className="pointer-events-none object-cover object-center select-none" />
+				<Image src={image} alt={alt} fill priority={priority} sizes={`${imageSize}px`} className="pointer-events-none object-cover object-center select-none" />
 			) : (
 				<UserIcon size={iconSize ?? Math.round(size * 2)} aria-hidden="true" />
 			)}

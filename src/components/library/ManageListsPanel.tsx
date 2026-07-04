@@ -25,7 +25,7 @@ type ManageListsPanelProps = Readonly<{
 
 export default function ManageListsPanel({ open, onClose, gameId, playlists, pending, onTogglePlaylist }: ManageListsPanelProps) {
 	return (
-		<MenuPanel open={open} onClose={onClose} title="Manage lists" width="30rem" hasPortal>
+		<MenuPanel open={open} onClose={onClose} title="Manage lists" width="30rem">
 			<div className="flex flex-col gap-2">
 				{playlists.length ? (
 					playlists.map((playlist) => {

@@ -1,10 +1,10 @@
 "use client";
 
 import type { CSSProperties, ReactNode, RefObject } from "react";
-import { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
 import HighLevelIsland from "@/components/ui/HighLevelIsland";
 import { joinClass } from "@/lib/util/client/func";
+import { useOverlay } from "@/lib/util/client/useOverlay";
 
 type MenuPanelProps = Readonly<{
 	open: boolean;
@@ -12,11 +12,10 @@ type MenuPanelProps = Readonly<{
 	title?: ReactNode;
 	children: ReactNode;
 	footer?: ReactNode;
-	variant?: "modal" | "anchored";
+	variant?: "modal" | "anchored" | "drawer-left" | "drawer-right";
 	panelClassName?: string;
 	className?: string;
 	closeLabel?: string;
-	hasPortal?: boolean;
 	shouldShowClose?: boolean;
 	role?: string;
 	id?: string;
@@ -35,7 +34,6 @@ export default function MenuPanel({
 	panelClassName,
 	className,
 	closeLabel = "Close",
-	hasPortal = false,
 	shouldShowClose = true,
 	role = "dialog",
 	id,
@@ -43,39 +41,11 @@ export default function MenuPanel({
 	width,
 	style,
 }: MenuPanelProps) {
-	const [rendered, setRendered] = useState(open);
-	const panelRef = useRef<HTMLDivElement>(null);
-	const panelStyle = variant === "modal" && width ? ({ ...style, "--menu-panel-width": width } as CSSProperties) : style;
-	const shouldPortal = hasPortal || variant === "modal";
-
-	useEffect(() => {
-		if (!open) return;
-
-		const frame = globalThis.requestAnimationFrame(() => setRendered(true));
-		return () => globalThis.cancelAnimationFrame(frame);
-	}, [open]);
-
-	useEffect(() => {
-		if (!rendered) return;
-
-		function closeOnEscape(event: KeyboardEvent) {
-			if (event.key === "Escape") onClose();
-		}
-
-		function closeOnOutsideClick(event: PointerEvent) {
-			if (variant === "anchored" && !panelRef.current?.contains(event.target as Node) && !anchorRef?.current?.contains(event.target as Node)) {
-				onClose();
-			}
-		}
-
-		document.addEventListener("keydown", closeOnEscape);
-		document.addEventListener("pointerdown", closeOnOutsideClick);
-
-		return () => {
-			document.removeEventListener("keydown", closeOnEscape);
-			document.removeEventListener("pointerdown", closeOnOutsideClick);
-		};
-	}, [anchorRef, onClose, rendered, variant]);
+	const isDrawer = variant === "drawer-left" || variant === "drawer-right";
+	const shouldPortal = variant !== "anchored";
+	const { rendered, panelRef, attachDialog, handleCancel, handleAnimationEnd } = useOverlay(open, onClose, variant === "anchored" ? anchorRef : undefined);
+	const panelStyle = (variant === "modal" || isDrawer) && width ? ({ ...style, "--menu-panel-width": width } as CSSProperties) : style;
+	const panelAnimation = variant === "drawer-left" ? "animate-menu-drawer-left" : variant === "drawer-right" ? "animate-menu-drawer" : "animate-menu-panel";
 
 	if (!rendered) return null;
 
@@ -84,16 +54,20 @@ export default function MenuPanel({
 			ref={panelRef}
 			id={id}
 			role={role}
-			aria-modal={variant === "modal" ? true : undefined}
+			tabIndex={-1}
+			aria-modal={shouldPortal ? true : undefined}
 			style={panelStyle}
-			onAnimationEnd={() => {
-				if (!open) setRendered(false);
-			}}
+			onAnimationEnd={handleAnimationEnd}
 			className={joinClass(
-				variant === "modal"
-					? "pointer-events-auto max-h-[calc(100vh-2rem)] w-[min(var(--menu-panel-width,32rem),calc(100vw-2rem))] max-w-none overflow-y-auto rounded bg-bg p-5 shadow-main"
-					: "pointer-events-auto absolute top-full right-0 z-50 mt-3 w-80 rounded border border-border bg-bg p-2 text-sm shadow-main",
-				open ? "animate-menu-panel-in" : "animate-menu-panel-out",
+				variant === "modal" &&
+					"pointer-events-auto max-h-[calc(100vh-2rem)] w-[min(var(--menu-panel-width,32rem),calc(100vw-2rem))] max-w-none overflow-y-auto rounded bg-bg p-5 shadow-main",
+				variant === "anchored" && "pointer-events-auto absolute top-full right-0 z-50 mt-3 w-80 rounded border border-border bg-bg p-2 text-sm shadow-main",
+				isDrawer &&
+					joinClass(
+						"pointer-events-auto fixed inset-y-0 h-full w-[min(var(--menu-panel-width,20rem),100vw)] overflow-y-auto bg-bg p-5 shadow-main",
+						variant === "drawer-left" ? "left-0 border-r border-border" : "right-0 border-l border-border",
+					),
+				`${panelAnimation}-${open ? "in" : "out"}`,
 				panelClassName,
 			)}
 		>
@@ -117,41 +91,25 @@ export default function MenuPanel({
 		</div>
 	);
 
-	let content = panel;
+	if (!shouldPortal) return panel;
 
-	if (variant === "modal") {
-		content = (
-			<dialog
-				open
-				className={joinClass(
-					"pointer-events-auto fixed inset-0 m-0 flex h-dvh max-h-none w-dvw max-w-none items-center justify-center border-0 bg-overlay p-4",
-					open ? "animate-menu-overlay-in" : "animate-menu-overlay-out",
-					className,
-				)}
-				onPointerDown={(event) => {
-					if (event.target === event.currentTarget) onClose();
-				}}
-			>
-				{panel}
-			</dialog>
-		);
-	} else if (shouldPortal) {
-		content = (
-			<dialog
-				open
-				className={joinClass("pointer-events-auto fixed inset-0 m-0 h-dvh max-h-none w-dvw max-w-none border-0", className)}
-				onPointerDown={(event) => {
-					if (event.target === event.currentTarget) onClose();
-				}}
-			>
-				{panel}
-			</dialog>
-		);
-	}
+	const content = (
+		<dialog
+			ref={attachDialog}
+			className={joinClass(
+				"pointer-events-auto fixed inset-0 m-0 h-dvh max-h-none w-dvw max-w-none border-0 bg-overlay",
+				variant === "modal" ? "flex items-center justify-center p-4" : "p-0",
+				`animate-menu-overlay-${open ? "in" : "out"}`,
+				className,
+			)}
+			onCancel={handleCancel}
+			onPointerDown={(event) => {
+				if (event.target === event.currentTarget) onClose();
+			}}
+		>
+			{panel}
+		</dialog>
+	);
 
-	if (shouldPortal) {
-		return <HighLevelIsland>{content}</HighLevelIsland>;
-	}
-
-	return content;
+	return <HighLevelIsland>{content}</HighLevelIsland>;
 }

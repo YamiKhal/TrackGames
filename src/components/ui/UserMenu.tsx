@@ -99,9 +99,6 @@ export default function UserMenu({ user, notifications }: UserMenuProps) {
 		}
 	}
 
-	const openStyle = isOpen ? "opacity-100" : "pointer-events-none opacity-0";
-	const openStylePanel = isOpen ? "animate-menu-drawer-in" : "animate-menu-drawer-out";
-
 	return (
 		<div className="relative">
 			<button
@@ -125,17 +122,12 @@ export default function UserMenu({ user, notifications }: UserMenuProps) {
 				id="user-menu"
 				open={isOpen}
 				onClose={closeMenu}
-				variant="anchored"
-				hasPortal={isSmallScreen}
+				variant={isSmallScreen ? "drawer-right" : "anchored"}
+				width={isSmallScreen ? "21rem" : undefined}
 				role="menu"
 				shouldShowClose={false}
 				anchorRef={buttonRef}
-				className={isSmallScreen ? `fixed inset-0 bg-overlay transition-opacity ${openStyle}` : undefined}
-				panelClassName={
-					isSmallScreen
-						? `!fixed !bottom-0 !right-0 !top-0 !mt-0 flex !w-[min(21rem,calc(100vw-1.5rem))] origin-right flex-col border-l border-border !p-0 text-text ${openStylePanel}`
-						: "flex flex-col text-text md:w-72 md:p-1.5"
-				}
+				panelClassName="flex flex-col text-text md:w-72 md:p-1.5"
 			>
 				{view === "notifications" ? (
 					<>

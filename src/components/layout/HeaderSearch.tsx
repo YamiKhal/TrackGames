@@ -4,9 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Search, X } from "lucide-react";
-import HighLevelIsland from "@/components/ui/HighLevelIsland";
+import { IconButton } from "@/components/ui/Buttons";
+import { Input } from "@/components/ui/Inputs";
+import MenuPanel from "@/components/ui/MenuPanel";
 import type { Game } from "@/lib/data/games";
-import { deferHook, joinClass } from "@/lib/util/client/func";
+import { deferHook } from "@/lib/util/client/func";
 
 function SearchBox({ autoFocus = false, onPick }: Readonly<{ autoFocus?: boolean; onPick?: () => void }>) {
 	const router = useRouter();
@@ -87,7 +89,7 @@ function SearchBox({ autoFocus = false, onPick }: Readonly<{ autoFocus?: boolean
 	return (
 		<div ref={boxRef} className="relative w-full">
 			<Search className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-text-faint" size={18} aria-hidden="true" />
-			<input
+			<Input
 				ref={inputRef}
 				value={query}
 				onChange={(event) => {
@@ -106,21 +108,19 @@ function SearchBox({ autoFocus = false, onPick }: Readonly<{ autoFocus?: boolean
 					if (query.trim().length >= 2) setOpen(true);
 				}}
 				placeholder="Search games"
-				className="h-11 w-full rounded border border-border bg-bg-secondary px-10 text-sm text-text transition-colors outline-none placeholder:text-text-faint focus:border-primary"
+				className="mt-0 h-11 bg-bg-secondary pl-10 pr-10 text-sm focus:border-primary"
 			/>
 			{query && (
-				<button
-					type="button"
+				<IconButton
 					onClick={() => {
 						setQuery("");
 						setResults([]);
 						setOpen(false);
 					}}
-					className="absolute top-1/2 right-2 grid size-7 -translate-y-1/2 cursor-pointer place-items-center rounded text-text-faint transition-colors hover:text-primary"
-					aria-label="Clear search"
-				>
-					<X size={16} aria-hidden="true" />
-				</button>
+					label="Clear search"
+					icon={<X size={16} aria-hidden="true" />}
+					className="absolute top-1/2 right-2 -translate-y-1/2"
+				/>
 			)}
 
 			{open && search.length >= 2 && (
@@ -168,36 +168,23 @@ export default function HeaderSearch() {
 			<div className="hidden w-full max-w-md md:block">
 				<SearchBox />
 			</div>
-			<button
-				type="button"
+			<IconButton
 				onClick={() => setOpen(true)}
-				className="grid size-11 cursor-pointer place-items-center text-text-muted transition-colors hover:border-primary hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none md:hidden"
-				aria-label="Search games"
-			>
-				<Search size={20} aria-hidden="true" />
-			</button>
-			<HighLevelIsland className="md:hidden">
-				<div className={joinClass("pointer-events-auto fixed inset-0 bg-overlay transition-opacity", open ? "opacity-100" : "pointer-events-none opacity-0")}>
-					<div
-						className={joinClass(
-							"fixed inset-y-0 right-0 w-full bg-bg p-4 shadow-main transition-transform duration-200 ease-out",
-							open ? "translate-x-0" : "translate-x-full",
-						)}
-					>
-						<div className="flex items-center gap-3">
-							<SearchBox autoFocus={open} onPick={() => setOpen(false)} />
-							<button
-								type="button"
-								onClick={() => setOpen(false)}
-								className="grid size-11 shrink-0 cursor-pointer place-items-center rounded border border-border bg-bg-secondary text-text-muted transition-colors hover:border-primary hover:text-primary"
-								aria-label="Close search"
-							>
-								<ArrowRight size={20} aria-hidden="true" />
-							</button>
-						</div>
-					</div>
+				label="Search games"
+				icon={<Search size={20} aria-hidden="true" />}
+				className="size-11 text-text-muted focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none md:hidden"
+			/>
+			<MenuPanel open={open} onClose={() => setOpen(false)} variant="drawer-right" width="100%" shouldShowClose={false} panelClassName="md:hidden" className="md:hidden">
+				<div className="flex items-center gap-3">
+					<SearchBox autoFocus={open} onPick={() => setOpen(false)} />
+					<IconButton
+						onClick={() => setOpen(false)}
+						label="Close search"
+						icon={<ArrowRight size={20} aria-hidden="true" />}
+						className="size-11 shrink-0 border border-border bg-bg-secondary text-text-muted"
+					/>
 				</div>
-			</HighLevelIsland>
+			</MenuPanel>
 		</>
 	);
 }

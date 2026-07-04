@@ -108,7 +108,7 @@ export default function BackgroundView({ src = null, size, mdSize = size, alt = 
 					className={joinClass("transition-opacity duration-300", videoReady ? "opacity-100" : "opacity-0", mediaClassName)}
 				/>
 			) : (
-				<Image src={src} alt={alt} fill preload={shouldPrioritize} sizes={imageSizes} className={joinClass("select-none", mediaClassName)} />
+				<Image src={src} alt={alt} fill priority={shouldPrioritize} sizes={imageSizes} className={joinClass("select-none", mediaClassName)} />
 			)}
 			{!isPreview && <div className="absolute inset-0 bg-bg/50" />}
 		</div>

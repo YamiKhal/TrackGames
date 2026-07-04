@@ -4,8 +4,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Search, X } from "lucide-react";
 import { GhostButton, PrimaryButton } from "@/components/ui/Buttons";
 import { Input, Select } from "@/components/ui/Inputs";
+import MenuPanel from "@/components/ui/MenuPanel";
 import { GameStatus } from "@/lib/generated/prisma/enums";
-import { deferHook, formLabel, joinClass } from "@/lib/util/client/func";
+import { deferHook, formLabel } from "@/lib/util/client/func";
 
 type AdvancedLibraryFilterPanelProps = Readonly<{
 	open: boolean;
@@ -43,32 +44,17 @@ export const emptyAdvancedLibraryFilters: AdvancedLibraryFilters = {
 };
 
 export default function AdvancedLibraryFilterPanel({ open, onClose, filters, onChange, tags, onReset }: AdvancedLibraryFilterPanelProps) {
-	const [rendered, setRendered] = useState(open);
 	const [filterSearch, setFilterSearch] = useState("");
 	const [pickerOpen, setPickerOpen] = useState(false);
-	const dialogRef = useRef<HTMLDialogElement>(null);
 	const pickerRef = useRef<HTMLDivElement>(null);
 	const search = filterSearch.trim().toLowerCase();
 	const statusOptions = useMemo(() => Object.values(GameStatus).filter((status) => formLabel(status).includes(search) || status.toLowerCase().includes(search)), [search]);
 	const tagOptions = useMemo(() => tags.filter((tag) => tag.toLowerCase().includes(search)), [search, tags]);
 
 	useEffect(() => {
-		if (open) {
-			return deferHook(() => {
-				setRendered(true);
-			});
-		}
-
-		return deferHook(() => {
-			setPickerOpen(false);
-		});
+		if (open) return;
+		return deferHook(() => setPickerOpen(false));
 	}, [open]);
-
-	useEffect(() => {
-		if (!rendered || !open || dialogRef.current?.open) return;
-
-		dialogRef.current?.showModal();
-	}, [open, rendered]);
 
 	useEffect(() => {
 		if (!pickerOpen) return;
@@ -80,8 +66,6 @@ export default function AdvancedLibraryFilterPanel({ open, onClose, filters, onC
 		document.addEventListener("pointerdown", closePickerOnOutsideClick);
 		return () => document.removeEventListener("pointerdown", closePickerOnOutsideClick);
 	}, [pickerOpen]);
-
-	if (!rendered) return null;
 
 	function addStatus(status: GameStatus, mode: "include" | "exclude") {
 		onChange({
@@ -102,56 +86,8 @@ export default function AdvancedLibraryFilterPanel({ open, onClose, filters, onC
 	}
 
 	return (
-		<dialog
-			ref={dialogRef}
-			aria-labelledby="advanced-library-filters-title"
-			className={joinClass(
-				"m-0 h-dvh max-h-none w-dvw max-w-none border-0 bg-overlay p-0 text-text backdrop:bg-transparent",
-				open ? "animate-menu-overlay-in" : "animate-menu-overlay-out",
-			)}
-			onCancel={(event) => {
-				event.preventDefault();
-
-				if (pickerOpen) {
-					setPickerOpen(false);
-					return;
-				}
-
-				onClose();
-			}}
-			onPointerDown={(event) => {
-				if (event.target === event.currentTarget) onClose();
-			}}
-		>
-			<aside
-				onAnimationEnd={(event) => {
-					if (event.target !== event.currentTarget) return;
-
-					if (!open) {
-						dialogRef.current?.close();
-						setRendered(false);
-					}
-				}}
-				className={joinClass(
-					"h-full w-[min(28rem,calc(100vw-2rem))] overflow-y-auto bg-bg p-5 shadow-main",
-					open ? "animate-menu-drawer-left-in" : "animate-menu-drawer-left-out",
-				)}
-			>
-				<div className="mb-5 flex items-center justify-between gap-3 border-b border-border pb-4">
-					<h3 id="advanced-library-filters-title" className="text-lg font-bold">
-						Filter
-					</h3>
-					<button
-						type="button"
-						onClick={onClose}
-						className="grid size-8 shrink-0 cursor-pointer place-items-center rounded text-text-muted hover:text-primary"
-						aria-label="Close filters"
-					>
-						<X size={18} aria-hidden="true" />
-					</button>
-				</div>
-
-				<div className="flex flex-col gap-5 text-sm">
+		<MenuPanel open={open} onClose={onClose} variant="drawer-left" width="28rem" title="Filter" closeLabel="Close filters">
+			<div className="flex flex-col gap-5 text-sm">
 					<section>
 						<h4 className="mb-2 font-bold text-text">Statuses and tags</h4>
 						<div ref={pickerRef} className="relative">
@@ -371,18 +307,17 @@ export default function AdvancedLibraryFilterPanel({ open, onClose, filters, onC
 							</Select>
 						</label>
 					</section>
-				</div>
+			</div>
 
-				<div className="mt-6 flex justify-end gap-2 border-t border-border pt-4">
-					<GhostButton type="button" onClick={onReset}>
-						Reset
-					</GhostButton>
-					<PrimaryButton type="button" onClick={onClose}>
-						Apply
-					</PrimaryButton>
-				</div>
-			</aside>
-		</dialog>
+			<div className="mt-6 flex justify-end gap-2 border-t border-border pt-4">
+				<GhostButton type="button" onClick={onReset}>
+					Reset
+				</GhostButton>
+				<PrimaryButton type="button" onClick={onClose}>
+					Apply
+				</PrimaryButton>
+			</div>
+		</MenuPanel>
 	);
 }
 
