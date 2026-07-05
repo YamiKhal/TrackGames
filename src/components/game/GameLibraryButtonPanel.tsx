@@ -198,9 +198,7 @@ export default function GameLibraryButtonPanel({ gameId, gameSlug, isLoggedIn, e
 					<StarRating rating={rating} size={32} isInteractive onChange={saveRating} />
 				</div>
 			</div>
-			{error && (
-				<p className="rounded border border-error/40 bg-error/10 p-3 text-sm font-bold text-error md:col-span-full">{error}</p>
-			)}
+			{error && <p className="rounded border border-error/40 bg-error/10 p-3 text-sm font-bold text-error md:col-span-full">{error}</p>}
 			<div className="mb-5 flex flex-row flex-wrap justify-center gap-x-5 gap-y-3 md:contents">
 				<FloatedSquareButton
 					type="button"

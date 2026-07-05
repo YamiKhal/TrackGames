@@ -22,10 +22,15 @@
 		"test:e2e": "playwright test",
 		"import:api": "tsx scripts/import-api.ts",
 		"import:clear-data": "tsx scripts/clear-import-data.ts",
-		"webhooks:register": "tsx scripts/register-webhooks.ts"
+		"webhooks:register": "tsx scripts/register-webhooks.ts",
+		"prepare": "husky"
 	},
 	"engines": {
 		"node": "22.13.x"
+	},
+	"lint-staged": {
+		"*.{js,jsx,ts,tsx}": "eslint --fix",
+		"*.{js,jsx,ts,tsx,json,css,md}": "prettier --write"
 	},
 	"dependencies": {
 		"@auth/prisma-adapter": "^2.11.2",
@@ -62,9 +67,11 @@
 		"eslint-config-next": "16.2.6",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-simple-import-sort": "^13.0.0",
+		"husky": "^9.1.7",
 		"jest": "^30.4.2",
 		"jest-environment-jsdom": "^30.4.1",
 		"jsdom": "^29.1.1",
+		"lint-staged": "^17.0.8",
 		"prettier": "^3.9.3",
 		"prettier-plugin-tailwindcss": "^0.8.0",
 		"tailwindcss": "^4",

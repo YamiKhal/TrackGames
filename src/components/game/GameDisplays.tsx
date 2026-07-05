@@ -91,9 +91,7 @@ export function StatInfoCard({ game }: Readonly<{ game: Game }>) {
 				<div className="relative flex w-fit items-center justify-center sm:hidden">
 					<GameCard game={game} size={120} effect="ripple" hasHref={true} />
 					<div className="absolute inset-x-0 bottom-0 overflow-hidden bg-bg/85 p-2 text-pretty">
-						<p className="flex min-w-0 flex-row items-center justify-center gap-2 truncate text-center font-body text-sm font-bold text-text-muted">
-							{metaLine}
-						</p>
+						<p className="flex min-w-0 flex-row items-center justify-center gap-2 truncate text-center font-body text-sm font-bold text-text-muted">{metaLine}</p>
 					</div>
 				</div>
 				<div className="hidden sm:block">
@@ -106,9 +104,7 @@ export function StatInfoCard({ game }: Readonly<{ game: Game }>) {
 						{game.name}
 					</p>
 				</Link>
-				<p className="flex min-w-0 flex-row items-center gap-2 truncate text-center font-body text-sm font-bold text-text-muted">
-					{metaLine}
-				</p>
+				<p className="flex min-w-0 flex-row items-center gap-2 truncate text-center font-body text-sm font-bold text-text-muted">{metaLine}</p>
 			</div>
 		</div>
 	);

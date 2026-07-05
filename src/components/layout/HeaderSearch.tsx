@@ -108,7 +108,7 @@ function SearchBox({ autoFocus = false, onPick }: Readonly<{ autoFocus?: boolean
 					if (query.trim().length >= 2) setOpen(true);
 				}}
 				placeholder="Search games"
-				className="mt-0 h-11 bg-bg-secondary pl-10 pr-10 text-sm focus:border-primary"
+				className="mt-0 h-11 bg-bg-secondary pr-10 pl-10 text-sm focus:border-primary"
 			/>
 			{query && (
 				<IconButton
