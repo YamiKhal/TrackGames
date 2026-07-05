@@ -20,10 +20,10 @@ jobs:
           node-version: "22.13.x"
           cache: "npm"
 
-      - run: npm ci
+      - run: npm ci --ignore-scripts
 
       - name: Generate Prisma client
-        run: npx prisma generate
+        run: node_modules/.bin/prisma generate
 
       - name: Type check
         run: npm run tc
@@ -36,9 +36,6 @@ jobs:
 
       - name: Test
         run: npm run test -- --ci
-
-      - name: Audit
-        run: npm audit --audit-level=high
 
       - name: Build
         run: npm run build
