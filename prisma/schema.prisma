@@ -734,11 +734,3 @@ enum FeedbackStatus {
   REVIEWED
   ARCHIVED
 }
-
-// Simple keyed counter table. Client batches events and flushes them; the
-// analytics endpoint increments the matching key. Keep it key/value only.
-model Analytics {
-  key       String   @id
-  value     BigInt   @default(0)
-  updatedAt DateTime @updatedAt
-}

@@ -76,7 +76,6 @@ export default async function FilterPage({ searchParams }: FilterPageProps) {
 					<h1 className="text-3xl font-bold">Filter</h1>
 				</header>
 
-				{/* Stream the results: the parent paints the header immediately while the (potentially slow) query runs. */}
 				<Suspense key={serialiseFilters(filters).toString() + page} fallback={<Loading />}>
 					<FilterResults filters={filters} page={page} hasFilters={hasFilters} />
 				</Suspense>

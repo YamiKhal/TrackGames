@@ -445,9 +445,6 @@ export default function GameEntryMenu({
 						)}
 					</div>
 				</div>
-
-				{/* Panel-level footer: spans full panel width so Remove hugs the panel's left edge,
-				    not the content column's. History has no single form to submit; playlist has its own. */}
 				{fullEntry && activeTab !== "playlist" && (
 					<div className="mt-4 flex shrink-0 items-center justify-between gap-2 border-t border-border pt-4">
 						<DangerButton variant="outline" onClick={() => setConfirmingRemove(true)} disabled={pending}>

@@ -196,8 +196,3 @@ export type Report = Prisma.ReportModel
  * 
  */
 export type Feedback = Prisma.FeedbackModel
-/**
- * Model Analytics
- * 
- */
-export type Analytics = Prisma.AnalyticsModel

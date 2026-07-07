@@ -8,6 +8,7 @@ import * as zod from "zod";
 import { auth, OAUTH_USERNAME_COOKIE, signIn, signOut } from "@/lib/auth";
 import { USERNAME_ERROR, usernameSchema } from "@/lib/constants";
 import db from "@/lib/db";
+import { trackServerEvent } from "@/lib/external/ga/track";
 import { Prisma } from "@/lib/generated/prisma/client";
 import { inputError } from "@/lib/logger";
 import { hashPassword } from "@/lib/util/server/password";
@@ -258,6 +259,8 @@ export async function signup(formData: FormData): Promise<AuthActionResult> {
 
 		throw error;
 	}
+
+	await trackServerEvent("sign_up", { method: "credentials" });
 
 	try {
 		await signIn("credentials", {

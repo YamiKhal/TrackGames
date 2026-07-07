@@ -30,8 +30,6 @@ export default function EntryEditorTabs({ activeTab, setActiveTab, error }: Entr
 			<Tabs tabs={tabs} active={activeTab} onSelect={(id) => setActiveTab(id as EditorTab)} responsive="compact" />
 			{error && <p className="mb-3 shrink-0 rounded border border-error/50 bg-error/15 p-2 text-sm text-error">{error}</p>}
 			<div className="-mx-1 min-h-0 flex-1 overflow-y-auto px-1">
-				{/* Entry stays mounted so its form state survives tab switches; key the on-demand
-				    tabs so remounting replays animate-content-in for a smooth swap. */}
 				<div className={activeTab === "entry" ? "animate-content-in" : "hidden"}>
 					<EntryTab isActive={activeTab === "entry"} />
 				</div>

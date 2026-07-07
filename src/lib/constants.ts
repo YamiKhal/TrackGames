@@ -88,9 +88,7 @@ export const ADMIN_TABS: { id: string; label: string; href: string }[] = [
 	{ id: "reports", label: "Reports", href: "/dashboard?tab=reports" },
 	{ id: "feedback", label: "Feedback", href: "/dashboard?tab=feedback" },
 	{ id: "members", label: "Members", href: "/dashboard?tab=members" },
-	{ id: "moderation", label: "Moderation", href: "/dashboard?tab=moderation" },
-	{ id: "changelog", label: "Changelog", href: "/dashboard?tab=changelog" },
-	{ id: "roadmap", label: "Roadmap", href: "/dashboard?tab=roadmap" },
+	{ id: "content", label: "Content", href: "/dashboard?tab=content" },
 ];
 
 export const DOC_TABS = [

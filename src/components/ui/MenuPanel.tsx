@@ -214,7 +214,6 @@ export default function MenuPanel({
 		return (
 			<>
 				<HighLevelIsland>
-					{/* Transparent top-layer dialog so the panel floats above any parent modal dialog and escapes ancestor overflow clipping. */}
 					<dialog
 						ref={attachDialog}
 						className="pointer-events-auto fixed inset-0 m-0 h-dvh max-h-none w-dvw max-w-none border-0 bg-transparent p-0"

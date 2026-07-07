@@ -8,6 +8,7 @@ import Twitch from "next-auth/providers/twitch";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { USERNAME_MAX_LENGTH, USERNAME_PATTERN } from "@/lib/constants";
 import db from "@/lib/db";
+import { trackServerEvent } from "@/lib/external/ga/track";
 import { verifyPassword } from "@/lib/util/server/password";
 
 const loginProviders = new Set(["google", "github", "twitch", "discord"]);
@@ -135,6 +136,14 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 			}
 
 			return session;
+		},
+	},
+	events: {
+		// The adapter only creates a user on a first-time OAuth sign-in (credentials
+		// signups are created directly in the signup action), so this fires once per
+		// new OAuth member — the conversion event for that path.
+		async createUser() {
+			await trackServerEvent("sign_up", { method: "oauth" });
 		},
 	},
 });

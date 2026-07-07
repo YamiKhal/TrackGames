@@ -64,7 +64,6 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 					)}
 				</header>
 
-				{/* Stream the results: the parent paints the header immediately while the query runs. */}
 				<Suspense key={`${query}:${page}`} fallback={<Loading />}>
 					<SearchResults query={query} page={page} />
 				</Suspense>

@@ -1,7 +1,33 @@
 import "server-only";
 import db from "@/lib/db";
-import { FeedbackStatus, InteractionTargetType, ReportStatus, UserRole } from "@/lib/generated/prisma/enums";
-import redis from "@/lib/redis";
+import { getGaOverview } from "@/lib/external/ga/analytics";
+import { type ActivityType, FeedbackStatus, type FeedbackType, GameListType, ReportStatus, RoadmapStatus } from "@/lib/generated/prisma/enums";
+
+const FEEDBACK_LABELS: Record<FeedbackType, string> = {
+	BUG: "Bug",
+	SUGGESTION: "Suggestion",
+	UI: "UI",
+	PERFORMANCE: "Performance",
+	CONTENT: "Content",
+	OTHER: "Other",
+};
+
+// Human labels for the activity-mix bars.
+const ACTIVITY_LABELS: Record<ActivityType, string> = {
+	ADDED_GAME_TO_LIBRARY: "Added game",
+	RATED_GAME: "Rated game",
+	LOGGED_GAME_PLAY: "Logged play",
+	CREATED_PLAYLIST: "Created playlist",
+	ADDED_GAME_TO_PLAYLIST: "Added to playlist",
+	LIKED_GAME_LIST: "Liked list",
+	LIKED_COMMENT: "Liked comment",
+	COMMENTED_ON_GAME_LIST: "Commented on list",
+	COMMENTED_ON_PROFILE: "Commented on profile",
+	COMMENTED_ON_GAME: "Commented on game",
+	REPLIED_TO_COMMENT: "Replied to comment",
+	FOLLOWED_USER: "Followed user",
+	EARNED_BADGE: "Earned badge",
+};
 
 function last30Days() {
 	const days: string[] = [];
@@ -14,111 +40,68 @@ function fillDaily(rows: { day: Date; count: number }[]) {
 	return last30Days().map((day) => ({ label: day.slice(5), value: byDay.get(day) ?? 0 }));
 }
 
-// Daily pageviews live in Redis (see the analytics route). Best-effort: a cache
-// outage yields a flat zero series rather than breaking the dashboard.
-async function getDailyPageviews() {
-	const days = last30Days();
-	let values: (string | null)[] = [];
-
-	if (redis) {
-		try {
-			values = await redis.mget(days.map((day) => `pageviews:day:${day}`));
-		} catch {
-			values = [];
-		}
-	}
-
-	return days.map((day, index) => ({ label: day.slice(5), value: Number(values[index] ?? 0) || 0 }));
-}
-
 export async function getAdminOverview() {
 	const [
 		openReports,
 		newFeedback,
-		logs30d,
-		activeBackers,
-		totalLikes,
-		signupRows,
+		totalMembers,
+		totalLogs,
+		totalComments,
+		totalPlaylists,
 		logRows,
-		commentRows,
-		topPageRows,
-		totalPageviewsRow,
-		dailyPageviews,
-		recentComments,
-		topGameRows,
+		ga,
+		feedbackRows,
+		roadmapTotal,
+		roadmapShipped,
+		activityRows,
+		topFollowedRows,
+		topLoggerRows,
 	] = await Promise.all([
 		db.report.count({ where: { status: { not: ReportStatus.RESOLVED } } }),
 		db.feedback.count({ where: { status: FeedbackStatus.NEW } }),
-		db.userGamePlayLog.count({ where: { playedAt: { gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) } } }),
-		db.user.count({ where: { roles: { has: UserRole.VIP } } }),
-		db.like.count(),
-		db.$queryRaw<{ day: Date; count: number }[]>`
-				SELECT date_trunc('day', "createdAt") AS day, COUNT(*)::int AS count
-				FROM "User" WHERE "createdAt" >= NOW() - INTERVAL '30 days' GROUP BY 1 ORDER BY 1 ASC`,
+		db.user.count(),
+		db.userGamePlayLog.count(),
+		db.comment.count(),
+		db.gameList.count({ where: { type: GameListType.PLAYLIST } }),
 		db.$queryRaw<{ day: Date; count: number }[]>`
 				SELECT date_trunc('day', "playedAt") AS day, COUNT(*)::int AS count
 				FROM "UserGamePlayLog" WHERE "playedAt" >= NOW() - INTERVAL '30 days' GROUP BY 1 ORDER BY 1 ASC`,
-		db.$queryRaw<{ day: Date; count: number }[]>`
-				SELECT date_trunc('day', "createdAt") AS day, COUNT(*)::int AS count
-				FROM "Comment" WHERE "createdAt" >= NOW() - INTERVAL '30 days' GROUP BY 1 ORDER BY 1 ASC`,
-		db.analytics.findMany({ where: { key: { startsWith: "pageview:/" } }, orderBy: { value: "desc" }, take: 8 }),
-		db.analytics.findUnique({ where: { key: "pageview:total" } }),
-		getDailyPageviews(),
-		db.comment.findMany({ orderBy: { createdAt: "desc" }, take: 6, include: { user: { select: { name: true } } } }),
-		db.userGamePlayLog.groupBy({ by: ["gameId"], _count: { gameId: true }, orderBy: { _count: { gameId: "desc" } }, take: 8 }),
+		getGaOverview(),
+		db.feedback.groupBy({ by: ["type"], _count: { type: true } }),
+		db.roadmapItem.count(),
+		db.roadmapItem.count({ where: { status: RoadmapStatus.SHIPPED } }),
+		db.activity.groupBy({ by: ["type"], _count: { type: true }, orderBy: { _count: { type: "desc" } }, take: 8 }),
+		db.userFollow.groupBy({ by: ["followingId"], _count: { followingId: true }, orderBy: { _count: { followingId: "desc" } }, take: 8 }),
+		db.userGamePlayLog.groupBy({ by: ["userId"], _count: { userId: true }, orderBy: { _count: { userId: "desc" } }, take: 8 }),
 	]);
 
-	// Resolve names/slugs for the recent comments' threads and the top logged games.
-	const gameIds = [
-		...new Set(
-			recentComments
-				.filter((c) => c.targetType === InteractionTargetType.GAME)
-				.map((c) => Number(c.targetId))
-				.filter(Number.isFinite),
-		),
-	];
-	const profileIds = [...new Set(recentComments.filter((c) => c.targetType === InteractionTargetType.USER_PROFILE).map((c) => c.targetId))];
+	// Resolve display names for the members surfaced in the "most followed" /
+	// "most active" leaderboards.
+	const memberIds = [...new Set([...topFollowedRows.map((row) => row.followingId), ...topLoggerRows.map((row) => row.userId)])];
+	const members = memberIds.length ? await db.user.findMany({ where: { id: { in: memberIds } }, select: { id: true, name: true } }) : [];
 
-	const topGameIds = topGameRows.map((row) => row.gameId);
-
-	const [games, profiles, topGameNames] = await Promise.all([
-		gameIds.length ? db.game.findMany({ where: { id: { in: gameIds } }, select: { id: true, slug: true } }) : [],
-		profileIds.length ? db.user.findMany({ where: { id: { in: profileIds } }, select: { id: true, name: true } }) : [],
-		topGameIds.length ? db.game.findMany({ where: { id: { in: topGameIds } }, select: { id: true, name: true } }) : [],
-	]);
-
-	const commentHref = (comment: (typeof recentComments)[number]) => {
-		if (comment.targetType === InteractionTargetType.GAME_LIST) return `/playlist/${comment.targetId}#comments`;
-		if (comment.targetType === InteractionTargetType.USER_PROFILE) {
-			const name = profiles.find((profile) => profile.id === comment.targetId)?.name;
-			return name ? `/u/${name}#comments` : null;
-		}
-		const slug = games.find((game) => game.id === Number(comment.targetId))?.slug;
-		return slug ? `/game/${slug}#comments` : null;
-	};
+	const memberName = (id: string) => members.find((member) => member.id === id)?.name ?? "Unknown";
 
 	return {
 		openReports,
 		newFeedback,
-		logs30d,
-		activeBackers,
-		totalLikes,
-		totalPageviews: totalPageviewsRow ? Number(totalPageviewsRow.value) : 0,
-		signups: fillDaily(signupRows),
+		ga,
+		totalMembers,
+		totalLogs,
+		totalComments,
+		totalPlaylists,
 		logs: fillDaily(logRows),
-		comments: fillDaily(commentRows),
-		dailyPageviews,
-		topPages: topPageRows.map((row) => ({ label: row.key.replace("pageview:", ""), value: Number(row.value) })),
-		topGames: topGameRows.map((row) => ({ label: topGameNames.find((game) => game.id === row.gameId)?.name ?? `#${row.gameId}`, value: row._count.gameId })),
-		recentComments: recentComments.map((comment) => ({
-			id: comment.id,
-			content: comment.content,
-			author: comment.user?.name ?? null,
-			href: commentHref(comment),
-			createdAt: comment.createdAt.toISOString(),
-		})),
+		feedbackTypes: (Object.keys(FEEDBACK_LABELS) as FeedbackType[])
+			.map((type) => ({ label: FEEDBACK_LABELS[type], value: feedbackRows.find((row) => row.type === type)?._count.type ?? 0 }))
+			.filter((point) => point.value > 0),
+		roadmap: { shipped: roadmapShipped, total: roadmapTotal, pct: roadmapTotal ? Math.round((roadmapShipped / roadmapTotal) * 100) : 0 },
+		activityMix: activityRows.map((row) => ({ label: ACTIVITY_LABELS[row.type], value: row._count.type })),
+		topFollowed: topFollowedRows.map((row) => ({ label: memberName(row.followingId), value: row._count.followingId })),
+		mostActive: topLoggerRows.map((row) => ({ label: memberName(row.userId), value: row._count.userId })),
 	};
 }
+
+export type AdminOverview = Awaited<ReturnType<typeof getAdminOverview>>;
 
 export async function getReports(status?: ReportStatus) {
 	return db.report.findMany({

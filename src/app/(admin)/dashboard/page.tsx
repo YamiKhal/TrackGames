@@ -1,11 +1,12 @@
 import { LogOut } from "lucide-react";
-import ChangelogAdminPanel from "@/app/(admin)/dashboard/_tabs/ChangelogAdminPanel";
+import ChangelogAdminPanel from "@/app/(admin)/dashboard/_tabs/ChangelogPanel";
 import FeedbackPanel from "@/app/(admin)/dashboard/_tabs/FeedbackPanel";
 import MembersPanel from "@/app/(admin)/dashboard/_tabs/MembersPanel";
 import ModerationPanel from "@/app/(admin)/dashboard/_tabs/ModerationPanel";
 import OverviewPanel from "@/app/(admin)/dashboard/_tabs/OverviewPanel";
 import ReportsPanel from "@/app/(admin)/dashboard/_tabs/ReportsPanel";
-import RoadmapAdminPanel from "@/app/(admin)/dashboard/_tabs/RoadmapAdminPanel";
+import RoadmapAdminPanel from "@/app/(admin)/dashboard/_tabs/RoadmapPanel";
+import SubTabs from "@/components/layout/SubTabs";
 import Tabs from "@/components/layout/Tabs";
 import { GhostButton } from "@/components/ui/control/Button";
 import { endAdminSession } from "@/lib/actions/admin/admin";
@@ -26,10 +27,27 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
 	let panel = <OverviewPanel />;
 	if (activeTab === "reports") panel = <ReportsPanel reports={await getReports()} />;
 	else if (activeTab === "feedback") panel = <FeedbackPanel feedback={await getFeedbackList()} />;
-	else if (activeTab === "members") panel = <MembersPanel members={await searchMembers(query)} query={query} />;
-	else if (activeTab === "moderation") panel = <ModerationPanel />;
-	else if (activeTab === "changelog") panel = <ChangelogAdminPanel entries={await getAllChangelogs()} />;
-	else if (activeTab === "roadmap") panel = <RoadmapAdminPanel items={await getAllRoadmapItems()} />;
+	else if (activeTab === "members") {
+		panel = (
+			<SubTabs
+				tabs={[
+					{ id: "members", label: "Members" },
+					{ id: "moderation", label: "Moderation" },
+				]}
+				panels={[<MembersPanel key="members" members={await searchMembers(query)} query={query} />, <ModerationPanel key="moderation" />]}
+			/>
+		);
+	} else if (activeTab === "content") {
+		panel = (
+			<SubTabs
+				tabs={[
+					{ id: "changelog", label: "Changelog" },
+					{ id: "roadmap", label: "Roadmap" },
+				]}
+				panels={[<ChangelogAdminPanel key="changelog" entries={await getAllChangelogs()} />, <RoadmapAdminPanel key="roadmap" items={await getAllRoadmapItems()} />]}
+			/>
+		);
+	}
 
 	return (
 		<div className="flex flex-col gap-5">

@@ -95,7 +95,6 @@ export default function AboutPage() {
 				</div>
 			</section>
 
-			{/* TODO(content): replace placeholder gallery with real product screenshots. */}
 			<section className="flex flex-col gap-5">
 				<h2 className="text-2xl font-bold">A look inside</h2>
 				<div className="grid gap-4 sm:grid-cols-2">

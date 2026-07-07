@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Manrope } from "next/font/google";
 import Script from "next/script";
-import { GoogleAnalytics } from "@next/third-parties/google";
-import AnalyticsTracker from "@/components/analytics/AnalyticsTracker";
 import ConsentBanner from "@/components/analytics/ConsentBanner";
+import GaPageview from "@/components/analytics/GaPageview";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import { absoluteUrl, DEFAULT_DESCRIPTION, DEFAULT_OG_IMAGE, SITE_NAME } from "@/lib/util/metadata";
@@ -16,7 +15,7 @@ export const inter = Inter({
 });
 
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope" });
-const gaId = process.env.GA_ID;
+const gaId = process.env.GA_ID!;
 
 export const metadata: Metadata = {
 	title: {
@@ -76,19 +75,32 @@ export default function RootLayout({
 	return (
 		<html lang="en" className={`dark ${inter.variable} ${manrope.variable} h-full antialiased`}>
 			<body className="flex h-full min-h-96 flex-col" suppressHydrationWarning>
-				{gaId && (
-					<>
-						{/* Consent Mode v2: everything denied by default so GA loads without cookies and
-						    still sends modeled data, then ConsentBanner flips signals on opt-in. Must run
-						    before the GA tag, hence beforeInteractive. */}
-						<Script id="google-consent-default" strategy="beforeInteractive">
-							{`window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500});gtag('set','url_passthrough',true);gtag('set','ads_data_redaction',true);`}
-						</Script>
-						<GoogleAnalytics gaId={gaId} />
-						<ConsentBanner />
-					</>
-				)}
-				<AnalyticsTracker />
+				<Script id="google-consent-default" strategy="beforeInteractive">
+					{`
+						window.dataLayer=window.dataLayer || [];
+						window.gtag = function() {dataLayer.push(arguments);};
+						gtag('consent', 'default', {
+							ad_storage:'denied',
+							ad_user_data:'denied',
+							ad_personalization:'denied',
+							analytics_storage:'denied',
+							functionality_storage:'granted',
+							security_storage:'granted'
+						});
+						gtag('set', 'url_passthrough', true);
+						gtag('set', 'ads_data_redaction', true);
+					`}
+				</Script>
+				<Script id="ga-src" src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} strategy="afterInteractive" />
+				<Script id="ga-config" strategy="afterInteractive">
+					{`
+						gtag('js', new Date());
+						// Automatic page_view off — GaPageview sends normalized paths instead.
+						gtag('config', '${gaId}', { send_page_view: false });
+					`}
+				</Script>
+				<GaPageview />
+				<ConsentBanner />
 				<Header />
 				{children}
 				<Footer />

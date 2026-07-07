@@ -81,8 +81,7 @@ export const ModelName = {
   RoadmapItem: 'RoadmapItem',
   RoadmapVote: 'RoadmapVote',
   Report: 'Report',
-  Feedback: 'Feedback',
-  Analytics: 'Analytics'
+  Feedback: 'Feedback'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -586,15 +585,6 @@ export const FeedbackScalarFieldEnum = {
 } as const
 
 export type FeedbackScalarFieldEnum = (typeof FeedbackScalarFieldEnum)[keyof typeof FeedbackScalarFieldEnum]
-
-
-export const AnalyticsScalarFieldEnum = {
-  key: 'key',
-  value: 'value',
-  updatedAt: 'updatedAt'
-} as const
-
-export type AnalyticsScalarFieldEnum = (typeof AnalyticsScalarFieldEnum)[keyof typeof AnalyticsScalarFieldEnum]
 
 
 export const SortOrder = {

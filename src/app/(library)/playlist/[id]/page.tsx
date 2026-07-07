@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import CopyIdButton from "@/app/(admin)/dashboard/_tabs/CopyIdButton";
 import AddPlaylistGameForm from "@/app/(library)/playlist/[id]/AddPlaylistGameForm";
 import GamesTrackedWidget from "@/app/(library)/playlist/[id]/GamesTrackedWidget";
 import CommentSection from "@/components/comments/CommentSection";
@@ -9,6 +8,7 @@ import PlaylistEntriesView from "@/components/gamelist/PlaylistEntriesView";
 import Container from "@/components/layout/Container";
 import LikeButton from "@/components/social/LikeButton";
 import { GhostButton } from "@/components/ui/control/Button";
+import CopyIdButton from "@/components/ui/CopyIdButton";
 import PrivateDisplay from "@/components/ui/PrivateDisplay";
 import BackgroundView from "@/components/user/BackgroundView";
 import ReportButton from "@/components/user/ReportButton";

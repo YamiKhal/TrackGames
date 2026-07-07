@@ -414,8 +414,7 @@ export const ModelName = {
   RoadmapItem: 'RoadmapItem',
   RoadmapVote: 'RoadmapVote',
   Report: 'Report',
-  Feedback: 'Feedback',
-  Analytics: 'Analytics'
+  Feedback: 'Feedback'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -431,7 +430,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "account" | "session" | "verificationToken" | "game" | "userGameEntry" | "userTag" | "userGameEntryTag" | "userGamePlayLog" | "gameList" | "gameListEntry" | "collection" | "franchise" | "genre" | "platform" | "company" | "keyword" | "theme" | "multiplayerMode" | "activity" | "like" | "comment" | "userFollow" | "badge" | "userBadge" | "notification" | "changelog" | "roadmapItem" | "roadmapVote" | "report" | "feedback" | "analytics"
+    modelProps: "user" | "account" | "session" | "verificationToken" | "game" | "userGameEntry" | "userTag" | "userGameEntryTag" | "userGamePlayLog" | "gameList" | "gameListEntry" | "collection" | "franchise" | "genre" | "platform" | "company" | "keyword" | "theme" | "multiplayerMode" | "activity" | "like" | "comment" | "userFollow" | "badge" | "userBadge" | "notification" | "changelog" | "roadmapItem" | "roadmapVote" | "report" | "feedback"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2729,80 +2728,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    Analytics: {
-      payload: Prisma.$AnalyticsPayload<ExtArgs>
-      fields: Prisma.AnalyticsFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.AnalyticsFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnalyticsPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.AnalyticsFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnalyticsPayload>
-        }
-        findFirst: {
-          args: Prisma.AnalyticsFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnalyticsPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.AnalyticsFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnalyticsPayload>
-        }
-        findMany: {
-          args: Prisma.AnalyticsFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnalyticsPayload>[]
-        }
-        create: {
-          args: Prisma.AnalyticsCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnalyticsPayload>
-        }
-        createMany: {
-          args: Prisma.AnalyticsCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.AnalyticsCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnalyticsPayload>[]
-        }
-        delete: {
-          args: Prisma.AnalyticsDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnalyticsPayload>
-        }
-        update: {
-          args: Prisma.AnalyticsUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnalyticsPayload>
-        }
-        deleteMany: {
-          args: Prisma.AnalyticsDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.AnalyticsUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.AnalyticsUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnalyticsPayload>[]
-        }
-        upsert: {
-          args: Prisma.AnalyticsUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnalyticsPayload>
-        }
-        aggregate: {
-          args: Prisma.AnalyticsAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateAnalytics>
-        }
-        groupBy: {
-          args: Prisma.AnalyticsGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AnalyticsGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.AnalyticsCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AnalyticsCountAggregateOutputType> | number
-        }
-      }
-    }
   }
 } & {
   other: {
@@ -3329,15 +3254,6 @@ export const FeedbackScalarFieldEnum = {
 export type FeedbackScalarFieldEnum = (typeof FeedbackScalarFieldEnum)[keyof typeof FeedbackScalarFieldEnum]
 
 
-export const AnalyticsScalarFieldEnum = {
-  key: 'key',
-  value: 'value',
-  updatedAt: 'updatedAt'
-} as const
-
-export type AnalyticsScalarFieldEnum = (typeof AnalyticsScalarFieldEnum)[keyof typeof AnalyticsScalarFieldEnum]
-
-
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -3670,20 +3586,6 @@ export type EnumFeedbackStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$P
 export type ListEnumFeedbackStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FeedbackStatus[]'>
     
 
-
-/**
- * Reference to a field of type 'BigInt'
- */
-export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
-    
-
-
-/**
- * Reference to a field of type 'BigInt[]'
- */
-export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
-    
-
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -3825,7 +3727,6 @@ export type GlobalOmitConfig = {
   roadmapVote?: Prisma.RoadmapVoteOmit
   report?: Prisma.ReportOmit
   feedback?: Prisma.FeedbackOmit
-  analytics?: Prisma.AnalyticsOmit
 }
 
 /* Types for Logging */

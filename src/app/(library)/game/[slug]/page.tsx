@@ -105,8 +105,6 @@ export default async function Page({ params }: Readonly<{ params: Promise<{ slug
 		})),
 	}));
 	const logsHref = viewer?.name && game.slug ? `/library/${viewer.name}/logs/${game.slug}` : undefined;
-	// Themes behave like genres in our data, so they render together under "Genres" (deduped by name).
-	// Track each tag's source facet so its keyword link points at the right filter param.
 	const genreTags: { id: number; name: string; facet: "genres" | "themes" }[] = [
 		...genres.map((genre) => ({ id: genre.id, name: genre.name, facet: "genres" as const })),
 		...themes.filter((theme) => !genres.some((genre) => genre.name === theme.name)).map((theme) => ({ id: theme.id, name: theme.name, facet: "themes" as const })),
@@ -180,9 +178,7 @@ export default async function Page({ params }: Readonly<{ params: Promise<{ slug
 			{/* INFO */}
 			<section className="mt-5 w-full">
 				<Container className="flex flex-col justify-between gap-10 lg:flex-row">
-					{/* LEFT COLUMN */}
 					<div className="min-w-0 flex-1">
-						{/* GENRES/PLATFORMS */}
 						<section className="flex min-w-0 flex-col gap-10 md:flex-row">
 							<div className="grid w-full min-w-0 grid-cols-1 items-start gap-x-10 gap-y-2 border-border pb-5 md:grid-cols-[auto_minmax(0,1fr)] md:gap-y-5 md:border-b md:pb-1.5">
 								<p className="text-md border-b border-border p-1 text-start font-body md:border-none md:bg-bg md:p-0">Genres</p>

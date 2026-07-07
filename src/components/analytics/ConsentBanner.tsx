@@ -7,20 +7,13 @@ import { Checkbox } from "@/components/ui/control/Checkbox";
 import { applyConsent, type ConsentChoice, readConsent } from "@/lib/util/client/consent";
 import { deferHook } from "@/lib/util/client/func";
 
-// First-visit consent banner. Google Analytics is already on the page under Consent
-// Mode v2 with everything defaulted to "denied" (see layout.tsx), so this only records
-// the visitor's choice and updates the signals. Footer's "Cookie preferences" button
-// (and the Data settings tab) re-open this via the "tg:open-cookie-preferences" event
-// so consent can be changed or withdrawn as easily as it was given.
 export default function ConsentBanner() {
-	// null = choice already made (banner hidden). A value means the banner is showing
-	// with these pending toggles. undefined = not yet read on first paint.
 	const [pending, setPending] = useState<ConsentChoice | null | undefined>(undefined);
 	const [customizing, setCustomizing] = useState(false);
 
 	useEffect(() => {
 		const stored = readConsent();
-		if (stored) applyConsent(stored); // re-sync GA with the remembered choice each load
+		if (stored) applyConsent(stored);
 
 		deferHook(() => {
 			setPending(stored ? null : { analytics: true, ads: false });
@@ -55,7 +48,6 @@ export default function ConsentBanner() {
 						</Link>
 						.
 					</p>
-					{/* Once customizing, these controls move into the expanded panel below. */}
 					{!customizing && (
 						<div className="flex shrink-0 flex-wrap gap-3">
 							<GhostButton variant="outline" onClick={() => setCustomizing(true)}>
@@ -69,8 +61,6 @@ export default function ConsentBanner() {
 					)}
 				</div>
 
-				{/* Grid-rows 0fr->1fr animates the panel's real height open/closed; the overflow-hidden
-				    child clips it mid-transition. motion-reduce disables the animation entirely. */}
 				<div className={`grid transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none ${customizing ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
 					<div className="overflow-hidden">
 						<div className="mt-4 flex flex-col gap-3 border-t border-border pt-4">
