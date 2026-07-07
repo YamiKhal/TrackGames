@@ -5,8 +5,8 @@ import { PrimaryButton } from "@/components/ui/control/Button";
 import ThemeSwitch from "@/components/ui/ThemeSwitch";
 import UserMenu from "@/components/ui/UserMenu";
 import { auth } from "@/lib/auth";
-import { getUserNotifications } from "@/lib/data/social";
-import { getUser } from "@/lib/data/user";
+import { getUserNotifications } from "@/lib/data/social/social";
+import { getUser } from "@/lib/data/social/user";
 
 export default async function Header() {
 	const session = await auth();

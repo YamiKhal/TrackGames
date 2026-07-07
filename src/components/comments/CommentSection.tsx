@@ -1,6 +1,6 @@
 import CommentSectionClient from "@/components/comments/CommentSectionClient";
 import { auth } from "@/lib/auth";
-import { getComments } from "@/lib/data/comments";
+import { getComments } from "@/lib/data/social/comments";
 import db from "@/lib/db";
 import { type InteractionTargetType, UserRole } from "@/lib/generated/prisma/enums";
 

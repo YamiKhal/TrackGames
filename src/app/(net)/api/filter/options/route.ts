@@ -1,6 +1,6 @@
-import { listGenres } from "@/lib/data/genre";
-import { listPlatforms } from "@/lib/data/platforms";
-import { listThemes } from "@/lib/data/themes";
+import { listGenres } from "@/lib/data/catalog/genre";
+import { listPlatforms } from "@/lib/data/catalog/platforms";
+import { listThemes } from "@/lib/data/catalog/themes";
 
 export async function GET(request: Request) {
 	const url = new URL(request.url);

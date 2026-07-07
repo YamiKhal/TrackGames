@@ -5,7 +5,7 @@ import { PrimaryButton } from "@/components/ui/control/Button";
 import { Select } from "@/components/ui/control/Select";
 import { TextArea } from "@/components/ui/control/TextArea";
 import { TextInput } from "@/components/ui/control/TextInput";
-import { submitFeedback } from "@/lib/actions/feedback";
+import { submitFeedback } from "@/lib/actions/account/feedback";
 import { FEEDBACK_TYPE_LABELS } from "@/lib/constants";
 
 export default function FeedbackSettingsForm() {

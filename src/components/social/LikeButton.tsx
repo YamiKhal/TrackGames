@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Heart } from "lucide-react";
-import { toggleLike } from "@/lib/actions/social";
+import { toggleLike } from "@/lib/actions/social/social";
 import { type LikeTargetType } from "@/lib/generated/prisma/enums";
 import { joinClass } from "@/lib/util/client/func";
 

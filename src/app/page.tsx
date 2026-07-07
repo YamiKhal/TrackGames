@@ -1,11 +1,11 @@
 import { Suspense } from "react";
 import { ListMusic } from "lucide-react";
-import { GameCard, StatInfoCard } from "@/components/game/GameDisplays";
+import { GameCard, StatInfoCard } from "@/components/game/GameDisplay";
 import GameFeature from "@/components/game/GameFeature";
+import PlaylistCoverCard from "@/components/gamelist/PlaylistCoverCard";
 import Container from "@/components/layout/Container";
 import Gallery from "@/components/layout/Gallery";
 import HorizontalScroller from "@/components/layout/HorizontalScroller";
-import PlaylistCoverCard from "@/components/playlist/PlaylistCoverCard";
 import { GhostButton, PrimaryButton } from "@/components/ui/control/Button";
 import EmptyState from "@/components/ui/EmptyState";
 import Loading from "@/components/ui/Loading";
@@ -13,7 +13,7 @@ import StatBlock from "@/components/ui/StatBlock";
 import { HeroImage } from "@/components/ui/SVG";
 import { auth } from "@/lib/auth";
 import { comingSoon, hiddenGames, mostAnticipated, recentReleases, siteStats, topPlaylists, trendingGames, yearlyGames } from "@/lib/cache/resources";
-import { getUser } from "@/lib/data/user";
+import { getUser } from "@/lib/data/social/user";
 import { formatRawGame } from "@/lib/external/igdb/util";
 import { viewerThemeStyle } from "@/lib/util/client/theme";
 

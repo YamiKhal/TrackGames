@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import type { Game } from "@/lib/data/games";
+import type { Game } from "@/lib/data/catalog/games";
 import { ImageIdToURL } from "@/lib/external/igdb/util";
 import { joinClass } from "@/lib/util/client/func";
 

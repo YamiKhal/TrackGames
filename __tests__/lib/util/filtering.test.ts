@@ -1,4 +1,4 @@
-import type { UserLibraryEntryWithTags } from "@/lib/data/library";
+import type { UserLibraryEntryWithTags } from "@/lib/data/gamelist/library";
 import { GameStatus } from "@/lib/generated/prisma/enums";
 import { advancedFilterCount, matchesAdvancedFilters } from "@/lib/util/filtering";
 

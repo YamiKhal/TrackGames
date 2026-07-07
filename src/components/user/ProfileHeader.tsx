@@ -1,8 +1,8 @@
 import Container from "@/components/layout/Container";
-import ReportButton from "@/components/report/ReportButton";
 import FollowButton from "@/components/social/FollowButton";
 import { GhostButton, PrimaryButton } from "@/components/ui/control/Button";
 import AvatarPreview from "@/components/user/AvatarView";
+import ReportButton from "@/components/user/ReportButton";
 import RoleTags from "@/components/user/RoleTags";
 import SocialIconLinks from "@/components/user/SocialIconLinks";
 import { ReportTargetType } from "@/lib/generated/prisma/enums";

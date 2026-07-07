@@ -1,5 +1,5 @@
 import { createOpenGraphImage } from "@/app/(net)/opengraph/OpenGraphImage";
-import { getGameBySlug } from "@/lib/data/games";
+import { getGameBySlug } from "@/lib/data/catalog/games";
 import { ImageIdToURL } from "@/lib/external/igdb/util";
 import { metadataDescription } from "@/lib/util/metadata";
 

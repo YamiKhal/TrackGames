@@ -79,6 +79,7 @@ export const SETTING_TABS: { id: string; label: string; href: string }[] = [
 	{ id: "import", label: "Import", href: "/settings?tab=import" },
 	{ id: "backing", label: "Backing", href: "/settings?tab=backing" },
 	{ id: "feedback", label: "Feedback", href: "/settings?tab=feedback" },
+	{ id: "data", label: "Data", href: "/settings?tab=data" },
 	{ id: "account", label: "Account", href: "/settings?tab=account" },
 ];
 

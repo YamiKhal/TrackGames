@@ -6,7 +6,7 @@ import { GhostButton, PrimaryButton } from "@/components/ui/control/Button";
 import { TextArea } from "@/components/ui/control/TextArea";
 import { TextInput } from "@/components/ui/control/TextInput";
 import MenuPanel from "@/components/ui/MenuPanel";
-import { createPlaylist } from "@/lib/actions/playlists";
+import { createPlaylist } from "@/lib/actions/gamelist/lists";
 
 export default function PlaylistCreatorModal({ canCreate }: Readonly<{ canCreate: boolean }>) {
 	const [open, setOpen] = useState(false);

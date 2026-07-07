@@ -6,10 +6,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
-import { type EditorTab, EntryEditorProvider } from "@/components/game/_entry-editor/context";
-import EntryEditorTabs from "@/components/game/_entry-editor/EntryEditorTabs";
-import PlaylistTab from "@/components/game/_entry-editor/PlaylistTab";
-import { timeModeLabel } from "@/components/game/_entry-editor/shared";
+import { type EditorTab, EntryEditorProvider } from "@/components/gamelist/_entry-editor/context";
+import EntryEditorTabs from "@/components/gamelist/_entry-editor/EntryEditorTabs";
+import PlaylistTab from "@/components/gamelist/_entry-editor/PlaylistTab";
+import { timeModeLabel } from "@/components/gamelist/_entry-editor/shared";
 import Tabs from "@/components/layout/Tabs";
 import ConfirmAction from "@/components/ui/ConfirmAction";
 import { DangerButton, GhostButton, PrimaryButton } from "@/components/ui/control/Button";
@@ -22,9 +22,9 @@ import {
 	setGameLibraryStatus,
 	updateUserGameEntry,
 	updateUserGamePlayLog,
-} from "@/lib/actions/library";
-import { removeGameFromPlaylist, updatePlaylistEntry } from "@/lib/actions/playlists";
-import type { UserLibraryEntryWithTags, ViewerGameEntry } from "@/lib/data/library";
+} from "@/lib/actions/gamelist/library";
+import { removeGameFromPlaylist, updatePlaylistEntry } from "@/lib/actions/gamelist/lists";
+import type { UserLibraryEntryWithTags, ViewerGameEntry } from "@/lib/data/gamelist/library";
 import { ImageIdToURL } from "@/lib/external/igdb/util";
 import { GameStatus } from "@/lib/generated/prisma/enums";
 import { joinClass } from "@/lib/util/client/func";

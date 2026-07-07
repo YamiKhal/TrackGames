@@ -1,5 +1,5 @@
 import { createOpenGraphImage } from "@/app/(net)/opengraph/OpenGraphImage";
-import { getPublicUser } from "@/lib/data/user";
+import { getPublicUser } from "@/lib/data/social/user";
 import { DEFAULT_OG_IMAGE, metadataDescription, metadataImage } from "@/lib/util/metadata";
 
 export const alt = "Profile on TrackGames";

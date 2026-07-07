@@ -5,7 +5,7 @@ import Image from "next/image";
 import { GhostButton, PrimaryButton } from "@/components/ui/control/Button";
 import { Checkbox } from "@/components/ui/control/Checkbox";
 import { TextInput } from "@/components/ui/control/TextInput";
-import { exportTgLibrary, getSteamProfileImportPreview, importSteamLibrary, importTgLibrary } from "@/lib/actions/import";
+import { exportTgLibrary, getSteamProfileImportPreview, importSteamLibrary, importTgLibrary } from "@/lib/actions/gamelist/import";
 
 export default function ImportSettingsForm() {
 	const [steamId, setSteamId] = useState("");

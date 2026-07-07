@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CookiePreferencesButton from "@/components/analytics/CookiePreferencesButton";
 import Container from "@/components/layout/Container";
 
 export default function Footer() {
@@ -45,10 +46,12 @@ export default function Footer() {
 					))}
 				</nav>
 			</Container>
-			<div className="border-t border-border p-5">
-				<p className="text-center text-xs text-text-faint">
+			<div className="flex items-center justify-center gap-3 border-t border-border p-5 text-xs text-text-faint">
+				<p>
 					@ 2026 TrackGames - <span className="text-bold">v1.0</span>
 				</p>
+				<span aria-hidden="true">·</span>
+				<CookiePreferencesButton />
 			</div>
 		</footer>
 	);

@@ -11,14 +11,9 @@ export function isSafeUrl(src: unknown) {
 /** Allows HTTPS absolute links and same-site relative paths, but rejects protocol-relative URLs. */
 export function isSafeLinkHref(href: unknown) {
 	if (typeof href !== "string") return false;
+	if (isSafeUrl(href)) return true;
 
-	try {
-		const url = new URL(href);
-
-		return url.protocol === "https:";
-	} catch {
-		return href.startsWith("/") && !href.startsWith("//");
-	}
+	return href.startsWith("/") && !href.startsWith("//");
 }
 
 /** Detects local video file extensions in a URL-like string. */

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import RoadmapList from "@/components/doc/RoadmapList";
+import RoadmapList from "@/app/(doc)/roadmap/RoadmapList";
 import { auth } from "@/lib/auth";
 import { getRoadmapItems } from "@/lib/data/roadmap";
 import { absoluteUrl, DEFAULT_OG_IMAGE, metadataDescription, SITE_NAME } from "@/lib/util/metadata";
@@ -36,9 +36,6 @@ export default async function RoadmapPage() {
 		<div className="flex flex-col gap-8">
 			<header className="flex flex-col gap-3 border-b border-border pb-6">
 				<h1 className="text-3xl font-bold">Roadmap</h1>
-				<p className="text-sm text-text-muted">
-					What&apos;s coming to TrackGames. {session?.user ? "Vote for the features you want to see first." : "Log in to vote for the features you want to see first."}
-				</p>
 			</header>
 
 			<RoadmapList items={items} isLoggedIn={Boolean(session?.user?.id)} />

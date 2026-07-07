@@ -1,12 +1,12 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { SearchX } from "lucide-react";
-import { GameCard } from "@/components/game/GameDisplays";
+import { GameCard } from "@/components/game/GameDisplay";
 import Container from "@/components/layout/Container";
 import EmptyState from "@/components/ui/EmptyState";
 import Loading from "@/components/ui/Loading";
 import LoadMoreButton from "@/components/ui/LoadMoreButton";
-import { searchGames } from "@/lib/data/games";
+import { searchGames } from "@/lib/data/catalog/games";
 import { absoluteUrl, DEFAULT_OG_IMAGE, metadataDescription, SITE_NAME } from "@/lib/util/metadata";
 
 type SearchPageProps = Readonly<{ searchParams: Promise<{ q?: string | string[]; page?: string | string[] }> }>;

@@ -4,13 +4,13 @@ import { useRef, useState, useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Heart, MessageCircle, Send, Trash2 } from "lucide-react";
-import CopyIdButton from "@/components/admin/CopyIdButton";
+import CopyIdButton from "@/app/(admin)/dashboard/_tabs/CopyIdButton";
 import StarRating from "@/components/game/StarRating";
-import ReportButton from "@/components/report/ReportButton";
 import { PrimaryButton } from "@/components/ui/control/Button";
 import AvatarView from "@/components/user/AvatarView";
+import ReportButton from "@/components/user/ReportButton";
 import RoleTags from "@/components/user/RoleTags";
-import { addComment, deleteComment, toggleLike } from "@/lib/actions/social";
+import { addComment, deleteComment, toggleLike } from "@/lib/actions/social/social";
 import { InteractionTargetType, LikeTargetType, ReportTargetType, type UserRole } from "@/lib/generated/prisma/enums";
 import { ratingToFive } from "@/lib/util/format/rating";
 

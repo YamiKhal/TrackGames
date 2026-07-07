@@ -1,15 +1,12 @@
 "use client";
 
-import { useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
-import ConfirmAction from "@/components/ui/ConfirmAction";
+import { useState } from "react";
 import { GhostButton } from "@/components/ui/control/Button";
 import { TextInput } from "@/components/ui/control/TextInput";
 import { DiscordIcon, GithubIcon, GoogleIcon, TwitchIcon } from "@/components/ui/SVG";
-import { linkProvider, unlinkProvider } from "@/lib/actions/auth";
-import { clearUserLibrary, deleteUserAccount, resetUserAccountData } from "@/lib/actions/settings";
+import { linkProvider, unlinkProvider } from "@/lib/actions/account/auth";
 import { AUTH_PROVIDERS } from "@/lib/constants";
-import { type SecuredUser } from "@/lib/data/user";
+import { type SecuredUser } from "@/lib/data/social/user";
 
 const authIcons = {
 	google: GoogleIcon,
@@ -25,31 +22,6 @@ export default function AccountSettingsForm({ profile, linkedProviders, hasPassw
 	const [currentPassword, setCurrentPassword] = useState("");
 	const [newPassword, setNewPassword] = useState("");
 	const [passwordConfirm, setPasswordConfirm] = useState("");
-	const [confirming, setConfirming] = useState<"library" | "data" | "account" | null>(null);
-	const [pending, startTransition] = useTransition();
-	const router = useRouter();
-
-	function run(action: "library" | "data" | "account") {
-		startTransition(async () => {
-			if (action === "library") {
-				await clearUserLibrary(profile.name!);
-			}
-
-			if (action === "data") {
-				await resetUserAccountData(profile.name!);
-			}
-
-			if (action === "account") {
-				await deleteUserAccount(profile.name!);
-			}
-
-			if (action !== "account") {
-				router.refresh();
-			}
-
-			setConfirming(null);
-		});
-	}
 
 	return (
 		<div className="flex flex-col gap-5">
@@ -121,70 +93,7 @@ export default function AccountSettingsForm({ profile, linkedProviders, hasPassw
 
 			<p className="ml-1.5 text-[0.7rem] text-text-muted">Joined {new Date(profile.createdAt).toLocaleDateString(undefined, { month: "long", year: "numeric" })}</p>
 
-			<div className="rounded border border-error/40 bg-error/10 p-4">
-				<h3>Danger zone</h3>
-				<p className="mt-1 text-sm text-text-muted">These actions permanently remove account data. Each action requires confirmation before it runs.</p>
-				<div className="mt-4 grid gap-2 md:grid-cols-3">
-					<GhostButton
-						variant="outline"
-						type="button"
-						onClick={() => setConfirming("library")}
-						className="border-error px-3 py-2 text-error hover:border-error hover:text-error"
-					>
-						Clear library
-					</GhostButton>
-					<GhostButton
-						variant="outline"
-						type="button"
-						onClick={() => setConfirming("data")}
-						className="border-error px-3 py-2 text-error hover:border-error hover:text-error"
-					>
-						Clear all data
-					</GhostButton>
-					<GhostButton
-						variant="outline"
-						type="button"
-						onClick={() => setConfirming("account")}
-						className="border-error px-3 py-2 text-error hover:border-error hover:text-error"
-					>
-						Delete account
-					</GhostButton>
-				</div>
-			</div>
-
-			<ConfirmAction
-				open={confirming === "library"}
-				title="Clear library?"
-				message="This deletes every game entry in your library, including play logs and entry data."
-				confirmLabel="Clear library"
-				pending={pending}
-				requireText={profile.name!}
-				requireLabel={`Type your username (${profile.name!}) to clear your library`}
-				onClose={() => setConfirming(null)}
-				onConfirm={() => run("library")}
-			/>
-			<ConfirmAction
-				open={confirming === "data"}
-				title="Clear all account data?"
-				message="This resets your profile, library, playlists, comments, likes, follows, badges, notifications, preferences, and widgets. Your username and login methods stay in place."
-				confirmLabel="Clear all data"
-				pending={pending}
-				requireText={profile.name!}
-				requireLabel={`Type your username (${profile.name!}) to reset your account data`}
-				onClose={() => setConfirming(null)}
-				onConfirm={() => run("data")}
-			/>
-			<ConfirmAction
-				open={confirming === "account"}
-				title="Delete account?"
-				message="This permanently deletes your account and all related data. This cannot be undone."
-				confirmLabel="Delete account"
-				pending={pending}
-				requireText={profile.name!}
-				requireLabel={`Type your username (${profile.name!}) to delete your account`}
-				onClose={() => setConfirming(null)}
-				onConfirm={() => run("account")}
-			/>
+			<p className="ml-1.5 text-[0.7rem] text-text-muted">Looking to clear your library, reset your data, or delete your account? Those live under the Data tab.</p>
 		</div>
 	);
 }

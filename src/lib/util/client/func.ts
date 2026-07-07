@@ -1,4 +1,5 @@
 import { twMerge } from "tailwind-merge";
+import { clamp } from "@/lib/util/validate/normalize";
 
 export function deferHook(callback: () => void) {
 	const shortTimer = globalThis.setTimeout(callback, 0);
@@ -17,5 +18,5 @@ export function formLabel(status: string) {
 export function stepIndex(current: number, direction: -1 | 1, length: number, mode: "wrap" | "clamp" = "clamp") {
 	if (mode === "wrap") return (current + direction + length) % length;
 
-	return Math.min(Math.max(current + direction, 0), length - 1);
+	return clamp(current + direction, 0, length - 1);
 }

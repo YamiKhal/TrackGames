@@ -1,6 +1,6 @@
 import PlaylistCreatorModal from "@/app/(user)/u/[user]/PlaylistCreatorModal";
-import PlaylistCoverCard from "@/components/playlist/PlaylistCoverCard";
-import { getUserPlaylists } from "@/lib/data/playlists";
+import PlaylistCoverCard from "@/components/gamelist/PlaylistCoverCard";
+import { getUserPlaylists } from "@/lib/data/gamelist/lists";
 
 export default async function ProfilePlaylists({
 	userId,

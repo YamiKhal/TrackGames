@@ -1,5 +1,5 @@
 import CachedResource from "@/lib/cache/cachedResource";
-import { getTopLikedPlaylists } from "@/lib/data/playlists";
+import { getTopLikedPlaylists } from "@/lib/data/gamelist/lists";
 import { getSiteStats } from "@/lib/data/stats";
 import {
 	calculateComingSoon,

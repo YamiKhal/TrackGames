@@ -7,7 +7,7 @@ import { GhostButton, IconButton, PrimaryButton } from "@/components/ui/control/
 import { TextInput } from "@/components/ui/control/TextInput";
 import MenuPanel from "@/components/ui/MenuPanel";
 import { DiscordIcon, GithubIcon, GoogleIcon, TwitchIcon } from "@/components/ui/SVG";
-import { login, loginProvider, signup } from "@/lib/actions/auth";
+import { login, loginProvider, signup } from "@/lib/actions/account/auth";
 import { deferHook } from "@/lib/util/client/func";
 
 const providers = [

@@ -7,11 +7,11 @@ import ProfileBackground from "@/components/user/BackgroundView";
 import ProfileHeader from "@/components/user/ProfileHeader";
 import { auth } from "@/lib/auth";
 import { SETTING_TABS } from "@/lib/constants";
-import { getUser, getUserProviders, hasUserPassword } from "@/lib/data/user";
+import { getUser, getUserProviders, hasUserPassword } from "@/lib/data/social/user";
 import { type PublicUser } from "@/lib/types";
 import { profileThemeStyle } from "@/lib/util/client/theme";
 import { absoluteUrl, DEFAULT_OG_IMAGE, metadataDescription, SITE_NAME } from "@/lib/util/metadata";
-import * as lookup from "@/lib/util/validate/lookup";
+import * as lookup from "@/lib/util/validate/normalize";
 
 type SearchPageProps = Readonly<{
 	searchParams: Promise<{ tab?: string; error?: string }>;

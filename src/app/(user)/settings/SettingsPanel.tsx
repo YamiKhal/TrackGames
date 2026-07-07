@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import AccountSettingsForm from "@/app/(user)/settings/AccountSettingsForm";
+import DataSettingsForm from "@/app/(user)/settings/DataSettingsForm";
 import FeedbackSettingsForm from "@/app/(user)/settings/FeedbackSettingsForm";
 import ImportSettingsForm from "@/app/(user)/settings/ImportSettingsForm";
 import PreferencesSettingsForm from "@/app/(user)/settings/PreferencesSettingsForm";
@@ -10,8 +11,8 @@ import ProfileSettingsForm from "@/app/(user)/settings/ProfileSettingsForm";
 import { SaveBar } from "@/app/(user)/settings/SettingsShared";
 import WidgetsSettingsForm from "@/app/(user)/settings/WidgetsSettingsForm";
 import PlansPanel from "@/components/doc/PlansPanel";
-import { updateUserSettings } from "@/lib/actions/settings";
-import { type SecuredUser } from "@/lib/data/user";
+import { updateUserSettings } from "@/lib/actions/account/settings";
+import { type SecuredUser } from "@/lib/data/social/user";
 
 type SettingsPanelProps = Readonly<{ activeTab: string; profile: SecuredUser; linkedProviders: string[]; hasPassword: boolean }>;
 
@@ -26,6 +27,10 @@ export default function SettingsPanel({ activeTab, profile, linkedProviders, has
 
 	if (activeTab === "feedback") {
 		return <FeedbackSettingsForm />;
+	}
+
+	if (activeTab === "data") {
+		return <DataSettingsForm profile={profile} />;
 	}
 
 	function save(formData: FormData) {

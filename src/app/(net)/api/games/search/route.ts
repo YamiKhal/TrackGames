@@ -1,4 +1,4 @@
-import { searchGames } from "@/lib/data/games";
+import { searchGames } from "@/lib/data/catalog/games";
 
 export async function GET(request: Request) {
 	const query = new URL(request.url).searchParams.get("q") ?? "";

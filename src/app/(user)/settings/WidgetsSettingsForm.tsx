@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { Plus } from "lucide-react";
 import { WidgetEditor } from "@/app/(user)/settings/WidgetEditors";
 import { GhostButton } from "@/components/ui/control/Button";
-import { type SecuredUser } from "@/lib/data/user";
+import { type SecuredUser } from "@/lib/data/social/user";
 import type { Widget } from "@/lib/types";
 import { WidgetType } from "@/lib/types";
 import { parseWidgets, serializeWidgets } from "@/lib/util/parse/widgets";

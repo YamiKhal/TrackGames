@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Checkbox } from "@/components/ui/control/Checkbox";
 import { ColorPicker } from "@/components/ui/control/ColorPicker";
 import { Select } from "@/components/ui/control/Select";
-import { type SecuredUser } from "@/lib/data/user";
+import { type SecuredUser } from "@/lib/data/social/user";
 
 export default function PreferencesSettingsForm({ profile }: Readonly<{ profile: SecuredUser }>) {
 	const [themeMode, setThemeMode] = useState(profile.siteThemeMode);

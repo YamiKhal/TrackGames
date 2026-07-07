@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Select } from "@/components/ui/control/Select";
-import { type SecuredUser } from "@/lib/data/user";
+import { type SecuredUser } from "@/lib/data/social/user";
 
 export default function PrivacySettingsForm({ profile }: Readonly<{ profile: SecuredUser }>) {
 	const [profilePrivacy, setProfilePrivacy] = useState(profile.privacy);

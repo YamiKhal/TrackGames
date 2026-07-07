@@ -1,23 +1,24 @@
 import { LogOut } from "lucide-react";
-import ChangelogAdminPanel from "@/components/admin/ChangelogAdminPanel";
-import FeedbackPanel from "@/components/admin/FeedbackPanel";
-import MembersPanel from "@/components/admin/MembersPanel";
-import ModerationPanel from "@/components/admin/ModerationPanel";
-import OverviewPanel from "@/components/admin/OverviewPanel";
-import ReportsPanel from "@/components/admin/ReportsPanel";
-import RoadmapAdminPanel from "@/components/admin/RoadmapAdminPanel";
+import ChangelogAdminPanel from "@/app/(admin)/dashboard/_tabs/ChangelogAdminPanel";
+import FeedbackPanel from "@/app/(admin)/dashboard/_tabs/FeedbackPanel";
+import MembersPanel from "@/app/(admin)/dashboard/_tabs/MembersPanel";
+import ModerationPanel from "@/app/(admin)/dashboard/_tabs/ModerationPanel";
+import OverviewPanel from "@/app/(admin)/dashboard/_tabs/OverviewPanel";
+import ReportsPanel from "@/app/(admin)/dashboard/_tabs/ReportsPanel";
+import RoadmapAdminPanel from "@/app/(admin)/dashboard/_tabs/RoadmapAdminPanel";
 import Tabs from "@/components/layout/Tabs";
 import { GhostButton } from "@/components/ui/control/Button";
-import { endAdminSession } from "@/lib/actions/admin";
+import { endAdminSession } from "@/lib/actions/admin/admin";
 import { requireAdmin } from "@/lib/admin/guard";
 import { ADMIN_TABS } from "@/lib/constants";
 import { getAllChangelogs, getAllRoadmapItems, getFeedbackList, getReports, searchMembers } from "@/lib/data/admin";
-import * as lookup from "@/lib/util/validate/lookup";
+import * as lookup from "@/lib/util/validate/normalize";
 
 type DashboardPageProps = Readonly<{ searchParams: Promise<{ tab?: string; q?: string }> }>;
 
 export default async function DashboardPage({ searchParams }: DashboardPageProps) {
-	const admin = await requireAdmin();
+	await requireAdmin();
+
 	const params = await searchParams;
 	const activeTab = lookup.value(params.tab, ADMIN_TABS, "id", "overview");
 	const query = typeof params.q === "string" ? params.q : "";

@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { PrimaryButton } from "@/components/ui/control/Button";
 import { TextInput } from "@/components/ui/control/TextInput";
-import { confirmAdminPassword } from "@/lib/actions/admin";
+import { confirmAdminPassword } from "@/lib/actions/admin/admin";
 
 export default function GateForm() {
 	const [error, setError] = useState("");

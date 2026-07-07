@@ -8,8 +8,8 @@ import EmptyState from "@/components/ui/EmptyState";
 import MenuPanel from "@/components/ui/MenuPanel";
 import ThemeSwitch from "@/components/ui/ThemeSwitch";
 import AvatarPreview from "@/components/user/AvatarView";
-import { logout } from "@/lib/actions/auth";
-import { markNotificationsRead } from "@/lib/actions/social";
+import { logout } from "@/lib/actions/account/auth";
+import { markNotificationsRead } from "@/lib/actions/social/social";
 import { deferHook } from "@/lib/util/client/func";
 
 type Notification = Readonly<{

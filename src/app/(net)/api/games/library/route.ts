@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth";
-import { getUserLibraryGamesByIds, searchUserLibraryGames } from "@/lib/data/library";
+import { getUserLibraryGamesByIds, searchUserLibraryGames } from "@/lib/data/gamelist/library";
 
 export async function GET(request: Request) {
 	const session = await auth();

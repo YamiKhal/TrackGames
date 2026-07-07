@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { GameCard } from "@/components/game/GameDisplays";
+import { GameCard } from "@/components/game/GameDisplay";
 import HorizontalScroller from "@/components/layout/HorizontalScroller";
 import Tabs from "@/components/layout/Tabs";
-import type { Game } from "@/lib/data/games";
-import * as lookup from "@/lib/util/validate/lookup";
+import type { Game } from "@/lib/data/catalog/games";
+import * as lookup from "@/lib/util/validate/normalize";
 
 type RelatedGamesTabsProps = Readonly<{ franchiseGames: Game[]; seriesGames: Game[]; similarGames: Game[]; dlcGames: Game[]; expansionGames: Game[] }>;
 

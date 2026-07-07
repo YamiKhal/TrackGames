@@ -5,8 +5,8 @@ import { Plus, Search, X } from "lucide-react";
 import { PrimaryButton } from "@/components/ui/control/Button";
 import { Select } from "@/components/ui/control/Select";
 import { TextInput } from "@/components/ui/control/TextInput";
-import { addGameToPlaylist } from "@/lib/actions/playlists";
-import type { Game } from "@/lib/data/games";
+import { addGameToPlaylist } from "@/lib/actions/gamelist/lists";
+import type { Game } from "@/lib/data/catalog/games";
 import { deferHook } from "@/lib/util/client/func";
 
 type AddPlaylistGameFormProps = Readonly<{ playlistId: string; mode: string; tiers: string[]; existingGameIds: number[] }>;

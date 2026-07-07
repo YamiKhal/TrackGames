@@ -4,7 +4,7 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { UserCheck, UserPlus } from "lucide-react";
 import { GhostButton, PrimaryButton } from "@/components/ui/control/Button";
-import { toggleFollow } from "@/lib/actions/social";
+import { toggleFollow } from "@/lib/actions/social/social";
 
 type FollowButtonProps = Readonly<{ userId: string; hasFollowedState?: boolean; isLoggedIn?: boolean }>;
 

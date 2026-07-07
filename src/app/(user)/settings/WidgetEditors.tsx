@@ -3,14 +3,14 @@
 import { useEffect, useState } from "react";
 import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Eye, EyeOff, Plus, Search, Trash2, X } from "lucide-react";
 import MarkdownWidgetEditor from "@/app/(user)/settings/MarkdownWidgetEditor";
-import { GameCard } from "@/components/game/GameDisplays";
+import { GameCard } from "@/components/game/GameDisplay";
 import { Select } from "@/components/ui/control/Select";
 import { TextInput } from "@/components/ui/control/TextInput";
-import type { Game } from "@/lib/data/games";
+import type { Game } from "@/lib/data/catalog/games";
 import type { Widget } from "@/lib/types";
 import { WidgetType } from "@/lib/types";
 import { deferHook } from "@/lib/util/client/func";
-import * as lookup from "@/lib/util/validate/lookup";
+import * as lookup from "@/lib/util/validate/normalize";
 
 type WidgetHeaderProps = Readonly<{
 	widget: Widget;

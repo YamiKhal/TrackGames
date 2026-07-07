@@ -1,10 +1,10 @@
-import { GameCard } from "@/components/game/GameDisplays";
+import { GameCard } from "@/components/game/GameDisplay";
 import HorizontalScroller from "@/components/layout/HorizontalScroller";
 import { MarkdownBlocks } from "@/components/markdown/MarkdownBlocks";
 import IncrementedNumber from "@/components/ui/IncrementedNumber";
-import type { Game } from "@/lib/data/games";
-import { getMinifiedGame } from "@/lib/data/games";
-import { getUserGameStats } from "@/lib/data/library";
+import type { Game } from "@/lib/data/catalog/games";
+import { getMinifiedGame } from "@/lib/data/catalog/games";
+import { getUserGameStats } from "@/lib/data/gamelist/library";
 import type { Widget } from "@/lib/types";
 import { WidgetType } from "@/lib/types";
 import { parseMarkdownBlocks } from "@/lib/util/parse/markdown";

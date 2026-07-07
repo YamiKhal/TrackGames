@@ -7,7 +7,7 @@ import { ArrowRight, Search, X } from "lucide-react";
 import { IconButton } from "@/components/ui/control/Button";
 import { TextInput } from "@/components/ui/control/TextInput";
 import MenuPanel from "@/components/ui/MenuPanel";
-import type { Game } from "@/lib/data/games";
+import type { Game } from "@/lib/data/catalog/games";
 import { deferHook } from "@/lib/util/client/func";
 
 function SearchBox({ autoFocus = false, onPick }: Readonly<{ autoFocus?: boolean; onPick?: () => void }>) {

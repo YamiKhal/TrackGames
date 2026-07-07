@@ -1,4 +1,4 @@
-import { type UserLibraryEntryWithTags } from "@/lib/data/library";
+import { type UserLibraryEntryWithTags } from "@/lib/data/gamelist/library";
 import { filterNumber, matchesNumberRange } from "@/lib/util/format/numbers";
 import { ratingToFive } from "@/lib/util/format/rating";
 

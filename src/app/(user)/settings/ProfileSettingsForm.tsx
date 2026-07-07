@@ -12,7 +12,7 @@ import { SOCIAL_PLATFORM_ICONS } from "@/components/ui/SVG";
 import AvatarPreview from "@/components/user/AvatarView";
 import BackgroundView from "@/components/user/BackgroundView";
 import { SOCIAL_PLATFORMS } from "@/lib/constants";
-import { type SecuredUser } from "@/lib/data/user";
+import { type SecuredUser } from "@/lib/data/social/user";
 import type { SocialLink } from "@/lib/types";
 import { LinkType } from "@/lib/types";
 import { getSocialOption, getSocialPlaceholder, getSocialPlatform, getSocialPlatformLabel, parseSocials, serializeSocials } from "@/lib/util/parse/socials";
