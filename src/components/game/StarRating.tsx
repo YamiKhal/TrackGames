@@ -58,7 +58,8 @@ export default function StarRating({ rating, size = 12, isInteractive = false, s
 							type="button"
 							onPointerMove={(event) => setHover(pick(event.currentTarget, event.clientX, index))}
 							onClick={(event) => {
-								onChange?.(pick(event.currentTarget, event.clientX, index));
+								const picked = pick(event.currentTarget, event.clientX, index);
+								onChange?.(picked === value ? 0 : picked);
 							}}
 							className="relative cursor-pointer text-text-faint transition-transform duration-150 ease-out focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none motion-safe:active:scale-90"
 							style={style}
